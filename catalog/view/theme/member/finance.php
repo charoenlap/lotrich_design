@@ -4,6 +4,7 @@
 			<h1>การเงิน</h1>
 			<ul>
 				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
+				<li><a href="<?php echo route('member/dashboard');?>">สมาชิก <span>/</span></a></li>
 				<li>การเงิน</li>
 			</ul>	
 		</div>
@@ -71,12 +72,6 @@
 						  	</table>
 						  </div>
 						</div>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-12">
-						<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">แทงเพิ่ม</button>
 					</div>
 				</div>
 			</div>

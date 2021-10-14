@@ -4,7 +4,8 @@
 			<h1>แจ้งเติมเงิน</h1>
 			<ul>
 				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
-				<li>แจ้งเติมเงิน</li>
+				<li><a href="<?php echo route('member/dashboard');?>">สมาชิก <span>/</span></a></li>
+				<li class="active">แจ้งเติมเงิน</li>
 			</ul>	
 		</div>
 	</div>
@@ -42,21 +43,20 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-md-10">
-						<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">ยืนยันรายการ</button>
+					<div class="col-xs-12 col-md-12">
+						<a class="hvr-btn btn-block" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ยืนยันรายการ</a>
 					</div>
-					<div class="col-xs-12 col-md-2"><a href="#" class="btn btn-danger btn-block">ยกเลิก</a></div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
-	      <div class="modal-header">
+	      <div class="modal-header pt-60">
 	        <h5 class="modal-title" id="exampleModalLabel">กรุณาโอนเงินตามยอดที่แจ้งเท่านั้น</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	        <button type="button" data-bs-dismiss="modal">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
@@ -95,8 +95,9 @@
 	        </form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-	        <button type="submit" class="btn btn-primary">ยืนยันการชำระเงิน</button>
+	        <div class="load-btn mt-20">
+	        	<button type="submit" class="hvr-btn btn-block">ยืนยันการชำระเงิน</button>
+	        </div>
 	      </div>
 	    </div>
 	  </div>

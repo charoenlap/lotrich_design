@@ -9,7 +9,7 @@
         </div>
     </div>
 </section>
-<section class="mb-4">
+<section class="mt-4">
 
     <div class="container">
 
@@ -76,7 +76,9 @@
             </form>
 
             <div class="text-center text-md-left mt-4">
-                <a class="btn btn-primary" onclick="">ส่งการติดต่อ</a>
+                <div class="load-btn mt-20">
+                    <a class="hvr-btn btn-block" href="#">ส่งการติดต่อ</a>
+                </div>
             </div>
             <div class="status"></div>
         </div>

@@ -48,7 +48,7 @@
 <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class="page-wraper default-bg home-four" id="main-home">
+<div class="page-wraper default-bg home-four pb-50" id="main-home" >
   <header>
         <!-- Header Menu Area Start -->
         <div class="header-menu" id="sticky-header" style="background: #000;">
@@ -117,5 +117,4 @@
         <!-- Header Menu Area Start -->
         <!-- Slider Area End -->
   </header>
-  
 </div>

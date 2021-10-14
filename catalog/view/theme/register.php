@@ -68,8 +68,11 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-xs-12 col-md-10"><input type="submit" class="btn btn-primary btn-block" value="ยอมรับข้อตกลงเงื่อนไข"></div>
-					<div class="col-xs-12 col-md-2"><a href="#" class="btn btn-danger btn-block">ยกเลิก</a></div>
+					<div class="col-xs-12 col-md-12">
+						<div class="load-btn mt-20">
+							<input type="submit" class="hvr-btn btn-block" value="ยอมรับข้อตกลงเงื่อนไข">
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>

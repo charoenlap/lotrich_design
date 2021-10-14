@@ -1,4 +1,5 @@
-<footer class="bg-5 bg-overlay-2 mt-50">
+<div class="mt-50"></div>
+<footer class="bg-5 bg-overlay-2">
 	<!-- Footer Top Area Start -->
 	<div class="footer-top ptb-90">
 		<div class="container">

@@ -26,14 +26,16 @@
 						</div>
 						<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
 					</div>
-					<div class="d-flex justify-content-center mt-3 login_container">
-				 		<button type="button" name="button" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
+					<div class=" mt-3 login_container">
+						<div class="load-btn mt-20">
+							<input type="submit" class="hvr-btn btn-block" value="เข้าสู่ระบบ">
+						</div>
 				   </div>
 				</form>
 		
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						<a href="#" class="ml-2">สมัครสมาชิก</a> / <a href="#">ลืมรหัสผ่าน?</a>
+						<a href="#" class="ml-2">สมัครสมาชิก</a> / <a href="<?php echo route('forgot'); ?>">ลืมรหัสผ่าน?</a>
 					</div>
 				</div>
 			</div>

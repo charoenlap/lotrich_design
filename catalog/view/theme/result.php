@@ -11,14 +11,16 @@
 </section>
 <div class="container">
 	<div class="row mt-5">
-		<div class="col-3 text-left">
+		<div class="col-2 text-left">
 			<input type="text" class="form-control" value="16-Oct-2021">
 		</div>
-		<div class="col-6 text-left">
-			<a href="" class="btn btn-primary btn-block">เข้าสู่ระบบ คลิกที่นี่</a>
+		<div class="col-8">
+			
 		</div>
-		<div class="col-3 text-right">
-			<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModal" data-whatever="">ดูประกาศผลรางวัลออนไลน์</button>
+		<div class="col-2 text-right">
+			<div class="load-btn mt-20">
+				<a href="" class="hvr-btn btn-block">เข้าสู่ระบบ คลิกที่นี่</a>
+			</div>
 		</div>
 	</div>
 	<hr>

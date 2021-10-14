@@ -4,7 +4,8 @@
 			<h1>ถอนเงิน</h1>
 			<ul>
 				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
-				<li>ถอนเงิน</li>
+				<li><a href="<?php echo route('member/dashboard');?>">สมาชิก <span>/</span></a></li>
+				<li class="active">ถอนเงิน</li>
 			</ul>	
 		</div>
 	</div>
@@ -41,10 +42,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-md-10">
-						<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">ยืนยันรายการ</button>
+					<div class="col-xs-12 col-md-12">
+						<a class="hvr-btn btn-block" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ยืนยันรายการ</a>
 					</div>
-					<div class="col-xs-12 col-md-2"><a href="#" class="btn btn-danger btn-block">ยกเลิก</a></div>
 				</div>
 			</div>
 		</div>
