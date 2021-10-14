@@ -21,7 +21,6 @@
 			<div class="row">
 				<div class="col">
 					<form class="form-signin mt-4" style="max-width: 330px; margin:0px auto;" action="<?php echo $action;?>" method="POST">
-						<img src="<?php echo MURL;?>assets/image/logo.png" alt="" class="mb-4">
 						<label for="inputEmail" class="sr-only">Username</label>
 						<input type="text" id="inputEmail" name="user" class="form-control mb-4" placeholder="Username" required autofocus>
 						<label for="inputPassword" class="sr-only">Password</label>

@@ -45,13 +45,20 @@ if (!isset($_SESSION['id_admin'])) {
 
     <!-- Sidebar -->
     <div class="menu-left" id="sidebar-wrapper">
-      <div class="sidebar-heading text-theme text-center"><img src="../assets/image/logo.png" alt="" width="100"> <br> RFQ Store</div>
+      <div class="sidebar-heading text-theme text-center">
+        <img src="../uploads/logo/slogo.png" alt="" width="100"></div>
       <div class="list-group menu-list list-group-flush">
-        <a href="<?php echo route('home'); ?>" class="list-group-item list-group-item-action"> หน้าหลัก</a>
-        <a href="<?php echo route('customer/home'); ?>" id="customer" class="list-group-item list-group-item-action"> ลูกค้า</a>
+        <a href="<?php echo route('home'); ?>" class="list-group-item list-group-item-action active"> หน้าหลัก</a>
+        <a href="<?php echo route('lotto'); ?>" class="list-group-item list-group-item-action"> จัดการหวย</a>
+        <a href="<?php echo route('tranfer'); ?>" class="list-group-item list-group-item-action"> แจ้งฝาก (5) /ถอน (3)</a>
+        <a href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก</a>
+        <a href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน</a>
+        <a href="<?php echo route('customer'); ?>" class="list-group-item list-group-item-action"> ลูกค้า</a>
+        <a href="<?php echo route('system'); ?>" class="list-group-item list-group-item-action"> จัดการระบบ</a>
+        <!-- <a href="<?php echo route('customer/home'); ?>" id="customer" class="list-group-item list-group-item-action"> ลูกค้า</a>
         <a href="<?php echo route('company/home'); ?>" id="company" class="list-group-item list-group-item-action"> บริษัท</a>
         <a href="<?php echo route('package/home'); ?>" id="package" class="list-group-item list-group-item-action"> แพคเกจ</a>
-        <a href="<?php echo route('payment/home'); ?>" id="payment" class="list-group-item list-group-item-action"> แจ้งชำระเงิน</a>
+        <a href="<?php echo route('payment/home'); ?>" id="payment" class="list-group-item list-group-item-action"> แจ้งชำระเงิน</a> -->
         <!-- <a href="<?php echo route('blog/home'); ?>" id="blog" class="list-group-item list-group-item-action"> Blog</a> -->
       </div>
     </div>
@@ -76,7 +83,7 @@ if (!isset($_SESSION['id_admin'])) {
                 Member
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
+                <!-- <a class="dropdown-item" href="#">Profile</a> -->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?php echo route('home/logout'); ?>">Logout</a>
               </div>

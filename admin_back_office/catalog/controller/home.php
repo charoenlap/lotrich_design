@@ -1,8 +1,13 @@
 <?php 
-	class LoginController extends Controller {
+	class HomeController extends Controller {
 	    public function index() {
 	    	$data = array(); 
-	    	$this->view('home');
+	    	$id_admin = $this->getSession('id_admin');
+	    	if($id_admin){
+	    		$this->view('home');
+	    	}else{
+	    	 	redirect('home/login');
+	    	}
 	    }
 	    public function login(){
 	    	$data = array();
