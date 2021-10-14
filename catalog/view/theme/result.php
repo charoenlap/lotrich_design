@@ -1,9 +1,15 @@
+<section class="breadcamb-area bg-17 bg-overlay-1">
+    <div class="container">
+        <div class="bradcamb-content text-center text-white text-uppercase">
+            <h1>ผลรางวัล</h1>
+            <ul>
+                <li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
+                <li>ผลรางวัล</li>
+            </ul>   
+        </div>
+    </div>
+</section>
 <div class="container">
-	<div class="row">
-		<div class="col-12 text-center">
-			<h3>ผลรางวัล</h3>
-		</div>
-	</div>
 	<div class="row mt-5">
 		<div class="col-3 text-left">
 			<input type="text" class="form-control" value="16-Oct-2021">

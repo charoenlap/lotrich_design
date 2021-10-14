@@ -1,9 +1,18 @@
+<section class="breadcamb-area bg-17 bg-overlay-1">
+	<div class="container">
+		<div class="bradcamb-content text-center text-white text-uppercase">
+			<h1>แจ้งเติมเงิน</h1>
+			<ul>
+				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
+				<li>แจ้งเติมเงิน</li>
+			</ul>	
+		</div>
+	</div>
+</section>
 <form role="form">
 	<div class="container mt-4">
 		<div class="row">
 		    <div class="col-md-12">
-				<h2 class="text-center">แจ้งเติมเงิน</small></h2>
-				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">

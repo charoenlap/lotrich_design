@@ -1,10 +1,17 @@
+<section class="breadcamb-area bg-17 bg-overlay-1">
+    <div class="container">
+        <div class="bradcamb-content text-center text-white text-uppercase">
+            <h1>ติดต่อเรา</h1>
+            <ul>
+                <li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
+                <li>ติดต่อเรา</li>
+            </ul>   
+        </div>
+    </div>
+</section>
 <section class="mb-4">
 
     <div class="container">
-    	<!--Section heading-->
-    <h2 class="h1-responsive font-weight-bold text-center my-4">ติดต่อเรา</h2>
-    <!--Section description-->
-    <p class="text-center w-responsive mx-auto mb-5"></p>
 
     <div class="row">
 

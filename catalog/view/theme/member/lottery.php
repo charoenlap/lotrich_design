@@ -1,10 +1,15 @@
-<div class="container mt-4">
-	<div class="row">
-	    <div class="col-md-12">
-			<h2 class="text-center">แทงหวย รัฐบาล</small></h2>
-			<hr class="colorgraph">
+<section class="breadcamb-area bg-17 bg-overlay-1">
+	<div class="container">
+		<div class="bradcamb-content text-center text-white text-uppercase">
+			<h1>แทงหวย รัฐบาล</h1>
+			<ul>
+				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
+				<li>แทงหวย รัฐบาล</li>
+			</ul>	
 		</div>
 	</div>
+</section>
+<div class="container mt-4">
 	<div class="row">
 	    <div class="col-md-3 mt-2">
 	    	<div class="card height">
