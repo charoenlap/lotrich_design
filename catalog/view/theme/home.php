@@ -1,4 +1,5 @@
-<div class="slider-area" style="background:#000;">
+<div class="slider-area" style="background: rgb(0,112,0);
+background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(1,76,0,1) 100%);">
 	<div id="rev_slider_6_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="duotone1" data-source="gallery" style="background:transparent;padding:0px;">
 		<div id="rev_slider_6_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.7">
 			<ul>
