@@ -1,5 +1,4 @@
-<div class="slider-area" style="background: rgb(0,112,0);
-background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(1,76,0,1) 100%);">
+<div class="slider-area" style="">
 	<div id="rev_slider_6_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="duotone1" data-source="gallery" style="background:transparent;padding:0px;">
 		<div id="rev_slider_6_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.7">
 			<ul>
@@ -105,23 +104,7 @@ background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(1,76,0,1) 100%);">
 	</div>
 </div>
 <div class="page-content">
-	<section class="aboutus-area pt-20 pb-20">
-	  <div class="container">
-	    <div class="aboutus-content text-center ิbg-2">
-	      <div class="aboutus-titel">
-	        <h2>ผลรางวัล</h2>
-	        <p>รับชมประกาศผลรางวัลล่าสุดได้ที่นี่</p>
-	        <h6>ประจำงวดวันที่ 1 ตุลาคม 2564</h6>
-	      </div>
-	      <div class="aboutus-video  bg-overlay-1 bg-1">
-	        <div class="video-content">
-	          <a href="www.youtube.com/watch?v=fTdZJ86KzLk?start=1290" class="popup-youtube">
-	            <i class="icofont icofont-play-alt-2"></i></a>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	</section>
+	
 	<section class="service-area pt-90 pb-100 bg-3 bg-overlay-2 indicator-style">
 		<div class="container">
 			<!-- Section Titel -->
@@ -191,6 +174,22 @@ background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(1,76,0,1) 100%);">
 			<!-- Service Single Item Area End -->
 		</div>
 	</section>
-	
+	<section class="aboutus-area pt-20 pb-20">
+	  <div class="container">
+	    <div class="aboutus-content text-center ิbg-2">
+	      <div class="aboutus-titel">
+	        <h2>ผลรางวัล</h2>
+	        <p>รับชมประกาศผลรางวัลล่าสุดได้ที่นี่</p>
+	        <h6>ประจำงวดวันที่ 1 ตุลาคม 2564</h6>
+	      </div>
+	      <div class="aboutus-video  bg-overlay-1 bg-1">
+	        <div class="video-content">
+	          <a href="www.youtube.com/watch?v=fTdZJ86KzLk?start=1290" class="popup-youtube">
+	            <i class="icofont icofont-play-alt-2"></i></a>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</section>
 	
 </div>
