@@ -460,14 +460,14 @@ textarea:focus {
  .black-bg { background: #0b181f}
  .black-dark-bg { background: #151515 }
  .black-light-bg { background: #191919 }
- .default-bg { background: rgb(191,215,160);
-background: linear-gradient(90deg, rgba(191,215,160,1) 0%, rgba(121,153,74,1) 100%); }
-.footer-top{background: rgb(191,215,160);
-background: linear-gradient(90deg, rgba(191,215,160,1) 0%, rgba(121,153,74,1) 100%);
+ .default-bg { background: rgb(121,153,74);
+background: linear-gradient(90deg, rgba(121,153,74,1) 0%, rgba(191,213,117,1) 100%); }
+.footer-top{background: rgb(121,153,74);
+background: linear-gradient(90deg, rgba(121,153,74,1) 0%, rgba(191,213,117,1) 100%);
 }
 .slider-area {
-  background: rgb(191,215,160);
-background: linear-gradient(90deg, rgba(191,215,160,1) 0%, rgba(121,153,74,1) 100%);
+  background: rgb(121,153,74);
+background: linear-gradient(90deg, rgba(121,153,74,1) 0%, rgba(191,213,117,1) 100%);
 }
  .transparent-bg { background: transparent }
  
