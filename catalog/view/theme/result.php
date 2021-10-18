@@ -11,29 +11,21 @@
 </section>
 <div class="container">
 	<div class="row mt-5">
-		<div class="col-2 text-left">
+		<div class="col-6 col-md-2 text-left">
 			<input type="text" class="form-control" value="16-Oct-2021">
 		</div>
-		<div class="col-8">
-			
-		</div>
-		<div class="col-2 text-right">
-			<div class="load-btn mt-20">
-				<a href="" class="hvr-btn btn-block">เข้าสู่ระบบ คลิกที่นี่</a>
-			</div>
+		<div class="col-6 col-md-10 text-right">
+			<a href="" class="btn ">เข้าสู่ระบบ คลิกที่นี่</a>
 		</div>
 	</div>
-	<hr>
 	<?php foreach($category as $val){ ?>
 	<div class="row mt-4">
 		<div class="col-12">
 			<h4><?php echo $val['name'];?></h4>
 		</div>
 		<?php if($val['type']){ ?>
-		<div class="col-12">
-			<div class="row">
 				<?php foreach($val['type'] as $type){?>
-				<div class="col-3 text-center">
+				<div class="col-6 col-xs-6 col-sm-4 col-md-4 col-lg-3 text-center mb-2">
 					<div class="card">
 						<div class="card-header">
 					  		<?php echo $type['type']; ?>
@@ -45,15 +37,12 @@
 					</div>
 				</div>
 				<?php } ?>
-			</div>
-		</div>
 		<?php }else{?>
 		<div class="col-12">
 			<p>ยังไม่เปิดให้บริการ</p>
 		</div>
 		<?php } ?>
 	</div>	
-	<hr>
 	<?php } ?>
 </div>
 

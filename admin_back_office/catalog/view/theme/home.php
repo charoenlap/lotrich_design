@@ -5,9 +5,13 @@
 		</div>
 	</div>
 	<div class="row mt-4">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  			  <div id="chart_div"></div>
+  			  <div id="donutchart_money"></div>
+		</div>
+		<div class="col-md-6">
+			  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  			  <div id="donutchart_customer"></div>
 		</div>
 	</div>
 	<hr>
@@ -99,36 +103,41 @@
 	</div>
 	
 </div>
-<script>
-	google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Month', 'ยอดถอน', 'ยอดฝาก', 'จำนวนโพย'],
-          ['1', 1000, 400, 200],
-          ['2', 1170, 460, 250],
-          ['3', 660, 1120, 300],
-          ['4', 1030, 540, 350],
-          ['5', 1030, 540, 350],
-          ['6', 1030, 540, 350],
-          ['7', 1030, 540, 350],
-          ['8', 1030, 540, 350],
-          ['9', 1030, 540, 350],
-          ['10', 1030, 540, 350],
-          ['11', 1030, 540, 350],
-          ['12', 1030, 540, 350]
+          ['Task', 'เฉพาะวันนี้'],
+          ['ฝาก',     200000],
+          ['ถอน',      5000],
         ]);
 
         var options = {
-          chart: {
-            title: 'แสดงรายรับรายจ่าย',
-            subtitle: 'ประจำปี 2012',
-          }
+          title: 'ยอดฝาก/ถอน',
+          pieHole: 0.4,
         };
 
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart_money'));
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'รวมทั้งหมด'],
+          ['ฝาก',     110000],
+          ['ถอน',      20000],
+        ]);
 
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
-</script>
+        var options = {
+          title: 'ยอดฝากถอนทั้งหมด',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart_customer'));
+        chart.draw(data, options);
+      }
+    </script>

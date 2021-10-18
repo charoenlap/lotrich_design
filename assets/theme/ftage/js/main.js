@@ -38,7 +38,7 @@
  "use strict";
 	
 	/*------ 01. jQuery Mobile MeanMenu ------*/
-	jQuery('#mobile-nav').meanmenu();
+	$('#mobile-nav').meanmenu();
 	
 	/*------ 02. Slider Active ------*/
 	$('.slider-active').owlCarousel({
@@ -707,30 +707,30 @@
 	/*--
 		Back To Top
 	-----------------------------------*/
-	var toTopBtn = document.getElementById('scrollUp');
+	// var toTopBtn = document.getElementById('scrollUp');
 
-	toTopBtn.addEventListener('click', function (e) {
-		e.preventDefault();
-		window.scrollTo({
-			top: 0,
-			behavior: "smooth",
-		});
-	});
+	// toTopBtn.addEventListener('click', function (e) {
+	// 	e.preventDefault();
+	// 	window.scrollTo({
+	// 		top: 0,
+	// 		behavior: "smooth",
+	// 	});
+	// });
 
 	//hide/show button on scroll up/down
-	var scrollPos = 0;
+	// var scrollPos = 0;
 
-	window.addEventListener('scroll', function () {
+	// window.addEventListener('scroll', function () {
 
-		// detects new state and compares it with the new one
-		if ((document.body.getBoundingClientRect()).top > scrollPos) {
-			toTopBtn.style.display = "none";
+	// 	// detects new state and compares it with the new one
+	// 	if ((document.body.getBoundingClientRect()).top > scrollPos) {
+	// 		toTopBtn.style.display = "none";
 
-		} else {
-			toTopBtn.style.display = "block";
-		}
-		// saves the new position for iteration.
-		scrollPos = (document.body.getBoundingClientRect()).top;
-	});
+	// 	} else {
+	// 		toTopBtn.style.display = "block";
+	// 	}
+	// 	// saves the new position for iteration.
+	// 	scrollPos = (document.body.getBoundingClientRect()).top;
+	// });
  
 })(jQuery);

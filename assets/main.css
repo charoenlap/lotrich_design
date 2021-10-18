@@ -1,11 +1,4 @@
-.default-bg { background: rgb(0,112,0);background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(1,76,0,1) 100%); }
-.footer-top{
-  background: rgb(0,112,0);background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(1,76,0,1) 100%);
-}
-.slider-area {
-  background: rgb(191,215,160);
-background: linear-gradient(90deg, rgba(191,215,160,1) 0%, rgba(121,153,74,1) 100%);
-}
+
 .panel-home{
   background:black !important;
   color:white;
@@ -24,14 +17,9 @@ background: linear-gradient(90deg, rgba(191,215,160,1) 0%, rgba(121,153,74,1) 10
     top: 0px;
     min-height: 60px !important;
 }
-@font-face {
-  	font-family: Prompt;
-  	src: url(Prompt/Prompt-Light.ttf);
-}
 body,html {
-  padding-top:30px;
-	font-family: Prompt !important;
-  margin-bottom:30px !important;
+  /*padding-top:30px;
+  margin-bottom:30px !important;*/
   
 }
 section.panel{
@@ -366,7 +354,7 @@ body {
 }
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after {
-  font-family: "Font Awesome 5 Free";
+  
   font-weight: 900;
   content: "\f105";
   font-style: normal;
@@ -394,7 +382,6 @@ body {
 
 .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
   content: "\f111";
-  font-family: "Font Awesome 5 Free";
   font-weight: 400;
   font-style: normal;
   display: inline-block;

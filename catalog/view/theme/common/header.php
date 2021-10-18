@@ -37,84 +37,52 @@
   <link href="assets/theme/ftage/assets/revolution/css/navigation.css" rel="stylesheet">
   <link href="assets/theme/ftage/assets/revolution/custom-setting.css" rel="stylesheet">
 
+  <script src="assets/theme/ftage/js/vendor/jquery-3.6.0.min.js"></script>
+  <script src="assets/theme/ftage/js/vendor/jquery-migrate-3.3.2.min.js"></script>
   
+  <script src="assets/theme/ftage/js/popper.min.js"></script>
+  <script src="assets/theme/ftage/js/bootstrap.min.js"></script>
   <?php 
   if(isset($script)){
   foreach ($script as $key => $value) { ?>
     <script src="<?php echo $value;?>"></script>
   <?php } } ?>
 </head>
-<body class="<?php echo (isset($class_body)?$class_body:''); ?> pt-50">
+<body class="<?php echo (isset($class_body)?$class_body:''); ?> ">
 <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class="page-wraper default-bg home-four pb-50" id="main-home" >
-  <header>
-        <!-- Header Menu Area Start -->
-        <div class="header-menu" id="sticky-header" style="background: #000;">
-          <div class="container">
-            <div class="row">
-              <!-- Logo Area Start -->
-              <div class="col-md-4">
-                <div class="logo-img">
-                  <a href="index.html"><img src="uploads/logo/slogo.png" style="width:70px;" alt=""></a>
-                </div>
-              </div>
-              <!-- Logo Area End -->
-              <!-- Menu Area Start -->
-              <div class="col-md-8">
-                <div class="main-menu text-right">
-                  <nav>
-                    <ul>
-                      <li class="active"><a href="<?php echo route('home'); ?>">หน้าหลัก</a></li>
-                      <li><a href="<?php echo route('member/dashboard'); ?>">สมาชิก</a>
-                        <ul>
-                          <li><a href="<?php echo $link_login; ?>">เข้าสู่ระบบ</a></li>
-                          <li><a href="<?php echo $link_register; ?>">สมัครสมาชิก</a></li>
-                          <li><a href="<?php echo $link_dashboard; ?>">สมาชิก</a></li>
-                          <li><a href="<?php echo $link_deposit; ?>">เติมเงิน</a></li>
-                          <li><a href="<?php echo $link_forgot; ?>">ลืมรหัสผ่าน</a></li>
-                          <li><a href="<?php echo $link_logout; ?>">ออกจากระบบ</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="<?php echo $link_result; ?>">ผลรางวัล</a></li>
-                      <li><a href="<?php echo $link_contact; ?>">ติดต่อเรา</a></li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-              <!-- Header Menu Area Start -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="<?php echo route('home'); ?>">หน้าหลัก <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              สมาชิก
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="<?php echo $link_login; ?>">เข้าสู่ระบบ</a>
+              <a class="dropdown-item" href="<?php echo $link_register; ?>">สมัครสมาชิก</a>
+              <a class="dropdown-item" href="<?php echo $link_dashboard; ?>">สมาชิก</a>
+              <a class="dropdown-item" href="<?php echo $link_deposit; ?>">เติมเงิน</a>
+              <a class="dropdown-item" href="<?php echo $link_forgot; ?>">ลืมรหัสผ่าน</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">ออกจากระบบ</a>
             </div>
-          </div>
-          <!-- MOBILE-MENU-AREA START --> 
-          <div class="mobile-menu-area">
-            <div class="container">
-              <div class="mobile-area">
-                <div class="mobile-menu">
-                  <nav id="mobile-nav">
-                    <ul>
-                      <li class="active"><a href="<?php echo route('home'); ?>">หน้าหลัก</a></li>
-                      <li><a href="<?php echo route('member/dashboard'); ?>">สมาชิก</a>
-                        <ul>
-                          <li><a href="<?php echo $link_login; ?>">เข้าสู่ระบบ</a></li>
-                          <li><a href="<?php echo $link_register; ?>">สมัครสมาชิก</a></li>
-                          <li><a href="<?php echo $link_dashboard; ?>">สมาชิก</a></li>
-                          <li><a href="<?php echo $link_deposit; ?>">เติมเงิน</a></li>
-                          <li><a href="<?php echo $link_forgot; ?>">ลืมรหัสผ่าน</a></li>
-                          <li><a href="<?php echo $link_logout; ?>">ออกจากระบบ</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="<?php echo $link_result; ?>">ผลรางวัล</a></li>
-                      <li><a href="<?php echo $link_contact; ?>">ติดต่อเรา</a></li>
-                    </ul>
-                  </nav>
-                </div>  
-              </div>
-            </div>
-          </div>
-          <!-- MOBILE-MENU-AREA END  -->
-        </div>
-        <!-- Header Menu Area Start -->
-        <!-- Slider Area End -->
-  </header>
-</div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $link_result; ?>">ผลรางวัล</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo $link_contact; ?>">ติดต่อเรา</a>
+          </li>
+        </ul>
+      </div>
+    </nav>

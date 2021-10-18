@@ -45,7 +45,7 @@
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
-					<div class="subcribe text-right">
+					<div class="subcribe text-center">
 						<img src="uploads/other/line.png" alt="" class="img-fluid" style="max-width:50%;">
 					</div>
 				</div>
@@ -73,11 +73,7 @@
 	<!-- Footer Bottom Area End -->
 </footer>
 
-  <script src="assets/theme/ftage/js/vendor/jquery-3.6.0.min.js"></script>
-  <script src="assets/theme/ftage/js/vendor/jquery-migrate-3.3.2.min.js"></script>
   
-  <script src="assets/theme/ftage/js/popper.min.js"></script>
-  <script src="assets/theme/ftage/js/bootstrap.min.js"></script>
   <script src="assets/theme/ftage/js/imagesloaded.pkgd.min.js"></script>
   <script src="assets/theme/ftage/js/isotope.pkgd.min.js"></script>
   <script src="assets/theme/ftage/js/owl.carousel.min.js"></script>

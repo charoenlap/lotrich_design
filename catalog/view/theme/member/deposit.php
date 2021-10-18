@@ -21,7 +21,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row mb-4">
 					<div class="col-12">
 						<div class="panel">
 							<div class="card">
@@ -34,11 +34,26 @@
 						</div>
 					</div>
 				</div>
+				<div class="row mt-2">
+					<div class="col-12">
+						<h4>ใส่จำนวนเงินที่ต้องการฝาก</h4>
+					</div>
+				</div>
+				<div class="row mb-4">
+					<?php $arr = array(100,200,300,500,1000,2000,3000,5000,1000);
+ 					foreach($arr as $val){?>
+ 					<div class="col-4 text-center">
+ 						<a href="#" data-price="<?php echo $val;?>" class="btn   btn-block btn-price mb-2">
+ 							<?php echo number_format($val); ?>
+ 						</a>
+ 					</div>
+ 					<?php } ?>
+				</div>
 				<div class="row">
 					<div class="col-12">
 						<div class="form-group">
-							จำนวนเงิน ขั้นต่ำ 10 บาท ไม่ต้องมีทศนิยม
-							<input type="text" name="text" id="bank" class="form-control input-lg" placeholder="กรุณาใส่จำนวนเงิน" tabindex="5">
+							<h4>จำนวนเงิน ขั้นต่ำ 10 บาท ไม่ต้องมีทศนิยม</h4>
+							<input type="text" name="text" id="txt-price" class="form-control input-lg" placeholder="กรุณาใส่จำนวนเงิน" tabindex="5">
 						</div>
 					</div>
 				</div>
@@ -66,7 +81,7 @@
 	            <label for="recipient-name" class="col-form-label">ยอดเงินที่ต้องโอน: <span class="text-danger">100.34</span></label>
 	          </div>
 	          <div class="form-group">
-	            <label for="message-text" class="col-form-label">กรุณาโอนภายในเวลา: <span class="text-danger">00:10:00</span></label>
+	            <label for="message-text" class="col-form-label">กรุณาโอนภายในเวลา: <span class="text-danger" id="time">00:15:00</span></label>
 	          </div>
 	          <div class="form-group">
 	            <div class="card">
@@ -103,3 +118,41 @@
 	  </div>
 	</div>
 </form>
+<script>
+	$(document).on('click','.btn-price',function(e){
+		var price = $(this).attr('data-price');
+		$('#txt-price').val(price);
+	});
+</script>
+<script>
+// Set the date we're counting down to
+
+
+// Update the count down every 1 second
+var now_start = new Date().getTime();
+var countDownDate = new Date(now_start + 15*60000).getTime();
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+  // var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("time").innerHTML = minutes + "นาที " + seconds + " วินาที ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("time").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>

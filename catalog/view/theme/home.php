@@ -1,14 +1,17 @@
-<div class="slider-area" style="">
+<div class="slider-area pt-50" style="">
 	<div id="rev_slider_6_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="duotone1" data-source="gallery" style="background:transparent;padding:0px;">
 		<div id="rev_slider_6_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.7">
 			<ul>
-			    <li data-index="rs-15" data-transition="cube" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-thumb="img/slider/home-one/100x50_1.webp"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="300" data-fsslotamount="7" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+			    <li>
+			    	<div class="text-center">
+			    		<img src="uploads/logo/slogo.png" id="logo_banner" style="width: 250px;" alt="">
+			    	</div>
 					<!-- MAIN IMAGE -->
-			        <img src="img/slider/home-one/dummy.webp"  alt=""  data-lazyload="img/slider/home-one/1.webp" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+			        <!-- <img src="img/slider/home-one/dummy.webp"  alt=""  data-lazyload="img/slider/home-one/1.webp" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina> -->
 					<!-- LAYERS -->
-
+					
 					<!-- LAYER NR. 1 -->
-					<div class="tp-caption rs-parallaxlevel-4" 
+					<div class="tp-caption rs-parallaxlevel-4 text-text-shadow" 
 						id="slide-15-layer-2" 
 						data-x="['center','center','center','center']" data-hoffset="['0','6','0','0']" 
 						data-y="['middle','middle','middle','middle']" data-voffset="['30','46','64','0']" 
@@ -26,7 +29,7 @@
 			            data-paddingright="[0,0,0,0]"
 			            data-paddingbottom="[0,0,0,0]"
 			            data-paddingleft="[0,0,0,0]"
-			            style="z-index: 5; min-width: 893px; max-width: 893px; white-space: normal; font-size: 16px; line-height: 24px; font-weight: 400; color: rgba(255,255,255,1); font-family:'Roboto', sans-serif;">การันตี ถูกรางวัลจ่าย 100% จ่ายเร็ว จ่ายจริง มีลูกค้าที่ใช้บริการสูงสุด กับเราที่นี่ที่เดียว</div>
+			            style="z-index: 5; min-width: 893px; max-width: 893px; white-space: normal; font-size: 16px; line-height: 24px; font-weight: 400; color: rgba(255,255,255,1); ">การันตี ถูกรางวัลจ่าย 100% จ่ายเร็ว จ่ายจริง มีลูกค้าที่ใช้บริการสูงสุด กับเราที่นี่ที่เดียว</div>
 
 					<!-- LAYER NR. 2 -->
 					<div class="tp-caption rev-btn rs-parallaxlevel-4" 
@@ -51,10 +54,10 @@
 			            data-paddingright="[30,30,30,30]"
 			            data-paddingbottom="[0,0,0,0]"
 			            data-paddingleft="[30,30,30,30]"
-			            style="z-index: 6; min-width: 158px; max-width: 158px; white-space: nowrap; font-size: 14px; line-height: 45px; font-weight: 500; color: #ffffff; letter-spacing: 1px;font-family:Roboto;text-transform:uppercase;background-color:rgb(226,167,80);border-color:rgba(0,0,0,1);outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;transition:all 0.3s ease-in-out;cursor:pointer;"><a href="<?php echo route('member/dashboard');?>">เข้าสู่ระบบคลิก</a></div>
+			            style="z-index: 6; min-width: 158px; max-width: 158px; white-space: nowrap; font-size: 14px; line-height: 45px; font-weight: 500; color: red; letter-spacing: 1px;text-transform:uppercase;background-color:#fff;border-color:rgba(0,0,0,1);outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;transition:all 0.3s ease-in-out;cursor:pointer;"><a href="<?php echo route('member/dashboard');?>" style="color:red;font-size:16px;">เข้าสู่ระบบ <span class="btn-click">คลิก</span></a></div>
 
 					<!-- LAYER NR. 3 -->
-					<div class="tp-caption rs-parallaxlevel-4" 
+					<div class="tp-caption rs-parallaxlevel-4 text-text-shadow" 
 						id="slide-15-layer-8" 
 						data-x="['center','center','center','center']" data-hoffset="['0','0','0','3']" 
 						data-y="['middle','middle','middle','middle']" data-voffset="['-107','-112','-74','-130']" 
@@ -74,10 +77,12 @@
 			            data-paddingright="[0,0,0,0]"
 			            data-paddingbottom="[0,0,0,0]"
 			            data-paddingleft="[0,0,0,0]"
-			            style="z-index: 7; min-width: 333px; max-width: 333px; max-width: 73px; max-width: 73px; white-space: normal; font-size: 30px; line-height: 70px; font-weight: 400; color: rgba(255,255,255,1); letter-spacing: 6px;font-family:Roboto;text-transform:uppercase;"> <span style="color:#e2a750">หวย </span>ออนไลน์ </div>
+			            style="z-index: 7; min-width: 333px; max-width: 333px; max-width: 73px; max-width: 73px; white-space: normal; font-size: 30px; line-height: 70px; font-weight: 400; color: rgba(255,255,255,1); letter-spacing: 6px;text-transform:uppercase;"> 
+			            
+			            <span style="color:red;">หวย </span>ออนไลน์ </div>
 
 					<!-- LAYER NR. 4 -->
-					<div class="tp-caption rs-parallaxlevel-4" 
+					<div class="tp-caption rs-parallaxlevel-4 text-text-shadow " 
 						id="slide-15-layer-9" 
 						data-x="['center','center','center','center']" data-hoffset="['0','0','18','0']" 
 						data-y="['middle','middle','middle','middle']" data-voffset="['-45','-52','-23','-100']" 
@@ -96,7 +101,7 @@
 			            data-paddingright="[0,0,0,0]"
 			            data-paddingbottom="[0,0,0,0]"
 			            data-paddingleft="[0,0,0,0]"
-			            style="z-index: 8; min-width: 808px; max-width: 804px; max-width: 71px; max-width: 71px; white-space: normal; font-size: 60px; line-height: 70px; font-weight: 700; color: rgba(255,255,255,1); letter-spacing: 3px;font-family:Roboto;text-transform:uppercase;">ให้คุณมากกว่าใคร <span style="color:#e2a750">LOT </span> Rich </div>
+			            style="z-index: 8; min-width: 808px; max-width: 804px; max-width: 71px; max-width: 71px; white-space: normal; font-size: 60px; line-height: 70px; font-weight: 700;  letter-spacing: 3px;text-transform:uppercase;">ให้คุณมากกว่าใคร <span style="color:red;">LOT </span> Rich </div>
 				</li>
 			</ul>
 			<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>	
