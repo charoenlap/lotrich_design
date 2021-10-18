@@ -21,27 +21,64 @@
 	<?php foreach($category as $val){ ?>
 	<div class="row mt-4">
 		<div class="col-12">
-			<h4><?php echo $val['name'];?></h4>
+			<h4 class="d-inline-flex">
+				<div class="d-inline-flex" style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:50px;height:30px;background-size:cover;background-position: center;margin-right:10px;"></div>
+				<?php echo $val['name'];?>
+			</h4>
 		</div>
-		<?php if($val['type']){ ?>
-				<?php foreach($val['type'] as $type){?>
-				<div class="col-6 col-xs-6 col-sm-4 col-md-4 col-lg-3 text-center mb-2">
-					<div class="card">
-						<div class="card-header">
-					  		<?php echo $type['type']; ?>
-					  	</div>
-					  	<div class="card-body">
-					    	<h5 class="card-title"><?php echo $type['result']; ?></h5>
-					    	<p class="card-text"></p>
-					  	</div>
+				<?php 
+			if(empty($val['sub'])){
+				foreach($val['type'] as $type){
+					if($type['column']==1){
+						$class="col-12";
+					}else if($type['column']==2){
+						$class="col-6";
+					}else if($type['column']==3){
+						$class="col-4";
+					}else if($type['column']==4){
+						$class="col-2";
+					}else if($type['column']==5){
+						$class="col-1";
+					}else{
+						$class="col-6 col-xs-6 col-sm-4 col-md-4 col-lg-3";
+					}
+					
+				?>
+					<div class="<?php echo $class;?> text-center mb-2">
+						<div class="card">
+							<div class="card-header">
+						  		<?php echo $type['type']; ?>
+						  	</div>
+						  	<div class="card-body">
+						    	<h5 class="card-title"><?php echo $type['result']; ?></h5>
+						    	<p class="card-text"></p>
+						  	</div>
+						</div>
 					</div>
-				</div>
 				<?php } ?>
-		<?php }else{?>
-		<div class="col-12">
-			<p>ยังไม่เปิดให้บริการ</p>
-		</div>
+
+			<?php }else{
+				foreach($val['sub'] as $v){?>
+					<div class="col-6 text-center mb-2">
+						<div class="card">
+							<div class="card-header">
+						  		<?php echo $v['name'];?>
+						  	</div>
+						  	<div class="card-body">
+						  		<div class="row">
+						  		<?php foreach($v['type'] as $type_sub){ ?>
+   									<div class="col-12">
+   										<p><?php echo $type_sub['type']; ?></p>
+   										<h5 class="card-title"><?php echo $type_sub['result']; ?></h5>
+   									</div>
+						  		<?php } ?>
+						  		</div>
+						  	</div>
+						</div>
+					</div>
+			<?php } ?>
 		<?php } ?>
+		
 	</div>	
 	<?php } ?>
 </div>
