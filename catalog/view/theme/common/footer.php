@@ -60,7 +60,7 @@
 </footer>
 <div class="container ">
 		<div class="row">
-			<div class="col-md-12 pt-2 text-center">
+			<div class="col-md-12 pt-2 text-center"> 
 				<p>Copyright © 2021 All rights reserved.</p>
 			</div>
 		</div>
