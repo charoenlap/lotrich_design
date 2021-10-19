@@ -58,12 +58,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse bg-light" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item active">
+          <li class="nav-item text-center active">
             <a class="nav-link" href="<?php echo route('home'); ?>">หน้าหลัก <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item text-center dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               สมาชิก
             </a>
@@ -77,10 +77,10 @@
               <a class="dropdown-item" href="#">ออกจากระบบ</a>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item text-center">
             <a class="nav-link" href="<?php echo $link_result; ?>">ผลรางวัล</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item text-center">
             <a class="nav-link" href="<?php echo $link_contact; ?>">ติดต่อเรา</a>
           </li>
         </ul>
