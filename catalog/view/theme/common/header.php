@@ -22,20 +22,20 @@
 
   <link rel="stylesheet" href="assets/theme/ftage/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/theme/ftage/css/font-awesome.min.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/icofont.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/magnific-popup.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/meanmenu.min.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/slick.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/plugins.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/shortcode/shortcodes.css">
-  <link rel="stylesheet" href="assets/theme/ftage/style.css">
-  <link rel="stylesheet" href="assets/theme/ftage/css/responsive.css">
+  <link rel="stylesheet" href="assets/theme/ftage/css/icofont.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/magnific-popup.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/meanmenu.min.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/owl.carousel.min.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/slick.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/plugins.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/shortcode/shortcodes.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/style.css?time=<?php echo time();?>">
+  <link rel="stylesheet" href="assets/theme/ftage/css/responsive.css?time=<?php echo time();?>">
   
   <!-- Revolution Slider CSS -->
-  <link href="assets/theme/ftage/assets/revolution/css/settings.css" rel="stylesheet">
-  <link href="assets/theme/ftage/assets/revolution/css/navigation.css" rel="stylesheet">
-  <link href="assets/theme/ftage/assets/revolution/custom-setting.css" rel="stylesheet">
+  <link href="assets/theme/ftage/assets/revolution/css/settings.css?time=<?php echo time();?>" rel="stylesheet">
+  <link href="assets/theme/ftage/assets/revolution/css/navigation.css?time=<?php echo time();?>" rel="stylesheet">
+  <link href="assets/theme/ftage/assets/revolution/custom-setting.css?time=<?php echo time();?>" rel="stylesheet">
 
   <script src="assets/theme/ftage/js/vendor/jquery-3.6.0.min.js"></script>
   <script src="assets/theme/ftage/js/vendor/jquery-migrate-3.3.2.min.js"></script>
