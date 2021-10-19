@@ -55,24 +55,16 @@
 	</div>
 	<!-- Footer Top Area End -->
 	<!-- Footer Bottom Area Start -->
-	<div class="container">
-		<div class="footer-bottom">
-			<div class="footer-left">
+	
+	<!-- Footer Bottom Area End -->
+</footer>
+<div class="container ">
+		<div class="row">
+			<div class="col-md-12 pt-2 text-center">
 				<p>Copyright © 2021 All rights reserved.</p>
-			</div>
-			<div class="footer-right-social f-right">
-				<ul>
-					<!-- <li><a href="#"><i class="icofont icofont-facebook"></i></a></li>
-					<li><a href="#"><i class="icofont icofont-pinterest"></i></a></li>
-					<li><a href="#"><i class="icofont icofont-twitter"></i></a></li>
-					<li><a href="#"><i class="icofont icofont-google-plus"></i></a></li> -->
-				</ul>
 			</div>
 		</div>
 	</div>
-	<!-- Footer Bottom Area End -->
-</footer>
-
   
   <script src="assets/theme/ftage/js/imagesloaded.pkgd.min.js"></script>
   <script src="assets/theme/ftage/js/isotope.pkgd.min.js"></script>
