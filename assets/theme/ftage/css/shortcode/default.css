@@ -24,6 +24,12 @@ background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, r
   from { opacity: 1.0; }
   to { opacity: 0.5; }
 }
+.panel-service .servce-icon i,.panel-service .section-titel.two h2,.panel-service .section-titel.two p,.panel-service.service-details > p {
+  color:#000 !important;
+}
+.panel-service h1 a,.panel-service h2 a,.panel-service h3 a,.panel-service h4 a,.panel-service h5 a,.panel-service h6 a{
+  color:#e2a750 !important;
+}
 
 .btn-click {
 

@@ -108,9 +108,9 @@
 		</div>
 	</div>
 </div>
-<div class="page-content">
+<div class="page-content panel-service">
 	
-	<section class="service-area pt-90 pb-100 bg-3 bg-overlay-2 indicator-style">
+	<section class="service-area pt-90 pb-100 <?php /*bg-3 bg-overlay-2*/ ?> indicator-style">
 		<div class="container">
 			<!-- Section Titel -->
 			<div class="section-titel text-left two">
