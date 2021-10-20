@@ -30,7 +30,10 @@ background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, r
 .panel-service h1 a,.panel-service h2 a,.panel-service h3 a,.panel-service h4 a,.panel-service h5 a,.panel-service h6 a{
   color:#e2a750 !important;
 }
-
+nav.navbar{
+    background: rgb(0,112,0);
+      background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, rgba(0,77,0,1) 100%);
+  }
 .btn-click {
 
   -webkit-animation-name: blinker;
@@ -47,6 +50,12 @@ background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, r
 }
 .btn-price:hover {
   border:solid 1px #e3e3e3;
+}
+.hvr-btn {
+  background: red none repeat scroll 0 0 !important;
+}
+.hvr-btn:hover {
+  background: green none repeat scroll 0 0 !important;
 }
 /* ================================================
 [  Table of contents  ]
