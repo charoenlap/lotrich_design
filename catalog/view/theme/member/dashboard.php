@@ -12,16 +12,15 @@
 <div class="container mt-4">
 	<div class="row mt-4">
 		<div class="col-md-2">
-			ผู้ใช้งาน : <span>xx</span><br>
-			<span class="text-success">0.00</span> บาท
+			ผู้ใช้งาน : <span><?php echo $name.' '.$lname; ?></span><br>
+			<span class="text-success"><?php echo number_format($balance,2); ?></span> บาท
 		</div>
 		<div class="col-md-10">
 			<nav class="nav nav-pills nav-justified">
-					<a href="<?php echo $link_deposit; ?>" class="nav-item nav-link text-success">ฝากเงิน</a>
 					<a href="<?php echo $link_widthdraw; ?>" class="nav-item nav-link text-danger">ถอนเงิน</a>
-					<!-- <a href="<?php echo $link_reward; ?>" class="nav-item nav-link ">ผลรางวัล</a> -->
+					<a href="<?php echo $link_deposit; ?>" class="nav-item nav-link text-success">ฝากเงิน</a>
+					<a href="<?php echo $link_finance; ?>" class="nav-item nav-link text-warning">การเงิน</a>
 					<a href="<?php echo $link_ticket; ?>" class="nav-item nav-link ">โพยหวย</a>
-					<a href="<?php echo $link_finance; ?>" class="nav-item nav-link ">การเงิน</a>
 			</nav>
 		</div>
 	</div>
@@ -31,13 +30,15 @@
 			<div class="col-lg-3 col-md-6">
 				<div class="recent-news-single">
 					<div class="news-thumbnail">
-						<a href="<?php echo $link_lottery;?>"><img src="uploads/other/huay-1.png" alt=""></a>
+						<a href="<?php echo $link_lottery;?>"  style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:100%;height:150px;background-size:cover;background-position: center;margin-right:10px;display:block;"></a>
 					</div>
 					<div class="news-content">
 						<div class="news-meta">
-							<span>26 Nov 2021</span>
+							<!-- <span></span> -->
 							<div class="load-btn mt-20">
-								<a class="hvr-btn btn-block" href="<?php echo $link_lottery;?>"><?php echo $val['name']; ?></a>
+								<a class="hvr-btn btn-block" href="<?php echo $link_lottery.'&id='.encrypt($val['id']);?>">
+									<?php echo $val['name']; ?>
+								</a>
 							</div>
 							
 						</div>

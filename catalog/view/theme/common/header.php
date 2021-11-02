@@ -68,13 +68,25 @@
               สมาชิก
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <?php if(!empty($link_login)){ ?>
               <a class="dropdown-item" href="<?php echo $link_login; ?>">เข้าสู่ระบบ</a>
+              <?php } ?>
+              <?php if(!empty($link_register)){ ?>
               <a class="dropdown-item" href="<?php echo $link_register; ?>">สมัครสมาชิก</a>
-              <a class="dropdown-item" href="<?php echo $link_dashboard; ?>">สมาชิก</a>
+              <?php } ?>
+              <?php if(!empty($link_dashboard)){ ?>
+              <a class="dropdown-item" href="<?php echo $link_dashboard; ?>">หน้าหลักสมาชิก</a>
+              <?php } ?>
+              <?php if(!empty($link_deposit)){ ?>
               <a class="dropdown-item" href="<?php echo $link_deposit; ?>">เติมเงิน</a>
+              <?php } ?>
+              <?php if(!empty($link_forgot)){ ?>
               <a class="dropdown-item" href="<?php echo $link_forgot; ?>">ลืมรหัสผ่าน</a>
+              <?php } ?>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">ออกจากระบบ</a>
+              <?php if(!empty($link_logout)){ ?>
+              <a class="dropdown-item" href="<?php echo $link_logout; ?>">ออกจากระบบ</a>
+              <?php } ?>
             </div>
           </li>
           <li class="nav-item text-center">

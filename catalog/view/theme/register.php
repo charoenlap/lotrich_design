@@ -12,18 +12,18 @@
 <div class="container mt-4">
 	<div class="row">
 	    <div class="col-md-12">
-			<form role="form">
+			<form role="form" action="<?php echo $action; ?>" id="form-register" method="POST">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
 							ชื่อ
-	                        <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="ชื่อ" tabindex="1">
+	                        <input type="text" name="name" id="name" class="form-control input-lg" placeholder="ชื่อ" tabindex="1">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
 							นามสกุล
-							<input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="นามสกุล" tabindex="2">
+							<input type="text" name="lname" id="lname" class="form-control input-lg" placeholder="นามสกุล" tabindex="2">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
@@ -37,13 +37,13 @@
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							หมายเลขบัญชีธนาคาร
-							<input type="text" name="text" id="bankno" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4">
+							<input type="text" name="bank_no" id="bank_no" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							ธนาคาร
-							<input type="text" name="text" id="bank" class="form-control input-lg" placeholder="ธนาคาร" tabindex="5">
+							<input type="text" name="bank_name" id="bank_name" class="form-control input-lg" placeholder="ธนาคาร" tabindex="5">
 						</div>
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							ยืนยันรหัสผ่าน
-							<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" tabindex="8">
+							<input type="password" name="confirm_password" id="confirm_password" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" tabindex="8">
 						</div>
 					</div>
 				</div>
@@ -70,7 +70,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-md-12">
 						<div class="load-btn mt-20">
-							<input type="submit" class="hvr-btn btn-block" value="ยอมรับข้อตกลงเงื่อนไข">
+							<input type="submit" id="btn-submit" class="hvr-btn btn-block" value="ยอมรับข้อตกลงเงื่อนไข">
 						</div>
 					</div>
 				</div>
@@ -78,3 +78,63 @@
 		</div>
 	</div>
 </div>
+<div class="position-fixed top-0 right-0 p-3" style="z-index: 99; right: 0; bottom: 0;">
+	<div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="toast-header">
+	  	<i class="bi bi-arrow-bar-down"></i>
+	    <strong class="mr-auto">ผลลัพธ์</strong>
+	    <!-- <small>11 mins ago</small> -->
+	    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="toast-body"></div>
+	</div>
+</div>
+<script>
+	$(document).on('submit','#form-register',function(e){
+		var ele = $(this);
+		$('#btn-submit').prop('disabled', true);
+		$('#btn-submit').attr('aria-disabled', true);
+		$('#btn-submit').addClass('disabled');
+		$('#btn-submit').removeClass('hvr-btn');
+		$.ajax({
+			url: ele.attr('action'),
+			type: 'POST',
+			dataType: 'json',
+			data: ele.serialize(),
+		})
+		.done(function(result) {
+			console.log("success");
+			console.log(result);
+			if(result.status=='failed'){
+				$('#btn-submit').prop('disabled', false);
+				$('#btn-submit').attr('aria-disabled', false);
+				$('#btn-submit').removeClass('disabled');
+				$('#btn-submit').addClass('hvr-btn');
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				setInterval(function(){ 
+					window.location='index.php?route=login'; 
+				}, 3000);
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		e.preventDefault();
+	});
+</script>

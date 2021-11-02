@@ -13,56 +13,48 @@
 	<div class="container mt-4">
 		<div class="row">
 		    <div class="col-md-12">
-				<div class="row">
+		    	<?php foreach($lotto as $val){ ?>
+				<div class="row pt-4" style="border-top:solid 1px #3e3e3e;">
 					<div class="col-xs-12 col-sm-12">
 						<div class="form-group">
-							รหัสโพย: xxxxxxxx
+							<h4>รหัสโพย: <?php echo $val['id']; ?></h4>
+							สร้างเมื่อ: <?php echo $val['date_create']; ?>
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" >
 					<div class="col-4">
-						<h2>หวยรัฐบาล</h2>
-						<p>ปิด: 16-Oct-2021 15:30</p>
+						<h2><?php echo $val['name']; ?></h2>
 					</div>
-					<div class="col-4">
-						เงินเดิมพัน
-						<p>xxx</p>
+					<div class="col-4 text-center">
+						เงินเดิมพันรวม <span class="text-success"><?php echo $val['total'];?></span>
 					</div>
-					<div class="col-4">
-						ผลแพ้ชนะ
-						<p>xxx</p>
+					<div class="col-4 text-center">
+						ผลแพ้ชนะรวม <span class="text-success"><?php echo $val['receive'];?></span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-4">
-						โพยที่ 1
+				<?php 
+					$i=1;
+					foreach($val['lotto'] as $key => $val_sub){ ?>
+					<div class="row">
+						<div class="col-4">
+							<h3><?php echo $val_sub['number'];?></h3>
+							<p><?php echo $val_sub['type'];?></p>
+						</div>
+						<div class="col-4 text-center ">
+							เงินเดิมพัน
+							<p><?php echo $val_sub['price'];?></p>
+						</div>
+						<div class="col-4 text-center ">
+							ผลแพ้ชนะ
+							<p><?php echo $val_sub['receive'];?></p>
+						</div>
 					</div>
-					<div class="col-4">
-						เงินเดิมพัน
-						<p>xxx</p>
-					</div>
-					<div class="col-4">
-						ผลแพ้ชนะ
-						<p>xxx</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-4">
-						โพยที่ 2
-					</div>
-					<div class="col-4">
-						เงินเดิมพัน
-						<p>xxx</p>
-					</div>
-					<div class="col-4">
-						ผลแพ้ชนะ
-						<p>xxx</p>
-					</div>
-				</div>
+					<?php } ?>
+				<?php } ?>
 				<div class="row">
 					<div class="load-btn mt-20">
-			        	<button type="submit" class="hvr-btn btn-block">ซื้อเพิ่ม</button>
+			        	<a href="<?php echo route('member/dashboard'); ?>" class="hvr-btn btn-block">ซื้อเพิ่ม</a>
 			        </div>
 				</div>
 			</div>

@@ -10,94 +10,119 @@
 		</div>
 	</div>
 </section>
-<form role="form">
-	<div class="container mt-4">
-		<div class="row">
-		    <div class="col-md-12">
-				<div class="row">
-					<div class="col-xs-12 col-sm-12">
-						<div class="form-group">
-							ถอนเงินเข้าบัญชีธนาคาร
-						</div>
+<div class="container mt-4">
+	<div class="row">
+	    <div class="col-md-12">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12">
+					<div class="form-group">
+						ถอนเงินเข้าบัญชีธนาคาร
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="panel">
-							<div class="card">
-								<div class="card-body">
-									<p>กสิกรไทย</p>
-									<p>xxx-x-xxxxx-x</p>
-									<p>ชื่อบัญชี: x</p>
-								</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="panel">
+						<div class="card">
+							<div class="card-body">
+								<?php echo $bank; ?>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row mt-4">
-					<div class="col-12">
-						<div class="form-group text-center">
-							<h3>จำนวนเงินที่ถอนได้ <label for="">x,xxx</label></h3>
-						</div>
+			</div>
+			<div class="row mt-4">
+				<div class="col-12">
+					<div class="form-group text-center">
+						<h4>จำนวนเงินที่ถอนได้</h4>
+						<h3 ><?php echo number_format($balance,2); ?></h3>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12 col-md-12">
-						<a class="hvr-btn btn-block" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ยืนยันรายการ</a>
-					</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<a class="hvr-btn btn-block" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">ยืนยันรายการ</a>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">กรุณาโอนเงินตามยอดที่แจ้งเท่านั้น</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <form>
-	          <div class="form-group">
-	            <label for="recipient-name" class="col-form-label">ยอดเงินที่ต้องโอน: <span class="text-danger">100.34</span></label>
-	          </div>
-	          <div class="form-group">
-	            <label for="message-text" class="col-form-label">กรุณาโอนภายในเวลา: <span class="text-danger">00:10:00</span></label>
-	          </div>
-	          <div class="form-group">
-	            <div class="card">
-	            	<div class="card-body">
-	            		<label for="message-text" class="col-form-label">บัญชีที่โอน:กสิกร</label><br>
-	               		<label for="message-text" class="col-form-label">หมายเลขบัญชี:xxx-x-xxxxx-x</label><br>
-	             		<label for="message-text" class="col-form-label">ชื่อบัญชี: </label>
-	            	</div>
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label for="message-text" class="col-form-label">กรุณาใส่เวลาที่โอน</label>
-	            <div class="row">
-	            	<div class="col-6">
-	            		<input type="text" class="form-control" value="<?php echo date('H');?>">
-	            	</div>
-	            	<div class="col-6">
-	            		<input type="text" class="form-control" value="<?php echo date('i');?>">
-	            	</div>
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label for="message-text" class="col-form-label">กรุณาแนบหลักฐานการโอนเงิน</label>
-	            <input type="file" >
-	          </div>
-	        </form>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-	        <button type="submit" class="btn btn-primary">ยืนยันการชำระเงิน</button>
-	      </div>
-	    </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">กรุณาโอนเงินตามยอดที่แจ้งเท่านั้น</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">ยอดเงินที่ต้องการถอน: </label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="price_widthdraw" class="form-control" placeholder="กรุณาใส่เป็นตัวเลขเท่านั้น">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="hvr-btn btn-block" id="btn-submit">ยืนยันการชำระเงิน</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="position-fixed top-0 right-0 p-3" style="z-index: 99999; right: 0; bottom: 0;">
+	<div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="toast-header">
+	  	<i class="bi bi-arrow-bar-down"></i>
+	    <strong class="mr-auto">ผลลัพธ์</strong>
+	    <!-- <small>11 mins ago</small> -->
+	    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
 	  </div>
+	  <div class="toast-body"></div>
 	</div>
-</form>
+</div>
+<script>
+	$(document).on('click','#btn-submit',function(e){
+		$('#btn-submit').prop('disabled', true);
+		$('#btn-submit').attr('aria-disabled', true);
+		$('#btn-submit').addClass('disabled');
+		$('#btn-submit').removeClass('hvr-btn');
+		$.ajax({
+			url: 'index.php?route=member/submitWidthdraw',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				price: $('#price_widthdraw').val()
+			},
+		})
+		.done(function(result) {
+			if(result.status=='failed'){
+				$('#btn-submit').prop('disabled', false);
+				$('#btn-submit').attr('aria-disabled', false);
+				$('#btn-submit').removeClass('disabled');
+				$('#btn-submit').addClass('hvr-btn');
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				setInterval(function(){ 
+					window.location='index.php?route=member/finance'; 
+				}, 3000);
+			}
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		e.preventDefault();
+	});
+</script>

@@ -20,55 +20,104 @@
 						    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">ทั้งหมด</a>
 						  </li>
 						  <li class="nav-item">
-						    <a class="nav-link text-success" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">ฝาก</a>
+						    <a class="nav-link text-success" id="pills-deposit-tab" data-toggle="pill" href="#pills-deposit" role="tab" aria-controls="pills-deposit" aria-selected="false">ฝาก</a>
 						  </li>
 						  <li class="nav-item">
-						    <a class="nav-link text-danger" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">ถอน</a>
+						    <a class="nav-link text-danger" id="pills-widthdraw-tab" data-toggle="pill" href="#pills-widthdraw" role="tab" aria-controls="pills-widthdraw" aria-selected="false">ถอน</a>
 						  </li>
 						</ul>
 						<div class="tab-content" id="pills-tabContent">
 						  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 						  	<table class="table">
 						  		<thead>
-						  			<th>วันที่</th>
+						  			<th style="width:150px;">วันที่</th>
 						  			<th>ประเภท</th>
-						  			<th>จำนวนเงิน</th>
-						  			<th>สถานะ</th>
+						  			<th class="text-right" style="width:100px;">จำนวนเงิน</th>
+						  			<th class="text-center" style="width:100px;">สถานะ</th>
 						  		</thead>
+						  		<?php foreach($transection as $val){ 
+						  				$status = $val['status'];
+						  				$text_status = 'รอการอนุมัติ';
+						  				$class = 'text-info';
+						  				if($status == 1 ){
+						  					$text_status = 'อนุมัติ';
+						  					$class = 'text-success';
+						  				}else if($status == 2 ){
+						  					$text_status = 'ถูกปฏิเสธ';
+						  					$class = 'text-danger';
+						  				}
+						  		?>
 						  		<tr>
-						  			<td>13-Oct-2021 20:05</td>
-						  			<td>ฝาก</td>
-						  			<td>3,500.50</td>
-						  			<td><span class="text-success">อนุมัติ</span></td>
+						  			<td><?php echo $val['date_create']; ?></td>
+						  			<td><?php echo $val['detail']; ?></td>
+						  			<td class="text-right"><?php echo $val['amount']; ?></td>
+						  			<td class="text-center <?php echo $class;?>">
+						  				<?php echo $text_status; ?>
+						  			</td>
 						  		</tr>
+						  		<?php } ?>
 						  	</table>
 						  </div>
-						  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+						  <div class="tab-pane fade" id="pills-deposit" role="tabpanel" aria-labelledby="pills-deposit-tab">
 						  	<table class="table">
 						  		<thead>
-						  			<th>วันที่</th>
-						  			<th>จำนวนเงิน</th>
-						  			<th>สถานะ</th>
+						  			<th style="width:150px;">วันที่</th>
+						  			<th class="text-right" style="width:100px;">จำนวนเงิน</th>
+						  			<th class="text-center" style="width:100px;">สถานะ</th>
 						  		</thead>
-						  		<tr>
-						  			<td>13-Oct-2021 20:05</td>
-						  			<td>3,500.50</td>
-						  			<td><span class="text-success">อนุมัติ</span></td>
-						  		</tr>
+						  		<?php 
+						  		foreach($transection as $val){ 
+						  			if($val['type']=="0"){
+						  				$status = $val['status'];
+						  				$text_status = 'รอการอนุมัติ';
+						  				$class = 'text-info';
+						  				if($status == 1 ){
+						  					$text_status = 'อนุมัติ';
+						  					$class = 'text-success';
+						  				}else if($status == 2 ){
+						  					$text_status = 'ถูกปฏิเสธ';
+						  					$class = 'text-danger';
+						  				} ?>
+								  		<tr>
+								  			<td><?php echo $val['date_create']; ?></td>
+								  			<td class="text-right"><?php echo $val['amount']; ?></td>
+								  			<td class="text-center <?php echo $class;?>">
+								  				<?php echo $text_status; ?>
+								  			</td>
+								  		</tr>
+						  			<?php } ?>
+						  		<?php } ?>
 						  	</table>
 						  </div>
-						  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+						  <div class="tab-pane fade" id="pills-widthdraw" role="tabpanel" aria-labelledby="pills-widthdraw-tab">
 						  	<table class="table">
 						  		<thead>
-						  			<th>วันที่</th>
-						  			<th>จำนวนเงิน</th>
-						  			<th>สถานะ</th>
+						  			<th style="width:150px;">วันที่</th>
+						  			<th class="text-right" style="width:100px;">จำนวนเงิน</th>
+						  			<th class="text-center" style="width:100px;">สถานะ</th>
 						  		</thead>
-						  		<tr>
-						  			<td>13-Oct-2021 20:05</td>
-						  			<td>1,500.50</td>
-						  			<td><span class="text-success">อนุมัติ</span></td>
-						  		</tr>
+						  		<?php 
+						  		foreach($transection as $val){ 
+						  			if($val['type']=="1"){
+						  				$status = $val['status'];
+						  				$text_status = 'รอการอนุมัติ';
+						  				$class = 'text-info';
+						  				if($status == 1 ){
+						  					$text_status = 'อนุมัติ';
+						  					$class = 'text-success';
+						  				}else if($status == 2 ){
+						  					$text_status = 'ถูกปฏิเสธ';
+						  					$class = 'text-danger';
+						  				} ?>
+								  		<tr>
+								  			<td><?php echo $val['date_create']; ?></td>
+								  			<td class="text-right"><?php echo $val['amount']; ?></td>
+								  			<td class="text-center <?php echo $class;?>">
+								  				<?php echo $text_status; ?>
+								  			</td>
+								  		</tr>
+						  			<?php } ?>
+						  		<?php } ?>
 						  	</table>
 						  </div>
 						</div>
@@ -77,3 +126,19 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).on('click','.nav-link',function(e){
+			$( ".tab-pane" ).each(function() {
+				$(this).removeClass('active');
+				$(this).removeClass('show');
+			});
+			$( ".nav-link" ).each(function() {
+				$(this).removeClass('active');
+			});
+			$(this).addClass('active');
+			var tab_id = $(this).attr('href');//.addClass('show');
+			$(tab_id).addClass('active');
+			$(tab_id).addClass('show');
+			e.preventDefault();
+		});
+	</script>

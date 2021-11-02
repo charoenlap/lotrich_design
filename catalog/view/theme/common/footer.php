@@ -13,8 +13,24 @@
 						<h5>สมาชิก</h5>
 						<div class="footer-menu">
 							<ul>
-	                          <li><a href="<?php echo $link_login; ?>">เข้าสู่ระบบ</a></li>
-	                          <li><a href="<?php echo $link_register; ?>">สมัครสมาชิก</a></li>
+	                          <?php if(!empty($link_login)){ ?>
+						      <li><a class="" href="<?php echo $link_login; ?>">เข้าสู่ระบบ</a></li>
+						      <?php } ?>
+						      <?php if(!empty($link_register)){ ?>
+						      <li><a class="" href="<?php echo $link_register; ?>">สมัครสมาชิก</a></li>
+						      <?php } ?>
+						      <?php if(!empty($link_dashboard)){ ?>
+						      <li><a class="" href="<?php echo $link_dashboard; ?>">หน้าหลักสมาชิก</a></li>
+						      <?php } ?>
+						      <?php if(!empty($link_deposit)){ ?>
+						      <li><a class="" href="<?php echo $link_deposit; ?>">เติมเงิน</a></li>
+						      <?php } ?>
+						      <?php if(!empty($link_forgot)){ ?>
+						      <li><a class="" href="<?php echo $link_forgot; ?>">ลืมรหัสผ่าน</a></li>
+						      <?php } ?>
+						      <?php if(!empty($link_logout)){ ?>
+						      <li><a class="" href="<?php echo $link_logout; ?>">ออกจากระบบ</a></li>
+						      <?php } ?>
 		                    </ul>
 						</div>
 					</div>

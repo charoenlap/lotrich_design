@@ -15,7 +15,7 @@
 			<input type="text" class="form-control" value="16-Oct-2021">
 		</div>
 		<div class="col-6 col-md-10 text-right">
-			<a href="" class="btn ">เข้าสู่ระบบ คลิกที่นี่</a>
+			<a href="<?php echo route('login');?>" class="btn ">เข้าสู่ระบบ คลิกที่นี่</a>
 		</div>
 	</div>
 	<?php foreach($category as $val){ ?>

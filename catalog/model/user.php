@@ -2,69 +2,76 @@
 	class UserModel extends db {
 		public function login($data=array()){
 			$result = array();
-			$user_email 	= $this->escape(pure_text($data['user_email']));
-			$user_password 	= $this->escape($data['user_password']);
-			$id_user_fb		= $this->escape($data['id_user_fb']);
-			if(!empty($id_user_fb)){
-				$sql = "SELECT * FROM com_user WHERE id_user_fb = '".$id_user_fb."' limit 0,1";
-			}else{
-				$sql = "SELECT * FROM com_user WHERE user_email = '".$user_email."' AND user_password = '".md5($user_password)."' limit 0,1";
-			}
+			$email 	= $this->escape(pure_text($data['email']));
+			$password 	= $this->escape($data['password']);
+			
+			$sql = "SELECT * FROM `b_user` 
+			WHERE `email` = '".$email."' AND `password` = '".md5($password)."' 
+			limit 0,1";
+			
 			$result_user = $this->query($sql); 
 			if($result_user->num_rows > 0){
-				$id_user 			= $result_user->row['id_user'];
-				$user_key 			= $result_user->row['user_key'];
 				$result 			= $result_user->row;
-				$result['status']	= 'success',
-				$result['token'] 	= encode($id_user,$user_key);
+				$result['status']	= 'success';
+				$result['desc']		= 'Login complete';
 			}else{
 				$result = array(
 					'status'		=> 'fail',
-					'user_email'	=> $user_email,
-					'user_password'	=> $user_password
+					'email'			=> $email,
+					'desc'			=> 'Not found in database.'
 				);
 			}
 			return $result;
 		}
 		public function register($data=array()){
 			$result = array();
-			$email 			= !empty($data['user_email']) ? $this->escape($data['user_email']) : '' ;
-			$user_password 	= !empty($data['user_password']) ? $this->escape($data['user_password']) : '' ;
-			$user_name 		= !empty($data['user_name']) ? $this->escape($data['user_name']) : '' ;
-			$user_lastname 	= !empty($data['user_lastname']) ? $this->escape($data['user_lastname']) : '' ;
-			$id_user_fb 	= !empty($data['id_user_fb']) ? $this->escape($data['id_user_fb']) : '' ;
-			$user_phone		= !empty($data['user_phone']) ? $this->escape($data['user_phone']) : '' ;
 
-			if(!empty($id_user_fb)){
-				$sql_check_dupplicate_if_fb = "SELECT * FROM com_user WHERE id_user_fb = '".$id_user_fb."'";
-				$query_check = $this->query($sql_check_dupplicate_if_fb);
-				if($query_check->num_rows > 0){
-					$result['status'] 	= 'success';
-					$result['desc'] 	= 'ไม่สมัครใหม่ เนื่องจากมี email ในระบบแล้ว';
-					return $result;
-				}
-			}
+			$name 			= (!empty($data['name']) ? 			$this->escape($data['name']):'');
+			$lname 			= (!empty($data['lname']) ? 		$this->escape($data['lname']):'');
+			$phone 			= (!empty($data['phone']) ? 		$this->escape($data['phone']):'');
+			$bank_no 		= (!empty($data['bank_no']) ? 		$this->escape($data['bank_no']):'');
+			$bank_name 		= (!empty($data['bank_name']) ? 	$this->escape($data['bank_name']):'');
+			$email 			= (!empty($data['email']) ? 		$this->escape($data['email']):'');
+			$password 		= (!empty($data['password']) ? 		$this->escape($data['password']):'');
+			$encrypt 		= (!empty($data['encrypt']) ? 		$this->escape($data['encrypt']):'');
+			$approve 		= (!empty($data['approve']) ? 		$this->escape($data['approve']):0);
+			$by 			= (!empty($data['by']) ? 			$this->escape($data['by']):'');
+
 			if(!empty($email)){
-				$sql_check_dupplicate_email = "SELECT * FROM com_user WHERE user_email = '".$email."'";
-				$query_check = $this->query($sql_check_dupplicate_email);
-				if($query_check->num_rows == 0){
+				$sql_check_dupplicate_email = "SELECT * FROM b_user WHERE email = '".$email."'";
+				$query_check_email 		= $this->query($sql_check_dupplicate_email);
+
+				$sql_check_dupplicate_bank_no = "SELECT * FROM b_user WHERE bank_no = '".$bank_no."'";
+				$query_check_bank_no 	= $this->query($sql_check_dupplicate_bank_no);
+
+				if($query_check_email->num_rows == 0 AND $query_check_bank_no->num_rows == 0){
+					$date_create 	= date('Y-m-d H:i:s');
 					$data_insert_user = array(
-						'user_email' 		=> $email,
-						'user_password' 	=> md5($user_password),
-						'user_name'			=> $user_name,
-						'user_lastname'		=> $user_lastname,
-						'user_key'			=> rand(10000,99999),
-						'user_date_create'	=> date('Y-m-d H:i:s'),
-						'id_user_fb'		=>	$id_user_fb,
-						'user_phone'		=> 	$user_phone
+						'name' 			=> $name,
+						'lname' 		=> $lname,
+						'phone' 		=> $phone,
+						'bank_no' 		=> $bank_no,
+						'bank_name' 	=> $bank_name,
+						'email' 		=> $email,
+						'password' 		=> md5($password),
+						'encrypt' 		=> $encrypt,
+						'date_create' 	=> $date_create,
+						'approve'		=> $approve,
+						'by'			=> $by
 					);
-					$id_user = $this->insert('user',$data_insert_user);
+					$id = $this->insert('user',$data_insert_user);
+					$result['id'] 		= $id;
 					$result['status'] 	= 'success';
-					$result['desc'] 	= '';
+					$result['desc'] 	= 'สมัครสมาชิกเรียบร้อย ท่านจะสามารถเข้าสู่ระบบ ได้หลังจากเจ้าหน้าที่อนุมัติ กรุณารอซักครู่';
 					return $result;
 				}else{
 					$result['status'] 	= 'fail';
-					$result['desc']		= 'Email นี้มีอยู่ในระบบแล้ว';
+					if($query_check_email->num_rows){
+						$result['desc'][]	= 'Email นี้มีอยู่ในระบบแล้ว';
+					}
+					if($query_check_bank_no->num_rows){
+						$result['desc'][]	= 'บัญชีธนาคาร นี้มีอยู่ในระบบแล้ว';
+					}
 					return $result;
 				}
 			}else{
@@ -73,6 +80,7 @@
 				return $result;
 			}
 		}
+		
 		public function findEamil($email) {
 			$this->where('user_email', $email);
 			$result = $this->get('user');

@@ -57,6 +57,12 @@ nav.navbar{
 .hvr-btn:hover {
   background: green none repeat scroll 0 0 !important;
 }
+.indicator-style .owl-theme .owl-nav [class*="owl-"], 
+.service-area.indicator-style .owl-theme .owl-nav [class*="owl-"] {
+    background: transparent;
+    color: #e2a750 !important;
+    text-decoration: none;
+}
 /* ================================================
 [  Table of contents  ]
 ================================================
