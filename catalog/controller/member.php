@@ -1,14 +1,51 @@
 <?php 
 	class MemberController extends Controller {
+	    public function package(){
+	    	$id_user = decrypt($this->getSession('id'));
+			if(!empty($id_user)){
+				$data = array();
+		    	$data['title'] = "Package";
+		    	$data['descreption'] = "";
+		    	// $data['balance'] 	= $this->model('finance')->getBalance($id_user);
+		    	
+		    	$id_lotto = get('id');
+		    	$id_lotto = decrypt($id_lotto);
+		    	$data['id_lotto'] = $id_lotto;
+		    	// echo $id_lotto.'<';
+		    	$data['link_lotto'] = route('member/lottery');
+		    	$data['package'] = $this->model('master')->getPackage($id_lotto);
+		    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
+	 	    	$this->view('member/package',$data); 
+	 	    }else{
+	 	    	redirect('login');
+	 	    }
+	    }
 	    public function lottery(){
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 				$data = array();
-		    	$data['title'] = "lottery";
-		    	$data['descreption'] = "";
-		    	$data['balance'] 	= $this->model('finance')->getBalance($id_user);
-		    	$data['lotto'] = $this->getSession('lotto');
-	 	    	$this->view('member/lottery',$data); 
+				$id_package = get('id_package');
+		    	$id_package = decrypt($id_package);
+		    	if(empty($id_package)){
+
+			    	$data['title'] = "lottery";
+			    	$data['descreption'] = "";
+			    	$data['balance'] 	= $this->model('finance')->getBalance($id_user);
+			    	
+			    	$id_lotto = get('id');
+			    	$id_lotto_session = $this->getSession('id_lotto');
+
+			    	if($id_lotto != $id_lotto_session){
+			    		$this->setSession('id_lotto',$id_lotto);
+			    		$this->setSession('lotto',array());
+			    	}
+			    	$data['lotto'] = $this->getSession('lotto');
+			    	$data['detail'] = $this->model('master')->getCategoryDetail(decrypt($id_lotto));
+			    	$data['id_package'] = encrypt($id_package);
+		 	    	$this->view('member/lottery',$data); 
+		 	    }else{
+		 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
+		 	    }
 	 	    }else{
 	 	    	redirect('login');
 	 	    }
@@ -129,7 +166,6 @@
 	    }
 	    public function submitLotto(){
 	    	$result = array();
-	    	$id_user = decrypt($this->getSession('id'));
 	    	$result = array();
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
@@ -194,7 +230,7 @@
 		    	$data['title'] = "dashboard";
 		    	$data['descreption'] = "";
 		    	$data['category'] = $this->model('master')->getCategory();
-		    	$data['link_lottery'] = route('member/lottery');
+		    	$data['link_package'] = route('member/package');
 		    	$data['link_deposit'] = route('member/deposit');
 				$data['link_widthdraw'] = route('member/widthdraw');
 				$data['link_reward'] = route('member/reward');
@@ -317,7 +353,13 @@
 				$data['title'] = "deposit";
 	    		$data['descreption'] = "";
 	    		$data['balance'] 	= $this->model('finance')->getBalance($id_user);
-	    		$data['bank']		= $this->model('setting')->getSetting()['bank'];
+	    		$data['bank_no']		= $this->getSession('bank_no');
+	    		$data['bank_name']		= $this->getSession('bank_name');
+
+	    		$data['bank_no_2']		= $this->getSession('bank_no_2');
+	    		$data['bank_name_2']	= $this->getSession('bank_name_2');
+
+	    		$data['name']			= $this->getSession('name');
  	    		$this->view('member/deposit',$data); 
  	    	}else{
 	 	    	$this->redirect('login');

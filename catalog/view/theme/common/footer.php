@@ -42,9 +42,10 @@
 						<h5>อื่นๆ</h5>
 						<div class="footer-menu">
 							<ul>
-								<li class=""><a href="<?php echo route('home'); ?>">หน้าหลัก</a></li>
 								<li><a href="<?php echo $link_result; ?>">ผลรางวัล</a></li>
 		                      	<li><a href="<?php echo $link_contact; ?>">ติดต่อเรา</a></li>
+		                      	<li><a href="<?php echo $link_condition; ?>">เงื่อนไขการถูกรางวัล </a></li>
+		                      	<li><a href="<?php echo $link_rule; ?>">กฏข้อบังคับ </a></li>
 							</ul>
 						</div>
 					</div>

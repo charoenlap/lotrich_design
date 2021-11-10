@@ -29,7 +29,10 @@
   <!-- /#wrapper -->
 
   <!-- <?php echo $filemanager; ?> -->
+  <script src="assets/js/main.js"></script>
 
+  <!-- Custom styles for this template -->
+  <script src="assets/fontawesome/js/all.js"></script>
   <script>
     $("#menu-toggle").click(function(e) {
       e.preventDefault();

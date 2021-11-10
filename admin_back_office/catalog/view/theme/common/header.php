@@ -13,24 +13,23 @@ if (!isset($_SESSION['id_admin'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <!-- <title><?php echo $title;?></title> -->
+  <!-- <title><?php //echo $title;?></title> -->
   <meta name="robots" content="noindex, nofollow">
-  <link href="assets/boostrap_jquery/css/bootstrap.css" rel="stylesheet" >
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" >
   <link href="assets/css/sidebar.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+  
   <?php if(isset($style)){ 
       foreach ($style as $key => $value) { ?>
     <link rel="stylesheet" href="<?php echo $value;?>">
   <?php } } ?>
-  <script src="assets/boostrap_jquery/js/jquery.js"></script>
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/jquery-migrate-3.3.2.min.js"></script>
   <script src="assets/boostrap_jquery/js/popper.js"></script>
-  <script src="assets/boostrap_jquery/js/bootstrap.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  
 
-  <!-- Custom styles for this template -->
-  <script src="assets/fontawesome/js/all.js"></script>
   <?php 
   if(isset($script)){
   foreach ($script as $key => $value) { ?>
@@ -48,9 +47,9 @@ if (!isset($_SESSION['id_admin'])) {
       <div class="sidebar-heading text-theme text-center">
         <img src="../uploads/logo/slogo.png" alt="" width="100"></div>
       <div class="list-group menu-list list-group-flush">
-        <a href="<?php echo route('home'); ?>" class="list-group-item list-group-item-action active"> หน้าหลัก</a>
+        <a href="<?php echo route('home'); ?>" class="list-group-item list-group-item-action"> หน้าหลัก</a>
         <a href="<?php echo route('lotto'); ?>" class="list-group-item list-group-item-action"> จัดการหวย</a>
-        <a href="<?php echo route('tranfer'); ?>" class="list-group-item list-group-item-action"> แจ้งฝาก (5) /ถอน (3)</a>
+        <a href="<?php echo route('bill'); ?>" class="list-group-item list-group-item-action"> บิลหวยลูกค้า</a>
         <a href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก</a>
         <a href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน</a>
         <a href="<?php echo route('customer'); ?>" class="list-group-item list-group-item-action"> ลูกค้า</a>
@@ -76,18 +75,17 @@ if (!isset($_SESSION['id_admin'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home </a>
+              <a class="nav-link" href="#">หน้าหลัก </a>
             </li>
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Member
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <!-- <a class="dropdown-item" href="#">Profile</a> -->
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?php echo route('home/logout'); ?>">Logout</a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>

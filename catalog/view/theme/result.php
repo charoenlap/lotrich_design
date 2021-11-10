@@ -12,7 +12,7 @@
 <div class="container">
 	<div class="row mt-5">
 		<div class="col-6 col-md-2 text-left">
-			<input type="text" class="form-control" value="16-Oct-2021">
+			<input type="text" class="form-control" value="16-Oct-2021" id="date-result">
 		</div>
 		<div class="col-6 col-md-10 text-right">
 			<a href="<?php echo route('login');?>" class="btn ">เข้าสู่ระบบ คลิกที่นี่</a>

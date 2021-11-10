@@ -1,11 +1,17 @@
 <?php 
 	class MasterModel extends db {
+		public function getPackage($id){
+			return $this->query("SELECT * FROM b_package WHERE id_category = ".(int)$id)->rows;
+		}
+		public function getBank(){
+			return $this->query("SELECT * FROM b_bank")->rows;
+		}
 		public function getCategory($data=array()){
 			$date = "2021-10-01";
 			$result = array();
 			$path_json = PATH_JSON.'/getCategory.json';
 			if(!isset($data['db'])){
-				$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0";
+				$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0 ORDER BY `order_by` ASC";
 				$category = $this->query($sql)->rows;
 
 				foreach($category as $val){
@@ -22,8 +28,11 @@
 						ORDER BY b_category_type.`order` ASC";
 						$type_sub = $this->query($sql_sub_in)->rows;
 						$result_cate_sub[] = array(
-							'name' => $cs['name'],
-							'type' => $type_sub
+							'id' 	=> $cs['id'],
+							'name' 	=> $cs['name'],
+							'flag' 	=> $cs['flag'],
+							'name' 	=> $cs['name'],
+							'type' 	=> $type_sub
 						);
 					}
 					$type = array();
@@ -36,11 +45,12 @@
 					$type = $this->query($sql_sub)->rows;
 
 					$result[] = array(
-						'id' 	=> $val['id'],
-						'name' 	=> $val['name'],
-						'flag' 	=> $val['flag'],
-						'sub'	=> $result_cate_sub,
-						'type'	=> $type
+						'id' 			=> $val['id'],
+						'name' 			=> $val['name'],
+						'flag' 			=> $val['flag'],
+						'sub'			=> $result_cate_sub,
+						'type'			=> $type,
+						'date_close' 	=> $val['date_close'],
 					);
 				}
 				// echo "<pre>";
@@ -51,6 +61,12 @@
 			}else{
 				$result = json_decode(file_get_contents($path_json), true);
 			}
+			return $result;
+		}
+		public function getCategoryDetail($id){
+			$result = array();
+			$sql = "SELECT * FROM b_category WHERE `status`=0 AND id = ".(int)$id;
+			$result = $this->query($sql)->row;
 			return $result;
 		}
 	}

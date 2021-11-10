@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="<?php echo $description;?>">
-    <title><?php echo $title; ?></title>
+    <title><?php //echo $title; ?></title>
     <meta name="author" content="">
 
 
@@ -36,7 +36,7 @@
   <link href="assets/theme/ftage/assets/revolution/css/settings.css?time=<?php echo time();?>" rel="stylesheet">
   <link href="assets/theme/ftage/assets/revolution/css/navigation.css?time=<?php echo time();?>" rel="stylesheet">
   <link href="assets/theme/ftage/assets/revolution/custom-setting.css?time=<?php echo time();?>" rel="stylesheet">
-
+  <link href="assets/extra.css?time=<?php echo time();?>" rel="stylesheet">
   <script src="assets/theme/ftage/js/vendor/jquery-3.6.0.min.js"></script>
   <script src="assets/theme/ftage/js/vendor/jquery-migrate-3.3.2.min.js"></script>
   
@@ -79,6 +79,15 @@
               <?php } ?>
               <?php if(!empty($link_deposit)){ ?>
               <a class="dropdown-item" href="<?php echo $link_deposit; ?>">เติมเงิน</a>
+              <?php } ?>
+              <?php if(!empty($link_widthdraw)){ ?>
+              <a class="dropdown-item" href="<?php echo $link_widthdraw; ?>">ถอนเงิน</a>
+              <?php } ?>
+              <?php if(!empty($link_finance)){ ?>
+              <a class="dropdown-item" href="<?php echo $link_finance; ?>">การเงิน</a>
+              <?php } ?>
+              <?php if(!empty($link_ticket)){ ?>
+              <a class="dropdown-item" href="<?php echo $link_ticket; ?>">โพยหวย</a>
               <?php } ?>
               <?php if(!empty($link_forgot)){ ?>
               <a class="dropdown-item" href="<?php echo $link_forgot; ?>">ลืมรหัสผ่าน</a>

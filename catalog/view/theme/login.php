@@ -16,15 +16,18 @@
 				<form action="<?php echo $action; ?>" id="form-login" method="POST">
 					<div class="input-group mb-3">
 						<div class="input-group-append">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							<span class="input-group-text"><i class="fa fa-user"></i></span>
 						</div>
-						<input type="text" name="email" class="form-control input_user" value="" placeholder="username">
+						<input type="text" name="email" class="form-control input_user" value="<?php echo $username; ?>" placeholder="username">
 					</div>
 					<div class="input-group mb-2">
 						<div class="input-group-append">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
+							<span class="input-group-text"><i class="fa fa-key"></i></span>
 						</div>
 						<input type="password" name="password" class="form-control input_pass" value="" placeholder="password">
+					</div>
+					<div class="text-center">
+						<input type="checkbox" value="1" name="chk" id="chk" <?php echo (!empty('chk')?'checked':''); ?>> <label for="chk">จดจำการเข้าสู่ระบบ</label>
 					</div>
 					<div class=" mt-3 login_container">
 						<div class="load-btn mt-20">

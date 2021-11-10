@@ -1,0 +1,17 @@
+a.btn-home-login {
+  color:red;
+  font-size:16px;
+  display: inline-block;
+  background-color:#fff !important;
+  padding:10px 20px;
+  margin-top:50px;
+  margin-bottom:50px;
+}
+.splide {
+	padding:20px 0px;
+}
+.splide {
+  background: rgb(0,112,0);
+  /*background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, rgba(0,77,0,1) 100%);}*/
+  background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);}
+}

@@ -10,7 +10,7 @@
 			<ul>
 				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
 				<li><a href="<?php echo route('member/dashboard');?>">สมาชิก <span>/</span></a></li>
-				<li>แทงหวย รัฐบาล</li>
+				<li><?php echo $detail['name'];?></li>
 			</ul>	
 		</div>
 	</div>
@@ -123,6 +123,7 @@
 			    		</div>
 			    	</div>
 			    	<form action="#" method="POST" id="form-lotto">
+			    		<input type="hidden" name="id_package" value="<?php echo $id_package; ?>">
 			    		<input type="hidden" name="id_category" value="<?php echo $_GET['id'];?>">
 			    		<table class="table" id="table-lotto">
 				    		<thead>

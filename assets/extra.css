@@ -1,0 +1,47 @@
+.default-bg { 
+	background: rgb(0,112,0);
+	/*background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, rgba(0,77,0,1) 100%);*/
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);
+}
+.footer-top{
+	background: rgb(0,112,0);
+	/*background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, rgba(0,77,0,1) 100%);*/
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);
+}
+.slider-area {
+	background: rgb(0,112,0);
+	/*background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, rgba(0,77,0,1) 100%);*/
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);
+}
+nav.navbar{
+    background: rgb(0,112,0);
+    background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);
+      /*background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(246,255,55,1) 50%, rgba(0,77,0,1) 100%);*/
+  }
+.breadcamb-area.bg-17.bg-overlay-1{
+	background: rgb(0,112,0) !important;
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%) !important;
+}
+#date-result,.card-header {
+	background: rgb(0,112,0) !important;
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%) !important;
+	color:#fff;
+
+}
+.sub-card.card > .card-header {
+	background:#3e3e3e !important;
+}
+.lotto .card-body-red {
+    background: red;
+}
+.bg-overlay-1::before {
+    background: transparent;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}

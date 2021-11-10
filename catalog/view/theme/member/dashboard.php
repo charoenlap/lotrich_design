@@ -9,7 +9,7 @@
 		</div>
 	</div>
 </section>
-<div class="container mt-4">
+<div class="container mt-4 lotto">
 	<div class="row mt-4">
 		<div class="col-md-2">
 			ผู้ใช้งาน : <span><?php echo $name.' '.$lname; ?></span><br>
@@ -17,31 +17,63 @@
 		</div>
 		<div class="col-md-10">
 			<nav class="nav nav-pills nav-justified">
-					<a href="<?php echo $link_widthdraw; ?>" class="nav-item nav-link text-danger">ถอนเงิน</a>
-					<a href="<?php echo $link_deposit; ?>" class="nav-item nav-link text-success">ฝากเงิน</a>
-					<a href="<?php echo $link_finance; ?>" class="nav-item nav-link text-warning">การเงิน</a>
-					<a href="<?php echo $link_ticket; ?>" class="nav-item nav-link ">โพยหวย</a>
+				<a href="<?php echo $link_deposit; ?>" class="nav-item nav-link text-success">ฝากเงิน</a>
+				<a href="<?php echo $link_widthdraw; ?>" class="nav-item nav-link text-danger">ถอนเงิน</a>
+				<a href="<?php echo $link_finance; ?>" class="nav-item nav-link text-warning">การเงิน</a>
+				<a href="<?php echo $link_ticket; ?>" class="nav-item nav-link ">โพยหวย</a>
 			</nav>
 		</div>
 	</div>
 	
 	<div class="row mt-4">
 		<?php foreach($category as $val){ ?>
-			<div class="col-lg-3 col-md-6">
-				<div class="recent-news-single">
-					<div class="news-thumbnail">
-						<a href="<?php echo $link_lottery;?>"  style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:100%;height:150px;background-size:cover;background-position: center;margin-right:10px;display:block;"></a>
+			<?php 
+				$class="col-lg-6";
+				if($val['sub']){ $class="col-lg-12"; } ?>
+			<div class="<?php echo $class;?> col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						<h3 style="line-height: 30px;display:inline-block;color:#fff;">
+							<?php if(!$val['sub']){ ?>
+							<a href="<?php echo $link_package.'&id='.encrypt($val['id']);?>">
+								<?php if($val['flag']){ ?>
+								<img src="uploads/flag/<?php echo $val['flag'];?>" width="50px" height="30px"> 
+								<?php } ?>
+								<?php echo $val['name']; ?>
+							</a>
+							<?php }else{?>
+								<img src="uploads/flag/<?php echo $val['flag'];?>" width="50px" height="30px"> 
+								<?php echo $val['name']; ?>
+							<?php } ?>
+						</h3>
+						<?php if(!$val['sub']){ ?>
+						<div  class="text-center" style="float:right">ปิด: <?php echo $val['date_close']; ?></div>
+						<?php }?>
 					</div>
-					<div class="news-content">
-						<div class="news-meta">
-							<!-- <span></span> -->
-							<div class="load-btn mt-20">
-								<a class="hvr-btn btn-block" href="<?php echo $link_lottery.'&id='.encrypt($val['id']);?>">
-									<?php echo $val['name']; ?>
-								</a>
+					<div class="">
+						<?php if($val['sub']){ ?>
+							<div class="row">
+							<?php foreach($val['sub'] as $v){?>
+								<div class="col-3">
+									<div class="sub-card card mt-2 mb-2">
+										<div class="card-header">
+											<h4 style="line-height: 30px;display:inline-block;color:#fff;">
+												<a class="" href="<?php echo $link_package.'&id='.encrypt($v['id']);?>">
+													<?php echo $v['name']; ?>
+												</a>
+											</h4>
+										</div>
+										<div class="card-body card-body-red">
+											<div class="text-center" >ปิด: <?php echo $val['date_close']; ?></div>
+											<?php /*<a class="hvr-btn btn-block" href="<?php echo $link_package.'&id='.encrypt($v['id']);?>">
+												<?php echo $v['name']; ?>
+											</a>*/ ?>
+										</div>
+									</div>
+								</div>
+							<?php }?>
 							</div>
-							
-						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

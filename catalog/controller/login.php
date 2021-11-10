@@ -5,11 +5,14 @@
             $data['title'] = "LotRich";
             $data['descreption'] = "";
             $data['action'] = route('login/submit');
+            $data['username'] = '';
             $id     = decrypt($this->getSession('id'));
             $email  = $this->getSession('email');
+            $data['chk']  = $this->getSession('chk');
             if(!empty($id) AND !empty($email)){
                 $this->redirect('member/dashboard');
             }else{
+                $data['username'] = $this->getSession('email');
                 $this->view('login',$data); 
             }
         }
@@ -22,7 +25,8 @@
                 $user   = $this->model('user');
                 $email              = post('email');
                 $password           = post('password');
-
+                $this->setSession('email',$email);
+                $this->setSession('chk',post('chk'));
                 if( !empty($password) and !empty($email) ){
                         $arr_user = array(
                             'email'         => $email,

@@ -37,32 +37,56 @@
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							หมายเลขบัญชีธนาคาร
-							<input type="text" name="bank_no" id="bank_no" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4">
+							<input type="text" name="bank_no" id="bank_no" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							ธนาคาร
-							<input type="text" name="bank_name" id="bank_name" class="form-control input-lg" placeholder="ธนาคาร" tabindex="5">
+							<select name="bank_name" id="bank_name" class="form-control input-lg" required>
+								<option value="">เลือกธนาคาร</option>
+								<?php foreach($bank as $val){?>
+									<option value="<?php echo $val['name'];?>"><?php echo $val['name'];?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							หมายเลขบัญชีธนาคาร (ถ้ามี กรณีฉุกเฉิน)
+							<input type="text" name="bank_no_2" id="bank_no_2" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="6">
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							ธนาคาร
+							<select name="bank_name_2" id="bank_name_2" class="form-control input-lg">
+								<option value="">เลือกธนาคาร</option>
+								<?php foreach($bank as $val){?>
+									<option value="<?php echo $val['name'];?>"><?php echo $val['name'];?></option>
+								<?php } ?>
+							</select>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					อีเมล
-					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="อีเมล" tabindex="6">
+					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="อีเมล" tabindex="8">
 				</div>
 				
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							รหัสผ่าน
-							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="รหัสผ่าน" tabindex="7">
+							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="รหัสผ่าน" tabindex="9">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							ยืนยันรหัสผ่าน
-							<input type="password" name="confirm_password" id="confirm_password" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" tabindex="8">
+							<input type="password" name="confirm_password" id="confirm_password" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" tabindex="10">
 						</div>
 					</div>
 				</div>

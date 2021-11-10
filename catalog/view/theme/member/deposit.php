@@ -25,7 +25,15 @@
 						<div class="panel">
 							<div class="card">
 								<div class="card-body">
-									<?php echo $bank; ?>
+									<?php echo $bank_no; ?><br>
+									<?php echo $bank_name; ?><br>
+									ชื่อบัญชี: <?php echo $name; ?>
+									<?php if($bank_no_2){?>
+										<hr>
+										<?php echo $bank_no_2; ?><br>
+										<?php echo $bank_name_2; ?><br>
+										ชื่อบัญชี: <?php echo $name; ?>
+									<?php } ?>
 								</div>
 							</div>
 						</div>
@@ -141,7 +149,7 @@
 	var x;
 	$(document).on('click','#btn-confirm',function(e){
 		var now_start = new Date().getTime();
-		var countDownDate = new Date(now_start + 15*60000).getTime();
+		var countDownDate = new Date(now_start + 10*60000).getTime();
 		clearInterval(x);
 		x = setInterval(function() {
 		  var now = new Date().getTime();

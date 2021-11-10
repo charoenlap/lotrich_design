@@ -62,12 +62,12 @@
 			<div class="card ">
 				<div class="card-body">
 					<h2 class="text-center"><span class="text-success">203,291.20</span> </h2>
-					<h4 class="text-center">จำนวนโพย (บาท)</h4>
+					<h4 class="text-center">จำนวนโพย</h4>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row mt-4">
+	<!-- <div class="row mt-4">
 		<div class="col-12">
 			<div class="card">
 				<div class="card-body">
@@ -100,7 +100,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	
 </div>
 <script type="text/javascript">
