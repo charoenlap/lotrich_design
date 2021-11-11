@@ -1,0 +1,271 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------------------
+   F o n t  I m p o r t . . .
+----------------------------------------------------------------------------------------*/
+@font-face {
+    font-family: 'sukhumvitset-bold';
+    src: url('fonts/sukhumvit/sukhumvitset-bold.eot');
+    src: url('fonts/sukhumvit/sukhumvitset-bold.eot') format('embedded-opentype'),
+         url('fonts/sukhumvit/sukhumvitset-bold.woff') format('woff'),
+         url('fonts/sukhumvit/sukhumvitset-bold.ttf') format('truetype'),
+         url('fonts/sukhumvit/sukhumvitset-bold.svg#sukhumvitset-bold') format('svg');
+}
+@font-face {
+    font-family: 'sukhumvitset-medium';
+    src: url('fonts/sukhumvit/sukhumvitset-medium.eot');
+    src: url('fonts/sukhumvit/sukhumvitset-medium.eot') format('embedded-opentype'),
+         url('fonts/sukhumvit/sukhumvitset-medium.woff') format('woff'),
+         url('fonts/sukhumvit/sukhumvitset-medium.ttf') format('truetype'),
+         url('fonts/sukhumvit/sukhumvitset-medium.svg#sukhumvitset-medium') format('svg');
+}
+@font-face {
+    font-family: 'sukhumvitset-text';
+    src: url('fonts/sukhumvit/sukhumvitset-text.eot');
+    src: url('fonts/sukhumvit/sukhumvitset-text.eot') format('embedded-opentype'),
+         url('fonts/sukhumvit/sukhumvitset-text.woff') format('woff'),
+         url('fonts/sukhumvit/sukhumvitset-text.ttf') format('truetype'),
+         url('fonts/sukhumvit/sukhumvitset-text.svg#sukhumvitset-text') format('svg');
+}
+@font-face {
+    font-family: 'sukhumvitset-thin';
+    src: url('fonts/sukhumvit/sukhumvitset-thin.eot');
+    src: url('fonts/sukhumvit/sukhumvitset-thin.eot') format('embedded-opentype'),
+         url('fonts/sukhumvit/sukhumvitset-thin.woff') format('woff'),
+         url('fonts/sukhumvit/sukhumvitset-thin.ttf') format('truetype'),
+         url('fonts/sukhumvit/sukhumvitset-thin.svg#sukhumvitset-thin') format('svg');
+}
+/*----------------------------------------------------------------------------------------
+   G e n e r a l . . .
+----------------------------------------------------------------------------------------*/
+* { margin: 0; padding: 0; outline: none; }
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	::-webkit-scrollbar { width: 10px; height: 10px; }
+	::-webkit-scrollbar-track:enabled { background-color: #0d0d0d; }
+	::-webkit-scrollbar-thumb:vertical { background-color: #fff; }
+	::-webkit-scrollbar-thumb:horizontal { background-color: #fff; }
+}
+*/
+/*----------------------------------------------------------------------------------------
+   B o d y . . .
+----------------------------------------------------------------------------------------*/
+body {
+  display: block;
+  position: relative;
+	margin:0; padding:0;
+  font-family: "sukhumvitset-medium", Tahoma, Arial, Geneva, sans-serif;
+	font-size:14px;
+	line-height:24px;
+	font-weight:normal;
+  text-align:left;
+	color:rgba(255,255,255,0.70);
+  background-color: rgba(55,95,125,1.00);
+  background:linear-gradient(45deg, rgba(55,95,125,1.00), rgba(33,53,63,1.00), rgba(55,95,125,1.00), rgba(33,53,63,1.00));
+	background-size:200% 200%;
+}
+body.open-fixed {
+	overflow:hidden;
+	overflow-x: hidden;
+}
+#mydesktop { display:block;}
+#mymobile { display:none;}
+/*----------------------------------------------------------------------------------------
+   Links
+----------------------------------------------------------------------------------------*/
+a, a:hover {text-decoration:none; outline:none;}
+a, a:link, a:visited {text-decoration:none; outline:none; }
+/*----------------------------------------------------------------------------------------
+   Ul li p
+----------------------------------------------------------------------------------------*/
+ul, ul li {list-style:none;}
+/*----------------------------------------------------------------------------------------
+   Div
+----------------------------------------------------------------------------------------*/
+#wrapper {
+  display:block;
+	position:relative;
+	margin:0; padding:0;
+	width:100%;
+	background-color:rgba(0,0,0,0.00);
+}
+#wrap {
+  display:block;
+	position:relative;
+	margin:0; padding:0;
+	width: 100%;
+	min-width: 1160px;
+	background-color:none;
+}
+#inner {
+	position: relative;
+	display:block;
+	margin: 0 auto; padding:0;
+	width: 1160px;
+	background-color:none;
+}
+#content {
+	position:relative;
+	display:block;
+	background-color:none;
+}
+#Over {
+  display: block;
+	position: relative;
+	margin: 0; padding:0;
+	background-color:none;
+  overflow: hidden;
+}
+#Wide {
+  display: block;
+	position: relative;
+  margin:5px; padding:10px;
+	background-color:rgba(0,0,0,0.50);
+}
+#Half {
+	float:left;
+  display: block;
+	position: relative;
+	margin:5px; padding:10px;
+	width: 550px;
+	background-color:rgba(0,0,0,0.50);
+}
+#Left {
+	float:left;
+  position: relative;
+	margin: 0; padding:10px;
+	width: 176px;
+	background-color:rgba(0,0,0,0.00);
+	border: 2px solid rgba(0,0,0,0.00);
+	text-align:left;
+}
+#Center {
+	float:left;
+	position: relative;
+	margin: 0; padding:0 20px;
+	width: 720px;
+  background-color:rgba(255,255,255,0.00);
+	text-align:left;
+}
+#Right {
+	float:right;
+	position: relative;
+	margin: 0; padding:10px;
+	width: 176px;
+  background-color:rgba(0,0,0,0.00);
+	border: 2px solid rgba(0,0,0,0.00);
+	text-align:left;
+}
+#Main {
+	float:left;
+	position: relative;
+	margin: 0; padding:0;
+	margin-right:20px;
+	width: 920px;
+	background-color:none;
+	text-align:left;
+}
+#Sidebar {
+	float:right;
+	position: relative;
+	margin: 0; padding:18px;
+	width: 160px;
+  background-color:rgba(55,95,125,1.00);
+	border: 2px solid rgba(55,95,125,1.00);
+	-moz-box-shadow: 0px 20px 20px -20px #111;
+	-webkit-box-shadow: 0px 20px 20px -20px #111;
+	box-shadow: 0px 20px 20px -20px #111;
+	text-align:left;
+}
+#inLeft {
+	float:left;
+	display:block;
+	position: relative;
+	margin: 0; padding:0;
+	margin-left:20px;
+	width: 450px;
+	background-color:none;
+	text-align:left;
+}
+#inLeft.first {
+	margin-left:0px;
+}
+.pattern {
+    background-image:url(images/pattern.png);
+    background-repeat: repeat;
+    background-attachment:scroll;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0
+}
+.pattern-w {
+    background-image:url(images/pattern-w.png);
+    background-repeat: repeat;
+    background-attachment:scroll;
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0
+}
+#wrap.cover {
+	background:#000 url(../images/cover/cover.jpg) no-repeat center center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	overflow: hidden;
+}
+#ads {
+	display: block;
+	position: relative;
+	margin:0 auto; padding:20px;
+  background-color:none;
+}
+#ads.light {
+  background-color:rgba(255,255,255,1.00);
+	border: 2px solid rgba(255,255,255,1.00);
+}
+#ads.dark {
+  background-color:rgba(0,0,0,1.00);
+	border: 2px solid rgba(0,0,0,0.50);
+}
+#mbox {
+	display: block;
+	position: relative;
+	margin:0; padding:18px;
+  background-color:rgba(0,0,0,0.00);
+	overflow: hidden;
+	border: 2px solid rgba(0,0,0,0.00);
+  border-image-source: linear-gradient(rgba(55,95,125,1.00), rgba(0,0,0,0.00));
+	border-image-slice: 2;
+	text-align:left;
+}
+#mbox.dark {
+	border: 2px solid rgba(0,0,0,0.00);
+	border-image-source: linear-gradient(rgba(55,95,125,1.00), rgba(0,0,0,1.00));
+	border-image-slice: 2;
+}
+#mbox.none {
+	border: 2px solid rgba(0,0,0,0.00);
+	border-image-source: linear-gradient(rgba(0,0,0,0.00), rgba(0,0,0,0.00));
+	border-image-slice: 2;
+}
+#Div {
+	display: block;
+	position: relative;
+	margin: 0; padding:0;
+	background-color:none;
+	border: none;
+	overflow: hidden;
+}
+#miform {
+	display: block;
+	position: relative;
+	margin: 0 auto; padding:0;
+  max-width: 300px;
+	background-color:none;
+	border: none;
+	overflow: hidden;
+}

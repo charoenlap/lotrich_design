@@ -1,22 +1,75 @@
 <?php 
 	class LottoModel extends db {
+		public function getBlockNumber($id_category){
+			$sql = "SELECT * FROM b_block_number 
+					LEFT JOIN b_block_number_detail ON b_block_number.id = b_block_number_detail.id_block WHERE id_category = ".(int)$id_category;
+			return $this->query($sql)->rows;
+		}
+		public function listType($data=array()){
+			$id_category 	= (int)$data['id_category'];
+			$id_package 	= (int)$data['id_package'];
+			$result = array();
+			$sql = "SELECT *,b_type.id AS id FROM b_type 
+					LEFT JOIN b_ratio ON b_type.id = b_ratio.id_type 
+					WHERE 
+						b_type.id_parent = 0 
+						AND b_type.see_lotto_page = 1 
+						AND b_ratio.id_category = '".$id_category."' 
+						AND b_ratio.id_package = '".$id_package."' 
+				ORDER BY `order` ASC";
+			// echo $sql;
+			$result_type = $this->query($sql)->rows;
+			foreach($result_type as $val){
+				$sql_sub = "SELECT * FROM b_type WHERE id_parent = ".$val['id']."  ORDER BY `order` ASC";
+				$result_sub_type = $this->query($sql_sub);
+				$result[] = array(
+					'id'			=> $val['id'],
+					'name'			=> $val['type'],
+					'digit'			=> $val['digit'],
+					'main'			=> $val['main'],
+					'allow_parent'	=> $val['allow_parent'],
+					'support_digit'	=> $val['support_digit'],
+					'price'			=> str_replace('.00','',$val['price']),
+					'sub'			=> $result_sub_type->rows
+				);
+			}
+			return $result;
+		}
 		public function getRatio($data=array()){
 			$result = array(
 				'status' 	=> 'failed',
 				'ratio'		=> 0 
 			);
-			$id_type		= (!empty($data['id_type']) 	? (int)$this->escape($data['id_type'])	:'');
+			$id_type		= $data['id_type'];
 			$id_category 	= (!empty($data['id_category']) 	? (int)$this->escape($data['id_category'])	:'');
+			$id_package 	= (!empty($data['id_package']) 	? (int)$this->escape($data['id_package'])	:'');
+			$number			= (!empty($data['number']) 	? (int)$this->escape($data['number'])	:'');
+			$price 			= (!empty($data['price']) 	? (float)$this->escape($data['price'])	:'');
 
-			$sql = "SELECT price,b_type.type AS type_name FROM b_ratio
-				LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
-				WHERE id_type = '".(int)$id_type."' AND id_category = '".$id_category."'";
-			$query 	= $this->query($sql);
-			if($query->num_rows>0){
+			$result_rows = array();
+			if(!empty($id_type)){
+				foreach($id_type as $v){
+					$sql = "SELECT price,b_type.type AS type_name,b_type.id AS id FROM b_ratio
+						LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
+						WHERE id_type = '".(int)$v."' 
+						AND id_category = '".$id_category."' 
+						AND id_package = '".$id_package."' 
+					";
+					$query 	= $this->query($sql);
+					if($query->num_rows>0){
+						$result_rows[] = array(
+								'ratio'		=> $query->row['price'],
+								'type'		=> $query->row['type_name'],
+								'number'	=> $number,
+								'price'		=> $price,
+								'id_type'	=> $query->row['id'],
+								'paid'		=> $query->row['price'] * $price
+						);
+					}
+				}
 				$result = array(
-					'status' 	=> 'success',
-					'ratio'		=> $query->row['price'],
-					'type'		=> $query->row['type_name']
+					'status'	=> 'success',
+					'rows'		=> $result_rows
 				);
 			}
 			return $result;
