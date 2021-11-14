@@ -17,7 +17,7 @@
 		    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
 	 	    	$this->view('member/package',$data); 
 	 	    }else{
-	 	    	redirect('login');
+	 	    	redirect('login'); 
 	 	    }
 	    }
 	    public function lottery(){
@@ -79,6 +79,7 @@
 
 			    	if($id_lotto != $id_lotto_session){
 			    		$this->setSession('id_lotto',$id_lotto);
+			    		$this->setSession('id_lotto',$id_lotto);
 			    		$this->setSession('lotto',array());
 			    	}
 			    	$data['lotto'] = $this->getSession('lotto');
@@ -129,17 +130,19 @@
 				    	}
 				    	if($i>=0 and $i<=99){
 				    		$n_00_99[] = $i;
+				    		if($i%2==0){
+					    		$n_odd[] = $i;
+					    	}else{
+					    		$n_even[] = $i;
+					    	}
 				    	}
-				    	if($i%2==0){
-				    		$n_odd[] = $i;
-				    	}else{
-				    		$n_even[] = $i;
-				    	}
+
+				    	
 			    	} 
 					$data_lotto = array(
 						'3' => array(
 							'000-249' => array(
-								'data' => $n_000_249,
+								'data' => $n_000_249
 							),
 							'250-499' => array(
 								'data' => $n_250_499,
@@ -150,7 +153,6 @@
 							'750-999' => array(
 								'data' => $n_750_999,
 							),
-
 							'000-499' => array(
 								'data' => $n_000_499,
 							),
@@ -176,10 +178,10 @@
 								'digit' => 1,
 								'data' => array(1,2,3,4,5,6,7,8,9,0)
 							),
-							'เลข 00-49' => array(
+							'00-49' => array(
 								'data' => $n_00_49
 							),
-							'เลข 50-99' => array(
+							'50-99' => array(
 								'data' => $n_50_99
 							),
 							'สองตัวคู่' => array(
@@ -203,13 +205,18 @@
 							'เลขคู่คี่' => array(
 								'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
 							),
-							'เลข 00-99' => array(
+							'00-99' => array(
 								'data' => $n_00_99
 							),
 						)
 					);
+
 					$data['data_lotto'] = $data_lotto;
-					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id);
+
+					$date = $data['detail']['date_close'];
+					$date = date_create($date);
+					$date = date_format($date,"Y-m-d");
+					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date);
 		 	    	$this->view('member/lotteryNew',$data); 
 		 	    }else{
 		 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
@@ -283,23 +290,89 @@
 		    	if(method_post()){
 					$price 		= (float)post('price');
 					if($price>0){
-						$number 	= (int)post('number');
+						$number = $number_default 	= array( (int)post('number') );
 						$id_type 	= post('id_type');
-						if(!empty($id_type)){
-							$id_category = decrypt(post('id_category'));
-							$id_package = decrypt(post('id_package'));
-							$arr = array(
-								'id_type' 		=> $id_type,
-								'id_category'	=> $id_category,
-								'id_package'	=> $id_package,
-								'number'		=> $number,
-								'price'			=> $price,
-							);
-							$lotto = $this->model('lotto')->getRatio($arr);
+						$rdoType 	= post('rdoType');
+						$digit 		= post('digit');
+						$condition 	= post('condition');
+						$chkType 	= post('chkType');
+						$rows = array();
+						if($id_type){
+							if($rdoType == "19 ประตู"){
+								$new_arr_number = array();
+								for($i=0;$i<=9;$i++){
+									$new_arr_number[] = $number[0].''.$i;
+									$new_arr_number[] = $i.''.$number[0];
+								}
+								$number = array_unique($new_arr_number);
+								sort($number);
+								// var_dump($number);
+							}else if($rdoType == "รูดหน้า"){
+								$new_arr_number = array();
+								for($i=0;$i<=9;$i++){
+									$new_arr_number[] = $number[0].''.$i;
+								}
+								$number = array_unique($new_arr_number);
+								sort($number);
+								// var_dump($number);
+							}else if($rdoType == "รูดหลัง"){
+								$new_arr_number = array();
+								for($i=0;$i<=9;$i++){
+									$new_arr_number[] = $i.''.$number[0];
+								}
+								$number = array_unique($new_arr_number);
+								sort($number);
+								// var_dump($number);
+							}else if($rdoType == "ปักหลักหน่วย" || $rdoType == "ปักหลักสิบ" || $rdoType == "ปักหลักร้อย"){
+								$new_arr_number = array($number[0]);
+								$id_type = 0;
+								if($rdoType=="ปักหลักหน่วย"){
+									$id_type = 39;
+								}else if($rdoType=="ปักหลักสิบ"){
+									$id_type = 40;
+								}else {
+									$id_type = 41;
+								}
+								$number = $new_arr_number;
+							}else if($rdoType == "4 ตัวโต๊ด" || $rdoType == "5 ตัวโต๊ด" || $rdoType == "4 ตัวบน"){
+								$new_arr_number = array($number[0]);
+								$id_type = 0;
+								if($rdoType=="4 ตัวโต๊ด"){
+									$id_type = array(42);
+								}else if($rdoType=="5 ตัวโต๊ด"){
+									$id_type = array(43);
+								}else {
+									$id_type = array(44);
+								}
+								$number = $new_arr_number;
+							}
+							
+								$number = $number_default;
+								if($id_type=="9"){
+									$new_arr_number = str_pad($number[0],3,"0", STR_PAD_LEFT);
+									$number = getCombinations($new_arr_number,3);
+									$id_type = 2; // สามตัวบน
+								}
+								if($id_type=="32"){
+									$number = array(str_pad($number[0],2,"0", STR_PAD_LEFT));
+								}
+
+								$id_category = decrypt(post('id_category'));
+								$id_package = decrypt(post('id_package'));
+								$arr = array(
+									'id_type' 		=> $id_type,
+									'id_category'	=> $id_category,
+									'id_package'	=> $id_package,
+									'number'		=> $number,
+									'price'			=> $price,
+								);
+								// var_dump($arr);
+								$type = $this->model('lotto')->getRatio($arr);
+							
 							$result = array(
 								'status' 	=> 'success',
-								'rows' 		=> $lotto['rows'],
-								'desc'		=> 'เพิ่มเรียบร้อย'
+								'data' 		=> $type,
+								'desc'		=> 'เรียบร้อย'
 							);
 						}else{
 							$result = array(
@@ -307,29 +380,6 @@
 				    			'desc'	=> 'ท่านยังไม่เลือกประเภท'
 				    		);
 						}
-						// if($lotto['ratio']>0){
-						// 	$result_lotto = array(
-						// 		'number' => $number,
-						// 		'price' => $price,
-						// 		'id_type' => $id_type,
-						// 		'ratio'	=> $lotto['ratio'],
-						// 		'paid'	=> (float)$lotto['ratio'] * $price ,
-						// 		'type'	=> $lotto['type']
-						// 	);
-						// 	$_SESSION['lotto'][] = $result_lotto;
-						// 	$result = array(
-				  //   			'status' => 'success',
-				  //   			'desc'	=> 'เพิ่มเรียบร้อย',
-				  //   			'lotto' => $result_lotto
-				  //   		);
-						// }else{
-						// 	$result = array(
-				  //   			'status' 	=> 'failed',
-				  //   			'desc'		=> 'ระบบไม่สามารถเพิ่มรายนี้ให้กับท่านได้ เนื่องจากยังไม่มีการกำหนดราคา ratio ',
-				  //   			// 'sql'		=> $lotto['sql'],
-				  //   			// 'id_type'	=> $id_type
-				  //   		);
-						// }
 					}else{
 						$result = array(
 			    			'status' => 'failed',
@@ -338,9 +388,9 @@
 					}
 		    	}else{
 		    		$result = array(
-	    			'status' => 'failed',
-	    			'desc'	=> 'Method not allow'
-	    		);
+		    			'status' => 'failed',
+		    			'desc'	=> 'Method not allow'
+		    		);
 		    	}
 	 	    }else{
 	 	    	$result = array(
@@ -364,18 +414,27 @@
 		    		$ratio 			= post('ratio');
 		    		$type 			= post('type');
 		    		$id_category 	= decrypt(post('id_category'));
+		    		$id_package 	= decrypt(post('id_package'));
 		    		$sum_price  = 0;
 		    		$balance = $this->model('finance')->getBalance($id_user);
 		    		foreach($id_type as $key => $val){
 		    			if($price[$key]<=0){
 		    				continue;
 		    			}
+		    			$number = $number[$key];
+		    			$result_ratio = $this->model('lotto')->getLottoRatio($number,$id_category,$id_type,$id_package);
+
+		    			$price = $price[$key];
+		    			$ratio = $result_ratio['ratio'];
+		    			$paid = $price * $ratio * $result_ratio['condition'];
+
+
 		    			$list_lotto[] = array(
 							'id_type' 	=> $val,
-							'number' 	=> $number[$key],
-							'paid' 		=> $paid[$key],
-							'price' 	=> $price[$key],
-							'ratio' 	=> $ratio[$key],
+							'number' 	=> $number,
+							'paid' 		=> $paid,
+							'price' 	=> $price,
+							'ratio' 	=> $ratio,
 							'type' 		=> $type[$key],
 							'status'	=> 0
 		    			);

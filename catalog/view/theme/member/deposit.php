@@ -25,15 +25,16 @@
 						<div class="panel">
 							<div class="card">
 								<div class="card-body">
-									<?php echo $bank_no; ?><br>
-									<?php echo $bank_name; ?><br>
-									ชื่อบัญชี: <?php echo $name; ?>
-									<?php if($bank_no_2){?>
-										<hr>
-										<?php echo $bank_no_2; ?><br>
-										<?php echo $bank_name_2; ?><br>
+									<div class="mb-2">
+										เลขบัญชี: <?php echo $bank_no; ?><br>
+										ชื่อธนาคาร: <?php echo $bank_name; ?><br>
 										ชื่อบัญชี: <?php echo $name; ?>
-									<?php } ?>
+									</div>
+									<div class="mt-2" style="border-top:solid #3e3e3e 1px;">
+										เลขบัญชี: <?php echo $bank_no_2; ?><br>
+										ชื่อธนาคาร: <?php echo $bank_name_2; ?><br>
+										ชื่อบัญชี: <?php echo $name; ?>
+									</div>
 								</div>
 							</div>
 						</div>

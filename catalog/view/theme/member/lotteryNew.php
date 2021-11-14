@@ -28,21 +28,25 @@
 			    		<?php foreach($listType as $val){ ?>
 				    	<div class="col-4">
 				    		<div class="form-check">
-							  <input class="form-check-input chkType <?php echo $val['id']; ?>" 
-							  	value="<?php echo $val['name']; ?>" 
-							  	data-allow-parent="<?php echo $val['allow_parent'];?>"
-							  	type="checkbox" 
-							  	name="checkbox" 
-							  	data-input-count="<?php echo $val['digit']; ?>" 
-							  	data-input-support="<?php echo $val['support_digit']; ?>" 
-							  	data-input-sub="<?php echo (isset($val['sub'])?$val['id']:'');?>"
-							  	data-id="<?php echo $val['id']; ?>"
-							  	id="chk<?php echo $val['id']; ?>">
-							  	<?php if($val['price']){ ?>
-							  	<span class="badge bg-success"><?php echo $val['price']; ?></span>
-								<?php } ?>
-							  <label class="form-check-label" for="rdo1">
-							    <?php echo $val['name']; ?>
+				    			<label class="form-check-label" for="chk<?php echo $val['id']; ?>">
+								  <input class="form-check-input chkType chk<?php echo $val['id']; ?> <?php echo $val['id']; ?>" 
+								  	value="<?php echo $val['name']; ?>" 
+								  	data-allow-parent="<?php echo $val['allow_parent'];?>"
+								  	type="checkbox" 
+								  	name="checkbox" 
+								  	data-input-count="<?php echo $val['digit']; ?>" 
+								  	data-input-support="<?php echo $val['support_digit']; ?>" 
+								  	data-input-sub="<?php echo (isset($val['sub'])?$val['id']:'');?>"
+								  	data-id="<?php echo $val['id']; ?>"
+								  	data-id-type="<?php echo $val['id']; ?>"
+								  	data-digit="<?php echo $val['digit']; ?>"
+								  	data-condition="<?php echo (empty($val['price'])?'1':'0'); ?>"
+								  	data-chkType="<?php echo $val['name']; ?>"
+								  	id="chk<?php echo $val['id']; ?>">
+								  	<?php if($val['price']){ ?>
+								  	<span class="badge bg-success"><?php echo $val['price']; ?></span>
+									<?php } ?>
+								    <?php echo $val['name']; ?>
 							  </label>
 							</div>
 				    	</div>
@@ -53,32 +57,56 @@
 							<div class="row sub_panel sub_panel_<?php echo $val['id'];?> d-none" >
 							<?php foreach($val['sub'] as $val){ ?>
 								<div class="col-4 text-center">
-									<a href="#" 
-										class="btn btn-outline-success btn-block mb-2" 
+									<label 
+										class="btn btn-outline-success btn-block mb-2 btn-add-muntiple-lottery" 
 										data-input-count="<?php echo (isset($v['digit'])?$v['digit']:'');?>" 
+										data-id-type="<?php echo $val['id'];?>"
+										data-digit="<?php echo (isset($val['digit'])?$val['digit']:'');?>" 
+										for="rdo<?php echo $val['id']; ?>"
 									>
+										<input type="radio" class="rdoType" 
+										name="rdoType" 
+										value="<?php echo $val['type']; ?>"
+										id="rdo<?php echo $val['id']; ?>" 
+										
+										>
+									
 										<?php echo $val['type'];?>
-									</a>
+									</label>
 								</div>
 							<?php } ?>
 							</div>
 						<?php } ?>
 					<?php } ?>
 			    	<?php 
+			    	$index_input = 0;
 					foreach($data_lotto as $key => $val){ ?>
-					<div class="row sub_panel sub_panel_fixed_<?php echo $key;?> d-none">
+					<div class="row sub_panel sub_panel_fixed_<?php echo $key;?> d-none" id="sub_panel_fixed_<?php echo $key;?>">
 						<?php foreach($val as $k => $v){ ?>
 							<div class="col-4 text-center">
-								<a href="#" 
-									class="btn btn-outline-success btn-block mb-2" 
+								<input type="radio" class="rdoType" 
+										name="rdoType" 
+										id="rdo<?php echo $index_input; ?>" 
+										value="<?php echo $k; ?>">
+										
+								<label 
+									class="btn btn-outline-success btn-block mb-2 btn-add-muntiple-lottery" 
 									data-input-count="<?php echo (isset($v['digit'])?$v['digit']:'');?>" 
-								><?php echo $k; ?></a>
+									data-digit="" 
+									data-id-type="<?php echo $key; ?>" 
+									data-children-class="<?php echo $k;?>"
+									for="rdo<?php echo $index_input; ?>"
+
+								>
+									<?php echo $k; ?> 
+								</label>
 								<?php if(isset($v['data'])){ ?>
 								<?php foreach($v['data'] as $va){ ?>
-								<input type="hidden"  value="<?php echo $va;?>">
+								<input type="hidden" class="input_data_id_type_<?php echo $k;?>" value="<?php echo $va;?>">
 								<?php } ?>
 								<?php } ?>
 							</div>
+							<?php $index_input++; ?>
 						<?php } ?>
 					</div>
 					<?php } ?>
@@ -99,18 +127,43 @@
 	    		<div class="card-body">
 	    			ใส่เลข
 			    	<div class="row">
-			    		<div class="col">
+			    		<div class="col p-btn-no" id="for-1-digit">
 			    			<input type="text" maxlength="1" class="form-control input-number text-center">
 			    		</div>
-			    		<div class="col" id="for-2-digit">
+			    		<div class="col p-btn-no" id="for-2-digit">
 			    			<input type="text" maxlength="1" class="form-control input-number text-center">
 			    		</div>
-			    		<div class="col" id="for-3-digit">
+			    		<div class="col p-btn-no" id="for-3-digit">
+			    			<input type="text" maxlength="1" class="form-control input-number text-center">
+			    		</div>
+			    		<div class="col p-btn-no" id="for-4-digit">
+			    			<input type="text" maxlength="1" class="form-control input-number text-center " >
+			    		</div>
+			    		<div class="col p-btn-no" id="for-5-digit">
 			    			<input type="text" maxlength="1" class="form-control input-number text-center " >
 			    		</div>
 			    	</div>
-			    	ใส่ราคา (บาท)
-			    	<input type="text" class="form-control text-right" id="price">
+			    	<div>
+			    		<div class="row mt-2">
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="1">1</a></div>
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="2">2</a></div>
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="3">3</a></div>
+				    	</div>
+				    	<div class="row mt-2">
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="4">4</a></div>
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="5">5</a></div>
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="6">6</a></div>
+				    	</div>
+				    	<div class="row mt-2">
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="7">7</a></div>
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="8">8</a></div>
+				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="9">9</a></div>
+				    	</div>
+				    	<div class="row mt-2">
+				    		<div class="col-8"><a href="#" class="btn btn-block btn-outline-success" data-input="0">0</a></div>
+				    		<div class="col"><a href="#" class="btn btn-block btn-danger btn-input-number" data-input="<">ลบ</a></div>
+				    	</div>
+			    	</div>
 			    	<a href="#" class="btn btn-success btn-block mt-2" id="btn-add-lotto">ส่งเข้าโพย >> </a>
 	    		</div>
 	    	</div>
@@ -119,12 +172,16 @@
 	    			เลขอั้น
 	    		</div>
 	    		<div class="card-body">
-	    			<table class="table table-striped">
+	    			<table class="table table-striped" id="table-block-num">
 	    				<?php foreach($blockNumber as $val){?>
 	    				<tbody>
 	    					<tr>
-	    						<td><?php echo $val['num'];?></td>
+	    						<td>
+	    							<input type="hidden" class="num_block" data-num="<?php echo $val['num'];?>" data-condition="<?php echo $val['condition'];?>">
+	    							<?php echo $val['num'];?>
+	    						</td>
 	    						<td><?php echo $val['detail'];?></td>
+	    						<td><?php echo $val['type'];?></td>
 	    					</tr>
 	    				</tbody>
 	    				<?php } ?>
@@ -152,30 +209,30 @@
 			    	</div>
 			    	<div class="row">
 			    		<div class="col-2">
-			    			<a href="#" class="btn btn-outline-success btn-block">5฿</a>
+			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="5">5฿</a>
 			    		</div>
 			    		<div class="col-2">
-			    			<a href="#" class="btn btn-outline-success btn-block">10฿</a>
+			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="10">10฿</a>
 			    		</div>
 			    		<div class="col-2">
-			    			<a href="#" class="btn btn-outline-success btn-block">20฿</a>
+			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="20">20฿</a>
 			    		</div>
 			    		<div class="col-2">
-			    			<a href="#" class="btn btn-outline-success btn-block">50฿</a>
+			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="50">50฿</a>
 			    		</div>
 			    		<div class="col-2">
-			    			<a href="#" class="btn btn-outline-success btn-block">100฿</a>
+			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="100">100฿</a>
 			    		</div>
 			    		<div class="col-2">
-			    			<a href="#" class="btn btn-outline-success btn-block">500฿</a>
+			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="500">500฿</a>
 			    		</div>
 			    	</div>
 			    	<div class="row mt-2">
 			    		<div class="col-8">
-			    			<input type="text" class="form-control" value="">
+			    			<input type="text" class="form-control" value="" id="all-price">
 			    		</div>
 			    		<div class="col-4">
-			    			<a href="#" class="btn  btn-success btn-block">ยืนยันราคา</a>
+			    			<a href="#" class="btn  btn-success btn-block" id="btn-allprice">ยืนยันราคา</a>
 			    		</div>
 			    	</div>
 			    	<div class="row mt-2" style="border-top:solid 1px #3e3e3e;">
@@ -183,12 +240,13 @@
 			    			ราคารวม
 			    		</div>
 			    		<div class="col-4 text-right">
-			    			<span id="total_paid">0.0</span> บาท
+			    			<b><span id="total_paid">0.0</span></b> บาท
 			    		</div>
 			    	</div>
 			    	<form action="#" method="POST" id="form-lotto" class="mt-2">
 			    		<input type="hidden" name="id_package" value="<?php echo $id_package; ?>">
 			    		<input type="hidden" name="id_category" value="<?php echo $_GET['id'];?>">
+			    		
 			    		<?php foreach($listType as $val){ ?>
 			    				<?php if($val['price']){ ?>
 			    					<div class="panel-lotto-<?php echo $val['id'];?> d-none">
@@ -197,7 +255,7 @@
 				    							<h3><?php echo $val['name'];?></h3>
 				    						</div>
 				    					</div>
-							    		<table class="table table-striped" id="table-lotto-<?php echo $val['id'];?>">
+							    		<table class="table table-striped table-lotto-all" id="table-lotto-<?php echo $val['id'];?>">
 								    		<thead>
 								    			<th>เลข</th>
 								    			<th class="text-center">แทง</th>
@@ -237,11 +295,37 @@
 								    		</tbody>
 								    	</table>
 							    	</div>
+						    	<?php  } ?>
+						    	<?php if($val['sub']){ ?>
+						    		<?php //echo "<pre>";var_dump($val['sub']); ?>
+						    		<?php foreach($val['sub'] as $v){?>
+						    			<div class="panel-lotto-<?php echo $v['id'];?> d-none">
+					    					<div class="row">
+					    						<div class="col-12">
+					    							<h3><?php echo $v['type'];?></h3>
+					    						</div>
+					    					</div>
+								    		<table class="table table-striped table-lotto-all" id="table-lotto-<?php echo $v['id'];?>">
+									    		<thead>
+									    			<th>เลข</th>
+									    			<th class="text-center">แทง</th>
+									    			<th>จ่าย</th>
+									    			<th class="text-right">ชนะ</th>
+									    			<th class="text-right">ลบ</th>
+									    		</thead>
+									    		<tbody>
+									    		</tbody>
+									    	</table>
+								    	</div>
+						    		<?php } ?>
 						    	<?php } ?>
 						    <?php } ?>
 			    	</form>
 			    	<div class="row">
-			    		<div class="col-12">
+			    		<div class="col-3">
+			    			<a href="#" class="btn text-danger btn-block" id="btn-del-all">ลบทั้งหมด</a>
+			    		</div>
+			    		<div class="col-9">
 			    			<button type="submit" class="hvr-btn btn-block" id="btn-submit">ส่งโพยยืนยันการแทง</button>
 			    		</div>
 			    	</div>
@@ -267,6 +351,14 @@
 					    					<td><?php echo $val['price'];?></td>
 					    				</tr>
 					    				<?php } ?>
+					    				<?php if($val['sub']){ ?>
+							    			<?php foreach($val['sub'] as $v){?>
+							    				<tr>
+							    					<td><?php echo $v['type'];?></td>
+							    					<td><?php echo $v['price'];?></td>
+							    				</tr>
+							    			<?php } ?>
+							    		<?php } ?>
 					    	 		<?php } ?>
 					    		</tbody>	
 					    	</table>
@@ -291,6 +383,70 @@
 	</div>
 </div>
 <script>
+	// p-btn-no
+	var count_box = 1;
+	$(document).on('click','.btn-input-number',function(e){
+		var no = $(this).attr('data-input');
+		if(no=="<"){
+			count_box--;
+			$('#for-'+count_box+'-digit .input-number').val('');
+		}else{
+			$('#for-'+count_box+'-digit .input-number').val(no);
+			count_box++;
+		}
+		$( ".p-btn-no.d-none" ).find('input').val('');
+	});
+	$(document).on('click','.btn-input-number',function(e){
+
+	});
+	function sum_cal(){
+		var sum_cal = 0;
+		$( '.txt-price' ).each(function( index ) {
+			sum_cal += parseFloat($(this).val());
+		});
+		$('#total_paid').text(sum_cal);
+	}
+	
+	$(document).on('click','#btn-allprice',function(e){
+		var price = parseFloat($('#all-price').val());
+		if(price > 0){
+		$( ".txt-price" ).each(function( index ) {
+			  $(this).val(price);
+			  var ratio = parseFloat($(this).parents('tr').find(".ratio").text());
+			  $(this).parents('tr').find(".paid").text( price * ratio);
+			  console.log(price +' '+ratio);
+			});
+		}
+		sum_cal();
+		e.preventDefault();
+	});
+	$(document).on('change','.txt-price',function(e){
+		var ele = $(this);
+		var price = parseFloat(ele.val());
+		var ratio = parseFloat(ele.parents('tr').find('.ratio').text());
+		var number = ele.parents('tr').find('.number').text();
+		var paid = parseFloat(ele.parents('tr').find('.paid').text());
+		ele.parents('tr').find('.paid').text(price * ratio);
+		$( ".input-number" ).each(function( index ) {
+			var num 		= $(this).attr('data-num');
+			var condition 	= parseFloat($(this).attr('data-condition'));
+			if(number == num){
+				ele.parents('tr').find('.paid').text(price * ratio * condition);
+			}
+		});
+		e.preventDefault();
+		sum_cal();
+	});
+	$(document).on('click','.btn-allprice',function(e){
+		var price = parseFloat($(this).attr('data-price'));
+		$( ".txt-price" ).each(function( index ) {
+		  $(this).val(price);
+		  var ratio = parseFloat($(this).parents('tr').find(".ratio").text());
+		  $(this).parents('tr').find(".paid").text( price * ratio);
+		  console.log(price +' '+ratio);
+		});
+		e.preventDefault();
+	});
 	$(document).on('click','#btn-submit',function(e){
 		var form = $('#form-lotto');
 		$.ajax({
@@ -328,6 +484,9 @@
 		.always(function() {
 			console.log("complete");
 		});
+	});
+	$(document).on('click','#btn-del-all',function(e){
+		$('.table-lotto-all').find('tr').remove();
 	});
 	$(document).on('click','.btn-del',function(e){
 		var ele = $(this);
@@ -368,51 +527,71 @@
 		e.preventDefault();
 	});
 	$(document).on('click','.chkType',function(e){
+		count_box = 1;
 		var ele = $(this);
+		var chkType = $(this).attr('data-chkType');
 		// if(ele.checked){
-			$( ".input-number" ).each(function( index ) {
-			  $(this).val("");
-			});
-			var allow_parent = $(this).attr('data-allow-parent');
+		$( ".input-number" ).each(function( index ) {
+		  $(this).val("");
+		});
+		var allow_parent = $(this).attr('data-allow-parent');
+		console.log(allow_parent);
+		$('.chkType').not(allow_parent).prop("checked", false);
+		$(this).prop("checked", true);
+		var textChoose = '';
+		$( ".chkType:checked" ).each(function( index ) {
+		  textChoose += '<span class="badge rounded-pill bg-secondary">'+$(this).val()+'</span> ';
+		});
+		$('#textChoose').html(textChoose);
 
-			$('.chkType').not(allow_parent).prop("checked", false);
-			$(this).prop("checked", true);
-			var textChoose = '';
-			$( ".chkType:checked" ).each(function( index ) {
-			  textChoose += '<span class="badge rounded-pill bg-secondary">'+$(this).val()+'</span> ';
-			});
-			$('#textChoose').html(textChoose);
+		$('#price').val('');
+		$('#for-1-digit').addClass('d-none');
+		$('#for-2-digit').addClass('d-none');
+		$('#for-3-digit').addClass('d-none');
+		$('#for-4-digit').addClass('d-none');
+		$('#for-5-digit').addClass('d-none');
+		if(ele.attr('data-digit') == "2"){
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+		}else if(ele.attr('data-digit') == "1") {
+			$('#for-1-digit').removeClass('d-none');
+		}else if(ele.attr('data-digit') == "3") {
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').removeClass('d-none');
+		}else if(ele.attr('data-digit') == "4") {
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').removeClass('d-none');
+			$('#for-4-digit').removeClass('d-none');
+		}else if(ele.attr('data-digit') == "5") {
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').removeClass('d-none');
+			$('#for-4-digit').removeClass('d-none');
+			$('#for-5-digit').removeClass('d-none');
+		}
+		// console.log('data-input-support: ' + ele.attr('data-input-support'));
 
-			$('#price').val('');
-			if(ele.attr('data-input-count') == "2"){
-				$('#for-3-digit').addClass('hidden');
-			}else if(ele.attr('data-input-count') == "1") {
-				$('#for-3-digit').addClass('hidden');
-				$('#for-2-digit').addClass('hidden');
-			}else{
-				$('#for-3-digit').removeClass('hidden');
-				$('#for-2-digit').removeClass('hidden');
-			}
-
-			if(ele.attr('data-input-support') == "2"){
-				$('.sub_panel_fixed_2').removeClass('d-none');
-				$('.sub_panel_fixed_3').addClass('d-none');
-			}else if(ele.attr('data-input-support') == "3"){
-				$('.sub_panel_fixed_2').addClass('d-none');
-				$('.sub_panel_fixed_3').removeClass('d-none');
-			}else {
-				$('.sub_panel_fixed_2').addClass('d-none');
-				$('.sub_panel_fixed_3').addClass('d-none');
-			}
-
-			if(ele.attr('data-input-sub')!=""){
-				// $('.sub_panel_'+ele.attr('data-input-sub')).removeClass('d-none');
-				$('.sub_panel').addClass('d-none');
-				$('.sub_panel_'+ele.attr('data-input-sub')).removeClass('d-none');
-			}
-		// }
+		if(ele.attr('data-input-sub')!=""){
+			// $('.sub_panel_'+ele.attr('data-input-sub')).removeClass('d-none');
+			$('.sub_panel').addClass('d-none');
+			$('.sub_panel_'+ele.attr('data-input-sub')).removeClass('d-none');
+		}
+		if(ele.attr('data-input-support') == "2"){
+			$('#sub_panel_fixed_2').removeClass('d-none');
+			$('#sub_panel_fixed_3').addClass('d-none');
+		}else if(ele.attr('data-input-support') == "3"){
+			$('#sub_panel_fixed_2').addClass('d-none');
+			$('#sub_panel_fixed_3').removeClass('d-none');
+		}else {
+			$('#sub_panel_fixed_2').addClass('d-none');
+			$('#sub_panel_fixed_3').addClass('d-none');
+		}
 	});
 	$(document).on('click','#btn-add-lotto',function(e){
+		var rdoType = $('.rdoType:checked').val();
+		
 		var number = "";
 		$( ".input-number" ).each(function( index ) {
 		 number += $(this).val();
@@ -422,64 +601,190 @@
 		var id_type = [];
 
 		$( ".chkType:checked" ).each(function( index ) {
-			id_type.push( $(this).attr('data-id') );
+			id_type.push( $(this).attr('data-id-type') );
 		});
-		$.ajax({
-			url: 'index.php?route=member/addLotto',
-			type: 'POST',
-			dataType: 'json',
-			data: {
-				number: number,
-				price: $('#price').val(),
-				id_type: id_type,
-				id_category: '<?php echo $_GET['id'];?>',
-				id_package: '<?php echo $_GET['package'];?>'
-			},
-		})
-		.done(function(result) {
-			console.log(result);
-			if(result.status=='failed'){
-				$('#btn-submit').prop('disabled', false);
-				$('#btn-submit').attr('aria-disabled', false);
-				$('#btn-submit').removeClass('disabled');
-				$('#btn-submit').addClass('hvr-btn');
-				$('.toast-body').text(result.desc);
-				$('.toast-body').addClass('text-danger');
-				$('.toast-body').removeClass('text-success');
-				$('#toast').toast('show');
-			}else{
-				$('.toast-body').removeClass('text-danger');
-				$('.toast-body').addClass('text-success');
-				$('.toast-body').text(result.desc);
-				$('#toast').toast('show');
+		
+		$( id_type ).each(function( index,id ) {
+			console.log(rdoType);
+			var id_type_loop = id;
+			$.ajax({
+				url: 'index.php?route=member/addLotto',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					number: number,
+					price: 1,
+					id_type: id_type_loop,
+					id_category: '<?php echo $_GET['id'];?>',
+					id_package: '<?php echo $_GET['package'];?>',
+					rdoType: rdoType
+				},
+			})
+			.done(function(result) {
+				// $('.rdoType').prop('checked', false);
+				console.log(result);
+				if(result.status=='failed'){
+					$('#btn-submit').prop('disabled', false);
+					$('#btn-submit').attr('aria-disabled', false);
+					$('#btn-submit').removeClass('disabled');
+					$('#btn-submit').addClass('hvr-btn');
+					$('.toast-body').text(result.desc);
+					$('.toast-body').addClass('text-danger');
+					$('.toast-body').removeClass('text-success');
+					$('#toast').toast('show');
+				}else{
+					$('.toast-body').removeClass('text-danger');
+					$('.toast-body').addClass('text-success');
+					$('.toast-body').text(result.desc);
+					$('#toast').toast('show');
 
-				$( result.rows ).each(function( index,result_rows ) {
-					// var result_rows = $(this);
-					var html =   '<tr>'
-					+ '<td>'+result_rows.number+'<input type="hidden" name="number[]" value="'+result_rows.number+'"></td>'
-					+ '<td class="text-right"><input type="text" name="price[]" class="form-control text-center" style="width:80px;" value="'+result_rows.price+'"></td>'
-					+ '<td>'+result_rows.ratio+'<input type="hidden" name="ratio[]" value="'+result_rows.ratio+'"></td>'
-					+ '<td class="text-right">'+result_rows.paid+'<input type="hidden" name="paid[]" value="'+result_rows.paid+'"></td>'
-					+ '<td class="text-right"><input type="hidden" name="id_type[]" value="'+result_rows.id_type+'"><a href="#" class="btn btn-danger btn-xs btn-del">ลบ</a></td>'
-					+'</tr>';
-					$('#table-lotto-'+result_rows.id_type+'  tbody:last-child').append(html);
-					$('.panel-lotto-'+result_rows.id_type).removeClass('d-none');
-				});
-				
-				$( ".input-number" ).each(function( index ) {
-				  $(this).val("");
-				});
-				$('#price').val('');
-			}
-		})
-		.fail(function(a,b,c) {
-			console.log("error");
-			console.log(a);
-			console.log(b);
-			console.log(c);
-		})
-		.always(function() {
-			console.log("complete");
+					$( result.data ).each(function( index,type ) {
+						console.log('type');
+						console.log(type);
+						// $( type[index] ).each(function( d,sub ) {
+								var html =   '<tr>'
+								+ '<td><span class="number">'+type.number+'</span><input type="hidden" name="number[]" value="'+type.number+'"></td>'
+								+ '<td class="text-right"><input type="text" name="price[]" class="txt-price form-control text-center" style="width:80px;" value="'+type.price+'"></td>'
+								+ '<td><span class="ratio">'+type.ratio+'</span><input type="hidden" name="ratio[]" value="'+type.ratio+'"></td>'
+								+ '<td class="text-right"><span class="paid">'+type.paid+'</span><input type="hidden" name="paid[]" value="'+type.paid+'"></td>'
+								+ '<td class="text-right"><input type="hidden" name="id_type[]" value="'+type.id_type+'"><a href="#" class="btn btn-danger btn-xs btn-del">ลบ</a></td>'
+								+'</tr>';
+								$('#table-lotto-'+type.id_type+'  tbody:last-child').append(html);
+								$('.panel-lotto-'+type.id_type).removeClass('d-none');
+						// });
+					});
+					
+					$( ".input-number" ).each(function( index ) {
+					  $(this).val("");
+					});
+					$('#price').val('');
+					sum_cal();
+				}
+			})
+			.fail(function(a,b,c) {
+				console.log("error");
+				console.log(a);
+				console.log(b);
+				console.log(c);
+			})
+			.always(function() {
+				console.log("complete");
+			});
 		});
+		
+	});
+	$(document).on('click','.btn-add-muntiple-lottery',function(e){
+		// var id_rdo = $(this).attr('for');
+		// $('.rdoType').attr('checked', '');
+		// $('#'+id_rdo).attr('checked', 'checked');
+		var digit = parseInt($(this).attr('data-digit'));
+
+		var chkType = $(this).attr('data-chkType')
+		$('.input-number').removeClass('d-none');
+		if(digit=="1"){
+			$('#for-1-digit').removeClass('d-none');
+			// $('#for-3-digit').addClass('d-none');
+		}else if(digit=="2"){
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+		}else if(digit=="3"){
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').removeClass('d-none');
+		}else if(digit=="4"){
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').removeClass('d-none');
+			$('#for-4-digit').removeClass('d-none');
+			$('#for-5-digit').addClass('d-none');
+		}else if(digit=="5"){
+			$('#for-1-digit').removeClass('d-none');
+			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').removeClass('d-none');
+			$('#for-4-digit').removeClass('d-none');
+			$('#for-5-digit').removeClass('d-none');
+		}else{
+			// var input_count = $(this).attr('data-digit');
+			var id_type = [];
+			$( '.chkType:checked' ).each(function( index ) {
+				id_type.push($(this).attr('data-id'));
+			});
+			
+			var data_children_class = $(this).attr('data-children-class');
+			// console.log('.input_data_id_type_'+data_children_class);
+			consloe.log('id_type');
+			console.log(id_type);
+			$( this ).parents('div').find('.input_data_id_type_'+data_children_class).each(function( index ) {
+				var number = $(this).val();
+				$( id_type ).each(function( index,id ) {
+					var id_type_loop = id;
+					$.ajax({
+						url: 'index.php?route=member/addLotto',
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							number: number,
+							price: 1,
+							id_type: id_type_loop,
+							id_category: '<?php echo $_GET['id'];?>',
+							id_package: '<?php echo $_GET['package'];?>',
+							digit: digit,
+							chkType:chkType
+						},
+					})
+					.done(function(result) {
+						// console.log("success");
+						console.log(result);
+						if(result.status=='failed'){
+							$('#btn-submit').prop('disabled', false);
+							$('#btn-submit').attr('aria-disabled', false);
+							$('#btn-submit').removeClass('disabled');
+							$('#btn-submit').addClass('hvr-btn');
+							$('.toast-body').text(result.desc);
+							$('.toast-body').addClass('text-danger');
+							$('.toast-body').removeClass('text-success');
+							$('#toast').toast('show');
+						}else{
+							$('.toast-body').removeClass('text-danger');
+							$('.toast-body').addClass('text-success');
+							$('.toast-body').text(result.desc);
+							$('#toast').toast('show');
+
+							$( result.data ).each(function( index,type ) {
+							console.log('type');
+							console.log(type);
+							// $( type[index] ).each(function( d,sub ) {
+									var html =   '<tr>'
+									+ '<td><span class="number">'+type.number+'</span><input type="hidden" name="number[]" value="'+type.number+'"></td>'
+									+ '<td class="text-right"><input type="text" name="price[]" class="txt-price form-control text-center" style="width:80px;" value="'+type.price+'"></td>'
+									+ '<td><span class="ratio">'+type.ratio+'</span><input type="hidden" name="ratio[]" value="'+type.ratio+'"></td>'
+									+ '<td class="text-right"><span class="paid">'+type.paid+'</span><input type="hidden" name="paid[]" value="'+type.paid+'"></td>'
+									+ '<td class="text-right"><input type="hidden" name="id_type[]" value="'+type.id_type+'"><a href="#" class="btn btn-danger btn-xs btn-del">ลบ</a></td>'
+									+'</tr>';
+									$('#table-lotto-'+type.id_type+'  tbody:last-child').append(html);
+									$('.panel-lotto-'+type.id_type).removeClass('d-none');
+							// });
+							});
+							sum_cal();
+						}
+					})
+					.fail(function(a,b,c) {
+						console.log(a,b,c);
+					})
+					.always(function() {
+						// console.log("complete");
+					});
+				});
+			});
+		}
+		// e.preventDefault();
+	});
+	$(document).on('click','.btn-input-number',function(e){
+		e.preventDefault();
 	});
 </script>
+<style>
+	input[type^='radio'] {
+		display:none;
+	}
+</style>
