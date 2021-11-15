@@ -11,13 +11,13 @@
 </section>
 <div class="container mt-4 lotto">
 	<div class="row mt-4">
-		<div class="col-md-2">
+		<div class="col-12 col-md-2 text-center">
 			ผู้ใช้งาน : <span><?php echo $name.' '.$lname; ?></span><br>
-			<span class="text-success"><?php echo number_format($balance,2); ?></span> บาท
+			<span class="text-default"><?php echo number_format($balance,2); ?></span> บาท
 		</div>
-		<div class="col-md-10">
+		<div class="col-12 col-md-10">
 			<nav class="nav nav-pills nav-justified">
-				<a href="<?php echo $link_deposit; ?>" class="nav-item nav-link text-success">ฝากเงิน</a>
+				<a href="<?php echo $link_deposit; ?>" class="nav-item nav-link text-default">ฝากเงิน</a>
 				<a href="<?php echo $link_widthdraw; ?>" class="nav-item nav-link text-danger">ถอนเงิน</a>
 				<a href="<?php echo $link_finance; ?>" class="nav-item nav-link text-warning">การเงิน</a>
 				<a href="<?php echo $link_ticket; ?>" class="nav-item nav-link ">โพยหวย</a>
@@ -50,14 +50,14 @@
 						<div  class="text-center" style="float:right">ปิด: <?php echo $val['date_close']; ?></div>
 						<?php }?>
 					</div>
-					<div class="">
+					<div class="card-body">
 						<?php if($val['sub']){ ?>
 							<div class="row">
 							<?php foreach($val['sub'] as $v){?>
-								<div class="col-3">
+								<div class="col-6 col-md-3">
 									<div class="sub-card card mt-2 mb-2">
 										<div class="card-header">
-											<h4 style="line-height: 30px;display:inline-block;color:#fff;">
+											<h4 class="text-center" style="line-height: 30px;display:inline-block;color:#fff;">
 												<a class="" href="<?php echo $link_package.'&id='.encrypt($v['id']);?>">
 													<?php echo $v['name']; ?>
 												</a>

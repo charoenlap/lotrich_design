@@ -25,16 +25,22 @@
 						<div class="panel">
 							<div class="card">
 								<div class="card-body">
-									<div class="mb-2">
-										เลขบัญชี: <?php echo $bank_no; ?><br>
-										ชื่อธนาคาร: <?php echo $bank_name; ?><br>
-										ชื่อบัญชี: <?php echo $name; ?>
-									</div>
-									<div class="mt-2" style="border-top:solid #3e3e3e 1px;">
-										เลขบัญชี: <?php echo $bank_no_2; ?><br>
-										ชื่อธนาคาร: <?php echo $bank_name_2; ?><br>
-										ชื่อบัญชี: <?php echo $name; ?>
-									</div>
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<div class="mt-2 text-center">
+												เลขบัญชี: <?php echo $bank_no; ?><br>
+												ชื่อธนาคาร: <?php echo $bank_name; ?><br>
+												ชื่อบัญชี: <?php echo $name; ?>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="mt-2 text-center">
+												เลขบัญชี: <?php echo $bank_no_2; ?><br>
+												ชื่อธนาคาร: <?php echo $bank_name_2; ?><br>
+												ชื่อบัญชี: <?php echo $name; ?>
+											</div>
+										</div>
+									</div>	
 								</div>
 							</div>
 						</div>
@@ -42,7 +48,7 @@
 				</div>
 				<div class="row mt-2">
 					<div class="col-12">
-						<h4>ใส่จำนวนเงินที่ต้องการฝาก</h4>
+						<h4 class="text-default">ใส่จำนวนเงินที่ต้องการฝาก</h4>
 					</div>
 				</div>
 				<div class="row mb-4">
@@ -58,7 +64,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="form-group">
-							<h4>จำนวนเงิน ขั้นต่ำ 10 บาท ไม่ต้องมีทศนิยม</h4>
+							<h4 class="text-default">จำนวนเงิน ขั้นต่ำ 10 บาท ไม่ต้องมีทศนิยม</h4>
 							<input type="text" name="text" id="txt-price" class="form-control input-lg" placeholder="กรุณาใส่จำนวนเงิน" tabindex="5">
 						</div>
 					</div>

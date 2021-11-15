@@ -1,5 +1,18 @@
 body {
-	background: rgb(0,112,0,0.5);
+	background: rgb(0,112,0);
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);
+}
+.text-default {
+	color:#fff;
+}
+.card {
+	background: rgb(0,112,0);
+	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);
+}
+.card-body {
+	background: #fff;
+	flex: 0 0 auto !important;
+    padding: 0rem 0rem !important;
 }
 .default-bg { 
 	background: rgb(0,112,0);

@@ -50,8 +50,9 @@
 						  		<?php echo $type['type']; ?>
 						  	</div>
 						  	<div class="card-body">
+						  		<?php if($type['result']){ ?>
 						    	<h5 class="card-title"><?php echo $type['result']; ?></h5>
-						    	<p class="card-text"></p>
+						    	<?php } ?>
 						  	</div>
 						</div>
 					</div>
@@ -112,3 +113,10 @@
     </div>
   </div>
 </div>
+<style>
+	.card-body {
+	background: #fff;
+	flex: 0 0 auto !important;
+    padding: 0rem 0rem !important;
+}
+</style>
