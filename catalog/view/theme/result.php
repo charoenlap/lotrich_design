@@ -22,68 +22,74 @@
 		</div>
 	</div>
 	<?php foreach($category as $val){ ?>
-	<div class="row mt-4">
-		<div class="col-12">
-			<h4 class="d-inline-flex text-default">
-				<div class="d-inline-flex" style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:50px;height:30px;background-size:cover;background-position: center;margin-right:10px;"></div>
-				<?php echo $val['name'];?>
-			</h4>
-		</div>
-				<?php 
-			if(empty($val['sub'])){
-				foreach($val['type'] as $type){
-					if($type['column']==1){
-						$class="col-12";
-					}else if($type['column']==2){
-						$class="col-6";
-					}else if($type['column']==3){
-						$class="col-4";
-					}else if($type['column']==4){
-						$class="col-2";
-					}else if($type['column']==5){
-						$class="col-1";
-					}else{
-						$class="col-6 col-xs-6 col-sm-4 col-md-4 col-lg-3";
-					}
-					
-				?>
-					<div class="<?php echo $class;?> text-center mb-2">
-						<div class="card">
-							<div class="card-header">
-						  		<?php echo $type['type']; ?>
-						  	</div>
-						  	<div class="card-body">
-						  		<?php if($type['result']){ ?>
-						    	<h5 class="card-title"><?php echo $type['result']; ?></h5>
-						    	<?php } ?>
-						  	</div>
+		<div class="row mt-4 panel-result" >
+			<div class="col-12">
+				<div class="d-inline-flex text-default mb-1">
+					<div class="d-inline" style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:40px;height:25px;background-size:cover;background-position: center;margin-right:10px;"></div>
+					<h4 class="d-inline text-default mr-2"><?php echo $val['name'];?></h4>
+					<span class="badge rounded-pill bg-primary" style="    line-height: 1.8;"><?php echo $val['last_date'];?></span>
+				</div>
+				<div class="row">
+					<div class="col-12" style=" ">
+						<div class="box" style="">
+							<div class="row" >
+								<?php 
+									if(empty($val['sub'])){
+										foreach($val['type'] as $type){
+											if($type['column']==1){
+												$class="col-12";
+											}else if($type['column']==2){
+												$class="col-6";
+											}else if($type['column']==3){
+												$class="col-4";
+											}else if($type['column']==4){
+												$class="col-2";
+											}else if($type['column']==5){
+												$class="col-1";
+											}else{
+												$class="col-6 col-xs-6 col-sm-4 col-md-4 col-lg-3";
+											}
+										?>
+												<div class="<?php echo $class;?> text-center mb-2" >
+													<div class="card">
+														<div class="card-header">
+													  		<?php echo $type['type']; ?>
+													  	</div>
+													  	<div class="card-body">
+													    	<h5 class="card-title"><?php echo (empty($type['result'])?'รอผล':$type['result']); ?></h5>
+													  	</div>
+													</div>
+												</div>
+										<?php } ?>
+									<?php }else{
+										foreach($val['sub'] as $v){?>
+											<div class="col-6 text-center mb-2">
+												<div class="card">
+													<div class="card-header">
+												  		<?php echo $v['name'];?>
+												  	</div>
+												  	<div class="card-body">
+												  		<div class="row">
+												  		<?php foreach($v['type'] as $type_sub){ ?>
+						   									<div class="col-6">
+						   										<p><?php echo $type_sub['type']; ?></p>
+						   										<h5 class="card-title">
+						   											<?php echo (empty($type_sub['result'])?'รอผล':$type_sub['result']); ?>
+						   										</h5>
+						   									</div>
+												  		<?php } ?>
+												  		</div>
+												  	</div>
+												</div>
+											</div>
+									<?php } ?>
+								<?php } ?>
+							</div>
 						</div>
 					</div>
-				<?php } ?>
-
-			<?php }else{
-				foreach($val['sub'] as $v){?>
-					<div class="col-6 text-center mb-2">
-						<div class="card">
-							<div class="card-header">
-						  		<?php echo $v['name'];?>
-						  	</div>
-						  	<div class="card-body">
-						  		<div class="row">
-						  		<?php foreach($v['type'] as $type_sub){ ?>
-   									<div class="col-12">
-   										<p><?php echo $type_sub['type']; ?></p>
-   										<h5 class="card-title"><?php echo $type_sub['result']; ?></h5>
-   									</div>
-						  		<?php } ?>
-						  		</div>
-						  	</div>
-						</div>
-					</div>
-			<?php } ?>
-		<?php } ?>
-		
-	</div>	
+				</div>	
+			</div>
+		</div>	
 	<?php } ?>
 </div>
 

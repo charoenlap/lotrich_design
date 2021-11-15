@@ -15,6 +15,8 @@
 	        $data['title'] = "LotRich";
             $data['descreption'] = "";
             $data['category'] = $this->model('master')->getCategory($arr);
+            // echo "<pre>";
+            // var_dump($data['category']);
             $this->view('result',$data); 
         }
     }

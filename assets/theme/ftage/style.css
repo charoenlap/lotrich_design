@@ -1320,8 +1320,8 @@ ul.gallery-menu li.active,ul.gallery-menu li:hover{color:#e2a750;}
 .production-black .indicator-style .owl-theme .owl-nav [class*="owl-"]:hover{color:#e2a750;}
 /* ============= 13. Breadcamp Area ============= */
 .breadcamb-area {
-  padding-bottom: 50px;
-  padding-top: 50px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 .bradcamb-content h1 {
   color: #fff;

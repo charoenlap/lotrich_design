@@ -24,8 +24,9 @@
 				<div class="col-12">
 					<div class="panel">
 						<div class="card">
-							<div class="card-body">
-								<?php echo $bank; ?>
+							<div class="card-body text-center">
+								เลขที่บัญชี: <?php echo $bank_no; ?></br>
+								ธนาคาร: <?php echo $bank_name; ?>
 							</div>
 						</div>
 					</div>
@@ -34,8 +35,8 @@
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="form-group text-center">
-						<h4>จำนวนเงินที่ถอนได้</h4>
-						<h3 ><?php echo number_format($balance,2); ?></h3>
+						<h4 class="text-default">จำนวนเงินที่ถอนได้</h4>
+						<h3 class="text-default" ><?php echo number_format($balance,2); ?></h3>
 					</div>
 				</div>
 			</div>

@@ -1,3 +1,11 @@
+.panel-result .box {
+	background: rgb(255,255,255,0.3);
+	padding:5px;
+}
+.panel-result .box .card .card-header{
+	background: rgba(242,242,242,1.00) !important;
+	color:#3e3e3e;
+}
 body {
 	background: rgb(0,112,0);
 	background: linear-gradient(90deg, rgba(0,112,0,1) 0%, rgba(56,132,6,1) 50%, rgba(0,112,0,1) 100%);

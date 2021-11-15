@@ -16,9 +16,15 @@
 			if(!isset($data['db'])){
 				$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0 ORDER BY `order_by` ASC";
 				$category = $this->query($sql)->rows;
-
+				$last_date = '';
 				foreach($category as $val){
 					$sub = array();
+					$sql_last_date = "SELECT * FROM b_result WHERE id_cate_type = '".$val['id']."' ORDER BY date ASC limit 0,1";
+					$query_last_date = $this->query($sql_last_date);
+					if($query_last_date->num_rows){
+						$last_date = $query_last_date->row['date'];
+					}
+
 					$sql_sub = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = '".$val['id']."'";
 					$category_sub = $this->query($sql_sub)->rows;
 					$result_cate_sub = array();
@@ -54,6 +60,7 @@
 						'sub'			=> $result_cate_sub,
 						'type'			=> $type,
 						'date_close' 	=> $val['date_close'],
+						'last_date' 	=> $last_date
 					);
 				}
 				// echo "<pre>";

@@ -493,9 +493,14 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 				$data['title'] = "widthdraw";
-	    		$data['descreption'] = "";
+	    		$data['descreption'] = ""; 
 	    		$data['balance'] 	= $this->model('finance')->getBalance($id_user);
-	    		$data['bank']		= $this->model('setting')->getSetting()['bank'];
+	    		// $data['bank']		= $this->model('setting')->getSetting()['bank'];
+	    		$data['bank_no']		= $this->getSession('bank_no');
+	    		$data['bank_name']		= $this->getSession('bank_name');
+
+	    		$data['bank_no_2']		= $this->getSession('bank_no_2');
+	    		$data['bank_name_2']	= $this->getSession('bank_name_2');
  	    		$this->view('member/widthdraw',$data); 
  	    	}else{
 	 	    	$this->redirect('login');

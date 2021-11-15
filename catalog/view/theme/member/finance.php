@@ -15,12 +15,12 @@
 		    <div class="col-md-12">
 				<div class="row">
 					<div class="col-sm-12">
-						<ul class="nav nav-tabs mb-3 text-center" id="pills-tab" role="tablist">
+						<ul class="nav nav-tabs text-center" id="pills-tab" role="tablist">
 						  <li class="nav-item">
 						    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">ทั้งหมด</a>
 						  </li>
 						  <li class="nav-item">
-						    <a class="nav-link text-success" id="pills-deposit-tab" data-toggle="pill" href="#pills-deposit" role="tab" aria-controls="pills-deposit" aria-selected="false">ฝาก</a>
+						    <a class="nav-link text-default" id="pills-deposit-tab" data-toggle="pill" href="#pills-deposit" role="tab" aria-controls="pills-deposit" aria-selected="false">ฝาก</a>
 						  </li>
 						  <li class="nav-item">
 						    <a class="nav-link text-danger" id="pills-widthdraw-tab" data-toggle="pill" href="#pills-widthdraw" role="tab" aria-controls="pills-widthdraw" aria-selected="false">ถอน</a>
@@ -41,7 +41,7 @@
 						  				$class = 'text-info';
 						  				if($status == 1 ){
 						  					$text_status = 'อนุมัติ';
-						  					$class = 'text-success';
+						  					$class = 'text-default';
 						  				}else if($status == 2 ){
 						  					$text_status = 'ถูกปฏิเสธ';
 						  					$class = 'text-danger';
@@ -73,7 +73,7 @@
 						  				$class = 'text-info';
 						  				if($status == 1 ){
 						  					$text_status = 'อนุมัติ';
-						  					$class = 'text-success';
+						  					$class = 'text-default';
 						  				}else if($status == 2 ){
 						  					$text_status = 'ถูกปฏิเสธ';
 						  					$class = 'text-danger';
@@ -104,7 +104,7 @@
 						  				$class = 'text-info';
 						  				if($status == 1 ){
 						  					$text_status = 'อนุมัติ';
-						  					$class = 'text-success';
+						  					$class = 'text-default';
 						  				}else if($status == 2 ){
 						  					$text_status = 'ถูกปฏิเสธ';
 						  					$class = 'text-danger';
@@ -142,3 +142,8 @@
 			e.preventDefault();
 		});
 	</script>
+	<style>
+		tr td {
+			background:#fff;
+		}
+	</style>
