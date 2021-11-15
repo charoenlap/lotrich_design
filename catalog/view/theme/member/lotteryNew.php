@@ -712,8 +712,8 @@
 			
 			var data_children_class = $(this).attr('data-children-class');
 			// console.log('.input_data_id_type_'+data_children_class);
-			consloe.log('id_type');
-			console.log(id_type);
+			// consloe.log('id_type');
+			// console.log(id_type);
 			$( this ).parents('div').find('.input_data_id_type_'+data_children_class).each(function( index ) {
 				var number = $(this).val();
 				$( id_type ).each(function( index,id ) {
