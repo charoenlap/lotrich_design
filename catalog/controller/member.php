@@ -296,6 +296,7 @@
 						$digit 		= post('digit');
 						$condition 	= post('condition');
 						$chkType 	= post('chkType');
+						// var_dump($_POST);
 						$rows = array();
 						if($id_type){
 							if($rdoType == "19 ประตู"){
@@ -325,7 +326,6 @@
 								// var_dump($number);
 							}else if($rdoType == "ปักหลักหน่วย" || $rdoType == "ปักหลักสิบ" || $rdoType == "ปักหลักร้อย"){
 								$new_arr_number = array($number[0]);
-								$id_type = 0;
 								if($rdoType=="ปักหลักหน่วย"){
 									$id_type = 39;
 								}else if($rdoType=="ปักหลักสิบ"){
@@ -336,13 +336,12 @@
 								$number = $new_arr_number;
 							}else if($rdoType == "4 ตัวโต๊ด" || $rdoType == "5 ตัวโต๊ด" || $rdoType == "4 ตัวบน"){
 								$new_arr_number = array($number[0]);
-								$id_type = 0;
 								if($rdoType=="4 ตัวโต๊ด"){
-									$id_type = array(42);
+									$id_type = 42;
 								}else if($rdoType=="5 ตัวโต๊ด"){
-									$id_type = array(43);
+									$id_type = 43;
 								}else {
-									$id_type = array(44);
+									$id_type = 44;
 								}
 								$number = $new_arr_number;
 							}
