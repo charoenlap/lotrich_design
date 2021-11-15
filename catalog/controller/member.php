@@ -434,7 +434,7 @@
 							'paid' 		=> $paid,
 							'price' 	=> $price,
 							'ratio' 	=> $ratio,
-							'type' 		=> $val,
+							'type' 		=> $result_ratio['type'],
 							'status'	=> 0
 		    			);
 		    			$sum_price += (float)$price[$key];

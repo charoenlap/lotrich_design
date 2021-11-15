@@ -105,11 +105,11 @@
 			);
 			$sql = "SELECT *, b_lotto_bill.id AS id FROM b_lotto_bill 
 				LEFT JOIN b_category ON b_category.id = b_lotto_bill.id_category 
-				WHERE b_lotto_bill.id_user = '".$id_user."'";
+				WHERE b_lotto_bill.id_user = '".$id_user."' ORDER BY b_lotto_bill.id DESC";
 			$query 	= $this->query($sql);
 			if($query->num_rows>0){
 				foreach($query->rows as $val){
-					$sql = "SELECT * FROM b_lotto WHERE id_bill = ".$val['id'];
+					$sql = "SELECT * FROM b_lotto WHERE id_bill = ".$val['id']."";
 					$query_lotto 	= $this->query($sql);
 					$bill[] = array(
 						'id'		=> $val['id'],
@@ -212,7 +212,8 @@
 						'desc'			=> '',
 						'condition' 	=> (int)$condition,
 						'limit_number' 	=> $limit_number,
-						'ratio'			=> $query->row['price']
+						'ratio'			=> $query->row['price'],
+						'type'			=> $query->row['type_name']
 					);
 				}else{
 					$result = array(
