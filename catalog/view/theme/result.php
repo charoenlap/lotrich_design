@@ -27,7 +27,7 @@
 				<div class="d-inline-flex text-default mb-1">
 					<div class="d-inline" style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:40px;height:25px;background-size:cover;background-position: center;margin-right:10px;"></div>
 					<h4 class="d-inline text-default mr-2"><?php echo $val['name'];?></h4>
-					<span class="badge rounded-pill bg-primary" style="    line-height: 1.8;"><?php echo $val['last_date'];?></span>
+					<span class="badge rounded-pill bg-success" style="    line-height: 1.8;"><?php echo $val['last_date'];?></span>
 				</div>
 				<div class="row">
 					<div class="col-12" style=" ">
