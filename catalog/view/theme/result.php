@@ -65,17 +65,23 @@
 										foreach($val['sub'] as $v){?>
 											<div class="col-6 text-center mb-2">
 												<div class="card">
-													<div class="card-header">
+													<div class="card-header" style="font-size:18px;">
 												  		<?php echo $v['name'];?>
 												  	</div>
 												  	<div class="card-body">
 												  		<div class="row">
 												  		<?php foreach($v['type'] as $type_sub){ ?>
-						   									<div class="col-6">
-						   										<p><?php echo $type_sub['type']; ?></p>
-						   										<h5 class="card-title">
-						   											<?php echo (empty($type_sub['result'])?'รอผล':$type_sub['result']); ?>
-						   										</h5>
+						   									<div class="col-6" >
+						   										<div style="padding:5px;">
+						   											<div class="card" >
+							   											<div class="card-header">
+							   												<?php echo $type_sub['type']; ?>
+							   											</div>
+							   											<div class="card-body">
+							   												<?php echo (empty($type_sub['result'])?'รอผล':$type_sub['result']); ?>
+							   											</div>
+						   											</div>
+						   										</div>
 						   									</div>
 												  		<?php } ?>
 												  		</div>
