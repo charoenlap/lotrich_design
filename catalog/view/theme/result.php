@@ -69,11 +69,11 @@
 												  		<?php echo $v['name'];?>
 												  	</div>
 												  	<div class="card-body">
-												  		<div class="row">
+												  		<div class="">
 												  		<?php foreach($v['type'] as $type_sub){ ?>
-						   									<div class="col-6" >
-						   										<div style="padding:5px;">
-						   											<div class="card" >
+						   									<div class="col-6 float-left" style="margin:0px;padding:5px;">
+						   										<div style="">
+						   											<div class="card" style="border: solid 1px #e3e3e3;margin:0px;padding:0px;">
 							   											<div class="card-header">
 							   												<?php echo $type_sub['type']; ?>
 							   											</div>
