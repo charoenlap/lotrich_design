@@ -421,8 +421,8 @@
 		    				continue;
 		    			}
 		    			$number = $number[$key];
-		    			$result_ratio = $this->model('lotto')->getLottoRatio($number,$id_category,$id_type,$id_package);
-
+		    			$result_ratio = $this->model('lotto')->getLottoRatio($number,$id_category,$val,$id_package);
+		    			// var_dump($result_ratio);
 		    			$price = $price[$key];
 		    			$ratio = $result_ratio['ratio'];
 		    			$paid = $price * $ratio * $result_ratio['condition'];
@@ -434,7 +434,7 @@
 							'paid' 		=> $paid,
 							'price' 	=> $price,
 							'ratio' 	=> $ratio,
-							'type' 		=> $type[$key],
+							'type' 		=> $val,
 							'status'	=> 0
 		    			);
 		    			$sum_price += (float)$price[$key];
