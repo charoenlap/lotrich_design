@@ -21,9 +21,16 @@
 			<a href="<?php echo route('login');?>" class="btn ">เข้าสู่ระบบ คลิกที่นี่</a>
 		</div>
 	</div>
+	<div class="row mt-4 panel-result" >
 	<?php foreach($category as $val){ ?>
-		<div class="row mt-4 panel-result" >
-			<div class="col-12">
+			<?php 
+			$class_col_cate = 'col-md-12';
+			if($val['column']==1){
+				$class_col_cate = 'col-md-12';
+			}else if($val['column']==2){
+				$class_col_cate = 'col-md-6';
+			} ?>
+			<div class="col-12 mb-4 <?php echo $class_col_cate;?>">
 				<div class="d-inline-flex text-default mb-1">
 					<div class="d-inline" style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:40px;height:25px;background-size:cover;background-position: center;margin-right:10px;"></div>
 					<h4 class="d-inline text-default mr-2"><?php echo $val['name'];?></h4>
@@ -35,6 +42,7 @@
 							<div class="row" >
 								<?php 
 									if(empty($val['sub'])){
+										// var_dump($val['type']);
 										foreach($val['type'] as $type){
 											if($type['column']==1){
 												$class="col-12";
@@ -95,8 +103,9 @@
 					</div>
 				</div>	
 			</div>
-		</div>	
+			
 	<?php } ?>
+	</div>
 </div>
 
 

@@ -19,8 +19,7 @@ body {
 }
 .card-body {
 	background: #fff;
-	flex: 0 0 auto !important;
-    padding: 0rem 0rem !important;
+	
 }
 .default-bg { 
 	background: rgb(0,112,0);

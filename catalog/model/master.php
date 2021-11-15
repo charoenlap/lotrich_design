@@ -60,6 +60,7 @@
 						'sub'			=> $result_cate_sub,
 						'type'			=> $type,
 						'date_close' 	=> $val['date_close'],
+						'column' 		=> $val['column'],
 						'last_date' 	=> $last_date
 					);
 				}
