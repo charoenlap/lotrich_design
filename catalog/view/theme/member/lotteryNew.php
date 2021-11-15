@@ -92,7 +92,7 @@
 								<label 
 									class="btn btn-outline-success btn-block mb-2 btn-add-muntiple-lottery" 
 									data-input-count="<?php echo (isset($v['digit'])?$v['digit']:'');?>" 
-									data-digit="" 
+									data-digit="<?php echo (isset($v['digit'])?$v['digit']:'');?>" 
 									data-id-type="<?php echo $key; ?>" 
 									data-children-class="<?php echo $k;?>"
 									for="rdo<?php echo $index_input; ?>"
@@ -677,20 +677,29 @@
 		// var id_rdo = $(this).attr('for');
 		// $('.rdoType').attr('checked', '');
 		// $('#'+id_rdo).attr('checked', 'checked');
+		count_box = 1;
 		var digit = parseInt($(this).attr('data-digit'));
-
+		// console.log(digit);
 		var chkType = $(this).attr('data-chkType')
 		$('.input-number').removeClass('d-none');
 		if(digit=="1"){
 			$('#for-1-digit').removeClass('d-none');
-			// $('#for-3-digit').addClass('d-none');
+			$('#for-2-digit').addClass('d-none');
+			$('#for-3-digit').addClass('d-none');
+			$('#for-4-digit').addClass('d-none');
+			$('#for-5-digit').addClass('d-none');
 		}else if(digit=="2"){
 			$('#for-1-digit').removeClass('d-none');
 			$('#for-2-digit').removeClass('d-none');
+			$('#for-3-digit').addClass('d-none');
+			$('#for-4-digit').addClass('d-none');
+			$('#for-5-digit').addClass('d-none');
 		}else if(digit=="3"){
 			$('#for-1-digit').removeClass('d-none');
 			$('#for-2-digit').removeClass('d-none');
 			$('#for-3-digit').removeClass('d-none');
+			$('#for-4-digit').addClass('d-none');
+			$('#for-5-digit').addClass('d-none');
 		}else if(digit=="4"){
 			$('#for-1-digit').removeClass('d-none');
 			$('#for-2-digit').removeClass('d-none');
@@ -711,9 +720,7 @@
 			});
 			
 			var data_children_class = $(this).attr('data-children-class');
-			// console.log('.input_data_id_type_'+data_children_class);
-			// consloe.log('id_type');
-			// console.log(id_type);
+
 			$( this ).parents('div').find('.input_data_id_type_'+data_children_class).each(function( index ) {
 				var number = $(this).val();
 				$( id_type ).each(function( index,id ) {

@@ -346,7 +346,7 @@
 								$number = $new_arr_number;
 							}
 							
-								$number = $number_default;
+								// $number = $number_default;
 								if($id_type=="9"){
 									$new_arr_number = str_pad($number[0],3,"0", STR_PAD_LEFT);
 									$number = getCombinations($new_arr_number,3);
