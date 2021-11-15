@@ -1,5 +1,8 @@
 <?php 
 	class MasterModel extends db {
+		public function getDateLastedResult(){
+			return $this->query("SELECT * FROM b_result ORDER BY date ASC limit 0,1")->row['date'];
+		}
 		public function getPackage($id){
 			return $this->query("SELECT * FROM b_package WHERE id_category = ".(int)$id)->rows;
 		}
@@ -7,7 +10,7 @@
 			return $this->query("SELECT * FROM b_bank")->rows;
 		}
 		public function getCategory($data=array()){
-			$date = "2021-10-01";
+			$date = (isset($data['date'])?$data['date']:date('Y-m-d'));
 			$result = array();
 			$path_json = PATH_JSON.'/getCategory.json';
 			if(!isset($data['db'])){

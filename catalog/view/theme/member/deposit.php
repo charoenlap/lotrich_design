@@ -15,9 +15,9 @@
 		    <div class="col-md-12">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
-						<div class="form-group">
+						<h4 class="form-group text-default">
 							กรุณาโอนเงินจากบัญชี ที่ท่านสมัครเท่านั้น
-						</div>
+						</h4>
 					</div>
 				</div>
 				<div class="row mb-4">

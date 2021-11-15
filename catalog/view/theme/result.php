@@ -12,7 +12,10 @@
 <div class="container">
 	<div class="row mt-5">
 		<div class="col-6 col-md-2 text-left">
-			<input type="text" class="form-control" value="16-Oct-2021" id="date-result">
+			<form action="<?php echo $action;?>" method="GET" id="form-date">
+				<input type="hidden" name="route" value="result">
+				<input type="text" class="form-control" value="<?php echo $date;?>" id="date-result" name="date" placeholder="ระบุวันที่">
+			</form>
 		</div>
 		<div class="col-6 col-md-10 text-right">
 			<a href="<?php echo route('login');?>" class="btn ">เข้าสู่ระบบ คลิกที่นี่</a>
@@ -21,7 +24,7 @@
 	<?php foreach($category as $val){ ?>
 	<div class="row mt-4">
 		<div class="col-12">
-			<h4 class="d-inline-flex">
+			<h4 class="d-inline-flex text-default">
 				<div class="d-inline-flex" style="background:url(uploads/flag/<?php echo $val['flag'];?>);width:50px;height:30px;background-size:cover;background-position: center;margin-right:10px;"></div>
 				<?php echo $val['name'];?>
 			</h4>
@@ -120,3 +123,17 @@
     padding: 0rem 0rem !important;
 }
 </style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#date-result" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+  });
+  $("#date-result").on('change',function(e){
+  	$('#form-date').submit();
+  });
+  </script>
+<script>
+	// date-result
+</script>
