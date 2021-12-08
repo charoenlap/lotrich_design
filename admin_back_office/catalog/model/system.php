@@ -14,5 +14,14 @@
 			}
 			return $result;
 		}
+		public function submit($data = array()){
+			if($data){
+				foreach($data as $key => $val){
+					$sql = "UPDATE b_setting SET `val` = '".$val."' WHERE `name` = '".$key."'";
+					// echo $sql.'<br>';
+					$this->query($sql);
+				}
+			}
+		}
 	}
 ?>
