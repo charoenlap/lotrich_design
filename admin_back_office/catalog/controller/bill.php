@@ -12,11 +12,27 @@
 				redirect('home/login');
 			}
 		}
+		public function submitBill(){
+			$result = array();
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){ 
+					$id_bill = decrypt(post('id_bill'));
+					$date = post('date');
+					$arr = array(
+						'id_bill' 	=> $id_bill,
+						'date'		=> $date
+					);
+					$result = $this->model('finance')->submitBill($arr);
+					echo json_encode($result);
+				}
+			}
+		}
 		public function getBill(){
 			$result = array();
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
-				if(method_post()){
+				if(method_post()){ 
 					$id_bill = decrypt(post('id_bill'));
 					$result_bill = $this->model('finance')->getLottoDetail($id_bill);
 					$result = array(

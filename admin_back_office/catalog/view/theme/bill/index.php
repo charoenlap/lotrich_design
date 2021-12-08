@@ -63,11 +63,12 @@
           			<th>อัตราต่อรอง</th>
           			<th>แทงถูกจะได้</th>
           			<th>สถานะ</th>
+          			<th></th>
           		</thead>
           		<tbody></tbody>
           	</table>
           </div>
-          <div>
+          <div id="panel-action">
           	ตรวจสอบด้วยผลลัพธ์ ของวันที่
           	<div class="input-group date datetimepicker">
 				<span class="input-group-addon btn btn-warning">
@@ -75,16 +76,16 @@
 				</span>
 				<input type='text' class="form-control" id="date" name="date"/>
 			</div>
-			ลูกค้าแทงถูกทั้งหมด
+			<!-- ลูกค้าแทงถูกทั้งหมด
 			<div>
 				0 บิล รวมเป็นเงิน 0 บาท
-			</div>
+			</div> -->
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="control-action">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-primary">ยืนยันปิดสถานะ และโอนเงินเข้าบัญชีของลูกค้า</button>
+        <button type="button" class="btn btn-primary" id="btn-save-submit">ยืนยันปิดสถานะ และโอนเงินเข้าบัญชีของลูกค้า</button>
       </div>
     </div>
   </div>
@@ -110,7 +111,7 @@
 	// 		dataType: 'json',
 	// 		data: {
 	// 			date: ele.val(),
-	// 			id_category: '<?php echo get('id_category');?>'
+	// 			id_category: '<?php //echo get('id_category');?>'
 	// 		},
 	// 	})
 	// 	.done(function(result) {
@@ -150,6 +151,41 @@
 	// 		console.log("complete");
 	// 	});
 	// });
+	$(document).on('click','#btn-save-submit',function(e){
+		var ele = $('#btn-save-submit');
+		if($('#date').val()!=''){
+			ele.addClass('disabled');
+			// $('table#table-bill').each(function(index, tr) { 
+				var id_bill = $('#table-bill tbody').attr('id_bill');
+				$.ajax({
+					url: 'index.php?route=bill/submitBill',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						id_bill: id_bill,
+						date: $('#date').val()
+					},
+				})
+				.done(function(e) {
+					console.log(e);
+					console.log("success");
+					window.location.reload();
+				})
+				.fail(function(a,b,c) {
+					console.log(a);
+					console.log(b);
+					console.log(c);
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
+			// });
+		}else{
+			$('#date').focus();
+		}
+	});
 	$(document).ready(function(){
         $(".datetimepicker").datepicker({ 
         	format: 'yyyy-mm-dd' 
@@ -175,19 +211,31 @@
 				$('.toast-body').removeClass('text-success');
 				$('#toast').toast('show');
 			}else{
-				$('.toast-body').removeClass('text-danger');
-				$('.toast-body').addClass('text-success');
-				$('.toast-body').text(result.desc);
-				$('#toast').toast('show');
+				// $('.toast-body').removeClass('text-danger');
+				// $('.toast-body').addClass('text-success');
+				// $('.toast-body').text(result.desc);
+				// $('#toast').toast('show');
+				console.log(result);
 				$('#table-bill  tbody').html('');
+				$('#table-bill  tbody').attr('id_bill',id_bill);
 				$( result.result_bill ).each(function( index,val ) {
+					var status = "ยังไม่คำนวน";
+					if(val.status=='1'){
+						status = "เรียบร้อย";
+						$('#panel-action').addClass('d-none');
+						$('#control-action').addClass('d-none');
+					}else{
+						$('#panel-action').removeClass('d-none');
+						$('#control-action').removeClass('d-none');
+					}
 					var html = 	'<tr>'
 									+'<td>'+val.type+'</td>'
 									+'<td>'+val.number+'</td>'
 									+'<td>'+val.price+'</td>'
 									+'<td>'+val.ratio+'</td>'
 									+'<td>'+val.paid+'</td>'
-									+'<td>'+val.status+'</td>'
+									+'<td>'+status+'</td>'
+									+'<td>'+val.receive+'</td>'
 								+'</tr>';
 					$('#table-bill  tbody:last-child').append(html);
 				});

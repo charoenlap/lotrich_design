@@ -4,7 +4,16 @@
 	    	$data = array(); 
 	    	$id_admin = $this->getSession('id_admin');
 	    	if($id_admin){
-	    		$this->view('home');
+	    		$data['widthdraw'] = $this->model('dashboard')->getTotalWidthDraw();
+	    		$data['deposit'] = $this->model('dashboard')->getTotalDeposit();
+	    		$data['bill'] = $this->model('dashboard')->getTotalBill();
+	    		$data['customer'] = $this->model('dashboard')->getTotalCustomer();
+	    		$data['bill_complete'] = $this->model('dashboard')->getTotalBill(array('status'=>1));
+	    		$data['bill_uncomplete'] = $this->model('dashboard')->getTotalBill(array('status'=>0));
+
+				$data['date_start'] = date('Y-m-d');
+	    		$data['date_end'] = date('Y-m-d');
+	    		$this->view('home',$data);
 	    	}else{
 	    	 	redirect('home/login');
 	    	}

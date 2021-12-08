@@ -102,5 +102,87 @@
 			$result = $this->query($sql)->rows;
 			return $result;
 		}
+		public function submitBill($data=array()){
+
+			$result = array();
+			$id_bill = (int)$data['id_bill'];
+			$date = $this->escape($data['date']);
+			if(!empty($date)){
+				$sql_bill = "SELECT * FROM b_lotto_bill 
+								WHERE id = '".(int)$id_bill."' AND `status` = '0'";
+				$result_bill = $this->query($sql_bill);
+				if( $result_bill->num_rows ){
+					$id_category 	= $result_bill->row['id_category'];
+					$id_user 		= $result_bill->row['id_user'];
+					$sql_bill_detail = "SELECT * FROM b_lotto WHERE id_bill = '".$id_bill."' AND `status`='0'";
+					$result_bill_detail = $this->query($sql_bill_detail);
+					if( $result_bill_detail->num_rows ){
+						$total_receive = 0;
+						foreach( $result_bill_detail->rows as $val ){
+							$id 		= $val['id'];
+							$id_type 	= $val['id_type'];
+							$number 	= $val['number'];
+							$price 		= $val['price'];
+							$ratio 		= $val['ratio'];
+
+							$sql_check_result = "SELECT * FROM b_result 
+													WHERE `date` = '".$date."' 
+													AND id_cate_type = '".$id_type."' 
+													AND `result` LIKE '%".$number."%'";
+							$result_check_result = $this->query($sql_check_result);
+
+							$status = 1;
+							$receive = 0;
+							
+							if($result_check_result->num_rows > 0){
+								$receive = 1;
+								$total_receive += ($price*$ratio);
+							}
+							$sql_update_lotto_status = "UPDATE b_lotto SET `status`='1', `receive`='".$receive."' WHERE `id` = '".$id."'";
+							$query_update_lotto_status = $this->query($sql_update_lotto_status);
+
+							$result[] = array(
+								'id' 						=> $id,
+								'id_type' 					=> $id_type,
+								'number' 					=> $number,
+								'price' 					=> $price,
+								'ratio' 					=> $ratio,
+								'status'					=> $status,
+								'receive'					=> $receive,
+								'sql_check_result'			=> $sql_check_result,
+								'sql_update_lotto_status'	=> $sql_update_lotto_status
+							);
+						}
+						$sql_update_lotto_bill_status = "UPDATE b_lotto_bill SET `status`='1', `receive`='".$total_receive."' WHERE `id` = '".$id_bill."'";
+						$query_update_lotto_bill_status = $this->query($sql_update_lotto_bill_status);
+
+						$sql_update_balance_user = "UPDATE b_user SET `balance` = `balance` + ".$total_receive." 
+													WHERE `id` = '".$id_user."'";
+						$result_update_balance = $this->query($sql_update_balance_user);
+						$result = array(
+							'result' => 'Success',
+							'desc'	=> '',
+							'reward'	=> $total_receive
+						);
+					}else{
+						$result = array(
+							'result' => 'Fail',
+							'desc'	=> 'Record Empty'
+						);
+					}
+				}else{
+					$result = array(
+						'result' => 'Fail',
+						'desc'	=> 'Bill Empty'
+					);
+				}
+			}else{
+				$result = array(
+					'result' => 'Fail',
+					'desc'	=> 'Date Empty'
+				);
+			}
+			return $result;
+		}
 	}
 ?>

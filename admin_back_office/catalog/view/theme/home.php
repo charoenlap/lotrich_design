@@ -15,29 +15,23 @@
 		</div>
 	</div>
 	<hr>
-	<div class="row">
-		<div class="col-2">
-			วันที่
-			<input type="text" class="form-control" placeholder="วันที่" value="<?php echo date('d');?>">
+	<!-- <form action="" method="POST">
+		<div class="row">
+			<div class="col-2">
+				<input type="text" name="daterange" value="" class="form-control"/>
+			</div>
+			<div class="col-2">
+				<div class="d-grid ">
+					<input type="button" class="btn btn-block btn-primary" value="ค้นหาสรุป">
+				</div>
+			</div>
 		</div>
-		<div class="col-2">
-			เดือน
-			<select name="" id="" class="form-control">
-				<?php for($i=1;$i<=12;$i++){?>
-					<option value=""><?php echo $i;?></option>
-				<?php } ?>
-			</select>
-		</div>
-		<div class="col-2">
-			&nbsp;
-			<input type="button" class="btn btn-block btn-primary" value="ค้นหาสรุป">
-		</div>
-	</div>
+	</form> -->
 	<div class="row mt-4">
 		<div class="col-md-3 ">
 			<div class="card ">
 				<div class="card-body">
-					<h2 class="text-center"><span class="text-success">857</span> </h2>
+					<h2 class="text-center"><span class="text-success"><?php echo $customer;?></span> </h2>
 					<h4 class="text-center">ลูกค้า (คน)</h4>
 				</div>
 			</div>
@@ -45,15 +39,7 @@
 		<div class="col-md-3 ">
 			<div class="card ">
 				<div class="card-body">
-					<h2 class="text-center"><span class="text-danger">203,291.20</span> </h2>
-					<h4 class="text-center">ยอดถอน (บาท)</h4>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 ">
-			<div class="card ">
-				<div class="card-body">
-					<h2 class="text-center"><span class="text-success">203,291.20</span> </h2>
+					<h2 class="text-center"><span class="text-success"><?php echo number_format($deposit);?></span> </h2>
 					<h4 class="text-center">ยอดฝาก (บาท)</h4>
 				</div>
 			</div>
@@ -61,7 +47,16 @@
 		<div class="col-md-3 ">
 			<div class="card ">
 				<div class="card-body">
-					<h2 class="text-center"><span class="text-success">203,291.20</span> </h2>
+					<h2 class="text-center"><span class="text-danger"><?php echo number_format($widthdraw);?></span> </h2>
+					<h4 class="text-center">ยอดถอน (บาท)</h4>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-3 ">
+			<div class="card ">
+				<div class="card-body">
+					<h2 class="text-center"><span class="text-success"><?php echo number_format($bill);?></span> </h2>
 					<h4 class="text-center">จำนวนโพย</h4>
 				</div>
 			</div>
@@ -103,14 +98,27 @@
 	</div> -->
 	
 </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript">
+	$(function() {
+	  $('input[name="daterange"]').daterangepicker({
+	    opens: 'left',
+	    locale: {
+	      format: 'YYYY-MM-DD'
+	    }
+	  }, function(start, end, label) {
+	    // console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	  });
+	});
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'เฉพาะวันนี้'],
-          ['ฝาก',     200000],
-          ['ถอน',      5000],
+          ['ฝาก',     <?php echo $deposit;?>],
+          ['ถอน',      <?php echo $widthdraw;?>],
         ]);
 
         var options = {
@@ -128,8 +136,8 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'รวมทั้งหมด'],
-          ['ฝาก',     110000],
-          ['ถอน',      20000],
+          ['ฝาก',     <?php echo $deposit;?>],
+          ['ถอน',      <?php echo $widthdraw;?>],
         ]);
 
         var options = {
