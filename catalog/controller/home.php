@@ -12,6 +12,7 @@
 	    	$data['link_contact'] = route('contact');
 	    	$data['link_dashboard'] = route('home/dashboard');
 	    	$data['link_login']	= route('login');
+	    	$data['setting'] = $this->model('setting')->getSetting();
  	    	$this->view('home',$data); 
 	    }
 	}

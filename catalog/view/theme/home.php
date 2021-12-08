@@ -13,17 +13,20 @@
 			<ul class="splide__list">
 				<li class="splide__slide">
 					<div class="text-center">
-			    		<img src="uploads/logo/slogo.png" id="logo_banner" style="width: 250px;" alt="">
+			    		<img src="<?php echo $setting['logo']; ?>" id="logo_banner" style="width: 250px;" alt="">
 			    	</div>
 			    	<div class="text-center tp-caption rs-parallaxlevel-4 text-text-shadow" 
 				            style="z-index: 7; white-space: normal; font-size: 30px; line-height: 70px; font-weight: 400; color: rgba(255,255,255,1); letter-spacing: 6px;text-transform:uppercase;">
-						<span style="color:red;">หวย </span>ออนไลน์ 
+						<!-- <span style="color:red;">หวย </span>ออนไลน์  -->
+						<?php echo $setting['title_1']; ?>
 					</div>
 					<div class="text-center tp-caption rs-parallaxlevel-4 text-text-shadow " style="z-index: 8;white-space: normal; font-size: 60px; line-height: 70px; font-weight: 700;  letter-spacing: 3px;text-transform:uppercase;">
-						ให้คุณมากกว่าใคร <span style="color:red;">LOT </span> Rich 
+						<?php echo $setting['title_2']; ?>
+						<!-- ให้คุณมากกว่าใคร <span style="color:red;">LOT </span> Rich  -->
 					</div>
 			    	<div class="text-center tp-caption rs-parallaxlevel-4 text-text-shadow" style="z-index: 5;white-space: normal; font-size: 16px; line-height: 24px; font-weight: 400; color: rgba(255,255,255,1); ">
-			    		การันตี ถูกรางวัลจ่าย 100% จ่ายเร็ว จ่ายจริง มีลูกค้าที่ใช้บริการสูงสุด กับเราที่นี่ที่เดียว
+			    		<!-- การันตี ถูกรางวัลจ่าย 100% จ่ายเร็ว จ่ายจริง มีลูกค้าที่ใช้บริการสูงสุด กับเราที่นี่ที่เดียว -->
+			    		<?php echo $setting['title_3']; ?>
 			    	</div>
 			    	<div class="text-center">
 			    		<a href="<?php echo route('member/dashboard');?>" class="btn-home-login" >เข้าสู่ระบบ <span class="btn-click">คลิก</span></a>
@@ -106,13 +109,13 @@
 	  <div class="container">
 	    <div class="aboutus-content text-center ิbg-2">
 	      <div class="aboutus-titel">
-	        <h2>ผลรางวัล</h2>
-	        <p>รับชมประกาศผลรางวัลล่าสุดได้ที่นี่</p>
-	        <h6>ประจำงวดวันที่ 1 ตุลาคม 2564</h6>
+	        <h2 style="color:white;">ผลรางวัล</h2>
+	        <p style="color:white;">รับชมประกาศผลรางวัลล่าสุดได้ที่นี่</p>
+	        <h6 style="color:white;"><?php echo $setting['title_result_lotto']; ?></h6>
 	      </div>
 	      <div class="aboutus-video  bg-overlay-1 bg-1">
 	        <div class="video-content">
-	          <a href="www.youtube.com/watch?v=fTdZJ86KzLk?start=1290" class="popup-youtube">
+	          <a href="<?php echo $setting['link_result_lotto']; ?>" class="popup-youtube">
 	            <i class="icofont icofont-play-alt-2"></i></a>
 	        </div>
 	      </div>
