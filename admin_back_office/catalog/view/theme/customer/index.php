@@ -20,30 +20,36 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php $i=1;foreach($customer as $val){ ?>
-							<tr>
-								<td><?php echo $i;?></td>
-								<td>
-									<div>
-										<?php echo ($val['approve']==1?'<i class="fa fa-check text-success"></i>':'<i class="fa fa-times text-danger"></i>'); ?>
-										<?php echo $val['name'].' '.$val['lname'];?></div>
-									<small><?php echo $val['date_create'];?></small>
-								</td>
-								<td>
-									<div><?php echo $val['phone'];?></div>
-									<small><?php echo $val['email'];?></small>		
-								</td>
-								<td>
-									<div><?php echo $val['bank_no'];?></div>
-									<div><?php echo $val['bank_name'];?></div>
-								</td>
-								<td><?php echo $val['balance'];?></td>
-								<td class="text-center">
-									<!-- <a href="<?php echo route('customer/edit&id='.encrypt($val['id'])); ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> -->
-									<a href="<?php echo route('customer/del&id='.encrypt($val['id'])); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-								</td>
-							</tr>
-							<?php $i++;} ?>
+							<?php if($customer){ ?>
+								<?php $i=1;foreach($customer as $val){ ?>
+								<tr>
+									<td><?php echo $i;?></td>
+									<td>
+										<div>
+											<?php echo ($val['approve']==1?'<i class="fa fa-check text-success"></i>':'<i class="fa fa-times text-danger"></i>'); ?>
+											<?php echo $val['name'].' '.$val['lname'];?></div>
+										<small><?php echo $val['date_create'];?></small>
+									</td>
+									<td>
+										<div><?php echo $val['phone'];?></div>
+										<small><?php echo $val['email'];?></small>		
+									</td>
+									<td>
+										<div><?php echo $val['bank_no'];?></div>
+										<div><?php echo $val['bank_name'];?></div>
+									</td>
+									<td><?php echo $val['balance'];?></td>
+									<td class="text-center">
+										<!-- <a href="<?php echo route('customer/edit&id='.encrypt($val['id'])); ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> -->
+										<a href="<?php echo route('customer/del&id='.encrypt($val['id'])); ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+									</td>
+								</tr>
+								<?php $i++;} ?>
+							<?php }else{?>
+								<tr>
+									<td colspan="10" class="text-center">ไม่พบข้อมูล</td>
+								</tr>
+							<?php } ?>
 						</tbody>
 					</table>
 				</div>

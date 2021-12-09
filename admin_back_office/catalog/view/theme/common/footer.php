@@ -2,7 +2,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <div class="site-footer-legal float-right">Power by friendlysoftpro</div>
+              <div class="site-footer-legal float-right"></div>
             </div>
           </div>
         </div>

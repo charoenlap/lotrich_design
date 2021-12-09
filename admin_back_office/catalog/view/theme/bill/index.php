@@ -20,23 +20,29 @@
 							<th class="text-center">ดูบิล</th>
 						</thead>
 						<tbody>
-							<?php $i=1;foreach($lotto as $val){ ?>
-							<tr>
-								<td><?php echo $i++; ?></td>
-								<td><?php echo $val['id'];?></td>
-								<td><?php echo $val['date_create'];?></td>
-								<td><?php echo $val['name'];?></td>
-								<td><?php echo number_format($val['total'],2);?></td>
-								<td>
-									<?php if($val['status']==1){ echo $val['receive']; } ?>
-								</td>
-								<td><?php echo ($val['status']==0?'ยังไม่คำนวน':'เรียบร้อย'); ?></td>
-								<td class="text-end">
-									<a href="#" class="btn btn-xs btn-primary btn-view-bill" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" data-id-bill="<?php echo encrypt($val['id']);?>" data-id-category="<?php echo encrypt($val['id_category']);?>">
-										ดูบิล
-									</a>
-								</td>
-							</tr>
+							<?php if($lotto){ ?>
+								<?php $i=1;foreach($lotto as $val){ ?>
+								<tr>
+									<td><?php echo $i++; ?></td>
+									<td><?php echo $val['id'];?></td>
+									<td><?php echo $val['date_create'];?></td>
+									<td><?php echo $val['name'];?></td>
+									<td><?php echo number_format($val['total'],2);?></td>
+									<td>
+										<?php if($val['status']==1){ echo $val['receive']; } ?>
+									</td>
+									<td><?php echo ($val['status']==0?'ยังไม่คำนวน':'เรียบร้อย'); ?></td>
+									<td class="text-end">
+										<a href="#" class="btn btn-xs btn-primary btn-view-bill" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" data-id-bill="<?php echo encrypt($val['id']);?>" data-id-category="<?php echo encrypt($val['id_category']);?>">
+											ดูบิล
+										</a>
+									</td>
+								</tr>
+								<?php } ?>
+							<?php }else{ ?>
+								<tr>
+									<td colspan="10" class="text-center">ไม่พบข้อมูล</td>
+								</tr>
 							<?php } ?>
 						</tbody>
 					</table>

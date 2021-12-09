@@ -4,7 +4,7 @@
 			$result = array(
 				'result' => 'fail'
 			);
-			$sql = "SELECT * FROM b_user WHERE `del`= 0 ORDER by id ASC";
+			$sql = "SELECT * FROM b_user ORDER by id ASC";
 			$result_user = $this->query($sql);
 			if($result_user->num_rows > 0){
 				$result = $result_user->rows;

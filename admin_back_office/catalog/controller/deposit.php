@@ -4,7 +4,8 @@
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				$data = array();
-				$data['deposit'] = $this->model('finance')->getDeposit()['deposit'];
+				$deposit = $this->model('finance')->getDeposit();
+				$data['deposit'] = $deposit;
 				$this->view('deposit/index',$data);
 			}else{
 				redirect('home/login');

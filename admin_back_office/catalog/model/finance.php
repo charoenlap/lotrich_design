@@ -135,7 +135,7 @@
 							$receive = 0;
 							
 							if($result_check_result->num_rows > 0){
-								$receive = 1;
+								$receive = ($price*$ratio);
 								$total_receive += ($price*$ratio);
 							}
 							$sql_update_lotto_status = "UPDATE b_lotto SET `status`='1', `receive`='".$receive."' WHERE `id` = '".$id."'";

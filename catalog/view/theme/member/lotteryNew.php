@@ -445,6 +445,7 @@
 		  $(this).parents('tr').find(".paid").text( price * ratio);
 		  console.log(price +' '+ratio);
 		});
+		sum_cal();
 		e.preventDefault();
 	});
 	$(document).on('click','#btn-submit',function(e){
@@ -590,6 +591,7 @@
 		}
 	});
 	$(document).on('click','#btn-add-lotto',function(e){
+		count_box=1;
 		var rdoType = $('.rdoType:checked').val();
 		
 		var number = "";

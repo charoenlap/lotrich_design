@@ -4,7 +4,8 @@
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				$data = array();
-				$data['widthdraw'] = $this->model('finance')->getWidthdraw()['widthdraw'];
+				$widthdraw = $this->model('finance')->getWidthdraw();
+				$data['widthdraw'] = $widthdraw;
 				$this->view('widthdraw/index',$data);
 			}else{
 				redirect('home/login');

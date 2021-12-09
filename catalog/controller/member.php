@@ -416,29 +416,40 @@
 		    		$id_package 	= decrypt(post('id_package'));
 		    		$sum_price  = 0;
 		    		$balance = $this->model('finance')->getBalance($id_user);
+		    		// var_dump($price);exit();
 		    		foreach($id_type as $key => $val){
-		    			if($price[$key]<=0){
-		    				continue;
-		    			}
-		    			$number = $number[$key];
-		    			$result_ratio = $this->model('lotto')->getLottoRatio($number,$id_category,$val,$id_package);
-		    			// var_dump($result_ratio);
-		    			$price = $price[$key];
-		    			$ratio = $result_ratio['ratio'];
-		    			$paid = $price * $ratio * $result_ratio['condition'];
+		    			// echo $key.'/';
+		    			// if(isset($price[$key])){
+
+		    				// ?????
+		    			// echo $price[$key].'_'.$key.' ';
+			    			if($price[$key]<=0){
+			    				continue;
+			    			}
+
+			    			$number_ = $number[$key];
+			    			$result_ratio = $this->model('lotto')->getLottoRatio($number_,$id_category,$val,$id_package);
+			    			// var_dump($result_ratio);
+			    			$price_ = $price[$key];
+			    			$ratio_ = $result_ratio['ratio'];
+			    			$paid = $price_ * $ratio_ * $result_ratio['condition'];
 
 
-		    			$list_lotto[] = array(
-							'id_type' 	=> $val,
-							'number' 	=> $number,
-							'paid' 		=> $paid,
-							'price' 	=> $price,
-							'ratio' 	=> $ratio,
-							'type' 		=> $result_ratio['type'],
-							'status'	=> 0
-		    			);
-		    			$sum_price += (float)$price[$key];
+			    			$list_lotto[] = array(
+								'id_type' 	=> $val,
+								'number' 	=> $number_,
+								'paid' 		=> $paid,
+								'price' 	=> $price_,
+								'ratio' 	=> $ratio_,
+								'type' 		=> $result_ratio['type'],
+								'status'	=> 0
+			    			);
+			    			$sum_price += (float)$price[$key];
+		    			// }
 		    		}
+		    		// var_dump($list_lotto);
+		    		// exit();
+
 		    		if($sum_price<=$balance){
 		    			$this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
 		    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
@@ -576,7 +587,8 @@
 				$data = array();
 		    	$data['title'] = "ticket";
 		    	$data['descreption'] = "";
-		    	$data['lotto'] = $this->model('lotto')->getLotto($id_user)['bill'];
+		    	$bill = $this->model('lotto')->getLotto($id_user);
+		    	$data['lotto'] = (isset($bill['bill'])?$bill['bill']:array());
 	 	    	$this->view('member/ticket',$data); 
 	 	    }else{
 	 	    	$this->redirect('login');
