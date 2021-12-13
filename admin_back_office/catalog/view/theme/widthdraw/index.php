@@ -16,7 +16,7 @@
 							</thead>
 							<tbody>
 								<?php if(isset($widthdraw['result'])){ ?>
-									<?php if($deposit['result']!="failed"){ ?>
+									<?php if($widthdraw['result']!="failed"){ ?>
 										<?php foreach($widthdraw as $val){ ?>
 										<tr>
 											<td><?php echo $val['date_create']; ?></td>
@@ -32,6 +32,7 @@
 											</td>
 										</tr>
 										<?php } ?>
+									<?php } ?>
 								<?php }else{?>
 									<tr>
 										<td colspan="10" class="text-center">ไม่พบข้อมูล</td>
