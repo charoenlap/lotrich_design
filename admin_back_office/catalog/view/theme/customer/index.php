@@ -21,10 +21,9 @@
 						</thead>
 						<tbody>
 							<?php 
-								if(!isset($customer['result'])){ 
-									if($customer['result']!="failed"){
+								if($customer['num_rows']){ 
 										$i=1;
-										foreach($customer as $val){ ?>
+										foreach($customer['rows'] as $val){ ?>
 									<tr>
 										<td><?php echo $i;?></td>
 										<td>
@@ -48,7 +47,6 @@
 										</td>
 									</tr>
 									<?php $i++;} ?>
-								<?php } ?>
 							<?php }else{?>
 								<tr>
 									<td colspan="10" class="text-center">ไม่พบข้อมูล</td>
