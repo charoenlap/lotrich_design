@@ -21,7 +21,7 @@
 						</thead>
 						<tbody>
 							<?php 
-								if(isset($customer['result'])){ 
+								if(!isset($customer['result'])){ 
 									if($customer['result']!="failed"){
 										$i=1;
 										foreach($customer as $val){ ?>
