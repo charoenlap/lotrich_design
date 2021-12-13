@@ -15,23 +15,21 @@
 								<th></th>
 							</thead>
 							<tbody>
-								<?php if(isset($widthdraw['result'])){ ?>
-									<?php if($widthdraw['result']!="failed"){ ?>
-										<?php foreach($widthdraw as $val){ ?>
-										<tr>
-											<td><?php echo $val['date_create']; ?></td>
-											<td><?php echo $val['name'].' '.$val['lname']; ?></td>
-											<td><?php echo $val['amount']; ?></td>
-											<td><span class="text-status"><?php echo ($val['status']==0?'รอการยืนยัน':'เรียบร้อยแล้ว'); ?></span></td>
-											<td>
-												<?php if($val['status']==0){ ?>
-												<a href="#" class="btn btn-xs btn-warning btn-transection" 
-												id-transection="<?php echo encrypt($val['id']);?>"
-												>ยืนยัน</a>
-												<?php } ?>
-											</td>
-										</tr>
-										<?php } ?>
+								<?php if($widthdraw['result']!="failed"){ ?>
+									<?php foreach($widthdraw as $val){ ?>
+									<tr>
+										<td><?php echo $val['date_create']; ?></td>
+										<td><?php echo $val['name'].' '.$val['lname']; ?></td>
+										<td><?php echo $val['amount']; ?></td>
+										<td><span class="text-status"><?php echo ($val['status']==0?'รอการยืนยัน':'เรียบร้อยแล้ว'); ?></span></td>
+										<td>
+											<?php if($val['status']==0){ ?>
+											<a href="#" class="btn btn-xs btn-warning btn-transection" 
+											id-transection="<?php echo encrypt($val['id']);?>"
+											>ยืนยัน</a>
+											<?php } ?>
+										</td>
+									</tr>
 									<?php } ?>
 								<?php }else{?>
 									<tr>

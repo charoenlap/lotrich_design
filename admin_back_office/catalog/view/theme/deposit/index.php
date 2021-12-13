@@ -17,29 +17,27 @@
 								<th></th>
 							</thead>
 							<tbody>
-								<?php if(isset($deposit['result'])){ ?>
-									<?php if($deposit['result']=="success"){ ?>
-										<?php foreach($deposit['deposit'] as $val){ ?>
-										<tr>
-											<td><?php echo $val['date_create']; ?></td>
-											<td><?php echo $val['name'].' '.$val['lname']; ?></td>
-											<td><?php echo $val['amount']; ?></td>
-											<td><?php echo $val['hour'].':'.$val['minutes']; ?></td>
-											<td>
-												<a href="img.php?file=2,1,<?php echo $val['img'];?>,1000,1000" target="_blank">
-													<img src="img.php?file=2,1,<?php echo $val['img'];?>,500,500" alt="" width="100px;" height="100px;">
-												</a>
-											</td>
-											<td><span class="text-status"><?php echo ($val['status']==0?'รอการยืนยัน':'เรียบร้อยแล้ว'); ?></span></td>
-											<td>
-												<?php if($val['status']==0){ ?>
-												<a href="#" class="btn btn-xs btn-warning btn-transection" 
-												id-transection="<?php echo encrypt($val['id']);?>"
-												>ยืนยัน</a>
-												<?php } ?>
-											</td>
-										</tr>
-										<?php } ?>
+								<?php if($deposit['result']=="success"){ ?>
+									<?php foreach($deposit['deposit'] as $val){ ?>
+									<tr>
+										<td><?php echo $val['date_create']; ?></td>
+										<td><?php echo $val['name'].' '.$val['lname']; ?></td>
+										<td><?php echo $val['amount']; ?></td>
+										<td><?php echo $val['hour'].':'.$val['minutes']; ?></td>
+										<td>
+											<a href="img.php?file=2,1,<?php echo $val['img'];?>,1000,1000" target="_blank">
+												<img src="img.php?file=2,1,<?php echo $val['img'];?>,500,500" alt="" width="100px;" height="100px;">
+											</a>
+										</td>
+										<td><span class="text-status"><?php echo ($val['status']==0?'รอการยืนยัน':'เรียบร้อยแล้ว'); ?></span></td>
+										<td>
+											<?php if($val['status']==0){ ?>
+											<a href="#" class="btn btn-xs btn-warning btn-transection" 
+											id-transection="<?php echo encrypt($val['id']);?>"
+											>ยืนยัน</a>
+											<?php } ?>
+										</td>
+									</tr>
 									<?php } ?>
 								<?php }else{?>
 									<tr>
