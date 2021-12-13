@@ -6,7 +6,6 @@
 					<h4>ลูกค้า</h4>
 				</div>
 			</div>
-			<?php var_dump($customer); ?>
 			<div class="row">
 				<div class="col-md-12">
 					<table class="table table-bordered table-striped">
@@ -22,7 +21,7 @@
 						</thead>
 						<tbody>
 							<?php 
-								if(count($customer)){ ?>
+								if(!isset($customer['result'])){ ?>
 								<?php 
 									$i=1;
 									foreach($customer as $val){ ?>
