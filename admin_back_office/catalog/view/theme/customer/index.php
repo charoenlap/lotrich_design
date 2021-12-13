@@ -20,7 +20,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php if($customer){ ?>
+							<?php if(count($customer)){ ?>
 								<?php $i=1;foreach($customer as $val){ ?>
 								<tr>
 									<td><?php echo $i;?></td>
