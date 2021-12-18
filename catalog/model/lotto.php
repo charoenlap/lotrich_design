@@ -21,6 +21,7 @@
 				ORDER BY `order` ASC";
 			// echo $sql;
 			$result_type = $this->query($sql)->rows;
+			// var_dump($result_type);
 			foreach($result_type as $val){
 				$sql_sub = "SELECT *,b_type.id AS id FROM b_type
 				LEFT JOIN b_ratio ON b_type.id = b_ratio.id_type 

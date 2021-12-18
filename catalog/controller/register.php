@@ -52,17 +52,18 @@
 		        		);
 
 		        		$result_register = $user->register($arr_user);
-
-		        		$this->setSession('id',encrypt($result_register['id']));
-		        		$this->setSession('email',$email);
-		        		$this->setSession('name',$name);
-		        		$this->setSession('lname',$lname);
-		        		$this->setSession('phone',$phone);
-		        		$this->setSession('bank_no',$bank_no);
-		        		$this->setSession('bank_name',$bank_name);
-		        		$this->setSession('bank_no_2',$bank_no_2);
-		        		$this->setSession('bank_name_2',$bank_name_2);
-
+		        		// var_dump($result_register);
+		        		if($result_register['status']!="fail"){
+			        		$this->setSession('id',encrypt($result_register['id']));
+			        		$this->setSession('email',$email);
+			        		$this->setSession('name',$name);
+			        		$this->setSession('lname',$lname);
+			        		$this->setSession('phone',$phone);
+			        		$this->setSession('bank_no',$bank_no);
+			        		$this->setSession('bank_name',$bank_name);
+			        		$this->setSession('bank_no_2',$bank_no_2);
+			        		$this->setSession('bank_name_2',$bank_name_2);
+			        	}
 		        		$result = array(
 			        		'status' => $result_register['status'],
 			        		'desc'	=> $result_register['desc']
