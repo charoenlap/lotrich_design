@@ -23,6 +23,7 @@
 				$bank_no_2 			= post('bank_no_2');
 				$bank_name_2 		= post('bank_name_2');
 				$email 				= post('email');
+				$email_2 			= post('email_2');
 				$password 			= post('password');
 				$confirm_password 	= post('confirm_password');
 				$encrypt 			= encrypt(post('password'));
@@ -34,7 +35,8 @@
 	        		and !empty($bank_no) 
 	        		and !empty($bank_name) 
 	        		and !empty($password) 
-	        		and !empty($email) ){
+	        		and !empty($email)
+	        		and !empty($email_2) ){
         			if($confirm_password == $password){
 		        		$arr_user = array(
 							'name'			=> $name,
@@ -45,6 +47,7 @@
 							'bank_no_2'		=> $bank_no_2,
 							'bank_name_2'	=> $bank_name_2,
 							'email'			=> $email,
+							'email_2'		=> $email_2,
 							'password'		=> $password,
 							'encrypt'		=> $encrypt,
 							'approve'		=> 1,
@@ -56,6 +59,7 @@
 		        		if($result_register['status']!="fail"){
 			        		$this->setSession('id',encrypt($result_register['id']));
 			        		$this->setSession('email',$email);
+			        		$this->setSession('email_2',$email_2);
 			        		$this->setSession('name',$name);
 			        		$this->setSession('lname',$lname);
 			        		$this->setSession('phone',$phone);

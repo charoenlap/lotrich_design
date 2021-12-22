@@ -71,6 +71,7 @@
 			$bank_no_2 		= (!empty($data['bank_no_2']) ? 	$this->escape($data['bank_no_2']):'');
 			$bank_name_2 	= (!empty($data['bank_name_2']) ? 	$this->escape($data['bank_name_2']):'');
 			$email 			= (!empty($data['email']) ? 		$this->escape($data['email']):'');
+			$email_2 		= (!empty($data['email_2']) ? 		$this->escape($data['email_2']):'');
 			$password 		= (!empty($data['password']) ? 		$this->escape($data['password']):'');
 			$encrypt 		= (!empty($data['encrypt']) ? 		$this->escape($data['encrypt']):'');
 			$approve 		= (!empty($data['approve']) ? 		$this->escape($data['approve']):0);
@@ -80,10 +81,15 @@
 				$sql_check_dupplicate_email = "SELECT * FROM b_user WHERE email = '".$email."'";
 				$query_check_email 		= $this->query($sql_check_dupplicate_email);
 
+				$sql_check_dupplicate_email_2 = "SELECT * FROM b_user WHERE email_2 = '".$email_2."'";
+				$query_check_email_2 		= $this->query($sql_check_dupplicate_email_2);
+
 				$sql_check_dupplicate_bank_no = "SELECT * FROM b_user WHERE bank_no = '".$bank_no."'";
 				$query_check_bank_no 	= $this->query($sql_check_dupplicate_bank_no);
 
-				if($query_check_email->num_rows == 0 AND $query_check_bank_no->num_rows == 0){
+				if($query_check_email->num_rows == 0 
+					AND $query_check_bank_no->num_rows == 0
+					AND $query_check_email_2->num_rows == 0){
 					$date_create 	= date('Y-m-d H:i:s');
 					$data_insert_user = array(
 						'name' 			=> $name,
@@ -94,6 +100,7 @@
 						'bank_no_2' 	=> $bank_no_2,
 						'bank_name_2' 	=> $bank_name_2,
 						'email' 		=> $email,
+						'email_2' 		=> $email_2,
 						'password' 		=> md5($password),
 						'encrypt' 		=> $encrypt,
 						'date_create' 	=> $date_create,
@@ -108,6 +115,9 @@
 				}else{
 					$result['status'] 	= 'fail';
 					if($query_check_email->num_rows){
+						$result['desc'][]	= 'ชื่อผู้ใช้นี้มีอยู่ในระบบแล้ว';
+					}
+					if($query_check_email_2->num_rows){
 						$result['desc'][]	= 'Email นี้มีอยู่ในระบบแล้ว';
 					}
 					if($query_check_bank_no->num_rows){

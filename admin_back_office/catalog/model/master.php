@@ -134,7 +134,8 @@
 				$arr = array(
 					'id_type'=> $key,
 					'id_category' => $id_category,
-					'price'=>$val
+					'price'=>$val,
+					'id_package' => 1
 				);
 				$this->insert('ratio',$arr);
 			}

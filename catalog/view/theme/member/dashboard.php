@@ -47,7 +47,13 @@
 							<?php } ?>
 						</h3>
 						<?php if(!$val['sub']){ ?>
-						<div  class="text-center" style="float:right">ปิด: <?php echo $val['date_close']; ?></div>
+						<div  class="text-center" style="float:right">ปิด: 
+							<?php if($val['diff_date']=="-"){?>
+								เลยระยะเวลาที่กำหนด
+							<?php }else{ ?>
+								<span class="time" time="<?php echo $val['date_close']; ?>"><?php echo $val['date_close']; ?></span>
+							<?php } ?>
+						</div>
 						<?php }?>
 					</div>
 					<div class="card-body">
@@ -80,3 +86,28 @@
 		<?php } ?>
 	</div>
 </div>
+<script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+<script>
+	$(function(){
+		$( '.time' ).each(function( index,id ) {
+		// $.each( '.time', function( i, val ) {
+		// $.each('.time', function(index, val) {
+			var time = $(this).attr('time');
+			 $(this).countdown(time)
+			.on('update.countdown', function(event) {
+			  var format = '%H:%M:%S';
+			  if(event.offset.totalDays > 0) {
+			    format = '%-D วัน%!d ' + format;
+			  }
+			  // if(event.offset.weeks > 0) {
+			  //   format = '%-w สัปดาห์%!w ' + format;
+			  // }
+			  $(this).html(event.strftime(format));
+			})
+			.on('finish.countdown', function(event) {
+			  $(this).html('This offer has expired!')
+			    .parent().addClass('disabled');
+			});
+		})
+	});
+</script>

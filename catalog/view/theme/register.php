@@ -71,9 +71,19 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					อีเมล
-					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="อีเมล" tabindex="8">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							ชื่อผู้ใช้ในการเข้าสู่ระบบ
+							<input type="text" name="email" id="email" class="form-control input-lg" placeholder="ชื่อผู้ใช้ในการเข้าสู่ระบบ" tabindex="8">
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							อีเมล
+							<input type="email_2" name="email_2" id="email_2" class="form-control input-lg" placeholder="อีเมล" tabindex="8">
+						</div>
+					</div>
 				</div>
 				
 				<div class="row">

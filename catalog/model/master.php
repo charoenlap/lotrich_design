@@ -13,7 +13,7 @@
 			$date = (isset($data['date'])?$data['date']:date('Y-m-d'));
 			$result = array();
 			$path_json = PATH_JSON.'/getCategory.json';
-			if(!isset($data['db'])){
+			// if(!isset($data['db'])){
 				$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0 ORDER BY `order_by` ASC";
 				$category = $this->query($sql)->rows;
 				$last_date = '';
@@ -37,11 +37,12 @@
 						ORDER BY b_category_type.`order` ASC";
 						$type_sub = $this->query($sql_sub_in)->rows;
 						$result_cate_sub[] = array(
-							'id' 	=> $cs['id'],
-							'name' 	=> $cs['name'],
-							'flag' 	=> $cs['flag'],
-							'name' 	=> $cs['name'],
-							'type' 	=> $type_sub
+							'id' 		=> $cs['id'],
+							'name' 		=> $cs['name'],
+							'flag' 		=> $cs['flag'],
+							'name' 		=> $cs['name'],
+							'type' 		=> $type_sub,
+							// 'diff_date'	=> ''
 						);
 					}
 					$type = array();
@@ -53,6 +54,11 @@
 					ORDER BY b_category_type.`order` ASC";
 					$type = $this->query($sql_sub)->rows;
 
+					$date1			= date_create_from_format("Y-m-d H:i:s",date("Y-m-d H:i:s"));
+					$date2			= date_create_from_format("Y-m-d H:i:s", $val['date_close']);
+					$diff 			= date_diff($date1,$date2);
+					$result_diff 	= $diff->format("%R");
+					// var_dump($date1);echo "<br>";
 					$result[] = array(
 						'id' 			=> $val['id'],
 						'name' 			=> $val['name'],
@@ -61,17 +67,19 @@
 						'type'			=> $type,
 						'date_close' 	=> $val['date_close'],
 						'column' 		=> $val['column'],
-						'last_date' 	=> $last_date
+						'last_date' 	=> $last_date,
+						'diff_date'		=> $result_diff
 					);
 				}
+				// exit();
 				// echo "<pre>";
 				// var_dump($result);exit();
 				$fp = fopen($path_json, 'w');
 				fwrite($fp, json_encode($result));
 				fclose($fp);
-			}else{
-				$result = json_decode(file_get_contents($path_json), true);
-			}
+			// }else{
+			// 	$result = json_decode(file_get_contents($path_json), true);
+			// }
 			return $result;
 		}
 		public function getCategoryDetail($id){
