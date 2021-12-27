@@ -6,6 +6,11 @@
 					<h4>บิลลูกค้า</h4>
 				</div>
 			</div>
+			<!-- <div class="row mt-4">
+				<div class="col-12">
+					<select name="" class="form-control" id=""></select>
+				</div>
+			</div> -->
 			<div class="row mt-4">
 				<div class="col-12">
 					<table class="table table-striped">
@@ -13,6 +18,7 @@
 							<th>##</th>
 							<th>รหัสบิล</th>
 							<th>วันที่สร้างบิล</th>
+							<th>ประเภทบิล</th>
 							<th>ชื่อลูกค้า</th>
 							<th>ยอดซื้อ</th>
 							<th>ลูกค้าแทงถูก</th>
@@ -26,6 +32,7 @@
 									<td><?php echo $i++; ?></td>
 									<td><?php echo $val['id'];?></td>
 									<td><?php echo $val['date_create'];?></td>
+									<td><?php echo $val['category_name'];?></td>
 									<td><?php echo $val['name'];?></td>
 									<td><?php echo number_format($val['total'],2);?></td>
 									<td>

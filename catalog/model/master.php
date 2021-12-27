@@ -10,7 +10,7 @@
 			return $this->query("SELECT * FROM b_bank")->rows;
 		}
 		public function getCategory($data=array()){
-			$date = (isset($data['date'])?$data['date']:date('Y-m-d'));
+			$date = $this->escape((isset($data['date'])?$data['date']:date('Y-m-d')));
 			$result = array();
 			$path_json = PATH_JSON.'/getCategory.json';
 			// if(!isset($data['db'])){
@@ -36,13 +36,19 @@
 						AND id_category = '".$cs['id']."' 
 						ORDER BY b_category_type.`order` ASC";
 						$type_sub = $this->query($sql_sub_in)->rows;
+
+						$date1			= date_create_from_format("Y-m-d H:i:s",date("Y-m-d H:i:s"));
+						$date2			= date_create_from_format("Y-m-d H:i:s", $cs['date_close']);
+						$diff 			= date_diff($date1,$date2);
+						$result_diff 	= $diff->format("%R");
+
 						$result_cate_sub[] = array(
 							'id' 		=> $cs['id'],
 							'name' 		=> $cs['name'],
 							'flag' 		=> $cs['flag'],
 							'name' 		=> $cs['name'],
 							'type' 		=> $type_sub,
-							// 'diff_date'	=> ''
+							'diff_date'	=> $result_diff
 						);
 					}
 					$type = array();

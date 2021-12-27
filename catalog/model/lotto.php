@@ -104,7 +104,7 @@
 			$result = array(
 				'status' 	=> 'failed'
 			);
-			$sql = "SELECT *, b_lotto_bill.id AS id FROM b_lotto_bill 
+			$sql = "SELECT *, b_lotto_bill.id AS id,b_category.`name` AS category_name FROM b_lotto_bill 
 				LEFT JOIN b_category ON b_category.id = b_lotto_bill.id_category 
 				WHERE b_lotto_bill.id_user = '".$id_user."' ORDER BY b_lotto_bill.id DESC";
 			$query 	= $this->query($sql);
@@ -136,36 +136,68 @@
 			if($id_user){
 				$lotto = $data;
 				if(!empty($lotto)){
-					$arr = array(
-						'id_user' 		=> $id_user,
-						'id_category'	=> $id_category,
-						'date_create' 	=> date('Y-m-d H:i:s'),
-						'total'			=> $sum_price,
-						'receive'		=> 0
-					);
-					$id_bill = $this->insert("lotto_bill",$arr);
-					foreach($lotto as $val){
-						$insert = array(
-							'date_create' 	=> date('Y-m-d H:i:s'),
-							'number' 		=> $val['number'],
-							'price' 		=> $val['price'],
-							'paid' 			=> $val['paid'],
-							'ratio' 		=> $val['ratio'],
-							'id_type' 		=> $val['id_type'],
-							'type' 			=> $val['type'],
-							'status' 		=> $val['status'],
-							'id_bill'		=> $id_bill
+					$id_category = (int)$id_category;
+					$date_close = '';
+					$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+					if($result_get_date_closed->num_rows){
+						$date_close = $result_get_date_closed->row['date_close'];
+
+						$date1			= date_create_from_format("Y-m-d H:i:s",date("Y-m-d H:i:s"));
+						$date2			= date_create_from_format("Y-m-d H:i:s", $date_close);
+						$diff 			= date_diff($date1,$date2);
+						$result_diff 	= $diff->format("%R");
+
+						if($result_diff=="+"){
+							if(!empty($date_close)){
+								$arr = array(
+									'id_user' 		=> $id_user,
+									'id_category'	=> $id_category,
+									'date_create' 	=> date('Y-m-d H:i:s'),
+									'total'			=> $sum_price,
+									'receive'		=> 0,
+									'date_close'	=> $date_close
+								);
+								$id_bill = $this->insert("lotto_bill",$arr);
+								foreach($lotto as $val){
+									$insert = array(
+										'date_create' 	=> date('Y-m-d H:i:s'),
+										'number' 		=> $val['number'],
+										'price' 		=> $val['price'],
+										'paid' 			=> $val['paid'],
+										'ratio' 		=> $val['ratio'],
+										'id_type' 		=> $val['id_type'],
+										'type' 			=> $val['type'],
+										'status' 		=> $val['status'],
+										'id_bill'		=> $id_bill
+									);
+									$this->insert('lotto',$insert);
+								}
+								$result = array(
+									'status' 	=> 'success',
+									'desc'	=> $id_bill
+								);
+							}else{
+								$result = array(
+									'status' 	=> 'failed',
+									'desc'	=> 'ไม่พบวันที่ปิด หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
+								);
+							}
+						}else{
+							$result = array(
+								'status' 	=> 'failed',
+								'desc'	=> 'หมดเวลาในการแทงหวย หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
+							);
+						}
+					}else{
+						$result = array(
+							'status' 	=> 'failed',
+							'desc'	=> 'ไม่พบวันที่สิ้นสุด หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
 						);
-						$this->insert('lotto',$insert);
 					}
-					$result = array(
-						'status' 	=> 'success',
-						'desc'	=> $id_bill
-					);
 				}else{
 					$result = array(
 						'status' 	=> 'failed',
-						'desc'	=> 'Not found lotto'
+						'desc'	=> 'ไม่พบการแทง หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
 					);
 				}
 			}

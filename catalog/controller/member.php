@@ -451,13 +451,20 @@
 		    		// exit();
 
 		    		if($sum_price<=$balance){
-		    			$this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
-		    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
-			    		$this->setSession('lotto',array());
-			    		$result = array(
-			    			'status' => 'success',
-			    			'desc'	=> 'ระบบได้เพิ่มโพยของท่านเรียบร้อยแล้ว'
-			    		);
+		    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
+		    			if($result_add_lotto['status']=="success"){
+			    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
+				    		$this->setSession('lotto',array());
+				    		$result = array(
+				    			'status' => 'success',
+				    			'desc'	=> 'ระบบได้เพิ่มโพยของท่านเรียบร้อยแล้ว'
+				    		);
+				    	}else{
+				    		$result = array(
+				    			'status' => 'failed',
+				    			'desc'	=> $result_add_lotto['desc']
+				    		);
+				    	}
 		    		}else{
 		    			$result = array(
 			    			'status' => 'failed',

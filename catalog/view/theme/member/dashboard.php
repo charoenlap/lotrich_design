@@ -70,7 +70,13 @@
 											</h4>
 										</div>
 										<div class="card-body card-body-red">
-											<div class="text-center" >ปิด: <?php echo $val['date_close']; ?></div>
+											<div class="text-center" >ปิด: 
+												<?php if($v['diff_date']=="-"){?>
+													เลยระยะเวลาที่กำหนด
+												<?php }else{ ?>
+													<span class="time" time="<?php echo $v['date_close']; ?>"><?php echo $v['date_close']; ?></span>
+												<?php } ?>
+											</div>
 											<?php /*<a class="hvr-btn btn-block" href="<?php echo $link_package.'&id='.encrypt($v['id']);?>">
 												<?php echo $v['name']; ?>
 											</a>*/ ?>

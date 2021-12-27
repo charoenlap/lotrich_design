@@ -12,5 +12,24 @@
 			}
 			return $result;
 		}
+		public function addPackage($package='',$id_category){
+			$result = array(
+				'result' => 'fail'
+			);
+			if(!empty($package)){
+				$data = array(
+					'id_category' 	=> $id_category,
+					'name'			=> $package
+				);
+				$result_insert = $this->insert('package',$data);
+				if($result_insert){
+					$result = array(
+						'result' => 'success'
+					);
+				}
+			}
+			return $result;
+		}
+		
 	}
 ?>

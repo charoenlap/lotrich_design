@@ -57,7 +57,7 @@
 			// }
 			return $result;
 		}
-		public function getCategory($id_category=0,$date=''){
+		public function getCategory($id_category=0,$date='',$id_package=0){
 			if($date==''){
 				$date = date('Y-m-d');
 			}
@@ -69,9 +69,14 @@
 				$val = $this->query($sql)->row;
 
 					$sub = array();
-
-					$sql_ratio = "SELECT *,b_type.type AS name,b_ratio.id AS id FROM b_ratio LEFT JOIN b_type ON b_ratio.id_type = b_type.id WHERE id_category = '".$id_category."' ";
-						$ratio = $this->query($sql_ratio)->rows;
+					$sql_ratio = "SELECT *,b_type.type AS name,b_ratio.id AS id 
+									FROM b_ratio 
+										LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
+									WHERE 
+										b_ratio.id_category = '".$id_category."' 
+										AND id_package = ".$id_package;
+					// echo $sql_ratio;
+					$ratio = $this->query($sql_ratio)->rows;
 
 					$sql_sub = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = '".$id_category."'";
 					$category_sub = $this->query($sql_sub)->rows;
@@ -102,14 +107,16 @@
 					$type = $this->query($sql_sub)->rows;
 
 					$result = array(
-						'status'=> 'success',
-						'desc'	=> 'ค้นหาสำเร็จ',
-						'id' 	=> $id_category,
-						'name' 	=> $val['name'],
-						'flag' 	=> $val['flag'],
-						'sub'	=> $result_cate_sub,
-						'type'	=> $type,
-						'ratio' => $ratio
+						'status'		=> 'success',
+						'desc'			=> 'ค้นหาสำเร็จ',
+						'id' 			=> $id_category,
+						'name' 			=> $val['name'],
+						'flag' 			=> $val['flag'],
+						'date_close' 	=> $val['date_close'],
+						'max_total' 	=> $val['max_total'],
+						'sub'			=> $result_cate_sub,
+						'type'			=> $type,
+						'ratio' 		=> $ratio
 					);
 				// echo "<pre>";
 				// var_dump($result);exit();
@@ -121,23 +128,77 @@
 			}
 			return $result;
 		}
+		public function listReportNo($data=array()){
+			$result = array();
+			$date_close 	= $this->escape($data['date']);
+			$id_category 	= $data['id_category'];
+			$id_type 		= $data['id_type'];
+			$sql = "SELECT b_lotto.`number`,SUM(`b_lotto`.`price`) AS sum_price FROM b_lotto 
+				LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
+				WHERE 
+					b_lotto_bill.`date_close` like '".$date_close."%' 
+					AND b_lotto.id_type = '".$id_type."'
+					AND b_lotto_bill.id_category = '".$id_category."'
+				GROUP BY b_lotto.`number` ";
+			// echo $sql;
+			$result = $this->query($sql)->rows;
+			return $result;
+		}
 		public function listType(){
 			$result = array();
 			$result = $this->query("SELECT * FROM b_type")->rows;
 			return $result;
 		}
-		public function addRatio($data=array(),$id_category=0){
+		public function listPackage($id_category=0){
 			$result = array();
-			$query = $this->query('DELETE FROM b_ratio WHERE id_category='.(int)$id_category);
-			foreach($data as $key => $val){
+			$result = $this->query("SELECT * FROM b_package WHERE id_category = ".(int)$id_category)->rows;
+			return $result;
+		}
+		public function listBlockNo($id_category=0,$date=''){
+			$result = array();
+			$date = $date;
+			if(!empty($date)){
+				$id_category = (int)$id_category;
+				if(!empty($date)){
+					$sql = "SELECT * FROM b_block_number 
+							LEFT JOIN b_block_number_detail ON b_block_number_detail.id = b_block_number.id_type 
+							LEFT JOIN b_type ON b_type.id = b_block_number.id_type 
+							WHERE date_block = '".$date."' AND b_block_number.id_category = ".$id_category;
+					$result = $this->query($sql)->rows;
+				}
+			}
+			return $result;
+		}
+		public function listBlockNoType($id_category=0,$date=''){
+			$result = array();
+			$date = $date;
+			if(!empty($date)){
+				$id_category = (int)$id_category;
+				if(!empty($date)){
+					$sql = "SELECT * FROM b_block_type 
+							LEFT JOIN b_type ON b_type.id = b_block_type.id_type 
+							WHERE date_block = '".$date."' 
+							AND b_block_type.id_category = ".$id_category;
+					$result = $this->query($sql)->rows;
+				}
+			}
+			return $result;
+		}
+		public function addRatio($data=array(),$id_category=0,$id_package=0){
+			$result = array();
+			if(!empty($id_package)){
+				$sql = 'DELETE FROM b_ratio WHERE id_category='.(int)$id_category.' AND id_package = '.$id_package;
+				$query = $this->query($sql);
+				foreach($data as $key => $val){
 
-				$arr = array(
-					'id_type'=> $key,
-					'id_category' => $id_category,
-					'price'=>$val,
-					'id_package' => 1
-				);
-				$this->insert('ratio',$arr);
+					$arr = array(
+						'id_type'=> $key,
+						'id_category' => $id_category,
+						'price'=>$val,
+						'id_package' => $id_package
+					);
+					$this->insert('ratio',$arr);
+				}
 			}
 		}
 		public function addType($data=array(),$date=''){
@@ -153,6 +214,82 @@
 					$this->insert('result',$arr);
 				}
 			}
+		}
+		public function delRatio($id_ratio=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = 'DELETE FROM b_ratio WHERE id = '.(int)$id_ratio;
+			$result_del = $this->query($sql);
+			if($result_del){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;
+		}
+		public function saveDateEnd($date_end = '',$id_category=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			if(!empty($date_end) AND !empty($id_category)){
+				$sql = "UPDATE b_category SET date_close = '".$date_end."' WHERE id=".(int)$id_category;
+				$result_update = $this->query($sql);
+				if($result_update){
+					$result = array(
+						'result' => 'success'
+					);
+				}
+			}
+			return $result;	
+		}
+		public function getBlockNo(){
+			$result = array();
+			$sql = "SELECT * FROM b_block_number_detail";
+			$result = $this->query($sql)->rows;
+			return $result;
+		}
+		public function addBlockNo($data = array()){
+			$result = array(
+				'result' => 'failed',
+			);
+			$data_insert = array(
+				'num'					=> $data['num'],
+				'id_condition_detail'	=> $data['id_condition_detail'],
+				'max_price'				=> $data['max_price'],
+				'date_block'			=> $data['date_block'],
+				'id_category'			=> $data['id_category'],
+				'id_type'				=> $data['id_type'],
+			);
+			$result_insert = $this->insert('block_number',$data_insert);
+			if($result_insert){
+				$result = array(
+					'result' => 'success',
+					'desc'	=> ''
+				);
+			}
+			return $result;
+		}
+		public function addBlockNoType($data = array()){
+			$result = array(
+				'result' => 'failed',
+			);
+			$data_insert = array(
+				// 'num'					=> $data['num'],
+				// 'id_condition_detail'	=> $data['id_condition_detail'],
+				'max_price'				=> $data['max_price'],
+				'date_block'			=> $data['date_block'],
+				'id_category'			=> $data['id_category'],
+				'id_type'				=> $data['id_type'],
+			);
+			$result_insert = $this->insert('block_type',$data_insert);
+			if($result_insert){
+				$result = array(
+					'result' => 'success',
+					'desc'	=> ''
+				);
+			}
+			return $result;
 		}
 	}
 ?>
