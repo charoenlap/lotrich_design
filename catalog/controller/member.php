@@ -405,17 +405,20 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 		    	if(method_post()){
-		    		$list_lotto = array();
-					$id_type 		= post('id_type');
-		    		$number 		= post('number');
-		    		$paid 			= post('paid');
-		    		$price 			= post('price');
-		    		$ratio 			= post('ratio');
-		    		$type 			= post('type');
-		    		$id_category 	= decrypt(post('id_category'));
-		    		$id_package 	= decrypt(post('id_package'));
-		    		$sum_price  = 0;
-		    		$balance = $this->model('finance')->getBalance($id_user);
+		    		$list_lotto_not_buy 			= array();
+		    		$list_lotto_not_buy_limit_type 	= array();
+					$list_lotto_not_buy_total_over 	= array();
+		    		$list_lotto 					= array();
+					$id_type 						= post('id_type');
+		    		$number 						= post('number');
+		    		$paid 							= post('paid');
+		    		$price 							= post('price');
+		    		$ratio 							= post('ratio');
+		    		$type 							= post('type');
+		    		$id_category 					= decrypt(post('id_category'));
+		    		$id_package 					= decrypt(post('id_package'));
+		    		$sum_price  					= 0;
+		    		$balance 						= $this->model('finance')->getBalance($id_user);
 		    		// var_dump($price);exit();
 		    		foreach($id_type as $key => $val){
 		    			// echo $key.'/';
@@ -434,35 +437,60 @@
 			    			$ratio_ = $result_ratio['ratio'];
 			    			$paid = $price_ * $ratio_ * $result_ratio['condition'];
 
-
-			    			$list_lotto[] = array(
-								'id_type' 	=> $val,
-								'number' 	=> $number_,
-								'paid' 		=> $paid,
-								'price' 	=> $price_,
-								'ratio' 	=> $ratio_,
-								'type' 		=> $result_ratio['type'],
-								'status'	=> 0
-			    			);
-			    			$sum_price += (float)$price[$key];
+			    			$result_check_price_over = $this->model('lotto')->checkPriceOver($number_,$val,$id_category,$price_);
+							if($result_check_price_over['status']=="success"){
+								$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_);
+								if($result_check_price_type_over['status']=="success"){
+									$result_check_price_total_over = $this->model('lotto')->checkPriceTotalOver($id_category,$price_);
+									if($result_check_price_total_over['status']=="success"){
+						    			$list_lotto[] = array(
+											'id_type' 	=> $val,
+											'number' 	=> $number_,
+											'paid' 		=> $paid,
+											'price' 	=> $price_,
+											'ratio' 	=> $ratio_,
+											'type' 		=> $result_ratio['type'],
+											'status'	=> 0
+						    			);
+						    			$sum_price += (float)$price[$key];
+						    		}else{
+						    			$list_lotto_not_buy_total_over[] = array(
+						    				'number' 	=> $number_,
+						    			);
+						    		}
+					    		}else{
+					    			$list_lotto_not_buy_limit_type[] = array(
+					    				'number' 	=> $number_,
+					    			);
+					    		}
+				    		}else{
+				    			$list_lotto_not_buy[] = array(
+				    				'number' 	=> $number_,
+				    			);
+				    		}
 		    			// }
 		    		}
 		    		// var_dump($list_lotto);
 		    		// exit();
-
 		    		if($sum_price<=$balance){
 		    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
 		    			if($result_add_lotto['status']=="success"){
 			    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
 				    		$this->setSession('lotto',array());
 				    		$result = array(
-				    			'status' => 'success',
-				    			'desc'	=> 'ระบบได้เพิ่มโพยของท่านเรียบร้อยแล้ว'
+				    			'status' 						=> 'success',
+				    			'desc'							=> 'ระบบได้เพิ่มโพยของท่านเรียบร้อยแล้ว',
+				    			'list_lotto_not_buy' 			=> $list_lotto_not_buy,
+				    			'list_lotto_not_buy_limit_type'	=> $list_lotto_not_buy_limit_type,
+				    			'list_lotto_not_buy_total_over' => $list_lotto_not_buy_total_over
 				    		);
 				    	}else{
 				    		$result = array(
-				    			'status' => 'failed',
-				    			'desc'	=> $result_add_lotto['desc']
+				    			'status' 						=> 'failed',
+				    			'desc'							=> $result_add_lotto['desc'],
+				    			'list_lotto_not_buy' 			=> $list_lotto_not_buy,
+				    			'list_lotto_not_buy_limit_type'	=> $list_lotto_not_buy_limit_type,
+				    			'list_lotto_not_buy_total_over' => $list_lotto_not_buy_total_over
 				    		);
 				    	}
 		    		}else{

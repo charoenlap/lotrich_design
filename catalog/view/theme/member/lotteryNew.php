@@ -426,12 +426,12 @@
 		var ratio = parseFloat(ele.parents('tr').find('.ratio').text());
 		var number = ele.parents('tr').find('.number').text();
 		var paid = parseFloat(ele.parents('tr').find('.paid').text());
-		ele.parents('tr').find('.paid').text(price * ratio);
+		ele.parents('tr').find('.paid').text( parseFloat(price * ratio).toFixed(2));
 		$( ".input-number" ).each(function( index ) {
 			var num 		= $(this).attr('data-num');
 			var condition 	= parseFloat($(this).attr('data-condition'));
 			if(number == num){
-				ele.parents('tr').find('.paid').text(price * ratio * condition);
+				ele.parents('tr').find('.paid').text( parseFloat(price * ratio * condition).toFixed(2));
 			}
 		});
 		e.preventDefault();
@@ -442,7 +442,7 @@
 		$( ".txt-price" ).each(function( index ) {
 		  $(this).val(price);
 		  var ratio = parseFloat($(this).parents('tr').find(".ratio").text());
-		  $(this).parents('tr').find(".paid").text( price * ratio);
+		  $(this).parents('tr').find(".paid").text( parseFloat(price * ratio).toFixed(2));
 		  console.log(price +' '+ratio);
 		});
 		sum_cal();
@@ -463,17 +463,45 @@
 				$('#btn-submit').attr('aria-disabled', false);
 				$('#btn-submit').removeClass('disabled');
 				$('#btn-submit').addClass('hvr-btn');
-				$('.toast-body').text(result.desc);
+				var text_result_detail = "";
+				$.each(result.list_lotto_not_buy_total_over, function(index, val) {
+					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของหมวดนี้ เกินกำหนด<br>"
+				});
+				$.each(result.list_lotto_not_buy_limit_type, function(index, val) {
+					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของประเภทนี้ เกินกำหนด<br>"
+				});
+				$.each(result.list_lotto_not_buy_total_over, function(index, val) {
+					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของเลขนี้ เกินกำหนด<br>"
+				});
+
+				$('.toast-body').html(result.desc);
 				$('.toast-body').addClass('text-danger');
 				$('.toast-body').removeClass('text-success');
 				$('#toast').toast('show');
+				console.log(result.list_lotto_not_buy);
+				console.log(result.list_lotto_not_buy_limit_type);
+				console.log(result.list_lotto_not_buy_total_over);
 			}else{
 				$('.toast-body').removeClass('text-danger');
 				$('.toast-body').addClass('text-success');
+				var text_result_detail = "";
+				$.each(result.list_lotto_not_buy_total_over, function(index, val) {
+					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของหมวดนี้ เกินกำหนด<br>"
+				});
+				$.each(result.list_lotto_not_buy_limit_type, function(index, val) {
+					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของประเภทนี้ เกินกำหนด<br>"
+				});
+				$.each(result.list_lotto_not_buy_total_over, function(index, val) {
+					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของเลขนี้ เกินกำหนด<br>"
+				});
 				$('.toast-body').text(result.desc);
 				$('#toast').toast('show');
 				$('#table-lotto tbody tr').remove();
-				window.location="index.php?route=member/ticket";
+
+				setInterval(function () {
+					window.location="index.php?route=member/ticket";
+				}, 3000);
+				
 			}
 		})
 		.fail(function(a,b,c) {

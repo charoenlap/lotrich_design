@@ -1,5 +1,155 @@
 <?php 
 	class LottoModel extends db {
+		public function checkPriceOver($number=0,$type=0,$id_category=0,$price=0){
+			$result = array(
+				'status' 	=> 'success',
+			);
+			$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			if($result_get_date_closed->num_rows){
+				$date_close = $result_get_date_closed->row['date_close'];
+				$date = date_create($date_close);
+				$date = date_format($date,"Y-m-d");
+				$sql = "SELECT * FROM b_block_number WHERE date_block = '".$date."' AND id_type=".$type." AND `num` = ".$number;
+				$result_block_number = $this->query($sql);
+				if($result_block_number->num_rows>0){
+					$max_price = $result_block_number->row['max_price'];
+					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
+						FROM b_lotto 
+						LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
+						WHERE id_type = ".$type." 
+						AND `number` = ".$number."
+						AND `date_close` = '".$date_close."'";
+					$getAllPrice = $this->query($sqlGetAllPrice);
+					if($getAllPrice->num_rows > 0){
+						$allPrice = $getAllPrice->row['total_price'];
+						$test_sum_all_price = $allPrice + $price;
+						if($test_sum_all_price >= $max_price){
+							$result = array(
+								'status' 	=> 'failed',
+								'number' 	=> $number,
+								'desc'		=> 'Overlimit max price'
+							);
+						}else{
+							$result = array(
+								'status' 	=> 'success',
+								'number' 	=> $number,
+								'desc'		=> 'Overlimit max price'
+							);
+						}
+					}else{
+						$result = array(
+							'status' 	=> 'success',
+							'number' 	=> $number,
+							'desc'		=> 'Not found price'
+						);
+					}
+				}else{
+					$result = array(
+						'status' 	=> 'success',
+						'number' 	=> $number,
+						'desc'		=> 'Not found block number'
+					);
+				}
+			}
+			return $result;
+		}
+		public function checkPriceTypeOver($type=0,$id_category=0,$price=0){
+			$result = array(
+				'status' 	=> 'success',
+			);
+			$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			if($result_get_date_closed->num_rows){
+				$date_close = $result_get_date_closed->row['date_close'];
+				$date = date_create($date_close);
+				$date = date_format($date,"Y-m-d");
+				$sql = "SELECT * FROM b_block_type WHERE date_block = '".$date."' AND id_type=".$type;
+				$result_block_number = $this->query($sql);
+				if($result_block_number->num_rows>0){
+					$max_price = $result_block_number->row['max_price'];
+					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
+						FROM b_lotto 
+						LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
+						WHERE id_type = ".$type." 
+						AND b_lotto_bill.id_category = ".$id_category."
+						AND `date_close` = '".$date_close."'";
+					$getAllPrice = $this->query($sqlGetAllPrice);
+					if($getAllPrice->num_rows > 0){
+						$allPrice = $getAllPrice->row['total_price'];
+						$test_sum_all_price = $allPrice + $price;
+						if($test_sum_all_price >= $max_price){
+							$result = array(
+								'status' 	=> 'failed',
+								'desc'		=> 'Overlimit max price'
+							);
+						}else{
+							$result = array(
+								'status' 	=> 'success',
+								'desc'		=> 'Avaliable max price'
+							);
+						}
+					}else{
+						$result = array(
+							'status' 	=> 'success',
+							'desc'		=> 'Not found price'
+						);
+					}
+				}else{
+					$result = array(
+						'status' 	=> 'success',
+						'desc'		=> 'Not found block number'
+					);
+				}
+			}
+			return $result;
+		}
+		public function checkPriceTotalOver($id_category=0,$price=0){
+			$result = array(
+				'status' 	=> 'success',
+			);
+			$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			if($result_get_date_closed->num_rows){
+				$date_close = $result_get_date_closed->row['date_close'];
+				// $date = date_create($date_close);
+				// $date = date_format($date,"Y-m-d");
+				$sql = "SELECT * FROM b_category WHERE `id` = ".$id_category;
+				$result_block_number = $this->query($sql);
+				if($result_block_number->num_rows>0){
+					$max_price = $result_block_number->row['max_total'];
+					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
+						FROM b_lotto 
+							LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
+						WHERE  b_lotto_bill.id_category = ".$id_category."
+							AND `date_close` = '".$date_close."'";
+					$getAllPrice = $this->query($sqlGetAllPrice);
+					if($getAllPrice->num_rows > 0){
+						$allPrice = $getAllPrice->row['total_price'];
+						$test_sum_all_price = $allPrice + $price;
+						if($test_sum_all_price >= $max_price){
+							$result = array(
+								'status' 	=> 'failed',
+								'desc'		=> 'Overlimit max price'
+							);
+						}else{
+							$result = array(
+								'status' 	=> 'success',
+								'desc'		=> 'Avaliable max price'
+							);
+						}
+					}else{
+						$result = array(
+							'status' 	=> 'success',
+							'desc'		=> 'Not found price'
+						);
+					}
+				}else{
+					$result = array(
+						'status' 	=> 'success',
+						'desc'		=> 'Not found block number'
+					);
+				}
+			}
+			return $result;
+		}
 		public function getBlockNumber($id_category,$date=''){
 			$sql = "SELECT *,b_block_number.id AS id FROM b_block_number 
 					LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id 
@@ -79,18 +229,18 @@
 							if($block_number->num_rows > 0 ){
 								$condition = $block_number->row['condition'];
 								$limit_number = 1;
-								$ratio = $ratio * $condition;
+								$ratio = $ratio * $condition / 100;
 							}
-							$price = 1 * $condition;
-							$paid = $query->row['price'] * $price;
+							$price = 1 * $condition / 100;
+							$paid = $query->row['price'] * $price ;
 							// var_dump($query->rows);
 							$result[] = array(
-								'ratio'		=> $ratio,
+								'ratio'		=> number_format($ratio,2),
 								'type'		=> $query->row['type_name'],
 								'number'	=> str_pad($num,$query->row['digit'],"0", STR_PAD_LEFT),
 								'price'		=> 1,
 								'id_type'	=> $query->row['id'],
-								'paid'		=> $paid,
+								'paid'		=> number_format($paid,2),
 								'limit_number'=> $limit_number,
 								'digit'		=> $query->row['digit']
 							);
@@ -197,7 +347,7 @@
 				}else{
 					$result = array(
 						'status' 	=> 'failed',
-						'desc'	=> 'ไม่พบการแทง หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
+						'desc'	=> 'ไม่พบการแทง หรือตัวเลข ของท่าน ไม่สามารถแทง ด้วยราคานี้ได้ หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
 					);
 				}
 			}
