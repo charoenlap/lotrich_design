@@ -81,10 +81,11 @@
 					$id_category = (int)decrypt(get('id_category'));
 					$date 		= post('date');
 					$date_end 	= post('date_end');
+					$max_total 	= post('max_total');
 					$ratio 		= post('ratio');
 					$id_package = (int)post('id_package');
 
-					$result_edit_date_end 	= $this->model('master')->saveDateEnd($date_end,$id_category);
+					$result_edit_date_end 	= $this->model('master')->saveDateEnd($date_end,$id_category,$max_total);
 					$result_ratio 			= $this->model('master')->addRatio($ratio,$id_category,$id_package);
 					$result_text_type .= 'เพิ่มอัตราการต่อรองเรียบร้อย ';
 					if(!empty($date)){
@@ -210,6 +211,48 @@
 					$result = array(
 						'status' => 'success',
 						'rows'	=> $result_block_no
+					);
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
+		public function delBlockNoType(){
+			$result = array(
+				'status' => 'failed'
+			);
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id 		= post('id');
+					$result_block_no = $this->model('master')->delBlockNoType($id);
+					$result = array(
+						'status' => 'success'
+					);
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
+		public function delBlockNo(){
+			$result = array(
+				'status' => 'failed'
+			);
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id 		= post('id');
+					$result_block_no = $this->model('master')->delBlockNo($id);
+					$result = array(
+						'status' => 'success'
 					);
 				}
 			}else{

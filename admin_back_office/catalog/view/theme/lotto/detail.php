@@ -221,7 +221,9 @@
 									<tbody>
 										<tr>
 											<td>
-												<input type="text" class="form-control" placeholder="อั้นจำนวนเงินในการแทงรวม" id="max_total" 
+												<input type="text" class="form-control" placeholder="อั้นจำนวนเงินในการแทงรวม" 
+												id = "max_total" 
+												name = "max_total"
 												value="<?php echo $max_total;?>">
 											</td>
 										</tr>
@@ -449,7 +451,9 @@
 									+val.max_price
 								+	'</td>'
 								+	'<td class="text-end">'
-									+	'<a href="#" class="btn btn-danger btn-del-blockNo"><i class="fa fa-trash"></i></a>'
+									+	'<a href="#" class="btn btn-danger btn-del-blockNoType" data-id="'+val.id+'">'
+									+ 		'<i class="fa fa-trash"></i>'
+									+	'</a>'
 								+	'</td>'
 							+	'</tr>';
 							$('#table-blockNo-type  tbody:last-child').append(html);
@@ -549,7 +553,9 @@
 									+val.max_price
 								+	'</td>'
 								+	'<td class="text-end">'
-									+	'<a href="#" class="btn btn-danger btn-del-blockNo"><i class="fa fa-trash"></i></a>'
+									+	'<a href="#" class="btn btn-danger btn-del-blockNoType" data-id="'+val.id+'">'
+									+ 		'<i class="fa fa-trash"></i>'
+									+	'</a>'
 								+	'</td>'
 							+	'</tr>';
 							$('#table-blockNo  tbody:last-child').append(html);
@@ -852,7 +858,9 @@
 									+val.max_price
 								+	'</td>'
 								+	'<td class="text-end">'
-									+	'<a href="#" class="btn btn-danger btn-del-blockNo"><i class="fa fa-trash"></i></a>'
+									+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'
+									+ 		'<i class="fa fa-trash"></i>'
+									+	'</a>'
 								+	'</td>'
 							+	'</tr>';
 							$('#table-blockNo  tbody:last-child').append(html);
@@ -904,7 +912,9 @@
 									+val.max_price
 								+	'</td>'
 								+	'<td class="text-end">'
-									+	'<a href="#" class="btn btn-danger btn-del-blockNo"><i class="fa fa-trash"></i></a>'
+									+	'<a href="#" class="btn btn-danger btn-del-blockNoType" data-id="'+val.id+'">'
+									+ 		'<i class="fa fa-trash"></i>'
+									+	'</a>'
 								+	'</td>'
 							+	'</tr>';
 							$('#table-blockNo-type  tbody:last-child').append(html);
@@ -939,5 +949,73 @@
         $(".dateandtimepicker").datepicker({ 
         	format: 'yyyy-mm-dd 15:00:00' 
         });
+    });
+    $(document).on('click','.btn-del-blockNoType',function(e){
+    	var ele = $(this);
+    	var id = $(this).attr('data-id');
+    	$.ajax({
+    		url: 'index.php?route=lotto/delBlockNoType',
+    		type: 'POST',
+    		dataType: 'json',
+    		data: {
+    			id: id
+    		},
+    	})
+    	.done(function(result) {
+    		if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
+			ele.parents('tr').remove();
+			e.preventDefault();
+    	})
+    	.fail(function() {
+    		console.log("error");
+    	})
+    	.always(function() {
+    		console.log("complete");
+    	});
+    	e.preventDefault();
+    });
+    $(document).on('click','.btn-del-blockNo',function(e){
+    	var ele = $(this);
+    	var id = $(this).attr('data-id');
+    	$.ajax({
+    		url: 'index.php?route=lotto/delBlockNo',
+    		type: 'POST',
+    		dataType: 'json',
+    		data: {
+    			id: id
+    		},
+    	})
+    	.done(function(result) {
+    		if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
+			ele.parents('tr').remove();
+			e.preventDefault();
+    	})
+    	.fail(function() {
+    		console.log("error");
+    	})
+    	.always(function() {
+    		console.log("complete");
+    	});
+    	e.preventDefault();
     });
 </script>

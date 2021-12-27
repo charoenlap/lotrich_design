@@ -160,7 +160,7 @@
 			if(!empty($date)){
 				$id_category = (int)$id_category;
 				if(!empty($date)){
-					$sql = "SELECT * FROM b_block_number 
+					$sql = "SELECT *,b_block_number.id AS id FROM b_block_number 
 							LEFT JOIN b_block_number_detail ON b_block_number_detail.id = b_block_number.id_type 
 							LEFT JOIN b_type ON b_type.id = b_block_number.id_type 
 							WHERE date_block = '".$date."' AND b_block_number.id_category = ".$id_category;
@@ -175,7 +175,7 @@
 			if(!empty($date)){
 				$id_category = (int)$id_category;
 				if(!empty($date)){
-					$sql = "SELECT * FROM b_block_type 
+					$sql = "SELECT *,b_block_type.id AS id FROM b_block_type 
 							LEFT JOIN b_type ON b_type.id = b_block_type.id_type 
 							WHERE date_block = '".$date."' 
 							AND b_block_type.id_category = ".$id_category;
@@ -228,12 +228,38 @@
 			}
 			return $result;
 		}
-		public function saveDateEnd($date_end = '',$id_category=0){
+		public function delBlockNoType($id=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = 'DELETE FROM b_block_type WHERE id = '.(int)$id;
+			$result_del = $this->query($sql);
+			if($result_del){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;
+		}
+		public function delBlockNo($id=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = 'DELETE FROM b_block_number WHERE id = '.(int)$id;
+			$result_del = $this->query($sql);
+			if($result_del){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;
+		}
+		public function saveDateEnd($date_end = '',$id_category=0,$maxtotal=0){
 			$result = array(
 				'result' => 'fail'
 			);
 			if(!empty($date_end) AND !empty($id_category)){
-				$sql = "UPDATE b_category SET date_close = '".$date_end."' WHERE id=".(int)$id_category;
+				$sql = "UPDATE b_category SET date_close = '".$date_end."',max_total='".$maxtotal."' WHERE id=".(int)$id_category;
 				$result_update = $this->query($sql);
 				if($result_update){
 					$result = array(
