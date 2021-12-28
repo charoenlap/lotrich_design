@@ -101,9 +101,7 @@
 	          <div class="form-group">
 	            <div class="card">
 	            	<div class="card-body">
-	            		<label for="message-text" class="col-form-label">บัญชีที่โอน:กสิกร</label><br>
-	               		<label for="message-text" class="col-form-label">หมายเลขบัญชี:xxx-x-xxxxx-x</label><br>
-	             		<label for="message-text" class="col-form-label">ชื่อบัญชี: </label>
+	            		<?php echo $bank; ?>
 	            	</div>
 	            </div>
 	          </div>

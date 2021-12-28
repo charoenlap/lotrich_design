@@ -656,6 +656,9 @@
 	    		$data['bank_name_2']	= $this->getSession('bank_name_2');
 
 	    		$data['name']			= $this->getSession('name');
+
+	    		$data['bank']		= $this->model('setting')->getSetting()['bank'];
+	    		
  	    		$this->view('member/deposit',$data); 
  	    	}else{
 	 	    	$this->redirect('login');
