@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 if($_SERVER['SERVER_NAME'] == 'localhost'){
   require_once($_SERVER['DOCUMENT_ROOT'].'/lotrich/config/domains/lotrich/config.php'); 
 }else{
-  require_once('/home/charoenlap/domains/charoenlap.com/config/domains/lotrich/config.php'); 
+  require_once('/home/admin/domains/lotrich168.com/config/domains/lotrich/config.php'); 
 }
 require_once(PATH_LIB."/gd/ThumbLib.inc.php");
 require_once(PATH_LIB."/gd/GdThumb.inc.php");

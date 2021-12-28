@@ -1,6 +1,7 @@
 <?php 
 	class CommonController extends Controller {
 	    public function header($data=array()) {
+	    	$data['descreption'] = '';
 	    	$data['link_result'] = route('result');
 	    	$data['link_contact'] = route('contact');
 	    	$data['link_home'] = route('home');
