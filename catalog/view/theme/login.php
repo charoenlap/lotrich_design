@@ -18,7 +18,7 @@
 						<div class="input-group-append">
 							<span class="input-group-text"><i class="fa fa-user"></i></span>
 						</div>
-						<input type="text" name="email" class="form-control input_user" value="<?php echo $username; ?>" placeholder="username">
+						<input type="text" name="email" class="form-control input_user" value="<?php echo $username; ?>" placeholder="Username/อีเมล์/เบอร์โทรศัพท์">
 					</div>
 					<div class="input-group mb-2">
 						<div class="input-group-append">

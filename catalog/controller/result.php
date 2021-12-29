@@ -4,8 +4,8 @@
             $data = array();
             $arr = array();
             if(method_get()){
-            	$date_lasted = $this->model('master')->getDateLastedResult();
-	            $data['date'] = (get('date')?get('date'):$date_lasted);
+            	// $date_lasted = $this->model('master')->getDateLastedResult();
+	            $data['date'] = (get('date')?get('date'):date('Y-m-d'));
 	            $arr = array(
 	            	'date' => $data['date']
 	            );

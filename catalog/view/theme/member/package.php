@@ -1,7 +1,7 @@
 <section class="breadcamb-area bg-17 bg-overlay-1">
 	<div class="container">
 		<div class="bradcamb-content text-center text-white text-uppercase">
-			<h1>แฟคเกจ</h1>
+			<h1>แพคเกจ</h1>
 			<ul>
 				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
 				<li><a href="<?php echo route('member/dashboard');?>">สมาชิก <span>/</span></a></li>

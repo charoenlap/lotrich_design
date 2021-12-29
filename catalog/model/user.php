@@ -6,8 +6,14 @@
 			$password 	= $this->escape($data['password']);
 			
 			$sql = "SELECT * FROM `b_user` 
-			WHERE `email` = '".$email."' AND `password` = '".md5($password)."' AND `del`=0 
-			limit 0,1";
+			WHERE 
+				(
+					(`email` = '".$email."' AND `password` = '".md5($password)."') 
+					OR (`phone` = '".$email."' AND `password` = '".md5($password)."')
+					OR (`email_2` = '".$email."' AND `password` = '".md5($password)."')
+				)
+				AND `del`=0 
+			LIMIT 0,1";
 			
 			$result_user = $this->query($sql); 
 			if($result_user->num_rows > 0){
@@ -78,18 +84,22 @@
 			$by 			= (!empty($data['by']) ? 			$this->escape($data['by']):'');
 
 			if(!empty($email)){
+				$sql_check_dupplicate_phone = "SELECT * FROM b_user WHERE phone = '".$phone."'";
+				$query_check_phone 		= $this->query($sql_check_dupplicate_phone);
+
 				$sql_check_dupplicate_email = "SELECT * FROM b_user WHERE email = '".$email."'";
 				$query_check_email 		= $this->query($sql_check_dupplicate_email);
 
 				$sql_check_dupplicate_email_2 = "SELECT * FROM b_user WHERE email_2 = '".$email_2."'";
-				$query_check_email_2 		= $this->query($sql_check_dupplicate_email_2);
+				$query_check_email_2 	= $this->query($sql_check_dupplicate_email_2);
 
 				$sql_check_dupplicate_bank_no = "SELECT * FROM b_user WHERE bank_no = '".$bank_no."'";
 				$query_check_bank_no 	= $this->query($sql_check_dupplicate_bank_no);
 
 				if($query_check_email->num_rows == 0 
 					AND $query_check_bank_no->num_rows == 0
-					AND $query_check_email_2->num_rows == 0){
+					AND $query_check_email_2->num_rows == 0 
+					AND $query_check_phone->num_rows == 0){
 					$date_create 	= date('Y-m-d H:i:s');
 					$data_insert_user = array(
 						'name' 			=> $name,
@@ -122,6 +132,9 @@
 					}
 					if($query_check_bank_no->num_rows){
 						$result['desc'][]	= 'บัญชีธนาคาร นี้มีอยู่ในระบบแล้ว';
+					}
+					if($query_check_phone->num_rows){
+						$result['desc'][]	= 'เบอร์มือถือ นี้มีอยู่ในระบบแล้ว';
 					}
 					return $result;
 				}

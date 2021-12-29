@@ -73,7 +73,7 @@
 						'type'			=> $type,
 						'date_close' 	=> $val['date_close'],
 						'column' 		=> $val['column'],
-						'last_date' 	=> $last_date,
+						'last_date' 	=> $val['date_close'],//$last_date,
 						'diff_date'		=> $result_diff
 					);
 				}
