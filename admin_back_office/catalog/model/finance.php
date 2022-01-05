@@ -4,7 +4,14 @@
 			$result = array(
 				'result' => 'failed'
 			);
-			$sql = "SELECT *,b_transection.id AS id,b_transection.date_create AS date_create FROM b_transection LEFT JOIN b_user ON b_transection.id_user = b_user.id WHERE `type` = 0 ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
+			$where = '';
+			$date = ($data['date']?$data['date']:'');
+			if($date){
+				$where .= " AND b_transection.date_create like '".$date."%'";
+			}
+			$sql = "SELECT *,b_transection.id AS id,b_transection.date_create AS date_create FROM b_transection LEFT JOIN b_user ON b_transection.id_user = b_user.id 
+				WHERE `type` = 0 ".$where."
+				ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
 			$result_deposit = $this->query($sql);
 			if($result_deposit->num_rows > 0){
 				$result = array(
@@ -47,7 +54,14 @@
 			$result = array(
 				'result' => 'failed'
 			);
-			$sql = "SELECT *,b_transection.id AS id,b_transection.date_create AS date_create FROM b_transection LEFT JOIN b_user ON b_transection.id_user = b_user.id WHERE `type` = 1 ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
+			$where = '';
+			$date = ($data['date']?$data['date']:'');
+			if($date){
+				$where .= " AND b_transection.date_create like '".$date."%'";
+			}
+			$sql = "SELECT *,b_transection.id AS id,b_transection.date_create AS date_create FROM b_transection LEFT JOIN b_user ON b_transection.id_user = b_user.id 
+			WHERE `type` = 1 ".$where."
+			ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
 			$result_widthdraw = $this->query($sql);
 			if($result_widthdraw->num_rows > 0){
 				$result = array(

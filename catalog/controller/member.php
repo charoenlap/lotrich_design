@@ -214,9 +214,11 @@
 					$data['data_lotto'] = $data_lotto;
 
 					$date = $data['detail']['date_close'];
+					$date_last_close = $data['detail']['date_last_end'];
 					$date = date_create($date);
 					$date = date_format($date,"Y-m-d");
-					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date);
+					// echo $date;
+					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date,$date_last_close);
 		 	    	$this->view('member/lotteryNew',$data); 
 		 	    }else{
 		 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
@@ -291,6 +293,9 @@
 					$price 		= (float)post('price');
 					if($price>0){
 						$number = $number_default 	= array( (int)post('number') );
+						$number = array_unique($number);
+						$number_default = array_unique($number_default);
+						
 						$id_type 	= post('id_type');
 						$rdoType 	= post('rdoType');
 						$digit 		= post('digit');
@@ -353,8 +358,11 @@
 									$id_type = 2; // สามตัวบน
 								}
 								if($id_type=="32"){
-									$number = array(str_pad($number[0],2,"0", STR_PAD_LEFT));
+									$new_arr_number = str_pad($number[0],2,"0", STR_PAD_LEFT);
+									$number = getCombinations($new_arr_number,2);
+									$id_type = 7; // สามตัวบน
 								}
+								$number = array_unique($number);
 
 								$id_category = decrypt(post('id_category'));
 								$id_package = decrypt(post('id_package'));
@@ -441,7 +449,7 @@
 							if($result_check_price_over['status']=="success"){
 								$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_);
 								if($result_check_price_type_over['status']=="success"){
-									$result_check_price_total_over = $this->model('lotto')->checkPriceTotalOver($id_category,$price_);
+									$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($id_user,$val,$price_);
 									if($result_check_price_total_over['status']=="success"){
 						    			$list_lotto[] = array(
 											'id_type' 	=> $val,

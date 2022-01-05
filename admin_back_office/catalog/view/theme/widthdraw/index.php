@@ -1,6 +1,33 @@
 <div class="card">
 	<div class="card-body">
 		<div class="container">
+			<form action="" method="GET">
+				<input type="hidden" name="route" value="widthdraw">
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="">เลือกวัน</label>
+				            <div class="input-group date datetimepicker">
+								<span class="input-group-addon btn btn-warning">
+									<span class="fa fa-calendar"></span>
+								</span>
+								<input type="text" class="form-control" id="date" 
+									name="date" value="<?php echo $date; ?>"/>
+							</div>
+				         </div>
+					</div>
+					<div class="col-3">
+						<label for="">&nbsp;</label><br>
+						<input type="submit" class="btn btn-primary" value="ค้นหา">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="card">
+	<div class="card-body">
+		<div class="container">
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="">

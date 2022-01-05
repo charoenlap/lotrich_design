@@ -1,6 +1,33 @@
 <div class="card">
 	<div class="card-body">
 		<div class="container">
+			<form action="" method="GET">
+				<input type="hidden" name="route" value="deposit">
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="">เลือกวัน</label>
+				            <div class="input-group date datetimepicker">
+								<span class="input-group-addon btn btn-warning">
+									<span class="fa fa-calendar"></span>
+								</span>
+								<input type="text" class="form-control" id="date" 
+									name="date" value="<?php echo $date; ?>"/>
+							</div>
+				         </div>
+					</div>
+					<div class="col-3">
+						<label for="">&nbsp;</label><br>
+						<input type="submit" class="btn btn-primary" value="ค้นหา">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="card">
+	<div class="card-body">
+		<div class="container">
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="">
@@ -13,7 +40,6 @@
 								<th>เวลาแจ้งโอน</th>
 								<th>สถานะ</th>
 								<th>ไฟล์แนบ</th>
-								<th>สถานะ</th>
 								<th></th>
 							</thead>
 							<tbody>
@@ -113,4 +139,13 @@
 		});
 		
 	});
+</script>
+<link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+        $(".datetimepicker").datepicker({ 
+        	format: 'yyyy-mm-dd' 
+        });
+    });
 </script>

@@ -21,7 +21,7 @@
 							</div>
 				         </div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">เลือกหมวด</label>
 				            <div class="input-group">
@@ -35,7 +35,7 @@
 							</div>
 				         </div>
 					</div>
-					<div class="col-3">
+					<div class="col-2">
 						<div class="form-group">
 							<label for="">เลือกประเภท</label>
 				            <div class="input-group">
@@ -45,6 +45,17 @@
 										<?php echo $val['type']; ?>
 									</option>
 									<?php } ?>
+								</select>
+							</div>
+				         </div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="">เรียงตาม</label>
+				            <div class="input-group">
+								<select name="order" class="form-control" id="order">
+									<option value="number">ตัวเลข</option>
+									<option value="sum_price">ยอดเงินรวม</option>
 								</select>
 							</div>
 				         </div>

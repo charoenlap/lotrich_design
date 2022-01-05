@@ -59,6 +59,7 @@
 								<?php $i++;} ?>
 							</tbody>
 						</table>
+						<?php if($id_package){ ?>
 						<table class="table table-striped" id="table-ratio">
 							<thead>
 								<th>กำหนดอัตราต่อรอง</th>
@@ -90,24 +91,49 @@
 								<?php 	} ?>
 							</tbody>
 						</table>
+						<?php } ?>
 					</div>
 					<div class="col-md-7">
 						<table class="table table-striped" id="table-date">
 							<thead>
-								<th>กำหนดวันที่ และเวลาสำหรับงวดที่จะถึง</th>
+								<th>กำหนดวันที่ ของงวดที่ผ่านมา (yyyy-mm-dd hh:ii:ss)</th>
 							</thead>
 							<tbody>
 								<tr>
 									<td>
 							            <div class="form-group">
 								            <div class="input-group date dateandtimepicker">
+								            	<label for=""></label><br>
+												<span class="input-group-addon btn btn-warning">
+													<span class="fa fa-calendar"></span>
+												</span>
+												<input type='text' class="form-control" 
+												id="date_last_end" name="date_last_end" 
+												value="<?php echo $date_last_end; ?>"
+												placeholder="2021-12-31 15:00:00"/>
+											</div>
+								         </div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="table table-striped" id="table-date">
+							<thead>
+								<th>กำหนดวันที่ และเวลาสำหรับงวดที่จะถึง (yyyy-mm-dd hh:ii:ss)</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+							            <div class="form-group">
+								            <div class="input-group date dateandtimepicker">
+								            	<label for=""></label><br>
 												<span class="input-group-addon btn btn-warning">
 													<span class="fa fa-calendar"></span>
 												</span>
 												<input type='text' class="form-control" 
 												id="date_end" name="date_end" 
 												value="<?php echo $date_close; ?>"
-												placeholder="2021-12-31"/>
+												placeholder="2021-12-31 15:00:00"/>
 											</div>
 								         </div>
 									</td>
@@ -116,9 +142,81 @@
 						</table>
 						<div class="card">
 							<div class="card-body">
+								<table class="table table-striped" id="table-blockNo">
+									<thead>
+										<th>เลขอั้น</th>
+										<th>ประเภทการอั้น</th>
+										<th>จำกัดการแทง</th>
+										<th class="text-end">
+											<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropBlockNo">เพิ่มเลขอั้น</a>
+										</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center" colspan=10>ไม่พบเลขอั้นในวันนี้</td>
+										</tr>
+									</tbody>
+								</table>
+								<table class="table table-striped" id="table-blockNo-type">
+									<thead>
+										<th>ประเภทการอั้น</th>
+										<th>จำกัดการแทง</th>
+										<th class="text-end">
+											<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropBlockNoType">เพิ่มประเภทอั้น</a>
+										</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center" colspan=10>ไม่พบประเภทอั้นในวันนี้</td>
+										</tr>
+									</tbody>
+								</table>
+								<p><label for="">เพิ่มเลขอั้นทั้งหมดของลูกค้า</label></p>
+								<table class="table table-striped" id="table-blockNo-all-type">
+									<thead>
+										<th>ประเภท</th>
+										<th>จำกัดการแทง</th>
+										<th class="text-end">
+											<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropBlockNoAllType">เพิ่มการอั้นประเภท</a>
+										</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td class="text-center" colspan=10>ไม่พบประเภทอั้นในวันนี้</td>
+										</tr>
+									</tbody>
+								</table>
+								<!--
+								<table class="table table-striped" id="table-blockAll-bak">
+									<thead>
+										<th>กำหนดอั้นการซื้อของ <?php echo $category['name'];?> ภายในวันที่เลือก (ปล่อยว่างเท่ากับ ไม่จำกัด)</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<input type="text" class="form-control" placeholder="อั้นจำนวนเงินในการแทงรวม" 
+												id = "max_total" 
+												name = "max_total"
+												value="<?php echo $max_total;?>">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								 <table class="table table-striped" id="table-block">
+									<thead>
+										<th>กำหนดอั้นการซื้อของ กระดานรวม</th>
+									</thead>
+									<tbody>
+										<input type="text" class="form-control" placeholder="อั้นจำนวนเงินในการแทงรวม">
+									</tbody>
+								</table> -->
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
 								<table class="table table-striped" id="table-date">
 									<thead>
-										<th>เลือกวันที่ สำหรับออกผลรางวัล และเงื่อนไขการอั้น</th>
+										<th>เลือกวันที่ สำหรับออกผลรางวัล</th>
 									</thead>
 									<tbody>
 										<tr>
@@ -185,58 +283,7 @@
 										<?php } ?>
 								<?php } ?>
 								</table>
-								<table class="table table-striped d-none" id="table-blockNo">
-									<thead>
-										<th>เลขอั้น</th>
-										<th>ประเภทการอั้น</th>
-										<th>จำกัดการแทง</th>
-										<th class="text-end">
-											<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropBlockNo">เพิ่มเลขอั้น</a>
-										</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="text-center" colspan=10>ไม่พบเลขอั้นในวันนี้</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table table-striped d-none" id="table-blockNo-type">
-									<thead>
-										<th>ประเภทการอั้น</th>
-										<th>จำกัดการแทง</th>
-										<th class="text-end">
-											<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropBlockNoType">เพิ่มประเภทอั้น</a>
-										</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td class="text-center" colspan=10>ไม่พบประเภทอั้นในวันนี้</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table table-striped d-none" id="table-blockAll">
-									<thead>
-										<th>กำหนดอั้นการซื้อของ <?php echo $category['name'];?> ภายในวันที่เลือก (ปล่อยว่างเท่ากับ ไม่จำกัด)</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<input type="text" class="form-control" placeholder="อั้นจำนวนเงินในการแทงรวม" 
-												id = "max_total" 
-												name = "max_total"
-												value="<?php echo $max_total;?>">
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								<!-- <table class="table table-striped" id="table-block">
-									<thead>
-										<th>กำหนดอั้นการซื้อของ กระดานรวม</th>
-									</thead>
-									<tbody>
-										<input type="text" class="form-control" placeholder="อั้นจำนวนเงินในการแทงรวม">
-									</tbody>
-								</table> -->
+								
 							</div>
 							<div class="card-footer">
 								<div class="d-grid gap-2">
@@ -333,6 +380,39 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="staticBackdropBlockNoAllType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelPackageAll" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabelPackageAll">เพิ่มเลขอั้น</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	ประเภทของเลข
+      	<select name="" id="type-block-no-all" class="form-control">
+      		<?php foreach($listType as $val){?>
+	        <option value="<?php echo $val['id'];?>"><?php echo $val['type'];?></option>
+	        <?php } ?>
+      	</select>
+      	<br>
+      	<!-- ประเภทเลขอั้น
+      	<select name="" id="condition-block-no-all" class="form-control">
+      		<?php foreach($getBlockNo as $val){?>
+      		<option value="<?php echo $val['id'];?>"><?php echo $val['detail'];?></option>
+      		<?php } ?>
+      	</select>
+      	<br> -->
+      	จำกัดยอดแทงรวม (บาท)
+      	<input type="text" class="form-control" value="" id="text-block-no-max-all" placeholder="จำกัดยอดแทงรวม (บาท)">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary" id="btn-add-block-no-all">เพิ่มเลขอั้น</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="staticBackdropBlockNoType" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabelPackage" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -387,7 +467,7 @@
 		// var num 				= $('#block-no').val();
 		// var id_condition_detail = $('#no-type-block-no').val();
 		var max_price 			= $('#no-text-block-no-max').val();
-		var date_block 			= $('#date').val();
+		var date_block 			= $('#date_end').val();
 		var id_category 		= '<?php echo get('id_category');?>';
 		var id_type				= $('#no-type-block-no').val();
 		$.ajax({
@@ -486,7 +566,7 @@
 		var num 				= $('#block-no').val();
 		var id_condition_detail = $('#condition-block-no').val();
 		var max_price 			= $('#text-block-no-max').val();
-		var date_block 			= $('#date').val();
+		var date_block 			= $('#date_end').val();
 		var id_category 		= '<?php echo get('id_category');?>';
 		var id_type				= $('#type-block-no').val();
 		$.ajax({
@@ -582,7 +662,104 @@
 		.always(function() {
 			console.log("complete");
 		});
-		
+	});
+	$(document).on('click','#btn-add-block-no-all',function(e){
+		var num 				= $('#block-no-all').val();
+		var id_condition_detail = $('#condition-block-no-all').val();
+		var max_price 			= $('#text-block-no-max-all').val();
+		var date_block 			= $('#date_end').val();
+		var id_category 		= '<?php echo get('id_category');?>';
+		var id_type				= $('#type-block-no-all').val();
+		$.ajax({
+			url: 'index.php?route=lotto/addBlockNoAll',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				num:num,
+				id_condition_detail:id_condition_detail,
+				max_price:max_price,
+				date_block:date_block,
+				id_category:id_category,
+				id_type:id_type
+			},
+		})
+		.done(function(result) {
+			console.log(result);
+			if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				// location.reload();
+				$.ajax({
+					url: 'index.php?route=lotto/getBlockNoAll',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						date: date_block,
+						id_category: '<?php echo get('id_category');?>'
+					},
+				})
+				.done(function(result_no) {
+					console.log("success");
+					console.log(result_no);
+					if(result_no.status=='failed'){
+						$('.toast-body').text(result_no.desc);
+						$('.toast-body').addClass('text-danger');
+						$('.toast-body').removeClass('text-success');
+						$('#toast').toast('show');
+					}else{
+						$('.toast-body').removeClass('text-danger');
+						$('.toast-body').addClass('text-success');
+						$('.toast-body').text(result_no.desc);
+						$('#toast').toast('show');
+
+						$('#table-blockNo-all-type tbody').html('');
+
+						$( result_no.rows ).each(function( index,val ) {
+							var html = 
+								'<tr>'
+								+	'<td>'
+										+val.type
+								+	'</td>'
+								+	'<td>'
+									+val.max_price
+								+	'</td>'
+								+	'<td class="text-end">'
+									+	'<a href="#" class="btn btn-danger btn-del-blockNoType-all" data-id="'+val.id+'">'
+									+ 		'<i class="fa fa-trash"></i>'
+									+	'</a>'
+								+	'</td>'
+							+	'</tr>';
+							$('#table-blockNo-all-type  tbody:last-child').append(html);
+						});
+					}
+				})
+				.fail(function(a,b,c) {
+					console.log("error");
+					console.log(a);
+					console.log(b);
+					console.log(c);
+				})
+				.always(function() {
+					console.log("complete");
+				});
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log(a);
+			console.log(b);
+			console.log(c);
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
 	});
 	$(document).on('click','.rdoPackage',function(e){
 		var ele = $(this);
@@ -782,6 +959,7 @@
 		$('#table-type').removeClass('d-none');
 		$('#table-blockNo').removeClass('d-none');
 		$('#table-blockNo-type').removeClass('d-none');
+		$('#table-blockNo-all-type').removeClass('d-none');
 		$('#table-blockAll').removeClass('d-none');
 
 		var ele = $(this);
@@ -878,6 +1056,60 @@
 				});
 
 				$.ajax({
+					url: 'index.php?route=lotto/getBlockNoAll',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						date: ele.val(),
+						id_category: '<?php echo get('id_category');?>'
+					},
+				})
+				.done(function(result_no) {
+					console.log("success");
+					console.log(result_no);
+					if(result_no.status=='failed'){
+						$('.toast-body').text(result_no.desc);
+						$('.toast-body').addClass('text-danger');
+						$('.toast-body').removeClass('text-success');
+						$('#toast').toast('show');
+					}else{
+						$('.toast-body').removeClass('text-danger');
+						$('.toast-body').addClass('text-success');
+						$('.toast-body').text(result_no.desc);
+						$('#toast').toast('show');
+
+						$('#table-blockNo-all-type tbody').html('');
+
+						$( result_no.rows ).each(function( index,val ) {
+							var html = 
+								'<tr>'
+								+	'<td>'
+										+val.type
+								+	'</td>'
+								+	'<td>'
+									+val.max_price
+								+	'</td>'
+								+	'<td class="text-end">'
+									+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'
+									+ 		'<i class="fa fa-trash"></i>'
+									+	'</a>'
+								+	'</td>'
+							+	'</tr>';
+							$('#table-blockNo-all-type  tbody:last-child').append(html);
+						});
+					}
+				})
+				.fail(function(a,b,c) {
+					console.log("error");
+					console.log(a);
+					console.log(b);
+					console.log(c);
+				})
+				.always(function() {
+					console.log("complete");
+				});
+
+				$.ajax({
 					url: 'index.php?route=lotto/getBlockNoType',
 					type: 'POST',
 					dataType: 'json',
@@ -946,9 +1178,11 @@
         $(".datetimepicker").datepicker({ 
         	format: 'yyyy-mm-dd' 
         });
-        $(".dateandtimepicker").datepicker({ 
-        	format: 'yyyy-mm-dd 15:00:00' 
-        });
+        // $(".dateandtimepicker").datetimepicker({
+              // viewMode: 'years',
+              // format: 'yyyy-mm-dd hh:ii:ss'
+          // });
+        // format: 'yyyy-mm-dd hh:ii:ss' 
     });
     $(document).on('click','.btn-del-blockNoType',function(e){
     	var ele = $(this);
@@ -1017,5 +1251,171 @@
     		console.log("complete");
     	});
     	e.preventDefault();
+    });
+    $(function(){
+    	$.ajax({
+			url: 'index.php?route=lotto/getBlockNo',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				date: $('#date_end').val(),
+				id_category: '<?php echo get('id_category');?>'
+			},
+		})
+		.done(function(result_no) {
+			console.log("success");
+			console.log(result_no);
+			if(result_no.status=='failed'){
+				$('.toast-body').text(result_no.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result_no.desc);
+				$('#toast').toast('show');
+
+				$('#table-blockNo tbody').html('');
+
+				$( result_no.rows ).each(function( index,val ) {
+					var html = 
+						'<tr>'
+						+	'<td>'
+								+val.num
+						+	'</td>'
+						+	'<td>'
+								+val.type
+						+	'</td>'
+						+	'<td>'
+							+val.max_price
+						+	'</td>'
+						+	'<td class="text-end">'
+							+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'
+							+ 		'<i class="fa fa-trash"></i>'
+							+	'</a>'
+						+	'</td>'
+					+	'</tr>';
+					$('#table-blockNo  tbody:last-child').append(html);
+				});
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+
+		$.ajax({
+			url: 'index.php?route=lotto/getBlockNoAll',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				date: $('#date_end').val(),
+				id_category: '<?php echo get('id_category');?>'
+			},
+		})
+		.done(function(result_no) {
+			console.log("success");
+			console.log(result_no);
+			if(result_no.status=='failed'){
+				$('.toast-body').text(result_no.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result_no.desc);
+				$('#toast').toast('show');
+
+				$('#table-blockNo-all-type tbody').html('');
+
+				$( result_no.rows ).each(function( index,val ) {
+					var html = 
+						'<tr>'
+						+	'<td>'
+								+val.type
+						+	'</td>'
+						+	'<td>'
+							+val.max_price
+						+	'</td>'
+						+	'<td class="text-end">'
+							+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'
+							+ 		'<i class="fa fa-trash"></i>'
+							+	'</a>'
+						+	'</td>'
+					+	'</tr>';
+					$('#table-blockNo-all-type  tbody:last-child').append(html);
+				});
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+
+		$.ajax({
+			url: 'index.php?route=lotto/getBlockNoType',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				date: $('#date_end').val(),
+				id_category: '<?php echo get('id_category');?>'
+			},
+		})
+		.done(function(result_no) {
+			console.log("success");
+			console.log(result_no);
+			if(result_no.status=='failed'){
+				$('.toast-body').text(result_no.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result_no.desc);
+				$('#toast').toast('show');
+
+				$('#table-blockNo-type tbody').html('');
+
+				$( result_no.rows ).each(function( index,val ) {
+					var html = 
+						'<tr>'
+						+	'<td>'
+								+val.type
+						+	'</td>'
+						+	'<td>'
+							+val.max_price
+						+	'</td>'
+						+	'<td class="text-end">'
+							+	'<a href="#" class="btn btn-danger btn-del-blockNoType" data-id="'+val.id+'">'
+							+ 		'<i class="fa fa-trash"></i>'
+							+	'</a>'
+						+	'</td>'
+					+	'</tr>';
+					$('#table-blockNo-type  tbody:last-child').append(html);
+				});
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
     });
 </script>

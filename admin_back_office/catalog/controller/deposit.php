@@ -4,7 +4,8 @@
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				$data = array();
-				$deposit = $this->model('finance')->getDeposit();
+				$data['date'] = $date = get('date');
+				$deposit = $this->model('finance')->getDeposit(array('date'=>$date));
 				$data['deposit'] = $deposit;
 				$this->view('deposit/index',$data);
 			}else{

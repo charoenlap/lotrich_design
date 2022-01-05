@@ -4,7 +4,8 @@
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				$data = array();
-				$widthdraw = $this->model('finance')->getWidthdraw();
+				$data['date'] = $date = get('date');
+				$widthdraw = $this->model('finance')->getWidthdraw(array('date'=>$date));
 				$data['widthdraw'] = $widthdraw;
 				$this->view('widthdraw/index',$data);
 			}else{

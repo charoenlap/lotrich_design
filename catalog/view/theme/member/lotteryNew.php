@@ -23,7 +23,14 @@
 	    			1. เลือกประเภท
 	    		</div>
 	    		<div class="card-body">
-			    	เลือกชนิด
+			    	<div class="row">
+			    		<div class="col-md-6">
+			    			เลือกชนิด
+			    		</div>
+			    		<div class="col-md-6 text-end">
+			    			<a href="#" id="btn-clean-check" class="btn btn-outline-danger btn-xs">ล้างค่าที่เลือก</a>
+			    		</div>
+			    	</div>
 			    	<div class="row">
 			    		<?php foreach($listType as $val){ ?>
 				    	<div class="col-4">
@@ -564,7 +571,7 @@
 		  $(this).val("");
 		});
 		var allow_parent = $(this).attr('data-allow-parent');
-		console.log(allow_parent);
+		// console.log(allow_parent);
 		$('.chkType').not(allow_parent).prop("checked", false);
 		$(this).prop("checked", true);
 		var textChoose = '';
@@ -818,6 +825,12 @@
 	});
 	$(document).on('click','.btn-input-number',function(e){
 		e.preventDefault();
+	});
+	$(document).on('click','#btn-clean-check',function(e){
+	// 	if($(this).is(':checked')){
+		$('.chkType').prop('checked', false);
+		e.preventDefault();
+	// 	}
 	});
 </script>
 <style>

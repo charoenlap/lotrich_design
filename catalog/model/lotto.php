@@ -4,12 +4,13 @@
 			$result = array(
 				'status' 	=> 'success',
 			);
-			$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			$result_get_date_closed = $this->query('SELECT date_close,date_last_end FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
 			if($result_get_date_closed->num_rows){
+				$date_last_end 	= $result_get_date_closed->row['date_last_end'];
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
-				$sql = "SELECT * FROM b_block_number WHERE date_block = '".$date."' AND id_type=".$type." AND `num` = ".$number;
+				$sql = "SELECT * FROM b_block_number WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$data_close."') AND id_type=".$type." AND `num` = ".$number;
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
 					$max_price = $result_block_number->row['max_price'];
@@ -53,16 +54,71 @@
 			}
 			return $result;
 		}
+		public function checkPriceCustomerOver($type=0,$id_user=0,$price=0){
+			$result = array(
+				'status' 	=> 'success',
+			);
+			$result_get_date_closed = $this->query('SELECT date_close,date_last_end FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			if($result_get_date_closed->num_rows){
+				$date_last_end 	= $result_get_date_closed->row['date_last_end'];
+				$date_close = $result_get_date_closed->row['date_close'];
+				$date = date_create($date_close);
+				$date = date_format($date,"Y-m-d");
+				$sql = "SELECT * FROM b_block_number_all WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$data_close."') AND id_type=".$type;
+				$result_block_number = $this->query($sql);
+				if($result_block_number->num_rows>0){
+					$max_price = $result_block_number->row['max_price'];
+					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
+						FROM b_lotto 
+						LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
+						WHERE id_type = ".$type." 
+						AND (`date_close` BETWEEN  '".$date_last_end."' AND '".$data_close."') 
+						AND b_lotto_bill.id_user = ".$id_user;
+					$getAllPrice = $this->query($sqlGetAllPrice);
+					if($getAllPrice->num_rows > 0){
+						$allPrice = $getAllPrice->row['total_price'];
+						$test_sum_all_price = $allPrice + $price;
+						if($test_sum_all_price >= $max_price){
+							$result = array(
+								'status' 	=> 'failed',
+								'number' 	=> $number,
+								'desc'		=> 'Overlimit max price'
+							);
+						}else{
+							$result = array(
+								'status' 	=> 'success',
+								'number' 	=> $number,
+								'desc'		=> 'Overlimit max price'
+							);
+						}
+					}else{
+						$result = array(
+							'status' 	=> 'success',
+							'number' 	=> $number,
+							'desc'		=> 'Not found price'
+						);
+					}
+				}else{
+					$result = array(
+						'status' 	=> 'success',
+						'number' 	=> $number,
+						'desc'		=> 'Not found block number'
+					);
+				}
+			}
+			return $result;
+		}
 		public function checkPriceTypeOver($type=0,$id_category=0,$price=0){
 			$result = array(
 				'status' 	=> 'success',
 			);
-			$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			$result_get_date_closed = $this->query('SELECT date_close,date_last_end FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
 			if($result_get_date_closed->num_rows){
+				$date_last_end 	= $result_get_date_closed->row['date_last_end'];
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
-				$sql = "SELECT * FROM b_block_type WHERE date_block = '".$date."' AND id_type=".$type;
+				$sql = "SELECT * FROM b_block_type WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$data_close."') AND id_type=".$type;
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
 					$max_price = $result_block_number->row['max_price'];
@@ -102,24 +158,26 @@
 			}
 			return $result;
 		}
+
 		public function checkPriceTotalOver($id_category=0,$price=0){
 			$result = array(
 				'status' 	=> 'success',
 			);
-			$result_get_date_closed = $this->query('SELECT date_close FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			$result_get_date_closed = $this->query('SELECT date_close,date_last_end FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
 			if($result_get_date_closed->num_rows){
-				$date_close = $result_get_date_closed->row['date_close'];
+				$date_close 	= $result_get_date_closed->row['date_close'];
+				$date_last_end 	= $result_get_date_closed->row['date_last_end'];
 				// $date = date_create($date_close);
 				// $date = date_format($date,"Y-m-d");
-				$sql = "SELECT * FROM b_category WHERE `id` = ".$id_category;
-				$result_block_number = $this->query($sql);
-				if($result_block_number->num_rows>0){
-					$max_price = $result_block_number->row['max_total'];
+				// $sql = "SELECT * FROM b_category WHERE `id` = ".$id_category;
+				// $result_block_number = $this->query($sql);
+				// if($result_block_number->num_rows>0){
+				// 	$max_price = $result_block_number->row['max_total'];
 					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
 						FROM b_lotto 
 							LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
 						WHERE  b_lotto_bill.id_category = ".$id_category."
-							AND `date_close` = '".$date_close."'";
+							AND (`date_close` BETWEEN  '".$date_last_end."' AND '".$data_close."')";
 					$getAllPrice = $this->query($sqlGetAllPrice);
 					if($getAllPrice->num_rows > 0){
 						$allPrice = $getAllPrice->row['total_price'];
@@ -141,20 +199,21 @@
 							'desc'		=> 'Not found price'
 						);
 					}
-				}else{
-					$result = array(
-						'status' 	=> 'success',
-						'desc'		=> 'Not found block number'
-					);
-				}
+				// }else{
+				// 	$result = array(
+				// 		'status' 	=> 'success',
+				// 		'desc'		=> 'Not found block number'
+				// 	);
+				// }
 			}
 			return $result;
 		}
-		public function getBlockNumber($id_category,$date=''){
+		public function getBlockNumber($id_category,$date='',$date_last=''){
 			$sql = "SELECT *,b_block_number.id AS id FROM b_block_number 
 					LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id 
 					LEFT JOIN b_type ON b_type.id = b_block_number.id_type 
-					WHERE id_category = ".(int)$id_category;
+					WHERE id_category = ".(int)$id_category." 
+					AND (b_block_number.date_block BETWEEN '".$date_last."' AND '".$date."' )" ;
 			return $this->query($sql)->rows;
 		}
 		public function listType($data=array()){

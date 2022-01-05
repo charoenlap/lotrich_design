@@ -26,7 +26,8 @@
 				$data['getBlockNo'] = $this->model('master')->getBlockNo();
 				// var_dump($data['getBlockNo']);
 				$data['id_category']= get('id_category');
-				$data['date_close'] = $data['category']['date_close'];
+				$data['date_close'] 	= $data['category']['date_close'];
+				$data['date_last_end'] 	= $data['category']['date_last_end'];
 				$data['max_total'] = (float)$data['category']['max_total'];
 				// echo "<pre>";
 				// var_dump($data['category']);
@@ -78,14 +79,15 @@
 			if($id_admin){
 				if(method_post()){
 					$result_text_type = '';
-					$id_category = (int)decrypt(get('id_category'));
-					$date 		= post('date');
-					$date_end 	= post('date_end');
-					$max_total 	= post('max_total');
-					$ratio 		= post('ratio');
-					$id_package = (int)post('id_package');
+					$id_category 	= (int)decrypt(get('id_category'));
+					$date 			= post('date');
+					$date_end 		= post('date_end');
+					$date_last_end 	= post('date_last_end');
+					$max_total 		= post('max_total');
+					$ratio 			= post('ratio');
+					$id_package 	= (int)post('id_package');
 
-					$result_edit_date_end 	= $this->model('master')->saveDateEnd($date_end,$id_category,$max_total);
+					$result_edit_date_end 	= $this->model('master')->saveDateEnd($date_end,$date_last_end,$id_category,$max_total);
 					$result_ratio 			= $this->model('master')->addRatio($ratio,$id_category,$id_package);
 					$result_text_type .= 'เพิ่มอัตราการต่อรองเรียบร้อย ';
 					if(!empty($date)){
@@ -198,6 +200,29 @@
 			}
 			echo json_encode($result);
 		}
+		public function getBlockNoAll(){
+			$result = array(
+				'status' => 'failed'
+			);
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id_category = (int)decrypt(post('id_category'));
+					$date 		= post('date');
+					$result_block_no = $this->model('master')->listBlockNoAll($id_category,$date);
+					$result = array(
+						'status' => 'success',
+						'rows'	=> $result_block_no
+					);
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
 		public function getBlockNoType(){
 			$result = array(
 				'status' => 'failed'
@@ -287,6 +312,73 @@
 						);
 
 						$result_insert_package = $this->model('master')->addBlockNo($data_insert);
+						if($result_insert_package['result']=="success"){
+							$result = array(
+								'status' => 'success',
+								'desc'	=> 'เพิ่มตัวเลขอั้นเข้าสู่ระบบเรียบร้อย',
+								'data_insert' => $data_insert
+							);
+						}
+					}else{
+						$result = array(
+							'status' => 'failed',
+							'desc'	=> 'กรุณาเลือกวันที่ ที่ต้องการเพิ่มเลขอั้นก่อน'
+						);
+					}
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
+		public function delBlockNoAll(){
+			$result = array(
+				'status' => 'failed'
+			);
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id 		= post('id');
+					$result_block_no = $this->model('master')->delBlockNoAll($id);
+					$result = array(
+						'status' => 'success'
+					);
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
+		public function addBlockNoAll(){
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					// $id_category = (int)decrypt(post('id_category'));
+					$num = post('num');
+					$id_condition_detail = (int)post('id_condition_detail');
+					$max_price = post('max_price');
+					$date_block = post('date_block');
+					$id_category = (int)decrypt(post('id_category'));
+					$id_type = (int)post('id_type');
+
+					$date = explode(' ',$date_block);
+					if(!empty($date[0])){
+						$data_insert = array(
+							'num' => $num,
+							'id_condition_detail' => $id_condition_detail,
+							'max_price' => $max_price,
+							'date_block' => $date[0],
+							'id_category' => $id_category,
+							'id_type' => $id_type,
+						);
+
+						$result_insert_package = $this->model('master')->addBlockNoAll($data_insert);
 						if($result_insert_package['result']=="success"){
 							$result = array(
 								'status' => 'success',

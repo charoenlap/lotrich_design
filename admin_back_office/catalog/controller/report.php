@@ -5,6 +5,7 @@
 			$data['date'] 			= get('date');
 			$data['id_category']	= (int)get('category');
 			$data['id_type']		= (int)get('type');
+			$data['order']			= (int)get('order');
 
 			$data['category'] 	= $this->model('master')->listCategory();
 			$data['type'] 		= $this->model('master')->listType();
@@ -14,6 +15,7 @@
 				'date' 			=> $data['date'],
 				'id_category' 	=> $data['id_category'],
 				'id_type' 		=> $data['id_type'],
+				'order'			=> $data['order']
 			);
 			$data['result']		= $this->model('master')->listReportNo($data_select);
 			$this->view('report/number',$data);

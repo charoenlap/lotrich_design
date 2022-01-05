@@ -113,6 +113,7 @@
 						'name' 			=> $val['name'],
 						'flag' 			=> $val['flag'],
 						'date_close' 	=> $val['date_close'],
+						'date_last_end' => $val['date_last_end'],
 						'max_total' 	=> $val['max_total'],
 						'sub'			=> $result_cate_sub,
 						'type'			=> $type,
@@ -133,13 +134,19 @@
 			$date_close 	= $this->escape($data['date']);
 			$id_category 	= $data['id_category'];
 			$id_type 		= $data['id_type'];
-			$sql = "SELECT b_lotto.`number`,SUM(`b_lotto`.`price`) AS sum_price FROM b_lotto 
+			$order = ' ORDER BY number';
+			if($data['order']=='sum_price'){
+				$order = ' ORDER BY sum_price';
+			}
+			$sql = "
+			SELECT `number`,`sum_price` FROM (
+				SELECT b_lotto.`number`,SUM(`b_lotto`.`price`) AS sum_price FROM b_lotto 
 				LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
 				WHERE 
 					b_lotto_bill.`date_close` like '".$date_close."%' 
 					AND b_lotto.id_type = '".$id_type."'
 					AND b_lotto_bill.id_category = '".$id_category."'
-				GROUP BY b_lotto.`number` ";
+				GROUP BY b_lotto.`number` ) t ".$order;
 			// echo $sql;
 			$result = $this->query($sql)->rows;
 			return $result;
@@ -156,7 +163,8 @@
 		}
 		public function listBlockNo($id_category=0,$date=''){
 			$result = array();
-			$date = $date;
+			$date_arr = explode(' ',$date);
+			$date = $date_arr[0];
 			if(!empty($date)){
 				$id_category = (int)$id_category;
 				if(!empty($date)){
@@ -169,9 +177,27 @@
 			}
 			return $result;
 		}
+		public function listBlockNoAll($id_category=0,$date=''){
+			$result = array();
+			$date_arr = explode(' ',$date);
+			$date = $date_arr[0];
+			if(!empty($date)){
+				$id_category = (int)$id_category;
+				if(!empty($date)){
+					$sql = "SELECT *,b_block_number_all.id AS id FROM b_block_number_all 
+							LEFT JOIN b_block_number_detail ON b_block_number_detail.id = b_block_number_all.id_type 
+							LEFT JOIN b_type ON b_type.id = b_block_number_all.id_type 
+							WHERE date_block = '".$date."' AND b_block_number_all.id_category = ".$id_category;
+					$result = $this->query($sql)->rows;
+				}
+			}
+			return $result;
+		}
 		public function listBlockNoType($id_category=0,$date=''){
 			$result = array();
-			$date = $date;
+			$date_arr = explode(' ',$date);
+			$date = $date_arr[0];
+
 			if(!empty($date)){
 				$id_category = (int)$id_category;
 				if(!empty($date)){
@@ -254,12 +280,29 @@
 			}
 			return $result;
 		}
-		public function saveDateEnd($date_end = '',$id_category=0,$maxtotal=0){
+		public function delBlockNoAll($id=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = 'DELETE FROM b_block_number_all WHERE id = '.(int)$id;
+			$result_del = $this->query($sql);
+			if($result_del){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;
+		}
+		public function saveDateEnd($date_end = '',$date_last_end = '',$id_category=0,$maxtotal=0){
 			$result = array(
 				'result' => 'fail'
 			);
 			if(!empty($date_end) AND !empty($id_category)){
-				$sql = "UPDATE b_category SET date_close = '".$date_end."',max_total='".$maxtotal."' WHERE id=".(int)$id_category;
+				$sql = "UPDATE b_category SET 
+				date_close = '".$date_end."', 
+				date_last_end = '".$date_last_end."',
+				max_total = '".$maxtotal."' 
+				WHERE id=".(int)$id_category;
 				$result_update = $this->query($sql);
 				if($result_update){
 					$result = array(
@@ -288,6 +331,27 @@
 				'id_type'				=> $data['id_type'],
 			);
 			$result_insert = $this->insert('block_number',$data_insert);
+			if($result_insert){
+				$result = array(
+					'result' => 'success',
+					'desc'	=> ''
+				);
+			}
+			return $result;
+		}
+		public function addBlockNoAll($data = array()){
+			$result = array(
+				'result' => 'failed',
+			);
+			$data_insert = array(
+				'num'					=> $data['num'],
+				'id_condition_detail'	=> $data['id_condition_detail'],
+				'max_price'				=> $data['max_price'],
+				'date_block'			=> $data['date_block'],
+				'id_category'			=> $data['id_category'],
+				'id_type'				=> $data['id_type'],
+			);
+			$result_insert = $this->insert('block_number_all',$data_insert);
 			if($result_insert){
 				$result = array(
 					'result' => 'success',
