@@ -98,14 +98,14 @@
 					}else{
 						$result = array(
 							'status' 	=> 'success',
-							'number' 	=> $number,
+							// 'number' 	=> $number,
 							'desc'		=> 'Not found price'
 						);
 					}
 				}else{
 					$result = array(
 						'status' 	=> 'success',
-						'number' 	=> $number,
+						// 'number' 	=> $number,
 						'desc'		=> 'Not found block number'
 					);
 				}
