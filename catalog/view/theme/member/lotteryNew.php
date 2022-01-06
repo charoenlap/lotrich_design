@@ -256,7 +256,7 @@
 			    		
 			    		<?php foreach($listType as $val){ ?>
 			    				<?php if($val['price']){ ?>
-			    					<div class="panel-lotto-<?php echo $val['id'];?> d-none">
+			    					<div class="panel-lotto-header panel-lotto-<?php echo $val['id'];?> d-none">
 				    					<div class="row">
 				    						<div class="col-12">
 				    							<h3><?php echo $val['name'];?></h3>
@@ -523,6 +523,7 @@
 	});
 	$(document).on('click','#btn-del-all',function(e){
 		$('.table-lotto-all').find('tr').remove();
+		$('.panel-lotto-header').addClass('d-none');
 		e.preventDefault();
 	});
 	$(document).on('click','.btn-del',function(e){
@@ -573,8 +574,10 @@
 		});
 		var allow_parent = $(this).attr('data-allow-parent');
 		// console.log(allow_parent);
+
 		$('.chkType').not(allow_parent).prop("checked", false);
-		$(this).prop("checked", true);
+		// $(this).prop("checked", true);
+		
 		var textChoose = '';
 		$( ".chkType:checked" ).each(function( index ) {
 		  textChoose += '<span class="badge rounded-pill bg-secondary">'+$(this).val()+'</span> ';
@@ -642,9 +645,9 @@
 			id_type.push( $(this).attr('data-id-type') );
 		});
 		
-		$( id_type ).each(function( index,id ) {
+		// $( id_type ).each(function( index,id ) {
 			console.log(rdoType);
-			var id_type_loop = id;
+			// var id_type_loop = id;
 			$.ajax({
 				url: 'index.php?route=member/addLotto',
 				type: 'POST',
@@ -652,7 +655,7 @@
 				data: {
 					number: number,
 					price: 1,
-					id_type: id_type_loop,
+					id_type: id_type,//id_type_loop,
 					id_category: '<?php echo $_GET['id'];?>',
 					id_package: '<?php echo $_GET['package'];?>',
 					rdoType: rdoType
@@ -708,7 +711,7 @@
 			.always(function() {
 				console.log("complete");
 			});
-		});
+		// });
 		
 	});
 	$(document).on('click','.btn-add-muntiple-lottery',function(e){

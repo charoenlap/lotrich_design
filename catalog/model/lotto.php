@@ -263,54 +263,55 @@
 		public function getRatio($data=array()){
 			$result = array();
 
-			$id_type		= $data['id_type'];
+			$id_type_arr	= $data['id_type'];
 			$id_category 	= (!empty($data['id_category']) 	? (int)$this->escape($data['id_category'])	:'');
 			$id_package 	= (!empty($data['id_package']) 	? (int)$this->escape($data['id_package'])	:'');
 			$number			= $data['number'];
 			$price 			= (!empty($data['price']) 	? (float)$this->escape($data['price'])	:'');
-
-			$result_rows = array();
-			if(!empty($id_type)){
-				$sql = "SELECT digit,price,b_type.type AS type_name,b_type.id AS id FROM b_ratio
-					LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
-					WHERE id_type = '".(int)$id_type."' 
-					AND id_category = '".$id_category."' 
-					AND id_package = '".$id_package."' 
-				";
-				$query 	= $this->query($sql);
-				if($query->num_rows>0){
-					$sql_category = "SELECT * FROM b_category WHERE id = '".$id_category."'";
-					$category = $this->query($sql_category);
-					if($category->num_rows > 0){
-						$limit_number = 0;
-						$date_close = $category->row['date_close'];
-						$date = date_create($date_close);
-						$date = date_format($date,"Y-m-d");
-						foreach($number as $num){
-							$sql_block_number = "SELECT * FROM b_block_number 
-							LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id
-							 WHERE date_block = '".$date."' AND num = '".(int)$num."' AND id_type = '".(int)$id_type."'";
-							$block_number = $this->query($sql_block_number);
-							$condition = 1;
-							$ratio = $query->row['price'];
-							if($block_number->num_rows > 0 ){
-								$condition = $block_number->row['condition'];
-								$limit_number = 1;
-								$ratio = $ratio * $condition / 100;
+			foreach($id_type_arr as $id_type){
+				$result_rows = array();
+				if(!empty($id_type)){
+					$sql = "SELECT digit,price,b_type.type AS type_name,b_type.id AS id FROM b_ratio
+						LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
+						WHERE id_type = '".(int)$id_type."' 
+						AND id_category = '".$id_category."' 
+						AND id_package = '".$id_package."' 
+					";
+					$query 	= $this->query($sql);
+					if($query->num_rows>0){
+						$sql_category = "SELECT * FROM b_category WHERE id = '".$id_category."'";
+						$category = $this->query($sql_category);
+						if($category->num_rows > 0){
+							$limit_number = 0;
+							$date_close = $category->row['date_close'];
+							$date = date_create($date_close);
+							$date = date_format($date,"Y-m-d");
+							foreach($number as $num){
+								$sql_block_number = "SELECT * FROM b_block_number 
+								LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id
+								 WHERE date_block = '".$date."' AND num = '".(int)$num."' AND id_type = '".(int)$id_type."'";
+								$block_number = $this->query($sql_block_number);
+								$condition = 1;
+								$ratio = $query->row['price'];
+								if($block_number->num_rows > 0 ){
+									$condition = $block_number->row['condition'];
+									$limit_number = 1;
+									$ratio = $ratio * $condition / 100;
+								}
+								$price = 1 * $condition / 100;
+								$paid = $query->row['price'] * $price ;
+								// var_dump($query->rows);
+								$result[] = array(
+									'ratio'		=> number_format($ratio,2),
+									'type'		=> $query->row['type_name'],
+									'number'	=> str_pad($num,$query->row['digit'],"0", STR_PAD_LEFT),
+									'price'		=> 1,
+									'id_type'	=> $query->row['id'],
+									'paid'		=> number_format($paid,2),
+									'limit_number'=> $limit_number,
+									'digit'		=> $query->row['digit']
+								);
 							}
-							$price = 1 * $condition / 100;
-							$paid = $query->row['price'] * $price ;
-							// var_dump($query->rows);
-							$result[] = array(
-								'ratio'		=> number_format($ratio,2),
-								'type'		=> $query->row['type_name'],
-								'number'	=> str_pad($num,$query->row['digit'],"0", STR_PAD_LEFT),
-								'price'		=> 1,
-								'id_type'	=> $query->row['id'],
-								'paid'		=> number_format($paid,2),
-								'limit_number'=> $limit_number,
-								'digit'		=> $query->row['digit']
-							);
 						}
 					}
 				}

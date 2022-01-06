@@ -38,12 +38,11 @@
 								<th>ID</th>
 								<th>จำนวนเงิน</th>
 								<th>สถานะ</th>
-								<th>สถานะ</th>
 								<th></th>
 							</thead>
 							<tbody>
 								<?php if($widthdraw['result']!="failed"){ ?>
-									<?php foreach($widthdraw as $val){ ?>
+									<?php foreach($widthdraw['widthdraw'] as $val){ ?>
 									<tr>
 										<td><?php echo $val['date_create']; ?></td>
 										<td><?php echo $val['name'].' '.$val['lname']; ?></td>

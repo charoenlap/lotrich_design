@@ -64,6 +64,7 @@
 			ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
 			$result_widthdraw = $this->query($sql);
 			if($result_widthdraw->num_rows > 0){
+				// var_dump($result_widthdraw->rows);
 				$result = array(
 					'result' 	=> 'success',
 					'widthdraw'	=> $result_widthdraw->rows

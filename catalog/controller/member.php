@@ -296,12 +296,13 @@
 						$number = array_unique($number);
 						$number_default = array_unique($number_default);
 						
-						$id_type 	= post('id_type');
+						$id_type_arr = $id_type = post('id_type');
 						$rdoType 	= post('rdoType');
 						$digit 		= post('digit');
 						$condition 	= post('condition');
 						$chkType 	= post('chkType');
-						// var_dump($_POST);
+						// var_dump($id_type);
+						// exit();
 						$rows = array();
 						if($id_type){
 							if($rdoType == "19 ประตู"){
@@ -331,50 +332,71 @@
 								// var_dump($number);
 							}else if($rdoType == "ปักหลักหน่วย" || $rdoType == "ปักหลักสิบ" || $rdoType == "ปักหลักร้อย"){
 								$new_arr_number = array($number[0]);
+								$id_type = array();
 								if($rdoType=="ปักหลักหน่วย"){
-									$id_type = 39;
+									$id_type[] = 39;
 								}else if($rdoType=="ปักหลักสิบ"){
-									$id_type = 40;
+									$id_type[] = 40;
 								}else {
-									$id_type = 41;
+									$id_type[] = 41;
 								}
 								$number = $new_arr_number;
 							}else if($rdoType == "4 ตัวโต๊ด" || $rdoType == "5 ตัวโต๊ด" || $rdoType == "4 ตัวบน"){
 								$new_arr_number = array($number[0]);
+								$id_type = array();
 								if($rdoType=="4 ตัวโต๊ด"){
-									$id_type = 42;
+									$id_type[] = 42;
 								}else if($rdoType=="5 ตัวโต๊ด"){
-									$id_type = 43;
+									$id_type[] = 43;
 								}else {
-									$id_type = 44;
+									$id_type[] = 44;
 								}
 								$number = $new_arr_number;
 							}
 							
-								// $number = $number_default;
-								if($id_type=="9"){
-									$new_arr_number = str_pad($number[0],3,"0", STR_PAD_LEFT);
-									$number = getCombinations($new_arr_number,3);
-									$id_type = 2; // สามตัวบน
+							// $number = $number_default;
+							if(in_array(9,$id_type)){
+								$id_type = array();
+								$new_arr_number = str_pad($number[0],3,"0", STR_PAD_LEFT);
+								$number = getCombinations($new_arr_number,3);
+								
+								if(in_array(3,$id_type_arr) and in_array(2,$id_type_arr)){
+									$id_type[] = 3; // สามตัวล่าง
+								}else if(in_array(3,$id_type_arr)){
+									$id_type[] = 3; // สามตัวล่าง
+								}else{
+									$id_type[] = 2; // สามตัวบน
 								}
-								if($id_type=="32"){
-									$new_arr_number = str_pad($number[0],2,"0", STR_PAD_LEFT);
-									$number = getCombinations($new_arr_number,2);
-									$id_type = 7; // สามตัวบน
+							}
+							
+							if(in_array(32,$id_type)){
+								$id_type = array();
+								$new_arr_number = str_pad($number[0],2,"0", STR_PAD_LEFT);
+								$number = getCombinations($new_arr_number,2);
+								if(in_array(4,$id_type_arr) and in_array(7,$id_type_arr)){
+									$id_type[] = 4; // สองตัวล่าง
+									$id_type[] = 7; // สองตัวบน
+								}else if(in_array(4,$id_type_arr)) {
+									$id_type[] = 4; // สองตัวล่าง
+								}else{
+									$id_type[] = 7; // สองตัวบน
 								}
-								$number = array_unique($number);
+							}
+							// var_dump($id_type);
+							$number = array_unique($number);
 
-								$id_category = decrypt(post('id_category'));
-								$id_package = decrypt(post('id_package'));
-								$arr = array(
-									'id_type' 		=> $id_type,
-									'id_category'	=> $id_category,
-									'id_package'	=> $id_package,
-									'number'		=> $number,
-									'price'			=> $price,
-								);
-								// var_dump($arr);
-								$type = $this->model('lotto')->getRatio($arr);
+							$id_category = decrypt(post('id_category'));
+							$id_package = decrypt(post('id_package'));
+
+							$arr = array(
+								'id_type' 		=> $id_type,
+								'id_category'	=> $id_category,
+								'id_package'	=> $id_package,
+								'number'		=> $number,
+								'price'			=> $price,
+							);
+							// var_dump($arr);
+							$type = $this->model('lotto')->getRatio($arr);
 							
 							$result = array(
 								'status' 	=> 'success',
