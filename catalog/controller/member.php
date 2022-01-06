@@ -449,7 +449,7 @@
 							if($result_check_price_over['status']=="success"){
 								$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_);
 								if($result_check_price_type_over['status']=="success"){
-									$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($id_user,$val,$price_);
+									$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($id_user,$val,$price_,$id_category);
 									if($result_check_price_total_over['status']=="success"){
 						    			$list_lotto[] = array(
 											'id_type' 	=> $val,
