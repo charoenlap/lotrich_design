@@ -167,7 +167,7 @@
 				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="9">9</a></div>
 				    	</div>
 				    	<div class="row mt-2">
-				    		<div class="col-8"><a href="#" class="btn btn-block btn-outline-success" data-input="0">0</a></div>
+				    		<div class="col-8"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="0">0</a></div>
 				    		<div class="col"><a href="#" class="btn btn-block btn-danger btn-input-number" data-input="<">ลบ</a></div>
 				    	</div>
 			    	</div>
@@ -523,6 +523,7 @@
 	});
 	$(document).on('click','#btn-del-all',function(e){
 		$('.table-lotto-all').find('tr').remove();
+		e.preventDefault();
 	});
 	$(document).on('click','.btn-del',function(e){
 		var ele = $(this);
