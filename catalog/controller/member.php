@@ -213,12 +213,12 @@
 
 					$data['data_lotto'] = $data_lotto;
 
-					$date = $data['detail']['date_close'];
+					$date = $date_close = $data['detail']['date_close'];
 					$date_last_close = $data['detail']['date_last_end'];
 					$date = date_create($date);
 					$date = date_format($date,"Y-m-d");
 					// echo $date;
-					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date,$date_last_close);
+					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date_close,$date_last_close);
 		 	    	$this->view('member/lotteryNew',$data); 
 		 	    }else{
 		 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
@@ -449,7 +449,7 @@
 							if($result_check_price_over['status']=="success"){
 								$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_);
 								if($result_check_price_type_over['status']=="success"){
-									$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($id_user,$val,$price_,$id_category);
+									$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($val,$id_user,$price_,$id_category);
 									if($result_check_price_total_over['status']=="success"){
 						    			$list_lotto[] = array(
 											'id_type' 	=> $val,

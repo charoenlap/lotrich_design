@@ -4,7 +4,8 @@
 			$result = array(
 				'status' 	=> 'success',
 			);
-			$result_get_date_closed = $this->query('SELECT date_close,date_last_end FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1');
+			$sql = 'SELECT date_close,date_last_end FROM b_category WHERE `id` = '.$id_category.' LIMIT 0,1';
+			$result_get_date_closed = $this->query($sql);
 			if($result_get_date_closed->num_rows){
 				$date_last_end 	= $result_get_date_closed->row['date_last_end'];
 				$date_close = $result_get_date_closed->row['date_close'];
@@ -69,8 +70,10 @@
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
 				$sql = "SELECT * FROM b_block_number_all WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') AND id_type=".$type;
+				// echo $sql;exit();
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
+					// var_dump($result_block_number->row);exit();
 					$max_price = $result_block_number->row['max_price'];
 					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
 						FROM b_lotto 
@@ -218,6 +221,7 @@
 					LEFT JOIN b_type ON b_type.id = b_block_number.id_type 
 					WHERE id_category = ".(int)$id_category." 
 					AND (b_block_number.date_block BETWEEN '".$date_last."' AND '".$date."' )" ;
+			echo $sql;exit();
 			return $this->query($sql)->rows;
 		}
 		public function listType($data=array()){
