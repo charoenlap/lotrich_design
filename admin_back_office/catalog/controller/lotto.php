@@ -189,7 +189,8 @@
 					$result_block_no = $this->model('master')->listBlockNo($id_category,$date);
 					$result = array(
 						'status' => 'success',
-						'rows'	=> $result_block_no
+						'rows'	=> $result_block_no,
+						'desc'	=> 'เรียบร้อย'
 					);
 				}
 			}else{
@@ -212,7 +213,8 @@
 					$result_block_no = $this->model('master')->listBlockNoAll($id_category,$date);
 					$result = array(
 						'status' => 'success',
-						'rows'	=> $result_block_no
+						'rows'	=> $result_block_no,
+						'desc'	=> 'เรียบร้อย'
 					);
 				}
 			}else{
@@ -235,7 +237,8 @@
 					$result_block_no = $this->model('master')->listBlockNoType($id_category,$date);
 					$result = array(
 						'status' => 'success',
-						'rows'	=> $result_block_no
+						'rows'	=> $result_block_no,
+						'desc'	=> 'เรียบร้อย'
 					);
 				}
 			}else{
@@ -256,7 +259,30 @@
 					$id 		= post('id');
 					$result_block_no = $this->model('master')->delBlockNoType($id);
 					$result = array(
-						'status' => 'success'
+						'status' => 'success',
+						'desc'	=> 'เรียบร้อย'
+					);
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
+		public function delBlockNoTypeAll(){
+			$result = array(
+				'status' => 'failed'
+			);
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id 		= post('id');
+					$result_block_no = $this->model('master')->delBlockNoTypeAll($id);
+					$result = array(
+						'status'=> 'success',
+						'desc'	=> 'เรียบร้อย'
 					);
 				}
 			}else{

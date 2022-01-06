@@ -267,6 +267,19 @@
 			}
 			return $result;
 		}
+		public function delBlockNoTypeAll($id=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = 'DELETE FROM b_block_number_all WHERE id = '.(int)$id;
+			$result_del = $this->query($sql);
+			if($result_del){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;
+		}
 		public function delBlockNo($id=0){
 			$result = array(
 				'result' => 'fail'

@@ -1218,6 +1218,40 @@
     	});
     	e.preventDefault();
     });
+    $(document).on('click','.btn-del-blockNoType-all',function(e){
+    	var ele = $(this);
+    	var id = $(this).attr('data-id');
+    	$.ajax({
+    		url: 'index.php?route=lotto/delBlockNoTypeAll',
+    		type: 'POST',
+    		dataType: 'json',
+    		data: {
+    			id: id
+    		},
+    	})
+    	.done(function(result) {
+    		if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
+			ele.parents('tr').remove();
+			e.preventDefault();
+    	})
+    	.fail(function() {
+    		console.log("error");
+    	})
+    	.always(function() {
+    		console.log("complete");
+    	});
+    	e.preventDefault();
+    });
     $(document).on('click','.btn-del-blockNo',function(e){
     	var ele = $(this);
     	var id = $(this).attr('data-id');
@@ -1345,7 +1379,7 @@
 							+val.max_price
 						+	'</td>'
 						+	'<td class="text-end">'
-							+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'
+							+	'<a href="#" class="btn btn-danger btn-del-blockNoType-all" data-id="'+val.id+'">'
 							+ 		'<i class="fa fa-trash"></i>'
 							+	'</a>'
 						+	'</td>'
