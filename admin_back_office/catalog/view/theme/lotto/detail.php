@@ -107,7 +107,7 @@
 												<span class="input-group-addon btn btn-warning">
 													<span class="fa fa-calendar"></span>
 												</span>
-												<input type='text' class="form-control" 
+												<input type='text' class="form-control txt-change-date" 
 												id="date_last_end" name="date_last_end" 
 												value="<?php echo $date_last_end; ?>"
 												placeholder="2021-12-31 15:00:00"/>
@@ -130,7 +130,7 @@
 												<span class="input-group-addon btn btn-warning">
 													<span class="fa fa-calendar"></span>
 												</span>
-												<input type='text' class="form-control" 
+												<input type='text' class="form-control txt-change-date" 
 												id="date_end" name="date_end" 
 												value="<?php echo $date_close; ?>"
 												placeholder="2021-12-31 15:00:00"/>
@@ -238,27 +238,13 @@
 									// var_dump($category['type']);
 									if(empty($category['sub'])){ ?>
 										<thead>
-											<th >ผลการออกรางวัล</th>
-											<th colspan="2" class="text-end">
-												<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+ เพิ่มผลการออกรางวัล</a>
-											</th>
+											<th colspan="10">ผลการออกรางวัล <a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+ เพิ่มผลการออกรางวัล</a></th>
 										</thead>
 										<tbody>
 										<?php 
-										foreach($category['type'] as $type){ ?>
-											<tr>
-												<td class="bg-info">
-													<?php echo $type['type']; ?>
-												</td>
-												<td class="bg-info">
-													<input id="type_<?php echo $type['id_type'];?>" type="text" name="result[<?php echo $type['id_type'];?>]"
-													class="form-control" value="<?php echo $type['result']; ?>">
-												</td>
-												<td class="text-end" width="10%">
-													<a href="" class="btn btn-danger btn-del-type"><i class="fa fa-trash"></i></a>
-												</td>
-											</tr>
-										<?php 	} ?>
+										/*foreach($category['type'] as $type){ ?>
+											
+										<?php 	}*/ ?>
 										</tbody>
 								<?php 
 									}else{
@@ -286,6 +272,14 @@
 								
 							</div>
 							<div class="card-footer">
+								<p>
+									<input type="checkbox" name="chkCalculate" value="1" id="chkCalculate">
+									<label for="chkCalculate">ให้คำนวนบิลทั้งหมด ในช่วงวันที่ 
+										<span id="date-start-end">
+											<?php echo $date_last_end.' - '.$date_close ; ?> 
+										</span>
+									</label>
+								</p>
 								<div class="d-grid gap-2">
 									<a href="#" class="btn btn-primary btn-block" id="btn-submit">บันทึก</a>
 								</div>
@@ -306,7 +300,7 @@
 	  <div class="toast-body"></div>
 	</div>
 </div>
-<!-- Modal -->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -463,9 +457,13 @@
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
+	$(document).on('change','.txt-change-date',function(e){
+		var ele = $('#date-start-end');
+		var date_last_end = $('#date_last_end').val();
+		var date_end = $('#date_end').val();
+		ele.text(date_last_end + ' - ' + date_end);
+	});
 	$(document).on('click','#btn-add-block-no-type',function(e){
-		// var num 				= $('#block-no').val();
-		// var id_condition_detail = $('#no-type-block-no').val();
 		var max_price 			= $('#no-text-block-no-max').val();
 		var date_block 			= $('#date_end').val();
 		var id_category 		= '<?php echo get('id_category');?>';
@@ -475,8 +473,6 @@
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				// num:num,
-				// id_condition_detail:id_condition_detail,
 				max_price:max_price,
 				date_block:date_block,
 				id_category:id_category,
@@ -495,7 +491,6 @@
 				$('.toast-body').addClass('text-success');
 				$('.toast-body').text(result.desc);
 				$('#toast').toast('show');
-				// location.reload();
 				$.ajax({
 					url: 'index.php?route=lotto/getBlockNoType',
 					type: 'POST',
@@ -560,7 +555,6 @@
 		.always(function() {
 			console.log("complete");
 		});
-		
 	});
 	$(document).on('click','#btn-add-block-no',function(e){
 		var num 				= $('#block-no').val();
@@ -839,7 +833,32 @@
 	});
 	$(document).on('click','.btn-del-type',function(e){
 		var ele = $(this);
+		var id_type = ele.attr('id_type');
+
 		ele.parents('tr').remove();
+		$.ajax({
+			url: 'index.php?route=lotto/delType',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id_type: id_type,
+				date: $('#date').val(),
+				id_category: '<?php echo get('id_category');?>'
+			},
+		})
+		.done(function(e) {
+			console.log("success");
+		})
+		.fail(function(a,b,c) {
+			console.log(a);
+			console.log(b);
+			console.log(c);
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
 		e.preventDefault();
 	});
 	$(document).on('click','.btn-del-ratio',function(e){
@@ -984,8 +1003,22 @@
 				$( result.ratio ).each(function( index,val ) {
 				  $('#ratio_'+val.id).val(val.price);
 				});
+				$('#table-type tbody').html('');
 				$( result.type ).each(function( index,val ) {
-				  $('#type_'+val.id).val(val.result);
+				  // $('#type_'+val.id).val(val.result);
+				  var 	html = 	'<tr>'
+									+'<td class="bg-info">'
+										+val.type
+									+'</td>'
+									+'<td class="bg-info">'
+										+'<input id="type_'+val.id+'" type="text" name="result['+val.id+']"'
+										+'class="form-control" value="'+val.result+'">'
+									+'</td>'
+									+'<td class="text-end" width="10%">'
+										+'<a href="" class="btn btn-danger btn-del-type" id_type="'+val.id+'"><i class="fa fa-trash"></i></a>'
+									+'</td>'
+								+'</tr>';
+					$('#table-type tbody').append(html);
 				});
 				console.log(result.sub);
 				$( result.sub ).each(function( index,sub ) {

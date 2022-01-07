@@ -74,7 +74,7 @@
 			}
 			echo json_encode($result);
 		}
-		public function submitLotto(){
+		public function submitLotto(){ 
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				if(method_post()){
@@ -86,6 +86,7 @@
 					$max_total 		= post('max_total');
 					$ratio 			= post('ratio');
 					$id_package 	= (int)post('id_package');
+					$chkCalculate 	= (int)post('chkCalculate'); 
 
 					$result_edit_date_end 	= $this->model('master')->saveDateEnd($date_end,$date_last_end,$id_category,$max_total);
 					$result_ratio 			= $this->model('master')->addRatio($ratio,$id_category,$id_package);
@@ -93,6 +94,14 @@
 					if(!empty($date)){
 						$result = post('result');
 						$result_type = $this->model('master')->addType($result,$date);
+						if($chkCalculate){
+							$arr_calculate = array(
+								'date_end' 		=> $date_end,
+								'date_last_end' => $date_last_end,
+								'date'			=> $date
+							);
+							$result_calculate = $this->model('master')->calculateAllBill($arr_calculate);
+						}
 						$result_text_type .= ' เพิ่มประเภทเรียบร้อย';
 					}
 					$result = array(
@@ -121,6 +130,30 @@
 						$result = array(
 							'status' => 'success',
 							'desc'	=> 'เพิ่มแพคเกจเรียบร้อย'
+						);
+					}
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
+		public function delType(){
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id_category 	= (int)decrypt(post('id_category'));
+					$id_type 		= post('id_type');
+					$date 			= post('date');
+
+					$result_insert_package = $this->model('master')->delResultType($id_type,$id_category,$date);
+					if($result_insert_package['result']=="success"){
+						$result = array(
+							'status' => 'success',
+							'desc'	=> 'ลบแพคเกจเรียบร้อย'
 						);
 					}
 				}

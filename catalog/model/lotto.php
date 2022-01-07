@@ -216,11 +216,19 @@
 			return $result;
 		}
 		public function getBlockNumber($id_category,$date='',$date_last=''){
+			// $sql = "SELECT *,b_block_number.id AS id FROM b_block_number 
+			// 		LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id 
+			// 		LEFT JOIN b_type ON b_type.id = b_block_number.id_type 
+			// 		WHERE id_category = ".(int)$id_category." 
+			// 		AND (b_block_number.date_block BETWEEN '".$date_last."' AND '".$date."' )" ;
+
+			$date_convert = date("Y-m-d", strtotime($date));
+
 			$sql = "SELECT *,b_block_number.id AS id FROM b_block_number 
 					LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id 
 					LEFT JOIN b_type ON b_type.id = b_block_number.id_type 
 					WHERE id_category = ".(int)$id_category." 
-					AND (b_block_number.date_block BETWEEN '".$date_last."' AND '".$date."' )" ;
+					AND (b_block_number.date_block = '".$date_convert."' )" ;
 			// echo $sql;exit();
 			return $this->query($sql)->rows;
 		}
