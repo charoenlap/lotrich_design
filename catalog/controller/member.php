@@ -485,17 +485,23 @@
 						    			$sum_price += (float)$price[$key];
 						    		}else{
 						    			$list_lotto_not_buy_total_over[] = array(
-						    				'number' 	=> $number_,
+						    				'desc'		=> 'checkPriceCustomerOver',
+						    				'desc_code'	=> $val.' '.$id_user.' '.$price_.' '.$id_category,
+						    				'desc_thai'	=> 'ประเภทการแทง '.$result_check_price_total_over['type_name'].' มียอดการแทงเกินที่กำหนด'
 						    			);
 						    		}
 					    		}else{
 					    			$list_lotto_not_buy_limit_type[] = array(
-					    				'number' 	=> $number_,
+					    				'desc'		=> 'checkPriceTypeOver',
+					    				'desc_code'	=> $val.' '.$id_category.' '.$price_,
+					    				'desc_thai'	=> 'ประเภทการแทง '.$result_check_price_type_over['type_name'].' มียอดการแทงเกินที่กำหนด'
 					    			);
 					    		}
 				    		}else{
 				    			$list_lotto_not_buy[] = array(
-				    				'number' 	=> $number_,
+				    				'desc'		=> 'checkPriceOver',
+				    				'desc_code' => $number_,
+				    				'desc_thai'	=> 'ตัวเลข '.$number_.' มียอดการแทงเกินที่กำหนด'
 				    			);
 				    		}
 		    			// }

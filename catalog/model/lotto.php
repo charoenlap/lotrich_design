@@ -12,11 +12,13 @@
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
 				$sql = "SELECT * FROM b_block_number 
+					LEFT JOIN b_type ON b_block_number.id_type = b_type.id 
 					WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') 
 					AND id_type=".$type." 
 					AND `num` = ".$number;
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
+					$name_type = (isset($result_block_number->row['type'])?$result_block_number->row['type']:'');
 					$max_price = $result_block_number->row['max_price'];
 					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
 						FROM b_lotto 
@@ -32,27 +34,30 @@
 							$result = array(
 								'status' 	=> 'failed',
 								'number' 	=> $number,
-								'desc'		=> 'Overlimit max price'
+								'desc'		=> 'Overlimit max price',
+								'type_name'	=> $name_type
 							);
 						}else{
 							$result = array(
 								'status' 	=> 'success',
 								'number' 	=> $number,
-								'desc'		=> 'Overlimit max price'
+								'desc'		=> 'Work'
 							);
 						}
 					}else{
 						$result = array(
 							'status' 	=> 'success',
 							'number' 	=> $number,
-							'desc'		=> 'Not found price'
+							'desc'		=> 'Not found price',
+							'type_name'	=> $name_type
 						);
 					}
 				}else{
 					$result = array(
 						'status' 	=> 'success',
 						'number' 	=> $number,
-						'desc'		=> 'Not found block number'
+						'desc'		=> 'Not found block number',
+						'type_name'	=> $name_type
 					);
 				}
 			}
@@ -69,11 +74,13 @@
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
-				$sql = "SELECT * FROM b_block_number_all WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') AND id_type=".$type;
+				$sql = "SELECT * FROM b_block_number_all 
+				LEFT JOIN b_type ON b_block_type.id_type = b_type.id 
+				WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') AND id_type=".$type;
 				// echo $sql;exit();
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
-					// var_dump($result_block_number->row);exit();
+					$name_type = (isset($result_block_number->row['type'])?$result_block_number->row['type']:'');
 					$max_price = $result_block_number->row['max_price'];
 					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
 						FROM b_lotto 
@@ -89,27 +96,31 @@
 							$result = array(
 								'status' 	=> 'failed',
 								// 'number' 	=> $number,
-								'desc'		=> 'Overlimit max price'
+								'desc'		=> 'Overlimit max price',
+								'type_name'	=> $name_type
 							);
 						}else{
 							$result = array(
 								'status' 	=> 'success',
 								// 'number' 	=> $number,
-								'desc'		=> 'Overlimit max price'
+								'desc'		=> 'Work',
+								'type_name'	=> $name_type
 							);
 						}
 					}else{
 						$result = array(
 							'status' 	=> 'success',
 							// 'number' 	=> $number,
-							'desc'		=> 'Not found price'
+							'desc'		=> 'Not found price',
+							'type_name'	=> $name_type
 						);
 					}
 				}else{
 					$result = array(
 						'status' 	=> 'success',
 						// 'number' 	=> $number,
-						'desc'		=> 'Not found block number'
+						'desc'		=> 'Not found block number',
+						'type_name'	=> $name_type
 					);
 				}
 			}
@@ -125,9 +136,13 @@
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
-				$sql = "SELECT * FROM b_block_type WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') AND id_type=".$type;
+				$sql = "SELECT * FROM b_block_type 
+				LEFT JOIN b_type ON b_block_type.id_type = b_type.id 
+				WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') 
+				AND id_type=".$type;
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
+					$name_type = (isset($result_block_number->row['type'])?$result_block_number->row['type']:'');
 					$max_price = $result_block_number->row['max_price'];
 					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
 						FROM b_lotto 
@@ -142,24 +157,28 @@
 						if($test_sum_all_price >= $max_price){
 							$result = array(
 								'status' 	=> 'failed',
-								'desc'		=> 'Overlimit max price'
+								'desc'		=> 'Overlimit max price',
+								'type_name'	=> $name_type
 							);
 						}else{
 							$result = array(
 								'status' 	=> 'success',
-								'desc'		=> 'Avaliable max price'
+								'desc'		=> 'Avaliable max price',
+								'type_name'	=> $name_type
 							);
 						}
 					}else{
 						$result = array(
 							'status' 	=> 'success',
-							'desc'		=> 'Not found price'
+							'desc'		=> 'Not found price',
+							'type_name'	=> $name_type
 						);
 					}
 				}else{
 					$result = array(
 						'status' 	=> 'success',
-						'desc'		=> 'Not found block number'
+						'desc'		=> 'Not found block number',
+						'type_name'	=> $name_type
 					);
 				}
 			}

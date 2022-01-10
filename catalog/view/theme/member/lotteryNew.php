@@ -471,18 +471,18 @@
 				$('#btn-submit').attr('aria-disabled', false);
 				$('#btn-submit').removeClass('disabled');
 				$('#btn-submit').addClass('hvr-btn');
-				var text_result_detail = "";
-				$.each(result.list_lotto_not_buy_total_over, function(index, val) {
-					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของหมวดนี้ เกินกำหนด<br>"
+				var text_result_detail = "<br>";
+				$.each(result.list_lotto_not_buy, function(index, val) {
+					text_result_detail += "- " + val['desc_thai'] + " ไม่สามารถแทงได้ ยอดรวมของหมวดนี้ เกินกำหนด<br>"
 				});
 				$.each(result.list_lotto_not_buy_limit_type, function(index, val) {
-					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของประเภทนี้ เกินกำหนด<br>"
+					text_result_detail += "- " + val['desc_thai'] + " ไม่สามารถแทงได้ ยอดรวมของประเภทนี้ เกินกำหนด<br>"
 				});
 				$.each(result.list_lotto_not_buy_total_over, function(index, val) {
-					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของเลขนี้ เกินกำหนด<br>"
+					text_result_detail += "- " + val['desc_thai'] + " ไม่สามารถแทงได้ ยอดรวมของเลขนี้ เกินกำหนด<br>"
 				});
 
-				$('.toast-body').html(result.desc);
+				$('.toast-body').html(result.desc + text_result_detail);
 				$('.toast-body').addClass('text-danger');
 				$('.toast-body').removeClass('text-success');
 				$('#toast').toast('show');
