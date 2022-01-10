@@ -35,8 +35,8 @@
 									<td><?php echo $val['category_name'];?></td>
 									<td><?php echo $val['name'];?></td>
 									<td><?php echo number_format($val['total'],2);?></td>
-									<td>
-										<?php if($val['status']==1){ echo $val['receive']; } ?>
+									<td class="<?php echo ($val['receive']>0?'text-success':'text-danger'); ?>">
+										<b><?php if($val['status']==1){ echo $val['receive']; } ?></b>
 									</td>
 									<td><?php echo ($val['status']==0?'ยังไม่คำนวน':'เรียบร้อย'); ?></td>
 									<td class="text-end">

@@ -85,10 +85,22 @@
 									$price 		= $val['price'];
 									$ratio 		= $val['ratio'];
 
-									$sql_check_result = "SELECT * FROM b_result 
+									$sql_get_type_detail = "SELECT * FROM b_type WHERE id = '".$id_type."'";
+									$result_get_type_detail = $this->query($sql_get_type_detail);
+									$digit = (isset($result_get_type_detail->row['digit'])?$result_get_type_detail->row['digit']:'');
+									if($digit == 2){
+										$sql_check_result = "SELECT * FROM b_result 
+															WHERE `date` = '".$date."' 
+															AND id_cate_type = '".$id_type."' 
+															AND `result` = '".$number."'";
+									}else{
+										$sql_check_result = "SELECT * FROM b_result 
 															WHERE `date` = '".$date."' 
 															AND id_cate_type = '".$id_type."' 
 															AND `result` LIKE '%".$number."%'";
+									}
+									
+									// echo $sql_check_result;
 									$result_check_result = $this->query($sql_check_result);
 
 									$status = 1;
@@ -230,9 +242,9 @@
 				$category_sub = $this->query($sql_sub)->rows;
 				$result_cate_sub = array();
 				foreach($category_sub as $cs){
-
+// b_category_type.id_type = b_type.id 
 					$sql_sub_in = "SELECT *,b_category_type.id AS id FROM b_category_type 
-					LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
+					LEFT JOIN b_type ON b_type.id = b_result.id_cate_type
 					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
 					WHERE `status`=0 
 					AND id_category = '".$cs['id']."' 
@@ -252,10 +264,10 @@
 				// WHERE `status`=0 
 				// AND id_category = '".$id_category."' 
 				// ORDER BY b_category_type.`order` ASC";
-				$sql_sub = "SELECT *, b_category_type.id as id_cate_type,b_result.id as id FROM b_result 
+				$sql_sub = "SELECT *, b_category_type.id as id_cate_type, b_result.id as id FROM b_result 
 				LEFT JOIN b_category_type ON b_result.id_cate_type = b_category_type.id 
-				LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
-				WHERE  b_result.`date` = '".$date."' ";
+				LEFT JOIN b_type ON b_type.id = b_result.id_cate_type 
+				WHERE  b_result.`date` = '".$date."' AND b_result.id_category = '".$id_category."'";
 				$type = $this->query($sql_sub)->rows;
 				// var_dump($sql_sub);
 				// exit();
@@ -381,15 +393,18 @@
 				}
 			}
 		}
-		public function addType($data=array(),$date=''){
+		public function addType($data=array(),$date='',$id_category=0){
 			if($date){
 				$result = array();
+				$query = $this->query("DELETE FROM b_result WHERE `date`= '".$date."'");
 				foreach($data as $key => $val){
-					$query = $this->query("DELETE FROM b_result WHERE `date`= '".$date."' AND id_cate_type='".(int)$key."'");
+					
 					$arr = array(
 						'id_cate_type'=> $key,
 						'date' => $date,
-						'result'=>$val
+						'result'=>$val,
+						'id_category'=>$id_category,
+						'id_type'=>$key
 					);
 					$this->insert('result',$arr);
 				}

@@ -33,7 +33,7 @@
 						LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
 						LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
 						WHERE `status`=0 
-						AND id_category = '".$cs['id']."' 
+						AND b_result.id_category = '".$cs['id']."' 
 						ORDER BY b_category_type.`order` ASC";
 						$type_sub = $this->query($sql_sub_in)->rows;
 
@@ -56,7 +56,7 @@
 					LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
 					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
 					WHERE `status`=0 
-					AND id_category = '".$val['id']."' 
+					AND b_result.id_category = '".$val['id']."' 
 					ORDER BY b_category_type.`order` ASC";
 					$type = $this->query($sql_sub)->rows;
 
@@ -80,9 +80,9 @@
 				// exit();
 				// echo "<pre>";
 				// var_dump($result);exit();
-				$fp = fopen($path_json, 'w');
-				fwrite($fp, json_encode($result));
-				fclose($fp);
+				// $fp = fopen($path_json, 'w');
+				// fwrite($fp, json_encode($result));
+				// fclose($fp);
 			// }else{
 			// 	$result = json_decode(file_get_contents($path_json), true);
 			// }

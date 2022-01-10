@@ -157,6 +157,7 @@
 										</tr>
 									</tbody>
 								</table>
+								<hr>
 								<table class="table table-striped" id="table-blockNo-type">
 									<thead>
 										<th>ประเภทการอั้น</th>
@@ -171,7 +172,8 @@
 										</tr>
 									</tbody>
 								</table>
-								<p><label for="">เพิ่มเลขอั้นทั้งหมดของลูกค้า</label></p>
+								<hr>
+								<p><label for=""><b>เพิ่มเลขอั้นทั้งหมดของลูกค้า</b></label></p>
 								<table class="table table-striped" id="table-blockNo-all-type">
 									<thead>
 										<th>ประเภท</th>
@@ -1012,7 +1014,7 @@
 										+val.type
 									+'</td>'
 									+'<td class="bg-info">'
-										+'<input id="type_'+val.id+'" type="text" name="result['+val.id+']"'
+										+'<input id="type_'+val.id_cate_type+'" type="text" name="result['+val.id_cate_type+']"'
 										+'class="form-control" value="'+val.result+'">'
 									+'</td>'
 									+'<td class="text-end" width="10%">'
