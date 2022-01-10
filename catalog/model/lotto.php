@@ -1,5 +1,20 @@
 <?php 
 	class LottoModel extends db {
+		public function checkTimeover($data=array()){
+			$result = false;
+			$id_category = $data['id_category'];
+			$sql = "SELECT date_close,date_last_end FROM b_category 
+			WHERE `id` = '".$id_category."' 
+			AND ('".date('Y-m-d H:i:s')."' BETWEEN date_last_end AND date_close)
+			LIMIT 0,1";
+
+			$result_get_date_closed = $this->query($sql);
+			if($result_get_date_closed->num_rows){
+				$result = true;
+			}
+			// echo $sql;exit();
+			return $result;
+		}
 		public function checkPriceOver($number=0,$type=0,$id_category=0,$price=0){
 			$result = array(
 				'status' 	=> 'success',

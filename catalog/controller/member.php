@@ -449,92 +449,103 @@
 		    		$id_package 					= decrypt(post('id_package'));
 		    		$sum_price  					= 0;
 		    		$balance 						= $this->model('finance')->getBalance($id_user);
-		    		// var_dump($price);exit();
-		    		foreach($id_type as $key => $val){
-		    			// echo $key.'/';
-		    			// if(isset($price[$key])){
 
-		    				// ?????
-		    			// echo $price[$key].'_'.$key.' ';
-			    			if($price[$key]<=0){
-			    				continue;
-			    			}
+		    		$arr_select = array(
+		    			'id_category' => $id_category
+		    		);
+		    		$result_check_closed = $this->model('lotto')->checkTimeover($arr_select);
+		    		
+		    		if($result_check_closed){
+			    		foreach($id_type as $key => $val){
+			    			// echo $key.'/';
+			    			// if(isset($price[$key])){
 
-			    			$number_ = $number[$key];
-			    			$result_ratio = $this->model('lotto')->getLottoRatio($number_,$id_category,$val,$id_package);
-			    			// var_dump($result_ratio);
-			    			$price_ = $price[$key];
-			    			$ratio_ = $result_ratio['ratio'];
-			    			$paid = $price_ * $ratio_ * $result_ratio['condition'];
+			    				// ?????
+			    			// echo $price[$key].'_'.$key.' ';
+				    			if($price[$key]<=0){
+				    				continue;
+				    			}
 
-			    			$result_check_price_over = $this->model('lotto')->checkPriceOver($number_,$val,$id_category,$price_);
-							if($result_check_price_over['status']=="success"){
-								$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_);
-								if($result_check_price_type_over['status']=="success"){
-									$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($val,$id_user,$price_,$id_category);
-									if($result_check_price_total_over['status']=="success"){
-						    			$list_lotto[] = array(
-											'id_type' 	=> $val,
-											'number' 	=> $number_,
-											'paid' 		=> $paid,
-											'price' 	=> $price_,
-											'ratio' 	=> $ratio_,
-											'type' 		=> $result_ratio['type'],
-											'status'	=> 0
-						    			);
-						    			$sum_price += (float)$price[$key];
+				    			$number_ = $number[$key];
+				    			$result_ratio = $this->model('lotto')->getLottoRatio($number_,$id_category,$val,$id_package);
+				    			// var_dump($result_ratio);
+				    			$price_ = $price[$key];
+				    			$ratio_ = $result_ratio['ratio'];
+				    			$paid = $price_ * $ratio_ * $result_ratio['condition'];
+
+				    			$result_check_price_over = $this->model('lotto')->checkPriceOver($number_,$val,$id_category,$price_);
+								if($result_check_price_over['status']=="success"){
+									$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_);
+									if($result_check_price_type_over['status']=="success"){
+										$result_check_price_total_over = $this->model('lotto')->checkPriceCustomerOver($val,$id_user,$price_,$id_category);
+										if($result_check_price_total_over['status']=="success"){
+							    			$list_lotto[] = array(
+												'id_type' 	=> $val,
+												'number' 	=> $number_,
+												'paid' 		=> $paid,
+												'price' 	=> $price_,
+												'ratio' 	=> $ratio_,
+												'type' 		=> $result_ratio['type'],
+												'status'	=> 0
+							    			);
+							    			$sum_price += (float)$price[$key];
+							    		}else{
+							    			$list_lotto_not_buy_total_over[] = array(
+							    				'desc'		=> 'checkPriceCustomerOver',
+							    				'desc_code'	=> $val.' '.$id_user.' '.$price_.' '.$id_category,
+							    				'desc_thai'	=> 'ประเภทการแทง '.$result_check_price_total_over['type_name'].' มียอดการแทงเกินที่กำหนด'
+							    			);
+							    		}
 						    		}else{
-						    			$list_lotto_not_buy_total_over[] = array(
-						    				'desc'		=> 'checkPriceCustomerOver',
-						    				'desc_code'	=> $val.' '.$id_user.' '.$price_.' '.$id_category,
-						    				'desc_thai'	=> 'ประเภทการแทง '.$result_check_price_total_over['type_name'].' มียอดการแทงเกินที่กำหนด'
+						    			$list_lotto_not_buy_limit_type[] = array(
+						    				'desc'		=> 'checkPriceTypeOver',
+						    				'desc_code'	=> $val.' '.$id_category.' '.$price_,
+						    				'desc_thai'	=> 'ประเภทการแทง '.$result_check_price_type_over['type_name'].' มียอดการแทงเกินที่กำหนด'
 						    			);
 						    		}
 					    		}else{
-					    			$list_lotto_not_buy_limit_type[] = array(
-					    				'desc'		=> 'checkPriceTypeOver',
-					    				'desc_code'	=> $val.' '.$id_category.' '.$price_,
-					    				'desc_thai'	=> 'ประเภทการแทง '.$result_check_price_type_over['type_name'].' มียอดการแทงเกินที่กำหนด'
+					    			$list_lotto_not_buy[] = array(
+					    				'desc'		=> 'checkPriceOver',
+					    				'desc_code' => $number_,
+					    				'desc_thai'	=> 'ตัวเลข '.$number_.' มียอดการแทงเกินที่กำหนด'
 					    			);
 					    		}
-				    		}else{
-				    			$list_lotto_not_buy[] = array(
-				    				'desc'		=> 'checkPriceOver',
-				    				'desc_code' => $number_,
-				    				'desc_thai'	=> 'ตัวเลข '.$number_.' มียอดการแทงเกินที่กำหนด'
-				    			);
-				    		}
-		    			// }
-		    		}
-		    		// var_dump($list_lotto);
-		    		// exit();
-		    		if($sum_price<=$balance){
-		    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
-		    			if($result_add_lotto['status']=="success"){
-			    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
-				    		$this->setSession('lotto',array());
-				    		$result = array(
-				    			'status' 						=> 'success',
-				    			'desc'							=> 'ระบบได้เพิ่มโพยของท่านเรียบร้อยแล้ว',
-				    			'list_lotto_not_buy' 			=> $list_lotto_not_buy,
-				    			'list_lotto_not_buy_limit_type'	=> $list_lotto_not_buy_limit_type,
-				    			'list_lotto_not_buy_total_over' => $list_lotto_not_buy_total_over
+			    			// }
+			    		}
+			    		
+			    		if($sum_price<=$balance){
+			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
+			    			if($result_add_lotto['status']=="success"){
+				    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
+					    		$this->setSession('lotto',array());
+					    		$result = array(
+					    			'status' 						=> 'success',
+					    			'desc'							=> 'ระบบได้เพิ่มโพยของท่านเรียบร้อยแล้ว',
+					    			'list_lotto_not_buy' 			=> $list_lotto_not_buy,
+					    			'list_lotto_not_buy_limit_type'	=> $list_lotto_not_buy_limit_type,
+					    			'list_lotto_not_buy_total_over' => $list_lotto_not_buy_total_over
+					    		);
+					    	}else{
+					    		$result = array(
+					    			'status' 						=> 'failed',
+					    			'desc'							=> $result_add_lotto['desc'],
+					    			'list_lotto_not_buy' 			=> $list_lotto_not_buy,
+					    			'list_lotto_not_buy_limit_type'	=> $list_lotto_not_buy_limit_type,
+					    			'list_lotto_not_buy_total_over' => $list_lotto_not_buy_total_over
+					    		);
+					    	}
+			    		}else{
+			    			$result = array(
+				    			'status' => 'failed',
+				    			'desc'	=> 'ยอดคงเหลือของท่านไม่พอสำหรับการซื้อ'
 				    		);
-				    	}else{
-				    		$result = array(
-				    			'status' 						=> 'failed',
-				    			'desc'							=> $result_add_lotto['desc'],
-				    			'list_lotto_not_buy' 			=> $list_lotto_not_buy,
-				    			'list_lotto_not_buy_limit_type'	=> $list_lotto_not_buy_limit_type,
-				    			'list_lotto_not_buy_total_over' => $list_lotto_not_buy_total_over
-				    		);
-				    	}
-		    		}else{
-		    			$result = array(
+			    		}
+			    	}else{
+			    		$result = array(
 			    			'status' => 'failed',
-			    			'desc'	=> 'ยอดคงเหลือของท่านไม่พอสำหรับการซื้อ'
+			    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
 			    		);
-		    		}
+			    	}
 	    		}else{
 		    		$result = array(
 		    			'status' => 'failed',
