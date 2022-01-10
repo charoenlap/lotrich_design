@@ -48,7 +48,7 @@
 									if($receive){
 										$sql_update_user = "UPDATE b_user SET `balance`=`balance`-".$receive." WHERE `id` = '".$id_user."'";
 										$query_update_user = $this->query($sql_update_user);
-										echo $sql_update_user;
+										// echo $sql_update_user;
 									}
 								}
 							}
