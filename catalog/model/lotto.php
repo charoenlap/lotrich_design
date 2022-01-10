@@ -234,7 +234,7 @@
 		}
 		public function listType($data=array()){
 			$id_category 	= (int)$data['id_category'];
-			$id_package 	= (int)$data['id_package'];
+			$id_package 	= (int)$data['id_package']; 
 			$result = array();
 			$sql = "SELECT *,b_type.id AS id FROM b_type 
 					LEFT JOIN b_ratio ON b_type.id = b_ratio.id_type 
