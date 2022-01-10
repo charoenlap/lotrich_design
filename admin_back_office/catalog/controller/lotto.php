@@ -100,7 +100,7 @@
 								'date_last_end' => $date_last_end,
 								'date'			=> $date
 							);
-							$result_calculate = $this->model('master')->calculateRollbackAllBill($arr_calculate);
+							$result_calculate_rollback = $this->model('master')->calculateRollbackAllBill($arr_calculate);
 							$result_calculate = $this->model('master')->calculateAllBill($arr_calculate);
 						}
 						$result_text_type .= ' เพิ่มประเภทเรียบร้อย';

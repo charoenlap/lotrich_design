@@ -7,28 +7,35 @@
 			if(!empty($date_end) AND !empty($date_last_end) AND !empty($date)){
 				$result = array();
 				if(!empty($date)){
+
+					$sql_rollback_transection = "SELECT * FROM b_transection 
+					WHERE `type` = 1 AND date_create LIKE '".date('Y-m-d')."%'";
+					$result_rollback_transection = $this->query($sql_rollback_transection);
+					if( $result_rollback_transection->num_rows ){
+						foreach($result_rollback_transection->rows as $val_transection){
+							$amount 			= $val_transection['amount'];
+							$id_transection 	= $val_transection['id'];
+							$sql_update_user 	= "UPDATE b_user SET `balance` = `balance` + ".$amount." WHERE `id` = ".$id_transection;
+							$result_update_user = $this->query($sql_update_user);
+						}
+						$sql_delete_transection = "DELETE FROM b_transection WHERE date_create LIKE '".date('Y-m-d')."%'";
+						$result_delete_transection = $this->query($sql_delete_transection);
+					}
+
 					$sql_bill = "SELECT * FROM b_lotto_bill 
 									WHERE `status` = '1' 
 									AND (date_create BETWEEN '".$date_last_end."' AND '".$date_end."')";
 					$result_bill = $this->query($sql_bill);
-
-					// $sql_rollback_transection = "SELECT * FROM b_transection 
-					// WHERE `type` = 1 AND (date_create  BETWEEN '".$date_last_end."' AND '".$date_end."')";
-					// $result_rollback_transection = $this->query($sql_rollback_transection);
-					// if( $result_rollback_transection->num_rows ){
-					// 	foreach($result_rollback_transection->rows as $val_bill){
-							
-					// 	}
-					// }
-
-					$sql_delete_transection = "DELETE FROM b_transection WHERE date_create LIKE '".date('Y-m-d')."%'";
-					$result_delete_transection = $this->query($sql_delete_transection);
 
 					if( $result_bill->num_rows ){
 						foreach($result_bill->rows as $val_bill){
 							$id_bill 			= $val_bill['id'];
 							$id_category 		= $val_bill['id_category'];
 							$id_user 			= $val_bill['id_user'];
+
+							$sql_update_lotto_bill_status = "UPDATE b_lotto_bill SET `status`='0', `receive`='0' WHERE `id` = '".$id_bill."'";
+							$query_update_lotto_bill_status = $this->query($sql_update_lotto_bill_status);
+
 							$sql_bill_detail 	= "SELECT * FROM b_lotto WHERE id_bill = '".$id_bill."' AND `status`='1'";
 							$result_bill_detail = $this->query($sql_bill_detail);
 							if( $result_bill_detail->num_rows ){
@@ -41,6 +48,7 @@
 									if($receive){
 										$sql_update_user = "UPDATE b_user SET `balance`=`balance`-".$receive." WHERE `id` = '".$id_user."'";
 										$query_update_user = $this->query($sql_update_user);
+										echo $sql_update_user;
 									}
 								}
 							}
@@ -69,6 +77,7 @@
 							$result_bill_detail = $this->query($sql_bill_detail);
 							if( $result_bill_detail->num_rows ){
 								$total_receive = 0;
+								// var_dump($result_bill_detail->rows);
 								foreach( $result_bill_detail->rows as $val ){
 									$id 		= $val['id'];
 									$id_type 	= $val['id_type'];
