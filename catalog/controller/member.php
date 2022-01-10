@@ -15,7 +15,7 @@
 		    	$data['link_lotto'] = route('member/lotteryNew');
 		    	$data['package'] = $this->model('master')->getPackage($id_lotto);
 		    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
-	 	    	$this->view('member/package',$data); 
+	 	    	$this->view('member/package',$data);  
 	 	    }else{
 	 	    	redirect('login'); 
 	 	    }
