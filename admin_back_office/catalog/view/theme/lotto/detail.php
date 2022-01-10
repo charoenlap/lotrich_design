@@ -278,6 +278,7 @@
 										<span id="date-start-end">
 											<?php echo $date_last_end.' - '.$date_close ; ?> 
 										</span>
+										<span>ระบบจะทำการ roll back และลบรายการแจ้งถอนของลูกค้า ที่สร้างในวันนี้</span>
 									</label>
 								</p>
 								<div class="d-grid gap-2">

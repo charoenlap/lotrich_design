@@ -1,13 +1,60 @@
 <?php 
 	class MasterModel extends db {
-		public function calculateAllBill($data=array()){
-			$date_end 		= $data['date_end'];
-			$date_last_end 	= $data['date_last_end'];
+		public function calculateRollbackAllBill($data=array()){
+			$date_end 		= $this->escape($data['date_end']);
+			$date_last_end 	= $this->escape($data['date_last_end']);
 			$date 			= $this->escape($data['date']);
 			if(!empty($date_end) AND !empty($date_last_end) AND !empty($date)){
 				$result = array();
-				// $id_bill = (int)$data['id_bill'];
-				// $date = $this->escape($data['date']);
+				if(!empty($date)){
+					$sql_bill = "SELECT * FROM b_lotto_bill 
+									WHERE `status` = '1' 
+									AND (date_create BETWEEN '".$date_last_end."' AND '".$date_end."')";
+					$result_bill = $this->query($sql_bill);
+
+					// $sql_rollback_transection = "SELECT * FROM b_transection 
+					// WHERE `type` = 1 AND (date_create  BETWEEN '".$date_last_end."' AND '".$date_end."')";
+					// $result_rollback_transection = $this->query($sql_rollback_transection);
+					// if( $result_rollback_transection->num_rows ){
+					// 	foreach($result_rollback_transection->rows as $val_bill){
+							
+					// 	}
+					// }
+
+					$sql_delete_transection = "DELETE FROM b_transection WHERE date_create LIKE '".date('Y-m-d')."%'";
+					$result_delete_transection = $this->query($sql_delete_transection);
+
+					if( $result_bill->num_rows ){
+						foreach($result_bill->rows as $val_bill){
+							$id_bill 			= $val_bill['id'];
+							$id_category 		= $val_bill['id_category'];
+							$id_user 			= $val_bill['id_user'];
+							$sql_bill_detail 	= "SELECT * FROM b_lotto WHERE id_bill = '".$id_bill."' AND `status`='1'";
+							$result_bill_detail = $this->query($sql_bill_detail);
+							if( $result_bill_detail->num_rows ){
+								foreach( $result_bill_detail->rows as $val ){
+									$id 		= $val['id'];
+									$receive 	= (int)$val['receive'];
+
+									$sql_update_lotto_status = "UPDATE b_lotto SET `status`='0', `receive`='0' WHERE `id` = '".$id."'";
+									$query_update_lotto_status = $this->query($sql_update_lotto_status);
+									if($receive){
+										$sql_update_user = "UPDATE b_user SET `balance`=`balance`-".$receive." WHERE `id` = '".$id_user."'";
+										$query_update_user = $this->query($sql_update_user);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		public function calculateAllBill($data=array()){
+			$date_end 		= $this->escape($data['date_end']);
+			$date_last_end 	= $this->escape($data['date_last_end']);
+			$date 			= $this->escape($data['date']);
+			if(!empty($date_end) AND !empty($date_last_end) AND !empty($date)){
+				$result = array();
 				if(!empty($date)){
 					$sql_bill = "SELECT * FROM b_lotto_bill 
 									WHERE `status` = '0' 
