@@ -3,19 +3,26 @@
 	    public function package(){
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
-				$data = array();
-		    	$data['title'] = "Package";
-		    	$data['descreption'] = "";
-		    	// $data['balance'] 	= $this->model('finance')->getBalance($id_user);
-		    	
-		    	$id_lotto = get('id');
+				$id_lotto = get('id');
 		    	$id_lotto = decrypt($id_lotto);
-		    	$data['id_lotto'] = $id_lotto;
-		    	// echo $id_lotto.'<';
-		    	$data['link_lotto'] = route('member/lotteryNew');
-		    	$data['package'] = $this->model('master')->getPackage($id_lotto);
-		    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
-	 	    	$this->view('member/package',$data);  
+
+				$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id_lotto));
+				if($result_lock){
+					$data = array();
+			    	$data['title'] = "Package";
+			    	$data['descreption'] = "";
+			    	// $data['balance'] 	= $this->model('finance')->getBalance($id_user);
+			    	
+			    	
+			    	$data['id_lotto'] = $id_lotto;
+			    	// echo $id_lotto.'<';
+			    	$data['link_lotto'] = route('member/lotteryNew');
+			    	$data['package'] = $this->model('master')->getPackage($id_lotto);
+			    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
+		 	    	$this->view('member/package',$data);  
+		 	    }else{
+		 	    	redirect('member/dashboard'); 
+		 	    }
 	 	    }else{
 	 	    	redirect('login'); 
 	 	    }
@@ -53,176 +60,183 @@
 	    public function lotteryNew(){
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
-				$data = array();
-				$id_package = get('package');
-				
-				// var_dump($_GET);
-
-		    	$id_package = decrypt($id_package);
-		    	// echo $id_package;
-		    	$id = get('id');
+				$id = get('id');
 		    	$id = decrypt($id);
 
-		    	if(!empty($id_package)){
+				$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id));
+				if($result_lock){
+					$data = array();
+					$id_package = get('package');
+					
+					// var_dump($_GET);
 
-			    	$data['title'] = "lottery";
-			    	$data['descreption'] = "";
-			    	$data['balance'] 	= $this->model('finance')->getBalance($id_user);
-			    	$arr = array(
-			    		'id_category' => $id,
-						'id_package' => $id_package
-			    	);
-			    	$data['listType'] = $this->model('lotto')->listType($arr);
+			    	$id_package = decrypt($id_package);
+			    	// echo $id_package;
+			    	
 
-			    	$id_lotto = get('id');
-			    	$id_lotto_session = $this->getSession('id_lotto');
+			    	if(!empty($id_package)){
 
-			    	if($id_lotto != $id_lotto_session){
-			    		$this->setSession('id_lotto',$id_lotto);
-			    		$this->setSession('id_lotto',$id_lotto);
-			    		$this->setSession('lotto',array());
-			    	}
-			    	$data['lotto'] = $this->getSession('lotto');
-			    	$data['detail'] = $this->model('master')->getCategoryDetail(decrypt($id_lotto));
-			    	$data['id_package'] = encrypt($id_package);
+				    	$data['title'] = "lottery";
+				    	$data['descreption'] = "";
+				    	$data['balance'] 	= $this->model('finance')->getBalance($id_user);
+				    	$arr = array(
+				    		'id_category' => $id,
+							'id_package' => $id_package
+				    	);
+				    	$data['listType'] = $this->model('lotto')->listType($arr);
 
+				    	$id_lotto = get('id');
+				    	$id_lotto_session = $this->getSession('id_lotto');
 
-			    	$n_000_249 = array();
-					$n_250_499 = array();
-					$n_500_749 = array();
-					$n_750_999 = array();
-
-					$n_000_499 = array();
-					$n_500_999 = array();
-					$n_000_999 = array();
-
-			    	$n_00_49 = array();
-			    	$n_50_99 = array();
-			    	$n_00_99 = array();
-
-			    	$n_odd = array();
-			    	$n_even = array();
-
-			    	for($i=0;$i<=999;$i++){
-			    		if($i<=249){
-				    		$n_000_249[] = $i;
+				    	if($id_lotto != $id_lotto_session){
+				    		$this->setSession('id_lotto',$id_lotto);
+				    		$this->setSession('id_lotto',$id_lotto);
+				    		$this->setSession('lotto',array());
 				    	}
-				    	if($i>=250 and $i<=499){
-				    		$n_250_499[] = $i;
-				    	}
-				    	if($i>=500 and $i<=749){
-				    		$n_500_749[] = $i;
-				    	}
-				    	if($i>=750 and $i<=999){
-				    		$n_750_999[] = $i;
-				    	}
-				    	if($i<=49){
-				    		$n_00_49[] = $i;
-				    	}
-				    	if($i>=50 and $i<=99){
-				    		$n_50_99[] = $i;
-				    	}
-				    	if($i>=500 and $i<=999){
-				    		$n_500_999[] = $i;
-				    	}
-				    	if($i<=999){
-				    		$n_000_999[] = $i;
-				    	}
-				    	if($i>=0 and $i<=99){
-				    		$n_00_99[] = $i;
-				    		if($i%2==0){
-					    		$n_odd[] = $i;
-					    	}else{
-					    		$n_even[] = $i;
+				    	$data['lotto'] = $this->getSession('lotto');
+				    	$data['detail'] = $this->model('master')->getCategoryDetail(decrypt($id_lotto));
+				    	$data['id_package'] = encrypt($id_package);
+
+
+				    	$n_000_249 = array();
+						$n_250_499 = array();
+						$n_500_749 = array();
+						$n_750_999 = array();
+
+						$n_000_499 = array();
+						$n_500_999 = array();
+						$n_000_999 = array();
+
+				    	$n_00_49 = array();
+				    	$n_50_99 = array();
+				    	$n_00_99 = array();
+
+				    	$n_odd = array();
+				    	$n_even = array();
+
+				    	for($i=0;$i<=999;$i++){
+				    		if($i<=249){
+					    		$n_000_249[] = $i;
 					    	}
-				    	}
+					    	if($i>=250 and $i<=499){
+					    		$n_250_499[] = $i;
+					    	}
+					    	if($i>=500 and $i<=749){
+					    		$n_500_749[] = $i;
+					    	}
+					    	if($i>=750 and $i<=999){
+					    		$n_750_999[] = $i;
+					    	}
+					    	if($i<=49){
+					    		$n_00_49[] = $i;
+					    	}
+					    	if($i>=50 and $i<=99){
+					    		$n_50_99[] = $i;
+					    	}
+					    	if($i>=500 and $i<=999){
+					    		$n_500_999[] = $i;
+					    	}
+					    	if($i<=999){
+					    		$n_000_999[] = $i;
+					    	}
+					    	if($i>=0 and $i<=99){
+					    		$n_00_99[] = $i;
+					    		if($i%2==0){
+						    		$n_odd[] = $i;
+						    	}else{
+						    		$n_even[] = $i;
+						    	}
+					    	}
 
-				    	
-			    	} 
-					$data_lotto = array(
-						'3' => array(
-							'000-249' => array(
-								'data' => $n_000_249
+					    	
+				    	} 
+						$data_lotto = array(
+							'3' => array(
+								'000-249' => array(
+									'data' => $n_000_249
+								),
+								'250-499' => array(
+									'data' => $n_250_499,
+								),
+								'500-749' => array(
+									'data' => $n_500_749,
+								),
+								'750-999' => array(
+									'data' => $n_750_999,
+								),
+								'000-499' => array(
+									'data' => $n_000_499,
+								),
+								'500-999' => array(
+									'data' => $n_500_999,
+								),
+								'000-999' => array(
+									'data' => $n_000_999
+								),						
 							),
-							'250-499' => array(
-								'data' => $n_250_499,
-							),
-							'500-749' => array(
-								'data' => $n_500_749,
-							),
-							'750-999' => array(
-								'data' => $n_750_999,
-							),
-							'000-499' => array(
-								'data' => $n_000_499,
-							),
-							'500-999' => array(
-								'data' => $n_500_999,
-							),
-							'000-999' => array(
-								'data' => $n_000_999
-							),						
-						),
-						'2' => array(
-							'เลขเบิ้ล' => array(
-								'data' => array(00,11,22,33,44,55,66,77,88,99)
-							),
-							'19 ประตู' => array(
-								'digit' => 1
-							),
-							'รูดหน้า' => array(
-								'digit' => 1,
-								'data' => array(1,2,3,4,5,6,7,8,9,0)
-							),
-							'รูดหลัง' => array(
-								'digit' => 1,
-								'data' => array(1,2,3,4,5,6,7,8,9,0)
-							),
-							'00-49' => array(
-								'data' => $n_00_49
-							),
-							'50-99' => array(
-								'data' => $n_50_99
-							),
-							'สองตัวคู่' => array(
-								'data' => $n_odd
-							),
-							'สองตัวคี่' => array(
-								'data' => $n_even
-							),
-							'พี่น้อง' => array(
-								'data' => array('01',12,23,34,45,56,67,78,89,90)
-							),
-							'น้องพี่' => array(
-								'data' => array(10,21,32,43,54,65,76,87,98,'09')
-							),
-							'เลขคู่คู่' => array(
-								'data' => array('02','04','06','08',24,26,28,46,48,68,'00',22,44,66,88)
-							),
-							'เลขคี่คี่' => array(
-								'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
-							),
-							'เลขคู่คี่' => array(
-								'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
-							),
-							'00-99' => array(
-								'data' => $n_00_99
-							),
-						)
-					);
+							'2' => array(
+								'เลขเบิ้ล' => array(
+									'data' => array(00,11,22,33,44,55,66,77,88,99)
+								),
+								'19 ประตู' => array(
+									'digit' => 1
+								),
+								'รูดหน้า' => array(
+									'digit' => 1,
+									'data' => array(1,2,3,4,5,6,7,8,9,0)
+								),
+								'รูดหลัง' => array(
+									'digit' => 1,
+									'data' => array(1,2,3,4,5,6,7,8,9,0)
+								),
+								'00-49' => array(
+									'data' => $n_00_49
+								),
+								'50-99' => array(
+									'data' => $n_50_99
+								),
+								'สองตัวคู่' => array(
+									'data' => $n_odd
+								),
+								'สองตัวคี่' => array(
+									'data' => $n_even
+								),
+								'พี่น้อง' => array(
+									'data' => array('01',12,23,34,45,56,67,78,89,90)
+								),
+								'น้องพี่' => array(
+									'data' => array(10,21,32,43,54,65,76,87,98,'09')
+								),
+								'เลขคู่คู่' => array(
+									'data' => array('02','04','06','08',24,26,28,46,48,68,'00',22,44,66,88)
+								),
+								'เลขคี่คี่' => array(
+									'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
+								),
+								'เลขคู่คี่' => array(
+									'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
+								),
+								'00-99' => array(
+									'data' => $n_00_99
+								),
+							)
+						);
 
-					$data['data_lotto'] = $data_lotto;
+						$data['data_lotto'] = $data_lotto;
 
-					$date = $date_close = $data['detail']['date_close'];
-					$date_last_close = $data['detail']['date_last_end'];
-					$date = date_create($date);
-					$date = date_format($date,"Y-m-d");
-					// echo $date;
-					$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date_close,$date_last_close);
-		 	    	$this->view('member/lotteryNew',$data); 
-		 	    }else{
-		 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
-		 	    }
+						$date = $date_close = $data['detail']['date_close'];
+						$date_last_close = $data['detail']['date_last_end'];
+						$date = date_create($date);
+						$date = date_format($date,"Y-m-d");
+						// echo $date;
+						$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date_close,$date_last_close);
+			 	    	$this->view('member/lotteryNew',$data); 
+			 	    }else{
+			 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
+			 	    }
+			 	}else{
+			 		$this->redirect('member/dashboard');
+			 	}
 	 	    }else{
 	 	    	redirect('login');
 	 	    }
@@ -667,9 +681,21 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 				$data = array();
+
+				$data['date'] 			= $date 	= get('date');
+				$data['date_end'] 		= $date_end = get('date_end');
+
+				if(empty($data['date'])){
+					$data['date'] = date('Y-m-d');
+				}
+				if(empty($data['date_end'])){
+					$data['date_end'] = date('Y-m-d');
+				}
+
+				$data['action']	= route('member/ticket');
 		    	$data['title'] = "ticket";
 		    	$data['descreption'] = "";
-		    	$bill = $this->model('lotto')->getLotto($id_user);
+		    	$bill = $this->model('lotto')->getLotto($id_user,$date,$date_end);
 		    	$data['lotto'] = (isset($bill['bill'])?$bill['bill']:array());
 	 	    	$this->view('member/ticket',$data); 
 	 	    }else{

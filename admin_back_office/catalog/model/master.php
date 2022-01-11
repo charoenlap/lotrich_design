@@ -244,8 +244,9 @@
 				foreach($category_sub as $cs){
 // b_category_type.id_type = b_type.id 
 					$sql_sub_in = "SELECT *,b_category_type.id AS id FROM b_category_type 
-					LEFT JOIN b_type ON b_type.id = b_result.id_cate_type
+					
 					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
+					LEFT JOIN b_type ON b_type.id = result.id_type
 					WHERE `status`=0 
 					AND id_category = '".$cs['id']."' 
 					ORDER BY b_category_type.`order` ASC";
@@ -298,18 +299,19 @@
 		public function listReportNo($data=array()){
 			$result = array();
 			$date_close 	= $this->escape($data['date']);
+			$date_end 			= $this->escape($data['date_end']);
 			$id_category 	= $data['id_category'];
 			$id_type 		= $data['id_type'];
-			$order = ' ORDER BY number';
+			$order = ' ORDER BY number ASC';
 			if($data['order']=='sum_price'){
-				$order = ' ORDER BY sum_price';
+				$order = ' ORDER BY sum_price DESC';
 			}
 			$sql = "
 			SELECT `number`,`sum_price` FROM (
 				SELECT b_lotto.`number`,SUM(`b_lotto`.`price`) AS sum_price FROM b_lotto 
 				LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
 				WHERE 
-					b_lotto_bill.`date_close` like '".$date_close."%' 
+					( b_lotto_bill.`date_close` BETWEEN '".$date_close."' AND '".$date_end."')  
 					AND b_lotto.id_type = '".$id_type."'
 					AND b_lotto_bill.id_category = '".$id_category."'
 				GROUP BY b_lotto.`number` ) t ".$order;

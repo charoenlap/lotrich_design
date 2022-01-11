@@ -52,9 +52,9 @@
 						);
 					}
 					$type = array();
-					$sql_sub = "SELECT * FROM b_category_type 
-					LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
+					$sql_sub = "SELECT *,b_type.type AS type FROM b_category_type 
 					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
+					LEFT JOIN b_type ON b_type.id = result.id_type
 					WHERE `status`=0 
 					AND result.id_category = '".$val['id']."' 
 					ORDER BY b_category_type.`order` ASC";

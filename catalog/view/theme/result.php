@@ -155,6 +155,3 @@
   	$('#form-date').submit();
   });
   </script>
-<script>
-	// date-result
-</script>

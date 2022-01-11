@@ -359,13 +359,24 @@
 			}
 			return $result;
 		}
-		public function getLotto($id_user = 0){
+		public function getLotto($id_user = 0,$date='' ,$date_end=''){
 			$result = array(
 				'status' 	=> 'failed'
 			);
+			$date 		= $this->escape($date);
+			$date_end 	= $this->escape($date_end);
+			if(empty($date)){
+				$date = $date;
+			}
+			if(empty($date)){
+				$date_end = $date_end;
+			}
 			$sql = "SELECT *, b_lotto_bill.id AS id,b_category.`name` AS category_name FROM b_lotto_bill 
 				LEFT JOIN b_category ON b_category.id = b_lotto_bill.id_category 
-				WHERE b_lotto_bill.id_user = '".$id_user."' ORDER BY b_lotto_bill.id DESC";
+				WHERE b_lotto_bill.id_user = '".$id_user."' 
+				AND ( b_lotto_bill.`date_create` BETWEEN '".$date.' 00:00:00'."' AND '".$date_end.' 23:59:59'."')  
+				ORDER BY b_lotto_bill.id DESC";
+			// echo $sql;
 			$query 	= $this->query($sql);
 			if($query->num_rows>0){
 				foreach($query->rows as $val){
