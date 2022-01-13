@@ -47,7 +47,7 @@
 								  	data-input-sub="<?php echo (isset($val['sub'])?$val['id']:'');?>"
 								  	data-id="<?php echo $val['id']; ?>"
 								  	data-id-type="<?php echo $val['id']; ?>"
-								  	data-digit="<?php echo $val['digit']; ?>"
+								  	data-digit="<?php echo $val['digit']; ?>" 
 								  	data-condition="<?php echo (empty($val['price'])?'1':'0'); ?>"
 								  	data-chkType="<?php echo $val['name']; ?>"
 								  	id="chk<?php echo $val['id']; ?>">
