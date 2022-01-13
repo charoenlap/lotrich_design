@@ -27,11 +27,16 @@
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
+
+				// $date_convert = date_create($date_last_end);
+				// $date_convert = date_format($date_convert,"Y-m-d");
+
 				$sql = "SELECT * FROM b_block_number 
 					LEFT JOIN b_type ON b_block_number.id_type = b_type.id 
-					WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') 
+					WHERE (date_block =  '".$date."') 
 					AND id_type=".$type." 
 					AND `num` = ".$number;
+				// echo $sql;exit();
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
 					$name_type = (isset($result_block_number->row['type'])?$result_block_number->row['type']:'');
@@ -89,9 +94,10 @@
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
+				
 				$sql = "SELECT * FROM b_block_number_all 
 				LEFT JOIN b_type ON b_block_number_all.id_type = b_type.id 
-				WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') AND id_type=".$type;
+				WHERE (date_block =  '".$date."') AND id_type=".$type;
 				// echo $sql;exit();
 				$result_block_number = $this->query($sql);
 				if($result_block_number->num_rows>0){
@@ -103,6 +109,7 @@
 						WHERE id_type = ".$type." 
 						AND (`date_close` BETWEEN  '".$date_last_end."' AND '".$date_close."') 
 						AND b_lotto_bill.id_user = ".$id_user." AND `number` = '".$number_."'";
+					// echo $sqlGetAllPrice;exit();
 					$getAllPrice = $this->query($sqlGetAllPrice);
 					if($getAllPrice->num_rows > 0){
 						$allPrice = $getAllPrice->row['total_price'];
@@ -140,7 +147,7 @@
 			}
 			return $result;
 		}
-		public function checkPriceTypeOver($type=0,$id_category=0,$price=0){
+		public function checkPriceTypeOver($type=0,$id_category=0,$price=0,$number_=0){
 			$result = array(
 				'status' 	=> 'success',
 			);
@@ -150,21 +157,28 @@
 				$date_close = $result_get_date_closed->row['date_close'];
 				$date = date_create($date_close);
 				$date = date_format($date,"Y-m-d");
+
+				// $date_convert = date_create($date_last_end);
+				// $date_convert = date_format($date_convert,"Y-m-d");
+
 				$sql = "SELECT * FROM b_block_type 
 				LEFT JOIN b_type ON b_block_type.id_type = b_type.id 
-				WHERE (date_block BETWEEN  '".$date_last_end."' AND '".$date_close."') 
+				WHERE (date_block =  '".$date."') 
 				AND id_type=".$type;
 				$result_block_number = $this->query($sql);
 				$name_type = '';
 				if($result_block_number->num_rows>0){
 					$name_type = (isset($result_block_number->row['type'])?$result_block_number->row['type']:'');
 					$max_price = $result_block_number->row['max_price'];
+					// echo $max_price;
 					$sqlGetAllPrice = "SELECT SUM(`price`) AS total_price,id_type 
 						FROM b_lotto 
 						LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
 						WHERE id_type = ".$type." 
 						AND b_lotto_bill.id_category = ".$id_category."
-						AND `date_close` = '".$date_close."'";
+						AND `date_close` = '".$date_close."' 
+						AND `number` = ".$number_;
+					// echo $sqlGetAllPrice;exit();
 					$getAllPrice = $this->query($sqlGetAllPrice);
 					if($getAllPrice->num_rows > 0){
 						$allPrice = $getAllPrice->row['total_price'];

@@ -89,15 +89,45 @@
 									$result_get_type_detail = $this->query($sql_get_type_detail);
 									$digit = (isset($result_get_type_detail->row['digit'])?$result_get_type_detail->row['digit']:'');
 									if($digit == 2){
-										$sql_check_result = "SELECT * FROM b_result 
+										if($id_type==8){ // 2 โต๊ด
+											$swarp_2_number = getCombinations($number,2);
+											foreach($swarp_2_number as $val){
+												$sql_check_result_2 = "SELECT * FROM b_result 
+															WHERE `date` = '".$date."' 
+															AND id_cate_type = '".$id_type."' 
+															AND `result` LIKE '%".$val."%'";
+												$result_check_result_2 = $this->query($sql_check_result_2);
+												if($result_check_result_2->num_rows){
+													$sql_check_result = $sql_check_result_2;
+													break;
+												}
+											}
+										}else{
+											$sql_check_result = "SELECT * FROM b_result 
 															WHERE `date` = '".$date."' 
 															AND id_cate_type = '".$id_type."' 
 															AND `result` = '".$number."'";
+										}
 									}else{
-										$sql_check_result = "SELECT * FROM b_result 
+										if($id_type==6){ // 3 โต๊ด
+											$swarp_3_number = getCombinations($number,3);
+											foreach($swarp_3_number as $val){
+												$sql_check_result_3 = "SELECT * FROM b_result 
+															WHERE `date` = '".$date."' 
+															AND id_cate_type = '".$id_type."' 
+															AND `result` LIKE '%".$val."%'";
+												$result_check_result_3 = $this->query($sql_check_result_3);
+												if($result_check_result_3->num_rows){
+													$sql_check_result = $sql_check_result_3;
+													break;
+												}
+											}
+										}else{
+											$sql_check_result = "SELECT * FROM b_result 
 															WHERE `date` = '".$date."' 
 															AND id_cate_type = '".$id_type."' 
 															AND `result` LIKE '%".$number."%'";
+										}
 									}
 									
 									// echo $sql_check_result;
