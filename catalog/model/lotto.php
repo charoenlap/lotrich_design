@@ -378,7 +378,7 @@
 				'status' 	=> 'failed'
 			);
 			$date 		= $this->escape($date);
-			$date_end 	= $this->escape($date_end);
+			$date_end 	= $this->escape($date_end); 
 			if(empty($date)){
 				$date = $date;
 			}
