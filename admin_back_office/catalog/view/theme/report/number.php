@@ -68,6 +68,7 @@
 								<select name="order" class="form-control" id="order">
 									<option value="number" <?php echo ($order=='number'?'selected':''); ?>>ตัวเลข</option>
 									<option value="sum_price" <?php echo ($order=='sum_price'?'selected':''); ?>>ยอดเงินรวม</option>
+									<option value="date_create" <?php echo ($order=='date_create'?'selected':''); ?>>ตามวัน</option>
 								</select>
 							</div>
 				         </div>
@@ -86,16 +87,19 @@
 		<div class="container">
 			<div class="row mt-4">
 				<div class="col-12">
-					<table class="table table-striped">
+					<?php $all_sum = 0; ?>
+					<table class="table table-striped" id="myTable">
 						<thead>
 							<th>วันที่</th>
 							<th>ตัวเลข</th>
 							<th>ยอดเงินรวม</th>
 						</thead>
 						<tbody>
-							<?php foreach($result as $val){?>
+							<?php foreach($result as $val){ 
+									$all_sum += $val['sum_price'];
+							?>
 								<tr>
-									<td><?php echo $date;?></td>
+									<td><?php echo $val['date_create'];?></td>
 									<td><?php echo $val['number'];?></td>
 									<td><?php echo $val['sum_price'];?></td>
 								</tr>
@@ -104,12 +108,24 @@
 					</table>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-12">
+					<p><label for="">จำนวนเงินรวมทั้งหมด: <?php echo  number_format($all_sum);?></label></p>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+	$(document).ready( function () {
+	    $('#myTable').DataTable();
+	} );
 	$(document).ready(function(){
         $(".datetimepicker").datepicker({ 
         	format: 'yyyy-mm-dd' 

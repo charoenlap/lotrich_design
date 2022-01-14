@@ -13,7 +13,7 @@
 			</div> -->
 			<div class="row mt-4">
 				<div class="col-12">
-					<table class="table table-striped">
+					<table class="table table-striped" id="myTable">
 						<thead>
 							<th>##</th>
 							<th>รหัสบิล</th>
@@ -114,6 +114,15 @@
 </div>
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
+<link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#myTable').DataTable();
+	} );
+</script>
 
 <script>
 	// $(document).on('change','#date',function(e){
