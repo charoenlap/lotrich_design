@@ -345,7 +345,7 @@
 					AND b_lotto.id_type = '".$id_type."'
 					AND b_lotto_bill.id_category = '".$id_category."'
 				GROUP BY b_lotto.`number` ) t ".$order;
-			echo $sql;
+			// echo $sql;
 			$result = $this->query($sql)->rows;
 			return $result;
 		}
