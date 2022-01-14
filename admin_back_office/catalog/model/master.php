@@ -341,7 +341,7 @@
 				SELECT b_lotto.`number`,SUM(`b_lotto`.`price`) AS sum_price FROM b_lotto 
 				LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
 				WHERE 
-					( b_lotto_bill.`date_close` BETWEEN '".$date_close."' AND '".$date_end."')  
+					( b_lotto_bill.`date_close` BETWEEN '".$date_close." 00:00:00' AND '".$date_end." 23:59:59')  
 					AND b_lotto.id_type = '".$id_type."'
 					AND b_lotto_bill.id_category = '".$id_category."'
 				GROUP BY b_lotto.`number` ) t ".$order;

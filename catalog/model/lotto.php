@@ -46,7 +46,7 @@
 						LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.id 
 						WHERE id_type = ".$type." 
 						AND `number` = ".$number."
-						AND `date_close` = '".$date_close."'";
+						AND (`date_close` BETWEEN  '".$date_last_end."' AND '".$date_close."')";
 					$getAllPrice = $this->query($sqlGetAllPrice);
 					if($getAllPrice->num_rows > 0){
 						$allPrice = $getAllPrice->row['total_price'];
