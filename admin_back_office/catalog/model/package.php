@@ -30,6 +30,19 @@
 			}
 			return $result;
 		}
+		public function delPackage($id_package='',$id_category){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = 'DELETE FROM b_package WHERE id = '.(int)$id_package;
+			$result_del = $this->query($sql);
+			if($result_del){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;
+		}
 		
 	}
 ?>
