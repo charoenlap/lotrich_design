@@ -310,7 +310,7 @@
 						$number = array_unique($number);
 						$number_default = array_unique($number_default);
 						
-						$id_type_arr = $id_type = post('id_type');
+						$id_type_arr = $id_type = (array)post('id_type');
 						$rdoType 	= post('rdoType');
 						$digit 		= post('digit');
 						$condition 	= post('condition');

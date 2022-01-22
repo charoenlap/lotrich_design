@@ -767,7 +767,7 @@
 			$( '.chkType:checked' ).each(function( index ) {
 				id_type.push($(this).attr('data-id'));
 			});
-			
+			console.log(id_type);
 			var data_children_class = $(this).attr('data-children-class');
 
 			$( this ).parents('div').find('.input_data_id_type_'+data_children_class).each(function( index ) {
