@@ -25,8 +25,24 @@
 					<div class="panel">
 						<div class="card">
 							<div class="card-body text-center">
-								เลขที่บัญชี: <?php echo $bank_no; ?></br>
-								ธนาคาร: <?php echo $bank_name; ?>
+								<div class="row">
+									<div class="col-6">
+										<?php if($bank_logo){ ?>
+										<div class="text-center"><img src="<?php echo $bank_logo; ?>" alt="" style="width:100px;"></div>
+										เลขที่บัญชี: <?php echo $bank_no; ?></br>
+										ธนาคาร: <?php echo $bank_name; ?></br>
+										ชื่อบัญชี: <?php echo $name; ?>
+										<?php } ?>
+									</div>
+									<?php if($bank_name_2){ ?>
+									<div class="col-6">
+										<div class="text-center"><img src="<?php echo $bank_logo_2; ?>" alt="" style="width:100px;"></div>
+										เลขที่บัญชี: <?php echo $bank_no_2; ?></br>
+										ธนาคาร: <?php echo $bank_name_2; ?></br>
+										ชื่อบัญชี: <?php echo $name; ?>
+									</div>
+									<?php } ?>
+								</div>
 							</div>
 						</div>
 					</div>

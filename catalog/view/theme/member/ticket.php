@@ -22,7 +22,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-2">
+						<div class="col-sm-5">
 							<div class="form-group">
 								<label for="">เลือกวันเริ่ม</label>
 					            <div class="input-group date datetimepicker">
@@ -34,7 +34,7 @@
 								</div>
 					         </div>
 						</div>
-						<div class="col-2">
+						<div class="col-sm-5">
 							<div class="form-group">
 								<label for="">เลือกวันสิ้นสุด</label>
 					            <div class="input-group date datetimepicker">
@@ -46,7 +46,7 @@
 								</div>
 					         </div>
 						</div>
-						<div class="col-1">
+						<div class="col-sm-2">
 							<label for="">&nbsp;</label><br>
 							<input type="submit" class="btn btn-primary" value="ค้นหา">
 						</div>

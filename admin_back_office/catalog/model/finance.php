@@ -101,12 +101,28 @@
 			}
 			return $result;
 		}
-		public function getLotto(){
+		public function getLotto($data=array()){
 			$result = array();
-			$sql = "SELECT *,b_lotto_bill.id AS id,b_lotto_bill.date_create AS date_create,b_category.name as category_name,b_lotto_bill.status AS status FROM b_lotto_bill 
+			$date_close 	= $this->escape($data['date']);
+			$date_end 			= $this->escape($data['date_end']);
+			// $id_category 	= $data['id_category'];
+			// $id_type 		= $data['id_type'];
+			$order = ' ORDER BY b_lotto_bill.date_create ASC';
+			if($data['order']=='sum_price'){
+				$order = ' ORDER BY sum_price DESC';
+			}else if($data['order']=='date_create'){
+				$order = ' ORDER BY b_lotto_bill.date_create DESC';
+			}
+			$sql = "SELECT *,
+						b_lotto_bill.id AS id,b_lotto_bill.date_create AS date_create,
+						b_category.name as category_name,b_lotto_bill.status AS status 
+					FROM b_lotto_bill 
 						LEFT JOIN b_category ON b_lotto_bill.id_category = b_category.id
 						LEFT JOIN b_user ON b_lotto_bill.id_user = b_user.id 
-						ORDER BY b_lotto_bill.date_create DESC";
+					WHERE 
+					( b_lotto_bill.`date_create` BETWEEN '".$date_close." 00:00:00' AND '".$date_end." 23:59:59')  
+					
+					".$order; 
 			$result = $this->query($sql)->rows;
 			return $result;
 		}

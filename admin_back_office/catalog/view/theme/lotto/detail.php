@@ -147,6 +147,7 @@
 										<th>เลขอั้น</th>
 										<th>ประเภทการอั้น</th>
 										<th>จำกัดการแทง</th>
+										<th>อัตราต่อรอง</th>
 										<th class="text-end">
 											<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropBlockNo">เพิ่มเลขอั้น</a>
 										</th>
@@ -333,7 +334,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      	<label class="mt-2 mb-2">ใส่ชื่อแพคเกจ</label>
       	<input type="text" class="form-control" value="" id="text-package" placeholder="ใส่ชื่อแพคเกจ">
+      	<label class="mt-2 mb-2">ใส่ % ส่วนลด</label>
+      	<input type="text" class="form-control" value="" id="text-package-discount" placeholder="ใส่ % ส่วนลด">
+      	<label class="mt-2 mb-2">ใช้กับทุกประเภทใน package</label>
+      	<?php /* ?>
+      	<select id="text-package-type" class="form-control">
+      		<option value="">ทั้งหมด</option>
+	      	<?php foreach($listType as $val){?>
+	        <option value="<?php echo $val['id'];?>"><?php echo $val['type'];?></option>
+	        <?php } ?>
+        </select>
+        <?php */?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
@@ -360,12 +373,15 @@
 	        <?php } ?>
       	</select>
       	<br>
-      	ประเภทเลขอั้น
+      	อัตราต่อรอง
+      	<input type="text" class="form-control" value="" id="ratio-price">
+      	<?php /* ?>
       	<select name="" id="condition-block-no" class="form-control">
       		<?php foreach($getBlockNo as $val){?>
       		<option value="<?php echo $val['id'];?>"><?php echo $val['detail'];?></option>
       		<?php } ?>
       	</select>
+      	<?php */?>
       	<br>
       	จำกัดยอดแทงรวม (บาท)
       	<input type="text" class="form-control" value="" id="text-block-no-max" placeholder="จำกัดยอดแทงรวม (บาท)">
@@ -561,18 +577,20 @@
 	});
 	$(document).on('click','#btn-add-block-no',function(e){
 		var num 				= $('#block-no').val();
-		var id_condition_detail = $('#condition-block-no').val();
+		// var id_condition_detail = $('#condition-block-no').val();
 		var max_price 			= $('#text-block-no-max').val();
 		var date_block 			= $('#date_end').val();
 		var id_category 		= '<?php echo get('id_category');?>';
 		var id_type				= $('#type-block-no').val();
+		var ratio_price			= $('#ratio-price').val();
 		$.ajax({
 			url: 'index.php?route=lotto/addBlockNo',
 			type: 'POST',
 			dataType: 'json',
 			data: {
 				num:num,
-				id_condition_detail:id_condition_detail,
+				// id_condition_detail:id_condition_detail,
+				ratio_price:ratio_price,
 				max_price:max_price,
 				date_block:date_block,
 				id_category:id_category,
@@ -628,6 +646,9 @@
 								+	'</td>'
 								+	'<td>'
 									+val.max_price
+								+	'</td>'
+								+	'<td>'
+									+val.ratio_price
 								+	'</td>'
 								+	'<td class="text-end">'
 									+	'<a href="#" class="btn btn-danger btn-del-blockNoType" data-id="'+val.id+'">'
@@ -763,6 +784,7 @@
 		window.location = 'index.php?route=lotto/categoryDetail&id_category=<?php echo $id_category;?>&id_package='+ele.val();
 	});
 	$(document).on('click','#btn-add-package',function(e){
+		var txt_package_discount = $('#text-package-discount').val();
 		var txt_package = $('#text-package').val();
 		if(txt_package!=''){
 			$.ajax({
@@ -771,7 +793,8 @@
 				dataType: 'json',
 				data: {
 					id_category: '<?php echo get('id_category');?>',
-					package: txt_package
+					package: txt_package,
+					discount: txt_package_discount
 				},
 			})
 			.done(function(result) {
@@ -1071,6 +1094,9 @@
 								+	'<td>'
 									+val.max_price
 								+	'</td>'
+								+	'<td>'
+									+val.ratio_price
+								+	'</td>'
 								+	'<td class="text-end">'
 									+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'
 									+ 		'<i class="fa fa-trash"></i>'
@@ -1359,6 +1385,9 @@
 						+	'</td>'
 						+	'<td>'
 							+val.max_price
+						+	'</td>'
+						+	'<td>'
+							+val.ratio_price
 						+	'</td>'
 						+	'<td class="text-end">'
 							+	'<a href="#" class="btn btn-danger btn-del-blockNo" data-id="'+val.id+'">'

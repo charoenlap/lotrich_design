@@ -6,11 +6,84 @@
 					<h4>บิลลูกค้า</h4>
 				</div>
 			</div>
+			<form action="<?php echo $action; ?>" method="GET">	
+				<input type="hidden" name="route" value="bill">
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="">เลือกวันเริ่ม</label>
+				            <div class="input-group date datetimepicker">
+								<span class="input-group-addon btn btn-warning">
+									<span class="fa fa-calendar"></span>
+								</span>
+								<input type="text" class="form-control" id="date" 
+									name="date" value="<?php echo $date;?>"/>
+							</div>
+				         </div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="">เลือกวันสิ้นสุด</label>
+				            <div class="input-group date datetimepicker">
+								<span class="input-group-addon btn btn-warning">
+									<span class="fa fa-calendar"></span>
+								</span>
+								<input type="text" class="form-control" id="date_end" 
+									name="date_end" value="<?php echo $date_end;?>"/>
+							</div>
+				         </div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="">เลือกหมวด</label>
+				            <div class="input-group">
+								<select name="category" class="form-control" id="category">
+									<?php foreach($category as $val){?>
+									<option value="<?php echo $val['id']; ?>" <?php echo ($id_category==$val['id']?'selected':''); ?>>
+										<?php echo $val['name']; ?>
+									</option>
+									<?php } ?>
+								</select>
+							</div>
+				         </div>
+					</div>
+					<!--<div class="col-2">
+						<div class="form-group">
+							<label for="">เลือกประเภท</label>
+				            <div class="input-group">
+								<select name="type" class="form-control" id="type">
+									<?php foreach($type as $val){?>
+									<option value="<?php echo $val['id']; ?>" <?php echo ($id_type==$val['id']?'selected':''); ?>>
+										<?php echo $val['type']; ?>
+									</option>
+									<?php } ?>
+								</select>
+							</div>
+				         </div>
+					</div>
+					 <div class="col-2">
+						<div class="form-group">
+							<label for="">เรียงตาม</label>
+				            <div class="input-group">
+								<select name="order" class="form-control" id="order">
+									<option value="number" <?php echo ($order=='number'?'selected':''); ?>>ตัวเลข</option>
+									<option value="sum_price" <?php echo ($order=='sum_price'?'selected':''); ?>>ยอดเงินรวม</option>
+									<option value="date_create" <?php echo ($order=='date_create'?'selected':''); ?>>ตามวัน</option>
+								</select>
+							</div>
+				         </div>
+					</div> -->
+					<div class="col-2">
+						<label for="">&nbsp;</label><br>
+						<input type="submit" class="btn btn-primary" value="ค้นหา">
+					</div>
+				</div>
 			<!-- <div class="row mt-4">
 				<div class="col-12">
 					<select name="" class="form-control" id=""></select>
 				</div>
 			</div> -->
+			</form>
 			<div class="row mt-4">
 				<div class="col-12">
 					<table class="table table-striped" id="myTable">
@@ -112,6 +185,11 @@
 	  <div class="toast-body"></div>
 	</div>
 </div>
+<style>
+	.dataTables_filter {
+		display: none;
+	}
+</style>
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 

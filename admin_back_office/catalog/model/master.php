@@ -351,6 +351,49 @@
 			$result = $this->query($sql)->rows;
 			return $result;
 		}
+		public function listReportAll($data=array()){
+			$result = array();
+			$date_close 	= $this->escape($data['date']);
+			$date_end 			= $this->escape($data['date_end']);
+			$id_category 	= $data['id_category'];
+			// $id_type 		= $data['id_type'];
+			$order = ' ORDER BY number ASC';
+			if($data['order']=='sum_price'){
+				$order = ' ORDER BY sum_price DESC';
+			}else if($data['order']=='date_create'){
+				$order = ' ORDER BY date_create DESC';
+			}
+
+			$type=array();
+			$sql_all_category = "SELECT * FROM b_type";
+			$result_category = $this->query($sql_all_category);
+			if($result_category->num_rows){
+				foreach($result_category->rows as $val){
+					$list = array();
+					$sql = "SELECT `number`,`sum_price`,date_create FROM (
+								SELECT 	b_lotto.`number`,SUM(`b_lotto`.`price`) AS sum_price,
+										b_lotto_bill.`date_create` AS date_create 
+								FROM b_lotto 
+									LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
+								WHERE 
+									( b_lotto_bill.`date_create` BETWEEN '".$date_close." 00:00:00' AND '".$date_end." 23:59:59')  
+									AND b_lotto.id_type = '".$val['id']."'
+									AND b_lotto_bill.id_category = '".$id_category."' 
+							GROUP BY b_lotto.`number` ) t ".$order; 
+					$list = $this->query($sql)->rows;
+					if($list){
+						$result[] = array(
+							'id'	=> $val['id'],
+							'name' 	=> $val['type'],
+							'list'	=> $list
+						);
+					}
+				}
+			}
+			// echo "<pre>";
+			// var_dump($result);
+			return $result;
+		}
 		public function listType(){
 			$result = array();
 			$result = $this->query("SELECT * FROM b_type")->rows;
@@ -554,7 +597,7 @@
 			);
 			$data_insert = array(
 				'num'					=> $data['num'],
-				'id_condition_detail'	=> $data['id_condition_detail'],
+				'ratio_price'			=> $data['ratio_price'],
 				'max_price'				=> $data['max_price'],
 				'date_block'			=> $data['date_block'],
 				'id_category'			=> $data['id_category'],

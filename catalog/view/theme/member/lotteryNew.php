@@ -134,23 +134,24 @@
 	    		</div>
 	    		<div class="card-body">
 	    			ใส่เลข
-			    	<div class="row">
-			    		<div class="col p-btn-no" id="for-1-digit">
-			    			<input type="text" maxlength="1" class="form-control input-number text-center">
+			    	<div class="" style="text-align:center;">
+			    		<div style="display:inline-block;" class="p-btn-no" id="for-1-digit">
+			    			<input type="text" style="width:50px;" maxlength="1" class="form-control input-number text-center">
 			    		</div>
-			    		<div class="col p-btn-no" id="for-2-digit">
-			    			<input type="text" maxlength="1" class="form-control input-number text-center">
+			    		<div style="display:inline-block;" class="p-btn-no" id="for-2-digit">
+			    			<input type="text" style="width:50px;" maxlength="1" class="form-control input-number text-center">
 			    		</div>
-			    		<div class="col p-btn-no" id="for-3-digit">
-			    			<input type="text" maxlength="1" class="form-control input-number text-center">
+			    		<div style="display:inline-block;" class="p-btn-no" id="for-3-digit">
+			    			<input type="text" style="width:50px;" maxlength="1" class="form-control input-number text-center">
 			    		</div>
-			    		<div class="col p-btn-no" id="for-4-digit">
-			    			<input type="text" maxlength="1" class="form-control input-number text-center " >
+			    		<div style="display:inline-block;" class="p-btn-no" id="for-4-digit">
+			    			<input type="text" style="width:50px;" maxlength="1" class="form-control input-number text-center " >
 			    		</div>
-			    		<div class="col p-btn-no" id="for-5-digit">
-			    			<input type="text" maxlength="1" class="form-control input-number text-center " >
+			    		<div style="display:inline-block;" class="p-btn-no" id="for-5-digit">
+			    			<input type="text" style="width:50px;" maxlength="1" class="form-control input-number text-center " >
 			    		</div>
 			    	</div>
+			    	<div style="clear: both;"></div>
 			    	<div>
 			    		<div class="row mt-2">
 				    		<div class="col"><a href="#" class="btn btn-input-number btn-block btn-outline-success" data-input="1">1</a></div>
@@ -181,6 +182,11 @@
 	    		</div>
 	    		<div class="card-body">
 	    			<table class="table table-striped" id="table-block-num">
+	    				<thead>
+	    					<th>ตัวเลข</th>
+	    					<th>ประเภท</th>
+	    					<th>อัตราจ่าย</th>
+	    				</thead>
 	    				<?php foreach($blockNumber as $val){?>
 	    				<tbody>
 	    					<tr>
@@ -188,8 +194,9 @@
 	    							<input type="hidden" class="num_block" data-num="<?php echo $val['num'];?>" data-condition="<?php echo $val['condition'];?>">
 	    							<?php echo $val['num'];?>
 	    						</td>
-	    						<td><?php echo $val['detail'];?></td>
+	    						
 	    						<td><?php echo $val['type'];?></td>
+	    						<td><?php echo $val['ratio_price'];?></td>
 	    					</tr>
 	    				</tbody>
 	    				<?php } ?>

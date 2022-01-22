@@ -195,30 +195,30 @@
 								'50-99' => array(
 									'data' => $n_50_99
 								),
-								'สองตัวคู่' => array(
-									'data' => $n_odd
-								),
-								'สองตัวคี่' => array(
-									'data' => $n_even
-								),
-								'พี่น้อง' => array(
-									'data' => array('01',12,23,34,45,56,67,78,89,90)
-								),
-								'น้องพี่' => array(
-									'data' => array(10,21,32,43,54,65,76,87,98,'09')
-								),
-								'เลขคู่คู่' => array(
-									'data' => array('02','04','06','08',24,26,28,46,48,68,'00',22,44,66,88)
-								),
-								'เลขคี่คี่' => array(
-									'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
-								),
-								'เลขคู่คี่' => array(
-									'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
-								),
-								'00-99' => array(
-									'data' => $n_00_99
-								),
+								// 'สองตัวคู่' => array(
+								// 	'data' => $n_odd
+								// ),
+								// 'สองตัวคี่' => array(
+								// 	'data' => $n_even
+								// ),
+								// 'พี่น้อง' => array(
+								// 	'data' => array('01',12,23,34,45,56,67,78,89,90)
+								// ),
+								// 'น้องพี่' => array(
+								// 	'data' => array(10,21,32,43,54,65,76,87,98,'09')
+								// ),
+								// 'เลขคู่คู่' => array(
+								// 	'data' => array('02','04','06','08',24,26,28,46,48,68,'00',22,44,66,88)
+								// ),
+								// 'เลขคี่คี่' => array(
+								// 	'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
+								// ),
+								// 'เลขคู่คี่' => array(
+								// 	'data' => array(13,15,17,19,35,37,39,57,59,79,11,33,55,77,99)
+								// ),
+								// '00-99' => array(
+								// 	'data' => $n_00_99
+								// ),
 							)
 						);
 
@@ -485,8 +485,8 @@
 				    			// var_dump($result_ratio);
 				    			$price_ = $price[$key];
 				    			$ratio_ = $result_ratio['ratio'];
-				    			$paid = $price_ * $ratio_ * $result_ratio['condition'];
-
+				    			$paid = $price_ * $ratio_ ;//* $result_ratio['condition'];
+				    			// echo $price_.' '.$ratio_;exit();
 				    			$result_check_price_over = $this->model('lotto')->checkPriceOver($number_,$val,$id_category,$price_);
 								if($result_check_price_over['status']=="success"){
 									$result_check_price_type_over = $this->model('lotto')->checkPriceTypeOver($val,$id_category,$price_,$number_);
@@ -526,7 +526,14 @@
 					    		}
 			    			// }
 			    		}
-			    		
+			    		$select_discount = array(
+			    			'id_category' => $id_category,
+							'id_package' => $id_package
+			    		);
+			    		$discount = (float)$this->model('lotto')->getDiscount($select_discount);
+
+			    		$sum_price = $sum_price - ($sum_price*$discount/100);
+						
 			    		if($sum_price<=$balance){
 			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
 			    			if($result_add_lotto['status']=="success"){
@@ -601,13 +608,18 @@
 			if(!empty($id_user)){
 				$data['title'] = "widthdraw";
 	    		$data['descreption'] = ""; 
-	    		$data['balance'] 	= $this->model('finance')->getBalance($id_user);
+	    		$data['balance'] 		= $this->model('finance')->getBalance($id_user);
 	    		// $data['bank']		= $this->model('setting')->getSetting()['bank'];
+	    		// var_dump($_SESSION);
 	    		$data['bank_no']		= $this->getSession('bank_no');
 	    		$data['bank_name']		= $this->getSession('bank_name');
+	    		$data['bank_logo'] 		= $this->model('master')->getLogoBank($data['bank_name']);
 
 	    		$data['bank_no_2']		= $this->getSession('bank_no_2');
 	    		$data['bank_name_2']	= $this->getSession('bank_name_2');
+	    		$data['bank_logo_2'] 	= $this->model('master')->getLogoBank($data['bank_name_2']);
+
+	    		$data['name']			= $this->getSession('name').' '.$this->getSession('lname');
  	    		$this->view('member/widthdraw',$data); 
  	    	}else{
 	 	    	$this->redirect('login');
@@ -624,29 +636,38 @@
 	 	    		$price = (float)post('price');
 	 	    		if($price>=0){
 		 	    		$balance = $this->model('finance')->getBalance($id_user);
-		 	    		$min_widthdraw = $this->model('setting')->getSetting()['min_widthdraw'];
+		 	    		$setting_widthdraw = $this->model('setting')->getSetting();
+		 	    		$min_widthdraw = (float)$setting_widthdraw['min_widthdraw'];
+		 	    		$max_widthdraw = (float)$setting_widthdraw['max_widthdraw'];
 		 	    		if($price>=$min_widthdraw){
-		 	    			if($balance>$price){
-			 	    			$finance = $this->model('finance');
-			 	    			$arr = array(
-									'id_user'		=> $id_user,
-									'amount'		=> $price,
-									'type'			=> 1,
-									'status'		=> 0,
-									'hour'			=> 0,
-									'minutes'		=> 0,
-									'img'			=> '',
-									'detail'		=> 'การถอน'	
-			 	    			);
-			 	    			$finance->widthdraw($arr);
-			 	    			$result = array(
-					    			'status' => 'success',
-					    			'desc'	=> 'ระบบได้ข้อมูลการถอนของท่านแล้ว กำลังรอเจ้าหน้าที่ทำการอนุมัติ และโอนเงินไปยังบัญชีของท่าน'
-					    		);
-			 	    		}else{
+		 	    			if($price<=$max_widthdraw){
+			 	    			if($balance>$price){
+				 	    			$finance = $this->model('finance');
+				 	    			$arr = array(
+										'id_user'		=> $id_user,
+										'amount'		=> $price,
+										'type'			=> 1,
+										'status'		=> 0,
+										'hour'			=> 0,
+										'minutes'		=> 0,
+										'img'			=> '',
+										'detail'		=> 'การถอน'	
+				 	    			);
+				 	    			$finance->widthdraw($arr);
+				 	    			$result = array(
+						    			'status' => 'success',
+						    			'desc'	=> 'ระบบได้ข้อมูลการถอนของท่านแล้ว กำลังรอเจ้าหน้าที่ทำการอนุมัติ และโอนเงินไปยังบัญชีของท่าน ระบบจะโอนเงินเข้าบัญชีภายใน 15 นาที'
+						    		);
+				 	    		}else{
+				 	    			$result = array(
+						    			'status' => 'failed',
+						    			'desc'	=> 'การถอนยอด '.$price.' ของคุณน้อยกว่าจำนวนที่คุณมี '.$balance
+						    		);
+				 	    		}
+				 	    	}else{
 			 	    			$result = array(
 					    			'status' => 'failed',
-					    			'desc'	=> 'การถอนยอด '.$price.' ของคุณน้อยกว่าจำนวนที่คุณมี '.$balance
+					    			'desc'	=> 'การถอนยอดขั้นสูงสุด '.$max_widthdraw.' บาท'
 					    		);
 			 	    		}
 		 	    		}else{
@@ -724,13 +745,15 @@
 	    		$data['balance'] 	= $this->model('finance')->getBalance($id_user);
 	    		$data['bank_no']		= $this->getSession('bank_no');
 	    		$data['bank_name']		= $this->getSession('bank_name');
+	    		$data['bank_logo'] 		= $this->model('master')->getLogoBank($data['bank_name']);
 
 	    		$data['bank_no_2']		= $this->getSession('bank_no_2');
 	    		$data['bank_name_2']	= $this->getSession('bank_name_2');
+	    		$data['bank_logo_2'] 	= $this->model('master')->getLogoBank($data['bank_name_2']);
 
-	    		$data['name']			= $this->getSession('name');
-
-	    		$data['bank']		= $this->model('setting')->getSetting()['bank'];
+	    		$data['name']			= $this->getSession('name').' '.$this->getSession('lname');
+	    		$data['bankList'] = $this->model('master')->bankList();
+	    		// $data['bank']		= $this->model('setting')->getSetting()['bank'];
 	    		
  	    		$this->view('member/deposit',$data); 
  	    	}else{

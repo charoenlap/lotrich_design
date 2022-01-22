@@ -100,7 +100,11 @@
 						</div>
 					</div>
 				</div>
-				
+				<div class="row">
+					<div class="col-xs-12 col-md-12">
+						<label for="" class="text-default">* กรุณากรอกชื่อจริง ให้ตรงกับบัญชีธนาคาร เนื่องจากมีผลกับการฝาก และถอนเงิน</label>
+					 </div>
+				</div>
 				<div class="row">
 					<div class="col-xs-12 col-md-12">
 						<div class="load-btn mt-20">

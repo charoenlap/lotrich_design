@@ -126,7 +126,8 @@
 				if(method_post()){
 					$id_category = (int)decrypt(post('id_category'));
 					$package = post('package');
-					$result_insert_package = $this->model('package')->addPackage($package,$id_category);
+					$discount = post('discount');
+					$result_insert_package = $this->model('package')->addPackage($package,$id_category,$discount);
 					if($result_insert_package['result']=="success"){
 						$result = array(
 							'status' => 'success',
@@ -354,17 +355,18 @@
 				if(method_post()){
 					// $id_category = (int)decrypt(post('id_category'));
 					$num = post('num');
-					$id_condition_detail = (int)post('id_condition_detail');
+					$ratio_price = (int)post('ratio_price');
 					$max_price = post('max_price');
 					$date_block = post('date_block');
 					$id_category = (int)decrypt(post('id_category'));
 					$id_type = (int)post('id_type');
+					
 
 					$date = explode(' ',$date_block);
 					if(!empty($date[0])){
 						$data_insert = array(
 							'num' => $num,
-							'id_condition_detail' => $id_condition_detail,
+							'ratio_price' => $ratio_price,
 							'max_price' => $max_price,
 							'date_block' => $date[0],
 							'id_category' => $id_category,

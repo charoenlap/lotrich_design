@@ -1,5 +1,17 @@
 <?php 
 	class MasterModel extends db {
+		public function bankList($data = array()){
+			$result = array();
+			$sql = "SELECT *,b_bank_take.id as id FROM b_bank_take LEFT JOIN b_bank ON b_bank_take.id_bank = b_bank.id";
+			$result = $this->query($sql);
+			return $result->rows;
+		}
+		public function getLogoBank($data = array()){
+			$result = array();
+			$sql = "SELECT * FROM b_bank";
+			$result = $this->query($sql);
+			return $result->row['image'];
+		}
 		public function getDateLastedResult(){
 			return $this->query("SELECT * FROM b_result ORDER BY date ASC limit 0,1")->row['date'];
 		}

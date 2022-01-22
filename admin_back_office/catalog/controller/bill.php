@@ -4,9 +4,25 @@
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				$data = array();
+				$data['date'] 			= get('date');
+				$data['date_end'] 		= get('date_end');
+				$data['id_category']	= (int)get('category');
+				$data['id_type']		= (int)get('type');
+				$data['order']			= get('order');
+
+				$data['category'] 	= $this->model('master')->listCategory();
+				$data['type'] 		= $this->model('master')->listType();
+				$data['action'] 	= route('bill');
 				// $data['category'] = $this->model('master')->listCategory();
 				// $data['deposit'] = $this->model('finance')->getDeposit()['deposit'];
-				$data['lotto'] = $this->model('finance')->getLotto();
+				$data_select = array(
+					'date' 			=> $data['date'],
+					'date_end' 		=> $data['date_end'],
+					'id_category' 	=> $data['id_category'],
+					'id_type' 		=> $data['id_type'],
+					'order'			=> $data['order']
+				);
+				$data['lotto'] = $this->model('finance')->getLotto($data_select);
 				$this->view('bill/index',$data);
 			}else{
 				redirect('home/login');

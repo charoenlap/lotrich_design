@@ -26,21 +26,23 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
-										<div class="col-12 col-md-6">
-											<div class="mt-2 text-center">
-												เลขบัญชี: <?php echo $bank_no; ?><br>
-												ชื่อธนาคาร: <?php echo $bank_name; ?><br>
-												ชื่อบัญชี: <?php echo $name; ?>
-											</div>
+										<div class="col-6">
+											<?php if($bank_logo){ ?>
+											<div class="text-center"><img src="<?php echo $bank_logo; ?>" alt="" style="width:100px;"></div>
+											เลขที่บัญชี: <?php echo $bank_no; ?></br>
+											ธนาคาร: <?php echo $bank_name; ?></br>
+											ชื่อบัญชี: <?php echo $name; ?>
+											<?php } ?>
 										</div>
-										<div class="col-12 col-md-6">
-											<div class="mt-2 text-center">
-												เลขบัญชี: <?php echo $bank_no_2; ?><br>
-												ชื่อธนาคาร: <?php echo $bank_name_2; ?><br>
-												ชื่อบัญชี: <?php echo $name; ?>
-											</div>
+										<?php if($bank_name_2){ ?>
+										<div class="col-6">
+											<div class="text-center"><img src="<?php echo $bank_logo_2; ?>" alt="" style="width:100px;"></div>
+											เลขที่บัญชี: <?php echo $bank_no_2; ?></br>
+											ธนาคาร: <?php echo $bank_name_2; ?></br>
+											ชื่อบัญชี: <?php echo $name; ?>
 										</div>
-									</div>	
+										<?php } ?>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -101,7 +103,23 @@
 	          <div class="form-group">
 	            <div class="card">
 	            	<div class="card-body">
-	            		<?php echo $bank; ?>
+	            		<div class="row">
+	            			<?php foreach($bankList as $val){?>
+	            			<div class="col-6">
+	            				<div class="text-center">
+	            					<img src="<?php echo $val['image']?>" alt="" width="50px">
+	            				</div>
+	            				<div class="text-center">
+	            					<p  class="text-center"><?php echo $val['name'];?></p>
+	            					<input type="text" name="" class="copybtn js-copytextarea<?php echo $val['id'];?> form-control text-center" 
+	            					value="<?php echo $val['no'];?>" style="background: white; border: 0px;">
+	            					<a class="js-textareacopybtn<?php echo $val['id'];?> btn btn-primary btn-block" style="vertical-align:top;">คัดลอกเลขบัญชีธนาคาร</a>
+	            					<br>
+
+	            				</div>
+	            			</div>
+	            		 	<?php } ?>
+	            		</div>
 	            	</div>
 	            </div>
 	          </div>
@@ -145,6 +163,27 @@
 	</div>
 </div>
 <script>
+	<?php foreach($bankList as $val){?>
+	var copyTextareaBtn = document.querySelector('.js-textareacopybtn<?php echo $val['id'];?>');
+	copyTextareaBtn.addEventListener('click', function(event) {
+	  var copyTextarea = document.querySelector('.js-copytextarea<?php echo $val['id'];?>');
+	  copyTextarea.focus();
+	  copyTextarea.select();
+
+	  try {
+	    var successful = document.execCommand('copy');
+	    var msg = successful ? 'successful' : 'unsuccessful';
+	    console.log('Copying text command was ' + msg);
+	     // copyTextarea.focusout();
+	  } catch (err) {
+	    console.log('Oops, unable to copy');
+
+	  }
+	});
+	<?php }?>
+	$(document).on('focus','.copybtn',function(e){
+		$(this).focusout();
+	});
 	$(document).on('click','.btn-price',function(e){
 		var price = $(this).attr('data-price');
 		$('#txt-price').val(price);
@@ -254,3 +293,8 @@
 	    return false;
 	}
 </script>
+<style>
+	.copybtn:focus{
+		    box-shadow: 0 0 0 0 #fff;
+	}
+</style>

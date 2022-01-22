@@ -6,6 +6,7 @@
 				$data = array();
 				$data['date'] = $date = get('date');
 				$deposit = $this->model('finance')->getDeposit(array('date'=>$date));
+				
 				$data['deposit'] = $deposit;
 				$this->view('deposit/index',$data);
 			}else{

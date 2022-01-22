@@ -12,14 +12,15 @@
 			}
 			return $result;
 		}
-		public function addPackage($package='',$id_category){
+		public function addPackage($package='',$id_category=0,$discount=0){
 			$result = array(
 				'result' => 'fail'
 			);
 			if(!empty($package)){
 				$data = array(
 					'id_category' 	=> $id_category,
-					'name'			=> $package
+					'name'			=> $package,
+					'discount'		=> $discount
 				);
 				$result_insert = $this->insert('package',$data);
 				if($result_insert){
