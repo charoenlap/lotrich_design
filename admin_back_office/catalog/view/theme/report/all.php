@@ -21,7 +21,7 @@
 							</div>
 				         </div>
 					</div>
-					<div class="col-2">
+					<div class="col-2"> 
 						<div class="form-group">
 							<label for="">เลือกวันสิ้นสุด</label>
 				            <div class="input-group date datetimepicker">
@@ -74,9 +74,13 @@
 								<td>
 									<?php echo $val['name'];?>
 									<div>
-										<?php $sum = 0; foreach($val['list'] as $v){ $sum+=$v['sum_price']; ?>
-											<p><?php echo $v['number'];?>: <?php echo $v['sum_price'];?></p>
-										<?php } ?>
+										<?php 
+											$sum = 0; 
+											foreach($val['list'] as $v){ 
+												$sum+=$v['sum_price']; ?>
+												<p>
+													<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>"><?php echo $v['number'];?>: <?php echo $v['sum_price'];?></a></p>
+											<?php } ?>
 										<p><b>จำนวนเงินรวม : <?php echo $sum;?></b></p>
 									</div>
 								</td>

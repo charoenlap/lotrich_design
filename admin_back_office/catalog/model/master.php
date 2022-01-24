@@ -1,5 +1,33 @@
 <?php 
 	class MasterModel extends db {
+		public function listReportAllBill($data=array()){
+			$date 			= $this->escape($data['date']);
+			$date_end 		= $this->escape($data['date_end']);
+			$id_type		= $this->escape($data['id_type']);
+			$number			= $this->escape($data['number']);
+			$bill       	= array();
+			$result 		= array();
+			$sql = "SELECT * FROM b_lotto 
+					WHERE (date_create BETWEEN '".$date." 00:00:00' AND '".$date_end." 23:59:59') 
+					AND `number` = '".$number."'
+					AND id_type = '".$id_type."' GROUP BY id_bill";
+			$query = $this->query($sql);
+			if($query->num_rows){
+
+				foreach($query->rows as $val){
+					$sql_bill = "SELECT * FROM b_lotto_bill 
+						LEFT JOIN b_lotto ON b_lotto_bill.id = b_lotto.id_bill 
+						WHERE b_lotto_bill.id = ".$val['id_bill'];
+					$query_bill = $this->query($sql_bill);
+					if($query_bill->rows){
+						foreach($query_bill->rows as $v){
+							$result[$val['id_bill']]['rows'][] = $v;
+						}
+					}
+				}
+			}
+			return $result;
+		}
 		public function calculateRollbackAllBill($data=array()){
 			$date_end 		= $this->escape($data['date_end']);
 			$date_last_end 	= $this->escape($data['date_last_end']);
