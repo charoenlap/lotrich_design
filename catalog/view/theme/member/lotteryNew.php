@@ -384,6 +384,23 @@
 	    </div>				
 	</div>
 </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">ยืนยัน</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	ยืนยันการทำรายการ เพิ่มโพยที่ท่านเลือก
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-submit">ยืนยัน</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="position-fixed top-0 right-0 p-3" style="z-index: 99999; right: 0; bottom: 0;height:100px;">
 	<div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 	  <div class="toast-header">
@@ -463,7 +480,10 @@
 		sum_cal();
 		e.preventDefault();
 	});
-	$(document).on('click','#btn-submit',function(e){
+	$(document).on('click','#btn-confirm-submit',function(e){
+		$(this).prop('disabled', true);
+		$(this).attr('aria-disabled', true);
+
 		var form = $('#form-lotto');
 		$.ajax({
 			url: 'index.php?route=member/submitLotto',
@@ -528,6 +548,9 @@
 		.always(function() {
 			console.log("complete");
 		});
+	});
+	$(document).on('click','#btn-submit',function(e){
+		$('#staticBackdrop').modal('show');
 	});
 	$(document).on('click','#btn-del-all',function(e){
 		$('.table-lotto-all').find('tr').remove();
