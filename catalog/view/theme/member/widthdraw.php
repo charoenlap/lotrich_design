@@ -100,12 +100,27 @@
 	  <div class="toast-body"></div>
 	</div>
 </div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">ยืนยัน</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	ยืนยันการทำรายการ
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-submit">ยืนยัน</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
-	$(document).on('click','#btn-submit',function(e){
-		$('#btn-submit').prop('disabled', true);
-		$('#btn-submit').attr('aria-disabled', true);
-		$('#btn-submit').addClass('disabled');
-		$('#btn-submit').removeClass('hvr-btn');
+	$(document).on('click','#btn-confirm-submit',function(e){
+		$(this).prop('disabled', true);
+		$(this).attr('aria-disabled', true);
 		$.ajax({
 			url: 'index.php?route=member/submitWidthdraw',
 			type: 'POST',
@@ -124,6 +139,8 @@
 				$('.toast-body').addClass('text-danger');
 				$('.toast-body').removeClass('text-success');
 				$('#toast').toast('show');
+				$(this).prop('disabled', false);
+				$(this).attr('aria-disabled', false);
 			}else{
 				$('.toast-body').removeClass('text-danger');
 				$('.toast-body').addClass('text-success');
@@ -140,6 +157,21 @@
 		.always(function() {
 			console.log("complete");
 		});
-		e.preventDefault();
 	});
+	$(document).on('click','#btn-submit',function(e){
+		$('#staticBackdrop').modal('show');
+		
+		$('#btn-submit').prop('disabled', true);
+		$('#btn-submit').attr('aria-disabled', true);
+		$('#btn-submit').addClass('disabled');
+		$('#btn-submit').removeClass('hvr-btn');
+	});
+	// $(document).on('click','#btn-submit',function(e){
+	// 	$('#btn-submit').prop('disabled', true);
+	// 	$('#btn-submit').attr('aria-disabled', true);
+	// 	$('#btn-submit').addClass('disabled');
+	// 	$('#btn-submit').removeClass('hvr-btn');
+		
+	// 	e.preventDefault();
+	// });
 </script>

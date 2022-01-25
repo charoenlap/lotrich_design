@@ -352,6 +352,7 @@
 							$date_close = $category->row['date_close'];
 							$date = date_create($date_close);
 							$date = date_format($date,"Y-m-d");
+							// var_dump($number);exit();
 							foreach($number as $num){
 								//LEFT JOIN b_block_number_detail ON b_block_number.id_condition_detail = b_block_number_detail.id
 								$sql_block_number = "SELECT * FROM b_block_number 

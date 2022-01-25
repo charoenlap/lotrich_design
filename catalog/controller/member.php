@@ -406,6 +406,7 @@
 							// var_dump($id_type);
 							$number = array_unique($number);
 							sort($number);
+							// var_dump($number);exit();
 							$id_category = decrypt(post('id_category'));
 							$id_package = decrypt(post('id_package'));
 
