@@ -419,17 +419,25 @@
 	var count_box = 1;
 	$(document).on('click','.btn-input-number',function(e){
 		var no = $(this).attr('data-input');
+		var countInput = $('.p-btn-no').not(".d-none").length;
+		// console.log(countInput);
 		if(no=="<"){
 			count_box--;
 			$('#for-'+count_box+'-digit .input-number').val('');
 		}else{
 			$('#for-'+count_box+'-digit .input-number').val(no);
-			count_box++;
+			if(count_box==countInput){
+				count_box = 1;
+				$('#btn-add-lotto').click();
+				// $.each('.input-number', function(index, val) {
+				// 	 $(this).val('');
+				// });
+			}else{
+				count_box++;
+			}
+
 		}
 		$( ".p-btn-no.d-none" ).find('input').val('');
-	});
-	$(document).on('click','.btn-input-number',function(e){
-
 	});
 	function sum_cal(){
 		var sum_cal = 0;
@@ -724,11 +732,16 @@
 								$('#table-lotto-'+type.id_type+'  tbody:last-child').append(html);
 								$('.panel-lotto-'+type.id_type).removeClass('d-none');
 						// });
+
 					});
-					
-					$( ".input-number" ).each(function( index ) {
-					  $(this).val("");
-					});
+
+					// $('#table-lotto-'+id_type+' tbody').html(sorted);
+					sortTable($('#table-lotto-'+id_type),'asc');
+					if($( ".input-number" ).length){
+						$(".input-number").each(function() {
+						  $(this).val('');
+						})
+					}
 					$('#price').val('');
 					sum_cal();
 				}
@@ -844,6 +857,12 @@
 									$('.panel-lotto-'+type.id_type).removeClass('d-none');
 							// });
 							});
+							// $.each(id_type_loop, function(index, val) {
+							// 	sortTable($('#table-lotto-'+val),'asc');
+							// });
+							// $( id_type ).each(function( index,id ) {
+								sortTable($('#table-lotto-'+id),'asc');
+							// });
 							sum_cal();
 						}
 					})
@@ -854,6 +873,8 @@
 						// console.log("complete");
 					});
 				});
+				// console.log(id_type);
+				
 			});
 		}
 		// e.preventDefault();
@@ -862,11 +883,23 @@
 		e.preventDefault();
 	});
 	$(document).on('click','#btn-clean-check',function(e){
-	// 	if($(this).is(':checked')){
 		$('.chkType').prop('checked', false);
 		e.preventDefault();
-	// 	}
 	});
+	function sortTable(table, order) {
+	    var asc   = order === 'asc',
+	        tbody = table.find('tbody');
+	    if(tbody.find('tr').length > 1 ){
+		    tbody.find('tr').sort(function(a, b) {
+		        if (asc) {
+		        	console.log()
+		            return $('td:first', a).text().localeCompare($('td:first', b).text());
+		    } else {
+		        return $('td:first', b).text().localeCompare($('td:first', a).text());
+		    }
+		    }).appendTo(tbody);
+		}
+	}
 </script>
 <style>
 	input[type^='radio'] {
