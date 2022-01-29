@@ -59,41 +59,38 @@
 <div class="card">
 	<div class="card-body">
 		<div class="container">
-			<div class="row mt-4 table-responsive">
-				
+			<div class="row mt-4">
+				<div class="table-responsive-xl" style="max-width:1200px;width:1200px;overflow-y: scroll;">
 					<?php $all_sum = 0; ?>
-					
-							<?php foreach($result as $val){ ?>
-								<div class="col-2">
-									<b><?php echo $val['name'];?></b>
-									<table class="myTable">
-										<thead>
-											<th>ตัวเลข</th>
-											<th>ราคา</th>
-										</thead>
-										<tbody>
-										<?php 
-											$sum = 0; 
-											foreach($val['list'] as $v){ 
-												$sum+=$v['sum_price']; ?>
-												
-														<tr>
-															<td>
-																<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>">
-																	<?php echo $v['number'];?>
-																</a>
-															</td>
-															<td>
-																<?php echo $v['sum_price'];?>
-															</td>
-														</tr>
-													
-											<?php } ?>
-										</tbody>
-									</table>
-								</div>
-							<?php } ?>
-
+					<?php foreach($result as $val){ ?>
+						<div class="" style="width:110px;float:left;">
+							<b><?php echo $val['name'];?></b>
+							<table class="myTable table-striped table">
+								<thead>
+									<th>เลข</th>
+									<th>ราคา</th>
+								</thead>
+								<tbody>
+								<?php 
+									$sum = 0; 
+									foreach($val['list'] as $v){ 
+										$sum+=$v['sum_price']; ?>
+										<tr>
+											<td>
+												<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>">
+													<?php echo $v['number'];?>
+												</a>
+											</td>
+											<td>
+												<?php echo $v['sum_price'];?>
+											</td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					<?php } ?>
+				</div>
 			</div>
 			<!-- <div class="row">
 				<div class="col-12">

@@ -370,16 +370,18 @@
 								// $price = 1 * $condition / 100;
 								
 								// var_dump($query->rows);
-								$result[] = array(
-									'ratio'		=> number_format($ratio,2),
-									'type'		=> $query->row['type_name'],
-									'number'	=> str_pad($num,$query->row['digit'],"0", STR_PAD_LEFT),
-									'price'		=> 1,
-									'id_type'	=> $query->row['id'],
-									'paid'		=> number_format($paid,2),
-									'limit_number'=> $limit_number,
-									'digit'		=> $query->row['digit']
-								);
+								if($paid){
+									$result[] = array(
+										'ratio'		=> number_format($ratio,2),
+										'type'		=> $query->row['type_name'],
+										'number'	=> str_pad($num,$query->row['digit'],"0", STR_PAD_LEFT),
+										'price'		=> 1,
+										'id_type'	=> $query->row['id'],
+										'paid'		=> number_format($paid,2),
+										'limit_number'=> $limit_number,
+										'digit'		=> $query->row['digit']
+									);
+								}
 							}
 						}
 					}
@@ -495,7 +497,7 @@
 				}else{
 					$result = array(
 						'status' 	=> 'failed',
-						'desc'	=> 'ไม่พบการแทง หรือตัวเลข ของท่าน ไม่สามารถแทง ด้วยราคานี้ได้ หากต้องการข้อมูลเพิ่มเติมกรุณาติดต่อเจ้าหน้าที่'
+						'desc'	=> 'ไม่พบการแทง หรือตัวเลข ของท่าน ไม่สามารถแทง ด้วยราคานี้ได้'
 					);
 				}
 			}

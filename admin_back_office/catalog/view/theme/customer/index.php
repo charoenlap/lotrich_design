@@ -15,6 +15,7 @@
 								<th>ชื่อลูกค้า</th>
 								<th>ติดต่อ</th>
 								<th>ธนาคาร</th>
+								<th>ธนาคาร(สำรอง)</th>
 								<th>ยอดเงินคงเหลือ</th>
 								<th class="text-center" width="10%"></th>
 							</tr>
@@ -39,6 +40,10 @@
 										<td>
 											<div><?php echo $val['bank_no'];?></div>
 											<div><?php echo $val['bank_name'];?></div>
+										</td>
+										<td>
+											<div><?php echo $val['bank_no_2'];?></div>
+											<div><?php echo $val['bank_name_2'];?></div>
 										</td>
 										<td><?php echo $val['balance'];?></td>
 										<td class="text-center">

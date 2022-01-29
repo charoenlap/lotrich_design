@@ -520,6 +520,7 @@
 				$('.toast-body').html(result.desc + text_result_detail);
 				$('.toast-body').addClass('text-danger');
 				$('.toast-body').removeClass('text-success');
+				$('#toast').toast({delay: 1500});
 				$('#toast').toast('show');
 				console.log(result.list_lotto_not_buy);
 				console.log(result.list_lotto_not_buy_limit_type);
@@ -538,6 +539,7 @@
 					text_result_detail += val+ " ไม่สามารถแทงได้ ยอดรวมของเลขนี้ เกินกำหนด<br>"
 				});
 				$('.toast-body').text(result.desc);
+				$('#toast').toast({delay: 1500});
 				$('#toast').toast('show');
 				$('#table-lotto tbody tr').remove();
 
@@ -711,11 +713,13 @@
 					$('.toast-body').text(result.desc);
 					$('.toast-body').addClass('text-danger');
 					$('.toast-body').removeClass('text-success');
+					$('#toast').toast({delay: 1500});
 					$('#toast').toast('show');
 				}else{
 					$('.toast-body').removeClass('text-danger');
 					$('.toast-body').addClass('text-success');
 					$('.toast-body').text(result.desc);
+					$('#toast').toast({delay: 1500});
 					$('#toast').toast('show');
 
 					$( result.data ).each(function( index,type ) {
@@ -835,11 +839,13 @@
 							$('.toast-body').text(result.desc);
 							$('.toast-body').addClass('text-danger');
 							$('.toast-body').removeClass('text-success');
+							$('#toast').toast({delay: 1500});
 							$('#toast').toast('show');
 						}else{
 							$('.toast-body').removeClass('text-danger');
 							$('.toast-body').addClass('text-success');
 							$('.toast-body').text(result.desc);
+							$('#toast').toast({delay: 1500});
 							$('#toast').toast('show');
 
 							$( result.data ).each(function( index,type ) {
