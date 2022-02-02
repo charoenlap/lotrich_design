@@ -60,7 +60,7 @@
 	<div class="card-body">
 		<div class="container">
 			<div class="row mt-4">
-				<div class="table-responsive-xl" style="max-width:1200px;width:1200px;overflow-y: scroll;">
+				<div class="" style="max-width:1300px;width:1300px;overflow: scroll;">
 					<?php $all_sum = 0; ?>
 					<?php foreach($result as $val){ ?>
 						<div class="" style="width:150px;float:left;border:solid 1px #000;">

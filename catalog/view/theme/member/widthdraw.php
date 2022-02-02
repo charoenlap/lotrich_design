@@ -121,6 +121,17 @@
 	$(document).on('click','#btn-confirm-submit',function(e){
 		$(this).prop('disabled', true);
 		$(this).attr('aria-disabled', true);
+		
+	});
+	$(document).on('click','#btn-submit',function(e){
+		// $('#staticBackdrop').modal('show');
+		
+		
+		$('#btn-submit').prop('disabled', true);
+		$('#btn-submit').attr('aria-disabled', true);
+		$('#btn-submit').addClass('disabled');
+		$('#btn-submit').removeClass('hvr-btn');
+
 		$.ajax({
 			url: 'index.php?route=member/submitWidthdraw',
 			type: 'POST',
@@ -157,14 +168,6 @@
 		.always(function() {
 			console.log("complete");
 		});
-	});
-	$(document).on('click','#btn-submit',function(e){
-		$('#staticBackdrop').modal('show');
-		
-		$('#btn-submit').prop('disabled', true);
-		$('#btn-submit').attr('aria-disabled', true);
-		$('#btn-submit').addClass('disabled');
-		$('#btn-submit').removeClass('hvr-btn');
 	});
 	// $(document).on('click','#btn-submit',function(e){
 	// 	$('#btn-submit').prop('disabled', true);

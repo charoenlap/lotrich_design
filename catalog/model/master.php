@@ -70,21 +70,30 @@
 				$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0 ORDER BY `order_by` ASC";
 				$category = $this->query($sql)->rows;
 				$last_date = '';
+				// echo "<pre>";
+				// var_dump($category);exit();
 				foreach($category as $val){
 					$sub = array();
-					$sql_last_date = "SELECT * FROM b_result WHERE id_cate_type = '".$val['id']."' ORDER BY date ASC limit 0,1";
-					$query_last_date = $this->query($sql_last_date);
-					if($query_last_date->num_rows){
-						$last_date = $query_last_date->row['date'];
-					}
+					// $sql_last_date = "SELECT * FROM b_result WHERE id_cate_type = '".$val['id']."' ORDER BY date DESC limit 0,1";
+					// $query_last_date = $this->query($sql_last_date);
+					// if($query_last_date->num_rows){
+					// 	$last_date = $query_last_date->row['date'];
+					// }
 
 					$sql_sub = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = '".$val['id']."'";
 					$category_sub = $this->query($sql_sub)->rows;
 					$result_cate_sub = array();
 					foreach($category_sub as $cs){
+
+						$result_date_cate = '';
+						$sql_date = "SELECT * FROM b_result WHERE `id_category` = '".$val['id']."' ORDER BY `date` DESC LIMIT 0,1";
+						$query_date = $this->query($sql_date);
+						if($query_date->num_rows){
+							$result_date_cate = $query_date->row['date'];
+						}
 						$sql_sub_in = "SELECT * FROM b_category_type 
 						LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
-						LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
+						LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$result_date_cate."') result ON result.id_cate_type = b_category_type.id 
 						WHERE `status`=0 
 						AND result.id_category = '".$cs['id']."' 
 						ORDER BY b_category_type.`order` ASC";
@@ -105,8 +114,14 @@
 						);
 					}
 					$type = array();
+					$result_date_cate = '';
+					$sql_date = "SELECT * FROM b_result WHERE `id_category` = '".$val['id']."' ORDER BY `date` DESC LIMIT 0,1";
+					$query_date = $this->query($sql_date);
+					if($query_date->num_rows){
+						$result_date_cate = $query_date->row['date'];
+					}
 					$sql_sub = "SELECT *,b_type.type AS type FROM b_category_type 
-					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
+					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$result_date_cate."') result ON result.id_cate_type = b_category_type.id 
 					LEFT JOIN b_type ON b_type.id = result.id_type
 					WHERE `status`=0 
 					AND result.id_category = '".$val['id']."' 
@@ -126,7 +141,7 @@
 						'type'			=> $type,
 						'date_close' 	=> $val['date_close'],
 						'column' 		=> $val['column'],
-						'last_date' 	=> $val['date_close'],//$last_date,
+						'last_date' 	=> $result_date_cate,//$last_date,
 						'diff_date'		=> $result_diff
 					);
 				}

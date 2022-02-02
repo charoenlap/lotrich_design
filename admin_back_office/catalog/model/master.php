@@ -393,7 +393,7 @@
 			}
 
 			$type=array();
-			$sql_all_category = "SELECT * FROM b_type";
+			$sql_all_category = "SELECT * FROM b_type WHERE `sort` IS NOT NULL ORDER BY `sort` ASC ";
 			$result_category = $this->query($sql_all_category);
 			if($result_category->num_rows){
 				foreach($result_category->rows as $val){

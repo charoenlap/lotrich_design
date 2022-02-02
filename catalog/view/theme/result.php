@@ -22,8 +22,8 @@
 		</div>
 	</div>
 	<div class="row mt-4 panel-result" >
-	<?php foreach($category as $val){ ?>
-			<?php 
+	<?php foreach($category as $val){ 
+			if($val['id']==24){ continue; }
 			$class_col_cate = 'col-md-12';
 			if($val['column']==1){
 				$class_col_cate = 'col-md-12';
