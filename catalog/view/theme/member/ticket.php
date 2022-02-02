@@ -67,6 +67,9 @@
 						<div class="col-xs-12 col-sm-12">
 							<div class="form-group">
 								<h4>รหัสโพย: <?php echo $val['id']; ?></h4>
+								<div>
+									<b class="text-danger">(ส่วนลด <span class=""><?php echo $val['discount'];?>%</span>)</b>
+								</div>
 								สร้างเมื่อ: <?php echo $val['date_create']; ?>
 							</div>
 						</div>
@@ -75,31 +78,35 @@
 						<div class="col-4">
 							<h3><?php echo $val['name']; ?></h3>
 						</div>
-						<div class="col-4 text-center">
-							เงินเดิมพันรวม <span class=""><?php echo $val['total'];?></span>
+						<div class="col-4 text-right">
+							<div>
+								เดิมพันรวม <span class=""><?php echo $val['total'];?></span>
+							</div>
 						</div>
 						<div class="col-4 text-center">
 							ผลแพ้ชนะรวม <span class="text-<?php echo ((int)$val['receive']>0?'success':'danger');?>"><?php echo number_format($val['receive'],2);?></span>
 						</div>
 					</div>
-					<?php 
-					$i=1;
-					foreach($val['lotto'] as $key => $val_sub){ ?>
-					<div class="row">
-						<div class="col-4">
-							<h3><?php echo $val_sub['number'];?></h3>
-							<p><?php echo $val_sub['type'];?></p>
+					<div class="panel-table">
+						<?php 
+						$i=1;
+						foreach($val['lotto'] as $key => $val_sub){ ?>
+						<div class="row">
+							<div class="col-4">
+								<h3 class="text-center"><?php echo $val_sub['number'];?></h3>
+								<p class="text-center"><?php echo $val_sub['type'];?></p>
+							</div>
+							<div class="col-4 text-center ">
+								เงินเดิมพัน
+								<p><?php echo number_format($val_sub['price'],2);?></p>
+							</div>
+							<div class="col-4 text-center ">
+								ผลแพ้ชนะ
+								<p><?php echo number_format($val_sub['receive'],2);?></p>
+							</div>
 						</div>
-						<div class="col-4 text-center ">
-							เงินเดิมพัน
-							<p><?php echo number_format($val_sub['price'],2);?></p>
-						</div>
-						<div class="col-4 text-center ">
-							ผลแพ้ชนะ
-							<p><?php echo number_format($val_sub['receive'],2);?></p>
-						</div>
+						<?php } ?>
 					</div>
-					<?php } ?>
 	    		</div>
 	    	</div>
 		</div>
@@ -119,3 +126,14 @@
 
   });
   </script>
+  <style>
+  	.panel-table .row:nth-child(odd) {
+		background-color: #f2f2f2;
+	}
+	.panel-table .row {
+		padding-top: 10px; 
+	}
+	.panel-table .row h3 {
+		margin-bottom:0px;
+	}
+  </style>

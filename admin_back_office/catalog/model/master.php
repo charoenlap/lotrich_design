@@ -501,7 +501,12 @@
 		public function addType($data=array(),$date='',$id_category=0){
 			if($date){
 				$result = array();
-				$query = $this->query("DELETE FROM b_result WHERE `date`= '".$date."'");
+				foreach($data as $key => $val){
+					$query = $this->query("DELETE FROM b_result 
+						WHERE `date`= '".$date."' 
+						AND id_category = '".$id_category."'
+						AND id_type = '".$key."'");
+				}
 				foreach($data as $key => $val){
 					
 					$arr = array(

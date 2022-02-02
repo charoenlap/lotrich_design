@@ -418,6 +418,7 @@
 						'date_create'=> $val['date_create'],
 						'total'		=> $val['total'],
 						'receive'	=> $val['receive'],
+						'discount'	=> $val['discount'],
 						'lotto' 	=> $query_lotto->rows
 					);
 				}
@@ -428,7 +429,7 @@
 			}
 			return $result;
 		}
-		public function addLotto($data=array(),$id_user=0,$id_category=0,$sum_price=0){
+		public function addLotto($data=array(),$id_user=0,$id_category=0,$sum_price=0,$discount){
 			$result = array(
 				'status' 	=> 'failed',
 				'desc'		=> 'Not login'
@@ -455,7 +456,8 @@
 									'date_create' 	=> date('Y-m-d H:i:s'),
 									'total'			=> $sum_price,
 									'receive'		=> 0,
-									'date_close'	=> $date_close
+									'date_close'	=> $date_close,
+									'discount'		=> $discount
 								);
 								$id_bill = $this->insert("lotto_bill",$arr);
 								foreach($lotto as $val){

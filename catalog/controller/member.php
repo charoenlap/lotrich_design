@@ -75,7 +75,6 @@
 			    	
 
 			    	if(!empty($id_package)){
-
 				    	$data['title'] = "lottery";
 				    	$data['descreption'] = "";
 				    	$data['balance'] 	= $this->model('finance')->getBalance($id_user);
@@ -543,7 +542,7 @@
 			    		$sum_price = $sum_price - ($sum_price*$discount/100);
 						
 			    		if($sum_price<=$balance){
-			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price);
+			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price,$discount);
 			    			if($result_add_lotto['status']=="success"){
 				    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
 					    		$this->setSession('lotto',array());
