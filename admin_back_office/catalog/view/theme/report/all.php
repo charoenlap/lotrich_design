@@ -63,9 +63,9 @@
 				<div class="table-responsive-xl" style="max-width:1200px;width:1200px;overflow-y: scroll;">
 					<?php $all_sum = 0; ?>
 					<?php foreach($result as $val){ ?>
-						<div class="" style="width:110px;float:left;">
-							<b><?php echo $val['name'];?></b>
-							<table class="myTable table-striped table">
+						<div class="" style="width:150px;float:left;border:solid 1px #000;">
+							<div class="text-center" style="padding:3px;background:#e3e3e3;"><b><?php echo $val['name'];?></b></div>
+							<table class="myTable table-striped table" style="">
 								<thead>
 									<th>เลข</th>
 									<th>ราคา</th>

@@ -83,7 +83,15 @@
 	  <div class="toast-body"></div>
 	</div>
 </div>
-
+<link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+        $(".datetimepicker").datepicker({ 
+        	format: 'yyyy-mm-dd' 
+        });
+    });
+</script>
 <script>
 	$(document).on('click','.btn-transection',function(e){
 		var ele = $(this);

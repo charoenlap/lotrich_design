@@ -64,19 +64,21 @@
 	    	<div class="card mb-4">
 	    		<div class="card-body">
 	    			<div class="row pt-4" style="border-top:solid 1px #3e3e3e;">
-						<div class="col-xs-12 col-sm-12">
+						<div class="col-xs-6 col-sm-6">
 							<div class="form-group">
+								<h3>
+									<?php echo $val['name']; ?>
+								</h3>
 								<h4>รหัสโพย: <?php echo $val['id']; ?></h4>
-								<div>
-									<b class="text-danger">(ส่วนลด <span class=""><?php echo $val['discount'];?>%</span>)</b>
-								</div>
-								สร้างเมื่อ: <?php echo $val['date_create']; ?>
 							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6 text-right">
+							สร้างเมื่อ: <?php echo $val['date_create']; ?>
 						</div>
 					</div>
 					<div class="row" >
-						<div class="col-4">
-							<h3><?php echo $val['name']; ?></h3>
+						<div class="col-4 text-center">
+							<b class="text-danger">(ส่วนลด <span class=""><?php echo $val['discount'];?>%</span>)</b>
 						</div>
 						<div class="col-4 text-right">
 							<div>

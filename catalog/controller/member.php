@@ -6,23 +6,30 @@
 				$id_lotto = get('id');
 		    	$id_lotto = decrypt($id_lotto);
 
-				$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id_lotto));
-				if($result_lock){
-					$data = array();
-			    	$data['title'] = "Package";
-			    	$data['descreption'] = "";
-			    	// $data['balance'] 	= $this->model('finance')->getBalance($id_user);
-			    	
-			    	
-			    	$data['id_lotto'] = $id_lotto;
-			    	// echo $id_lotto.'<';
-			    	$data['link_lotto'] = route('member/lotteryNew');
-			    	$data['package'] = $this->model('master')->getPackage($id_lotto);
-			    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
-		 	    	$this->view('member/package',$data);  
-		 	    }else{
-		 	    	redirect('member/dashboard'); 
-		 	    }
+		    	$id_round = (int)get('id_round');
+		    	if($id_lotto=="24"){
+		    		if(empty($id_round)){
+		    			redirect('yeekee');
+		    		}
+		    	}else{
+					$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id_lotto));
+					if($result_lock){
+						$data = array();
+				    	$data['title'] = "Package";
+				    	$data['descreption'] = "";
+				    	// $data['balance'] 	= $this->model('finance')->getBalance($id_user);
+				    	
+				    	
+				    	$data['id_lotto'] = $id_lotto;
+				    	// echo $id_lotto.'<';
+				    	$data['link_lotto'] = route('member/lotteryNew');
+				    	$data['package'] = $this->model('master')->getPackage($id_lotto);
+				    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
+			 	    	$this->view('member/package',$data);  
+			 	    }else{
+			 	    	redirect('member/dashboard'); 
+			 	    }
+			 	}
 	 	    }else{
 	 	    	redirect('login'); 
 	 	    }
