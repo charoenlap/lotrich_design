@@ -29,7 +29,7 @@
 						<table class="table table-striped" id="table-package">
 							<thead>
 								<th>เลือกแพคเกจ</th>
-								<th colspan="2" class="text-end">
+								<th colspan="3" class="text-end">
 									<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropPackage">จัดการแพคเกจ</a>
 								</th>
 							</thead>
@@ -48,6 +48,13 @@
 									<td>
 										<label for="id_package_<?php echo $val['id'];?>">
 											<?php echo $val['name'];?></label>
+									</td>
+									<td>
+										<label for="id_package_<?php echo $val['id'];?>">
+											<input type="text" class="form-control edit-discount-package" 
+											package-id="<?php echo $val['id'];?>"
+											value="<?php echo $val['discount'];?>" style="width:50px;">
+										</label>
 									</td>
 									<td class="text-end">
 										<a href="#" class="btn btn-danger btn-del-package" 
@@ -475,6 +482,9 @@
 
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<link href="assets/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet">
+<script src="assets/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript">
 	$(document).on('change','.txt-change-date',function(e){
 		var ele = $('#date-start-end');
@@ -1240,6 +1250,11 @@
         $(".datetimepicker").datepicker({ 
         	format: 'yyyy-mm-dd' 
         });
+        $('.txt-change-date').datetimepicker({
+        	// value:'2015/04/15 05:03', 
+        	format:'Y-m-d H:i:00',
+        	step:15
+        });
         // $(".dateandtimepicker").datetimepicker({
               // viewMode: 'years',
               // format: 'yyyy-mm-dd hh:ii:ss'
@@ -1338,6 +1353,42 @@
 				$('#toast').toast('show');
 			}
 			ele.parents('tr').remove();
+			e.preventDefault();
+    	})
+    	.fail(function() {
+    		console.log("error");
+    	})
+    	.always(function() {
+    		console.log("complete");
+    	});
+    	e.preventDefault();
+    });
+    $(document).on('keyup','.edit-discount-package',function(e){
+    	var package_id = $(this).attr('package-id');
+    	var val = $(this).val();
+    	console.log('package_id'+package_id);
+    	console.log('val'+val);
+    	$.ajax({
+    		url: 'index.php?route=lotto/editDiscountPackage',
+    		type: 'POST',
+    		dataType: 'json',
+    		data: {
+    			id: package_id,
+    			val: val
+    		},
+    	})
+    	.done(function(result) {
+    		if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
 			e.preventDefault();
     	})
     	.fail(function() {
