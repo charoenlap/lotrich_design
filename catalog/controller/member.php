@@ -476,6 +476,7 @@
 		    		$id_category 					= decrypt(post('id_category'));
 		    		$id_package 					= decrypt(post('id_package'));
 		    		$sum_price  					= 0;
+		    		$sum_price_run_number  			= 0;
 		    		$balance 						= $this->model('finance')->getBalance($id_user);
 
 		    		$arr_select = array(
@@ -484,6 +485,12 @@
 		    		$result_check_closed = $this->model('lotto')->checkTimeover($arr_select);
 		    		
 		    		if($result_check_closed){
+		    			$select_discount = array(
+			    			'id_category' => $id_category,
+							'id_package' => $id_package
+			    		);
+			    		$discount 				= (float)$this->model('lotto')->getDiscount($select_discount);
+
 			    		foreach($id_type as $key => $val){
 			    			// echo $key.'/';
 			    			// if(isset($price[$key])){
@@ -516,7 +523,16 @@
 												'type' 		=> $result_ratio['type'],
 												'status'	=> 0
 							    			);
-							    			$sum_price += (float)$price[$key];
+							    			if($discount>0){
+								    			// เลขวิ่ง
+								    			if($val == 35 OR $val == 36){
+								    				$sum_price_run_number += (float)$price[$key];
+								    			}else{
+								    				$sum_price += (float)$price[$key];
+								    			}
+								    		}else{
+								    			$sum_price += (float)$price[$key];
+								    		}
 							    		}else{
 							    			$list_lotto_not_buy_total_over[] = array(
 							    				'desc'		=> 'checkPriceCustomerOver',
@@ -540,14 +556,17 @@
 					    		}
 			    			// }
 			    		}
-			    		$select_discount = array(
-			    			'id_category' => $id_category,
-							'id_package' => $id_package
-			    		);
-			    		$discount = (float)$this->model('lotto')->getDiscount($select_discount);
+			    		
+			    		
 
-			    		$sum_price = $sum_price - ($sum_price*$discount/100);
+			    		$sum_price 				= $sum_price - ($sum_price*$discount/100);
+			    		if($sum_price_run_number){
+			    			$discount_run_number 	= (float)$this->model('lotto')->getDiscountRunNumber($select_discount);
+				    		$sum_price_run_number	= $sum_price_run_number - ($sum_price_run_number*$discount_run_number/100);
+				    		$sum_price = $sum_price + $sum_price_run_number;
+				    	}
 						
+
 			    		if($sum_price<=$balance){
 			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price,$discount);
 			    			if($result_add_lotto['status']=="success"){

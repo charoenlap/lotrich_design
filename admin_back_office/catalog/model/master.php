@@ -632,6 +632,20 @@
 			}
 			return $result;	
 		}
+		public function editNamePackage($id=0,$var=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			$sql = "UPDATE b_package SET `name` = '".$var."' WHERE id=".(int)$id;
+			// echo $sql
+			$result = $this->query($sql);
+			if($result){
+				$result = array(
+					'result' => 'success'
+				);
+			}
+			return $result;	
+		}
 		public function getBlockNo(){
 			$result = array();
 			$sql = "SELECT * FROM b_block_number_detail";

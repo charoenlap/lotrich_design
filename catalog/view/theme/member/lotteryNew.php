@@ -606,6 +606,11 @@
 		e.preventDefault();
 	});
 	$(document).on('click','.chkType',function(e){
+		// $.each(".rdoType", function(index, val) {
+			 $('.rdoType').attr("checked", false);
+			 $('.rdoType').removeAttr("checked");
+		// })
+		console.log('remove rdo');
 		count_box = 1;
 		var ele = $(this);
 		var chkType = $(this).attr('data-chkType');
@@ -669,6 +674,7 @@
 			$('#sub_panel_fixed_2').addClass('d-none');
 			$('#sub_panel_fixed_3').addClass('d-none');
 		}
+
 	});
 	$(document).on('click','#btn-add-lotto',function(e){
 		count_box=1;

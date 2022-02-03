@@ -93,10 +93,11 @@
 						}
 						$sql_sub_in = "SELECT * FROM b_category_type 
 						LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
-						LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$result_date_cate."') result ON result.id_cate_type = b_category_type.id 
+						LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$result_date_cate."') result 
+							ON result.id_category = b_category_type.id_category AND result.id_type = b_category_type.id_type
 						WHERE `status`=0 
 						AND result.id_category = '".$cs['id']."' 
-						ORDER BY b_category_type.`order` ASC";
+						ORDER BY b_type.`sort` ASC";
 						$type_sub = $this->query($sql_sub_in)->rows;
 
 						$date1			= date_create_from_format("Y-m-d H:i:s",date("Y-m-d H:i:s"));
@@ -121,11 +122,12 @@
 						$result_date_cate = $query_date->row['date'];
 					}
 					$sql_sub = "SELECT *,b_type.type AS type FROM b_category_type 
-					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$result_date_cate."') result ON result.id_cate_type = b_category_type.id 
+					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$result_date_cate."') result 
+						ON result.id_category = b_category_type.id_category AND result.id_type = b_category_type.id_type
 					LEFT JOIN b_type ON b_type.id = result.id_type
 					WHERE `status`=0 
 					AND result.id_category = '".$val['id']."' 
-					ORDER BY b_category_type.`order` ASC";
+					ORDER BY b_type.`sort` ASC";
 					$type = $this->query($sql_sub)->rows;
 
 					$date1			= date_create_from_format("Y-m-d H:i:s",date("Y-m-d H:i:s"));

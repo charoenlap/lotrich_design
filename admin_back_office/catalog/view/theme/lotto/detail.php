@@ -28,8 +28,7 @@
 					<div class="col-md-5">
 						<table class="table table-striped" id="table-package">
 							<thead>
-								<th>เลือกแพคเกจ</th>
-								<th colspan="3" class="text-end">
+								<th colspan="10" class="text-end">
 									<a href="" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropPackage">จัดการแพคเกจ</a>
 								</th>
 							</thead>
@@ -47,7 +46,10 @@
 									</td>
 									<td>
 										<label for="id_package_<?php echo $val['id'];?>">
-											<?php echo $val['name'];?></label>
+											<input type="text" class="form-control edit-name-package" 
+											package-id="<?php echo $val['id'];?>"
+											value="<?php echo $val['name'];?>" style="width:150px;">
+										</label>
 									</td>
 									<td>
 										<label for="id_package_<?php echo $val['id'];?>">
@@ -1370,6 +1372,42 @@
     	console.log('val'+val);
     	$.ajax({
     		url: 'index.php?route=lotto/editDiscountPackage',
+    		type: 'POST',
+    		dataType: 'json',
+    		data: {
+    			id: package_id,
+    			val: val
+    		},
+    	})
+    	.done(function(result) {
+    		if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
+			e.preventDefault();
+    	})
+    	.fail(function() {
+    		console.log("error");
+    	})
+    	.always(function() {
+    		console.log("complete");
+    	});
+    	e.preventDefault();
+    });
+    $(document).on('keyup','.edit-name-package',function(e){
+    	var package_id = $(this).attr('package-id');
+    	var val = $(this).val();
+    	console.log('package_id'+package_id);
+    	console.log('val'+val);
+    	$.ajax({
+    		url: 'index.php?route=lotto/editNamePackage',
     		type: 'POST',
     		dataType: 'json',
     		data: {

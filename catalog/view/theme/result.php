@@ -43,6 +43,10 @@
 								<?php 
 									if(empty($val['sub'])){
 										// var_dump($val['type']);
+										// 2 6 3
+										// 7 33 4
+										// 35 36
+										$class = "";
 										foreach($val['type'] as $type){
 											if($type['column']==1){
 												$class="col-12";

@@ -11,6 +11,15 @@
 			}
 			return $result;
 		}
+		public function getDiscountRunNumber($data=array()){
+			$result = 0;
+			$sql = "SELECT * FROM b_setting WHERE `name` = 'discount_run_number'";
+			$query = $this->query($sql);
+			if($query->num_rows){
+				$result = $query->row['val'];
+			}
+			return $result;
+		}
 		public function checkTimeover($data=array()){
 			$result = false;
 			$id_category = $data['id_category'];
