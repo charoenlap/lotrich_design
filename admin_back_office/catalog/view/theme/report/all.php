@@ -86,6 +86,9 @@
 											</td>
 										</tr>
 									<?php } ?>
+										<tr>
+											<td colspan="2" class="text-center"><b><?php echo number_format($sum,2);?></b></td>
+										</tr>
 								</tbody>
 							</table>
 						</div>

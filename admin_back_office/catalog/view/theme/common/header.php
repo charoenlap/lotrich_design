@@ -17,7 +17,7 @@ if (!isset($_SESSION['id_admin'])) {
   <meta name="robots" content="noindex, nofollow">
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" >
   <link href="assets/css/sidebar.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/main.css?time=<?php echo time();?>" rel="stylesheet">
   <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
   
   <?php if(isset($style)){ 
