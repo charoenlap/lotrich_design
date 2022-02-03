@@ -439,6 +439,28 @@
 			}
 			echo json_encode($result);
 		}
+		public function editDiscountRunNoPackage(){
+			$result = array(
+				'status' => 'failed'
+			);
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				if(method_post()){
+					$id 		= post('id');
+					$val 		= post('val');
+					$result 	= $this->model('master')->editDiscountRunNoPackage($id,$val);
+					$result = array(
+						'status' => 'success'
+					);
+				}
+			}else{
+				$result = array(
+					'status' => 'failed',
+					'desc'	=> 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง'
+				);
+			}
+			echo json_encode($result);
+		}
 		public function editNamePackage(){
 			$result = array(
 				'status' => 'failed'

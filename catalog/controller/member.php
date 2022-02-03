@@ -561,6 +561,10 @@
 
 			    		$sum_price 				= $sum_price - ($sum_price*$discount/100);
 			    		if($sum_price_run_number){
+			    			$select_discount = array(
+				    			'id_category' => $id_category,
+								'id_package' => $id_package
+				    		);
 			    			$discount_run_number 	= (float)$this->model('lotto')->getDiscountRunNumber($select_discount);
 				    		$sum_price_run_number	= $sum_price_run_number - ($sum_price_run_number*$discount_run_number/100);
 				    		$sum_price = $sum_price + $sum_price_run_number;

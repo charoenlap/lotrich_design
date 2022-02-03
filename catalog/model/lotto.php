@@ -13,10 +13,12 @@
 		}
 		public function getDiscountRunNumber($data=array()){
 			$result = 0;
-			$sql = "SELECT * FROM b_setting WHERE `name` = 'discount_run_number'";
+			$id_category = (int)$data['id_category'];
+			$id_package  = (int)$data['id_package'];
+			$sql = "SELECT * FROM b_package WHERE id = ".$id_package." AND id_category = ".$id_category;
 			$query = $this->query($sql);
 			if($query->num_rows){
-				$result = $query->row['val'];
+				$result = $query->row['diccount_run_no'];
 			}
 			return $result;
 		}

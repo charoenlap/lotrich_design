@@ -34,8 +34,8 @@
 							</thead>
 							<tbody>
 								<?php $i=0;foreach($listPackage as $val){?>
-								<tr>
-									<td>
+								<tr >
+									<td >
 										<input type="radio" 
 											name="id_package" 
 											class="rdoPackage"
@@ -44,19 +44,31 @@
 											<?php echo ($val['id']==$id_package?'checked':'');?>
 											<?php //echo ($i==$id_package?'checked':'');?> >
 									</td>
-									<td>
+									<td colspan="3">
 										<label for="id_package_<?php echo $val['id'];?>">
 											<input type="text" class="form-control edit-name-package" 
 											package-id="<?php echo $val['id'];?>"
-											value="<?php echo $val['name'];?>" style="width:150px;">
+											value="<?php echo $val['name'];?>" style="">
 										</label>
 									</td>
+									
+								</tr>
+								<tr>
 									<td>
+										ส่วนลด
 										<label for="id_package_<?php echo $val['id'];?>">
 											<input type="text" class="form-control edit-discount-package" 
 											package-id="<?php echo $val['id'];?>"
-											value="<?php echo $val['discount'];?>" style="width:50px;">
-										</label>
+											value="<?php echo $val['discount'];?>" style="width:50px;"> 
+										</label> %
+									</td>
+									<td>
+										ส่วนลดเลขวิ่ง 
+										<label for="id_package_<?php echo $val['id'];?>">
+											<input type="text" class="form-control edit-discount-run-number-package" 
+											package-id="<?php echo $val['id'];?>"
+											value="<?php echo $val['diccount_run_no'];?>" style="width:50px;">
+										</label> %
 									</td>
 									<td class="text-end">
 										<a href="#" class="btn btn-danger btn-del-package" 
@@ -1408,6 +1420,42 @@
     	console.log('val'+val);
     	$.ajax({
     		url: 'index.php?route=lotto/editNamePackage',
+    		type: 'POST',
+    		dataType: 'json',
+    		data: {
+    			id: package_id,
+    			val: val
+    		},
+    	})
+    	.done(function(result) {
+    		if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
+			e.preventDefault();
+    	})
+    	.fail(function() {
+    		console.log("error");
+    	})
+    	.always(function() {
+    		console.log("complete");
+    	});
+    	e.preventDefault();
+    });
+    $(document).on('keyup','.edit-discount-run-number-package',function(e){
+    	var package_id = $(this).attr('package-id');
+    	var val = $(this).val();
+    	console.log('package_id'+package_id);
+    	console.log('val'+val);
+    	$.ajax({
+    		url: 'index.php?route=lotto/editDiscountRunNoPackage',
     		type: 'POST',
     		dataType: 'json',
     		data: {
