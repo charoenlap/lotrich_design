@@ -43,7 +43,8 @@
 		// public function check
 		public function bankList($data = array()){
 			$result = array();
-			$sql = "SELECT *,b_bank_take.id as id FROM b_bank_take LEFT JOIN b_bank ON b_bank_take.id_bank = b_bank.id";
+			$sql = "SELECT *,b_bank_take.id as id,b_bank_take.name as `name`,b_bank.name as `bank` FROM b_bank_take 
+			LEFT JOIN b_bank ON b_bank_take.id_bank = b_bank.id";
 			$result = $this->query($sql);
 			return $result->rows;
 		}

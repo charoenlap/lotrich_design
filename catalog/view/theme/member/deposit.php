@@ -110,10 +110,12 @@
 	            					<img src="<?php echo $val['image']?>" alt="" width="50px">
 	            				</div>
 	            				<div class="text-center">
-	            					<p  class="text-center"><?php echo $val['name'];?></p>
+	            					<div  class="text-center"><?php echo $val['bank'];?></div>
+	            					<div  class="text-center"><?php echo $val['name'];?></div>
+
 	            					<input type="text" name="" class="copybtn js-copytextarea<?php echo $val['id'];?> form-control text-center" 
 	            					value="<?php echo $val['no'];?>" style="background: white; border: 0px;">
-	            					<a class="js-textareacopybtn<?php echo $val['id'];?> btn btn-primary btn-block" style="vertical-align:top;">คัดลอกเลขบัญชีธนาคาร</a>
+	            					<a class="js-textareacopybtn<?php echo $val['id'];?> btn btn-primary btn-block" style="vertical-align:top;">คัดลอกเลขบัญชี</a>
 	            					<br>
 
 	            				</div>

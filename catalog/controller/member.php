@@ -778,8 +778,8 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 				$data['title'] = "deposit";
-	    		$data['descreption'] = "";
-	    		$data['balance'] 	= $this->model('finance')->getBalance($id_user);
+	    		$data['descreption'] 	= "";
+	    		$data['balance'] 		= $this->model('finance')->getBalance($id_user);
 	    		$data['bank_no']		= $this->getSession('bank_no');
 	    		$data['bank_name']		= $this->getSession('bank_name');
 	    		$data['bank_logo'] 		= $this->model('master')->getLogoBank($data['bank_name']);

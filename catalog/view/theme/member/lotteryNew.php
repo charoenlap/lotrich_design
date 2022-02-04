@@ -223,30 +223,30 @@
 			    		</div>
 			    	</div>
 			    	<div class="row">
-			    		<div class="col-2">
+			    		<div class="col-4 col-xs-4 col-md-4 col-lg-2 mt-2">
 			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="5">5฿</a>
 			    		</div>
-			    		<div class="col-2">
+			    		<div class="col-4 col-xs-4 col-md-4 col-lg-2 mt-2">
 			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="10">10฿</a>
 			    		</div>
-			    		<div class="col-2">
+			    		<div class="col-4 col-xs-4 col-md-4 col-lg-2 mt-2">
 			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="20">20฿</a>
 			    		</div>
-			    		<div class="col-2">
+			    		<div class="col-4 col-xs-4 col-md-4 col-lg-2 mt-2">
 			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="50">50฿</a>
 			    		</div>
-			    		<div class="col-2">
+			    		<div class="col-4 col-xs-4 col-md-4 col-lg-2 mt-2">
 			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="100">100฿</a>
 			    		</div>
-			    		<div class="col-2">
+			    		<div class="col-4 col-xs-4 col-md-4 col-lg-2 mt-2">
 			    			<a href="#" class="btn btn-allprice btn-outline-success btn-block" data-price="500">500฿</a>
 			    		</div>
 			    	</div>
 			    	<div class="row mt-2">
-			    		<div class="col-8">
+			    		<div class="col-6">
 			    			<input type="text" class="form-control" value="" id="all-price">
 			    		</div>
-			    		<div class="col-4">
+			    		<div class="col-6">
 			    			<a href="#" class="btn  btn-success btn-block" id="btn-allprice">ยืนยันราคา</a>
 			    		</div>
 			    	</div>
