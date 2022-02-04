@@ -80,16 +80,29 @@
 						<div class="col-4 text-center">
 							<b class="text-danger">(ส่วนลด <span class=""><?php echo $val['discount'];?>%</span>)</b>
 						</div>
-						<div class="col-4 text-right">
+						<div class="col-4 text-center">
 							<div>
-								เดิมพันรวม <span class=""><?php echo $val['total'];?></span>
+								<div>เดิมพันรวม</div> 
+								<div><span class=""><?php echo $val['total'];?></span></div>
 							</div>
 						</div>
 						<div class="col-4 text-center">
-							ผลแพ้ชนะรวม <span class="text-<?php echo ((int)$val['receive']>0?'success':'danger');?>"><?php echo number_format($val['receive'],2);?></span>
+							<div>ผลแพ้ชนะรวม</div> 
+							<div><span class="text-<?php echo ((int)$val['receive']>0?'success':'danger');?>"><?php echo number_format($val['receive'],2);?></span></div>
 						</div>
 					</div>
 					<div class="panel-table">
+						<div class="row">
+							<div class="col-4">
+								<div class="text-center">เลข</div>
+							</div>
+							<div class="col-4 text-center ">
+								<div class="text-center">เงินเดิมพัน</div>
+							</div>
+							<div class="col-4 text-center ">
+								<div class="text-center">ผลแพ้ชนะ</div>
+							</div>
+						</div>
 						<?php 
 						$i=1;
 						foreach($val['lotto'] as $key => $val_sub){ ?>
@@ -99,11 +112,9 @@
 								<p class="text-center"><?php echo $val_sub['type'];?></p>
 							</div>
 							<div class="col-4 text-center ">
-								เงินเดิมพัน
 								<p><?php echo number_format($val_sub['price'],2);?></p>
 							</div>
 							<div class="col-4 text-center ">
-								ผลแพ้ชนะ
 								<p><?php echo number_format($val_sub['receive'],2);?></p>
 							</div>
 						</div>
