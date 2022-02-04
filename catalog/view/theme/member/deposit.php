@@ -26,7 +26,7 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="row">
-										<div class="col-6">
+										<div class="col-12 col-xs-6 col-md-6 col-lg-6 text-center">
 											<?php if($bank_logo){ ?>
 											<div class="text-center"><img src="<?php echo $bank_logo; ?>" alt="" style="width:100px;"></div>
 											เลขที่บัญชี: <?php echo $bank_no; ?></br>
@@ -35,7 +35,7 @@
 											<?php } ?>
 										</div>
 										<?php if($bank_name_2){ ?>
-										<div class="col-6">
+										<div class="col-12 col-xs-6 col-md-6 col-lg-6 text-center">
 											<div class="text-center"><img src="<?php echo $bank_logo_2; ?>" alt="" style="width:100px;"></div>
 											เลขที่บัญชี: <?php echo $bank_no_2; ?></br>
 											ธนาคาร: <?php echo $bank_name_2; ?></br>

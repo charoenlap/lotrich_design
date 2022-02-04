@@ -34,7 +34,7 @@
 			    	<div class="row">
 			    		<?php foreach($listType as $val){ ?>
 			    			<?php $allow_parent = $val['allow_parent']; ?>
-				    	<div class="col-4">
+				    	<div class="col-6 col-xs-4 col-md-4 col-lg-4">
 				    		<div class="form-check">
 				    			<label class="form-check-label" for="chk<?php echo $val['id']; ?>">
 								  <input class="form-check-input chkType chk<?php echo $val['id']; ?> <?php echo $val['id']; ?>" 
