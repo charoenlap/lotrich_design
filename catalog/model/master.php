@@ -1,5 +1,29 @@
 <?php 
 	class MasterModel extends db {
+		public function checkRegister($val){
+			$result = array(
+				'status'	=>	'fail'
+			);
+			if(!empty($val)){
+				$sql_check = "SELECT * FROM b_user WHERE 
+				phone = '".$val."' 
+				OR email = '".$val."' 
+				OR email_2 = '".$val."' 
+				OR bank_no = '".$val."' 
+				OR bank_no_2 = '".$val."'";
+				$query_check 		= $this->query($sql_check);
+
+				if($query_check->num_rows == 0){
+					$result['status'] 	= 'success';
+					$result['desc']	= 'สามารถใช้ได้';
+				}else{
+					$result['status'] 	= 'fail';
+					$result['desc']	= 'ไม่สามารถใช้ได้';
+					
+				}
+			}
+			return $result;
+		}
 		public function getRound($data = array()){
 			$result = array(
 				'status'	=>	'fail',

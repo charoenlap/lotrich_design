@@ -8,6 +8,14 @@
             $data['bank'] = $this->model('master')->getBank();
             $this->view('register',$data); 
         }
+        public function checkRegister(){
+        	$data = array();
+        	if(method_post()){
+        		$val = post('val');
+        		$data = $this->model('master')->checkRegister($val);
+        	}
+        	$this->json($data);
+        }
         public function submit(){
         	$result = array(
         		'status' => 'failed',

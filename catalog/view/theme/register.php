@@ -29,7 +29,8 @@
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
 							เบอร์โทรศัพท์
-							<input type="text" name="phone" id="phone" class="form-control input-lg" placeholder="เบอร์โทรศัพท์" tabindex="3">
+							<input type="text" name="phone" id="phone" class="txt-check-dupplicate form-control input-lg" placeholder="เบอร์โทรศัพท์" tabindex="3">
+							<label for="" class=""></label>
 						</div>
 					</div>
 				</div>
@@ -37,7 +38,8 @@
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							หมายเลขบัญชีธนาคาร
-							<input type="text" name="bank_no" id="bank_no" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4" required>
+							<input type="text" name="bank_no" id="bank_no" class="txt-check-dupplicate form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4" required>
+							<label for="" class=""></label>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
@@ -56,7 +58,8 @@
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							หมายเลขบัญชีธนาคาร (ถ้ามี กรณีฉุกเฉิน)
-							<input type="text" name="bank_no_2" id="bank_no_2" class="form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="6">
+							<input type="text" name="bank_no_2" id="bank_no_2" class="txt-check-dupplicate form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="6">
+							<label for="" class=""></label>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
@@ -75,13 +78,15 @@
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							ชื่อผู้ใช้ในการเข้าสู่ระบบ
-							<input type="text" name="email" id="email" class="form-control input-lg" placeholder="ชื่อผู้ใช้ในการเข้าสู่ระบบ" tabindex="8">
+							<input type="text" name="email" id="email" class="txt-check-dupplicate form-control input-lg" placeholder="ชื่อผู้ใช้ในการเข้าสู่ระบบ" tabindex="8">
+							<label for="" class=""></label>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
 							อีเมล
-							<input type="email_2" name="email_2" id="email_2" class="form-control input-lg" placeholder="อีเมล" tabindex="8">
+							<input type="email_2" name="email_2" id="email_2" class="txt-check-dupplicate form-control input-lg" placeholder="อีเมล" tabindex="8">
+							<label for="" class=""></label>
 						</div>
 					</div>
 				</div>
@@ -130,6 +135,42 @@
 	</div>
 </div>
 <script>
+	$(document).on('blur','.txt-check-dupplicate',function(e){
+		var ele = $(this);
+		var val = $(this).val();
+		var id= ele.attr('id');
+		$.ajax({
+			url: 'index.php?route=register/checkRegister',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id: id,
+				val: val
+			},
+		})
+		.done(function(json) {
+			console.log(json)
+			var label = $(ele).parents('.form-group').find('label');
+			label.html(json.desc);
+			if(json.status=='success'){
+				label.addClass('text-default');
+			}else{
+				label.addClass('text-danger');
+			}
+			console.log(json.desc);
+			console.log("success");
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
 	$(document).on('submit','#form-register',function(e){
 		var ele = $(this);
 		$('#btn-submit').prop('disabled', true);
