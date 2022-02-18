@@ -440,7 +440,7 @@
 			}
 			return $result;
 		}
-		public function addLotto($data=array(),$id_user=0,$id_category=0,$sum_price=0,$discount){
+		public function addLotto($data=array(),$id_user=0,$id_category=0,$sum_price=0,$discount,$id_round=0){
 			$result = array(
 				'status' 	=> 'failed',
 				'desc'		=> 'Not login'
@@ -464,6 +464,7 @@
 								$arr = array(
 									'id_user' 		=> $id_user,
 									'id_category'	=> $id_category,
+									'id_round'		=> $id_round,
 									'date_create' 	=> date('Y-m-d H:i:s'),
 									'total'			=> $sum_price,
 									'receive'		=> 0,

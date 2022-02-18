@@ -34,6 +34,10 @@
 						<label for="">&nbsp;</label><br>
 						<input type="submit" class="btn btn-primary" value="ค้นหา">
 					</div>
+					<div class="col-4">
+						<a href="" class="btn btn-warning" id="btn-check-15">Check 15 Min</a>
+						<a href="" class="btn btn-warning" id="btn-check-minnight">Check MidNight</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -64,6 +68,46 @@
 <link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+	$(document).on('click','#btn-check-15',function(e){
+		$.ajax({
+			url: '../api/index.php?route=cronjob/checkBy15Min',
+			type: 'GET',
+			dataType: 'json',
+			// data: {param1: 'value1'},
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+		e.preventDefault();
+	});
+	$(document).on('click','#btn-check-minnight',function(e){
+		$.ajax({
+			url: '../api/index.php?route=cronjob/checkByMidNight',
+			type: 'GET',
+			dataType: 'json',
+			// data: {param1: 'value1'},
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+
+		e.preventDefault();
+	});
+	
+
 	$(document).ready( function () {
 	    $('.myTable').DataTable({
 	    	"paging": false,

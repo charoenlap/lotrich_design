@@ -3,13 +3,35 @@
 	    public function package(){
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
-				$id_lotto = get('id');
-		    	$id_lotto = decrypt($id_lotto);
+				$id_lotto_encrypt = get('id');
+		    	$id_lotto = decrypt($id_lotto_encrypt);
 
-		    	$id_round = (int)get('id_round');
+		    	$id_round = (int)decrypt(get('id_round'));
+		    	// จับยี่กี
 		    	if($id_lotto=="24"){
 		    		if(empty($id_round)){
-		    			redirect('yeekee');
+		    			redirect('yeekee&id='.$id_lotto_encrypt);
+		    		}else{
+		    			$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id_lotto));
+						if($result_lock){
+							$data = array();
+					    	$data['title'] = "Package";
+					    	$data['descreption'] = "";
+					    	// $data['balance'] 	= $this->model('finance')->getBalance($id_user);
+					    	// $data['id_round'] = (int)decrypt(get('id_round'));
+					    	$data['id_lotto'] = $id_lotto;
+					    	// echo $id_lotto.'<';
+					    	$para = '';
+					    	if($id_round){
+					    		$para = "&id_round=".encrypt($id_round);
+					    	}
+					    	$data['link_lotto'] = route('member/lotteryNew'.$para);
+					    	$data['package'] = $this->model('master')->getPackage($id_lotto);
+					    	$data['detail'] = $this->model('master')->getCategoryDetail($id_lotto);
+				 	    	$this->view('member/package',$data);  
+				 	    }else{
+				 	    	redirect('member/dashboard'); 
+				 	    }
 		    		}
 		    	}else{
 					$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id_lotto));
@@ -236,6 +258,8 @@
 						);
 
 						$data['data_lotto'] = $data_lotto;
+						$data['id_round'] = get('id_round');
+						$data['id_category'] = get('id');
 
 						$date = $date_close = $data['detail']['date_close'];
 						$date_last_close = $data['detail']['date_last_end'];
@@ -463,6 +487,7 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 		    	if(method_post()){
+		    		$id_round = '';
 		    		$list_lotto_not_buy 			= array();
 		    		$list_lotto_not_buy_limit_type 	= array();
 					$list_lotto_not_buy_total_over 	= array();
@@ -473,6 +498,8 @@
 		    		$price 							= post('price');
 		    		$ratio 							= post('ratio');
 		    		$type 							= post('type');
+		    		$id_round 						= (!empty(post('id_round'))?decrypt(post('id_round')):'');
+
 		    		$id_category 					= decrypt(post('id_category'));
 		    		$id_package 					= decrypt(post('id_package'));
 		    		$sum_price  					= 0;
@@ -572,7 +599,7 @@
 						
 
 			    		if($sum_price<=$balance){
-			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price,$discount);
+			    			$result_add_lotto = $this->model('lotto')->addLotto($list_lotto,$id_user,$id_category,$sum_price,$discount,$id_round);
 			    			if($result_add_lotto['status']=="success"){
 				    			$this->model('finance')->widthdrawBalance($id_user,$sum_price);
 					    		$this->setSession('lotto',array());

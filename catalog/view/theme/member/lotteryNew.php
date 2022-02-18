@@ -6,7 +6,7 @@
 <section class="breadcamb-area bg-17 bg-overlay-1">
 	<div class="container">
 		<div class="bradcamb-content text-center text-white text-uppercase">
-			<h1>แทงหวย รัฐบาล</h1>
+			<h1>แทงหวย <?php echo $detail['name'];?></h1>
 			<ul>
 				<li><a href="<?php echo route('home'); ?>">หน้าหลัก <span>/</span></a></li>
 				<li><a href="<?php echo route('member/dashboard');?>">สมาชิก <span>/</span></a></li>
@@ -260,7 +260,8 @@
 			    	</div>
 			    	<form action="#" method="POST" id="form-lotto" class="mt-2">
 			    		<input type="hidden" name="id_package" value="<?php echo $id_package; ?>">
-			    		<input type="hidden" name="id_category" value="<?php echo $_GET['id'];?>">
+			    		<input type="hidden" name="id_category" value="<?php echo $id_category;?>">
+			    		<input type="hidden" name="id_round" value="<?php echo $id_round;?>">
 			    		
 			    		<?php foreach($listType as $val){ ?>
 			    				<?php if($val['price']){ ?>

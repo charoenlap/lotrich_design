@@ -50,7 +50,7 @@ if (!isset($_SESSION['id_admin'])) {
         <a href="<?php echo route('home'); ?>" class="list-group-item list-group-item-action"> หน้าหลัก</a>
         <a href="<?php echo route('lotto'); ?>" class="list-group-item list-group-item-action"> จัดการหวย</a>
         <a href="<?php echo route('bill'); ?>" class="list-group-item list-group-item-action"> บิลหวยลูกค้า</a>
-        <!-- <a href="<?php echo route('yeekee'); ?>" class="list-group-item list-group-item-action"> หวยจับยี่กี</a> -->
+        <a href="<?php echo route('yeekee'); ?>" class="list-group-item list-group-item-action"> หวยจับยี่กี</a>
         <a href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก</a>
         <a href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน</a>
         <a href="<?php echo route('customer'); ?>" class="list-group-item list-group-item-action"> ลูกค้า</a>

@@ -152,6 +152,8 @@
 			console.log(json)
 			var label = $(ele).parents('.form-group').find('label');
 			label.html(json.desc);
+			label.removeClass('text-default');
+			label.removeClass('text-danger');
 			if(json.status=='success'){
 				label.addClass('text-default');
 			}else{

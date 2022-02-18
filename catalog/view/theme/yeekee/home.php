@@ -13,15 +13,37 @@
 <div class="container mt-4 lotto">
 	<div class="row mt-4" id="sort">
 		<?php 
-			foreach($round['yeekee'] as $val){ 
+			foreach($round['yeekee']['open'] as $val){ 
 				$hour 	= $val['hour'];
 				$min 	= $val['min'];
 				$code 	= $val['code'];
 		?>
-		<div class="col-4">
-			<div class="card">
+		<div class="col-4 ">
+			<div class="card mb-4">
 				<div class="card-header text-center">
-					รอบ <?php echo $hour.':'.$min; ?>
+					รอบ <?php echo $hour.':'.$min; ?> 
+				</div>
+				<div class="card-body-red">
+					<div class="text-center">
+						<span class="time" time="<?php echo date('Y-m-d'); ?> <?php echo $hour.':'.$min; ?>"></span>
+					</div>
+					<a class="hvr-btn btn-block " href="<?php echo route('member/package&id='.$id.'&id_round='.encrypt($hour.$min)); ?>">
+						เลือก
+					</a>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+		<?php 
+			foreach($round['yeekee']['close'] as $val){ 
+				$hour 	= $val['hour'];
+				$min 	= $val['min'];
+				$code 	= $val['code'];
+		?>
+		<div class="col-4 <?php echo $hour.$min; ?> ">
+			<div class="card mb-4">
+				<div class="card-header text-center">
+					รอบ <?php echo $hour.':'.$min; ?> 
 				</div>
 				<div class="card-body-red">
 					<div class="text-center">

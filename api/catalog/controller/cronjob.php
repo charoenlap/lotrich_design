@@ -18,6 +18,5 @@
 	    	$changeStatus 	= $this->model('cronjob')->changeStatus($dataSelect);
 	    	$calculate 		= $this->model('cronjob')->calculate($dataSelect);
 	    }
-
 	}
 ?>
