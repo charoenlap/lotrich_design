@@ -89,9 +89,15 @@
 	    public function lotteryNew(){
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
-				$id = get('id');
-		    	$id = decrypt($id);
+				$id_encrypt = get('id');
+		    	$id = decrypt($id_encrypt);
 
+		    	$data['id_round'] = get('id_round');
+				$decrypt_id_round = (int)decrypt(get('id_round'));
+				$time_current = date('Hi');
+				if($time_current>$decrypt_id_round OR $time_current=="0000"){
+					redirect('yeekee&id='.$id_encrypt);
+				}
 				$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id));
 				if($result_lock){
 					$data = array();
@@ -258,7 +264,7 @@
 						);
 
 						$data['data_lotto'] = $data_lotto;
-						$data['id_round'] = get('id_round');
+
 						$data['id_category'] = get('id');
 
 						$date = $date_close = $data['detail']['date_close'];
@@ -487,6 +493,15 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 		    	if(method_post()){
+		    		$decrypt_id_round = (int)decrypt(get('id_round'));
+					$time_current = date('Hi');
+					if($time_current>$decrypt_id_round OR $time_current=="0000"){
+						$result = array(
+			    			'status' => 'failed',
+			    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
+			    		);
+					}
+
 		    		$id_round = '';
 		    		$list_lotto_not_buy 			= array();
 		    		$list_lotto_not_buy_limit_type 	= array();
