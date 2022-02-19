@@ -722,6 +722,10 @@
 					$('.toast-body').removeClass('text-success');
 					$('#toast').toast({delay: 1500});
 					$('#toast').toast('show');
+					count_box = 1;
+					$( ".input-number" ).each(function( index ) {
+					  $(this).val("");
+					});
 				}else{
 					$('.toast-body').removeClass('text-danger');
 					$('.toast-body').addClass('text-success');
