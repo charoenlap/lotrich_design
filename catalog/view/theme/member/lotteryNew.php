@@ -505,6 +505,9 @@
 			if(result.status=='failed'){
 				$('#btn-submit').prop('disabled', false);
 				$('#btn-submit').attr('aria-disabled', false);
+
+				$('#staticBackdrop').modal('hide');
+
 				$('#btn-submit').removeClass('disabled');
 				$('#btn-submit').addClass('hvr-btn');
 				var text_result_detail = "<br>";
