@@ -523,9 +523,13 @@
 				$('.toast-body').removeClass('text-success');
 				$('#toast').toast({delay: 1500});
 				$('#toast').toast('show');
-				console.log(result.list_lotto_not_buy);
-				console.log(result.list_lotto_not_buy_limit_type);
-				console.log(result.list_lotto_not_buy_total_over);
+
+				$('#btn-confirm-submit').prop('disabled', false);
+				$('#btn-confirm-submit').attr('aria-disabled', false);
+
+				// console.log(result.list_lotto_not_buy);
+				// console.log(result.list_lotto_not_buy_limit_type);
+				// console.log(result.list_lotto_not_buy_total_over);
 			}else{
 				$('.toast-body').removeClass('text-danger');
 				$('.toast-body').addClass('text-success');

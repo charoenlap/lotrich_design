@@ -130,6 +130,11 @@
 									if($id_type==8){ // 2 โต๊ด
 										$swarp_2_number = getCombinations($number,2);
 										foreach($swarp_2_number as $val){
+											
+											//
+											// แก้ query หาเลข random
+											// 
+
 											$sql_check_result_2 = "SELECT * FROM b_result 
 														WHERE `date` = '".$date."' 
 														AND id_cate_type = '".$id_type."' 
