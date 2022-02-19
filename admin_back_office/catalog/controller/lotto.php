@@ -26,6 +26,7 @@
 				$data['getBlockNo'] = $this->model('master')->getBlockNo();
 				// var_dump($data['getBlockNo']);
 				$data['id_category']	= get('id_category');
+				$data['id_category_decrypt']	= (int)decrypt(get('id_category'));
 				$data['date_close'] 	= $data['category']['date_close'];
 				$data['date_last_end'] 	= $data['category']['date_last_end'];
 				$data['max_total'] 		= (float)$data['category']['max_total'];

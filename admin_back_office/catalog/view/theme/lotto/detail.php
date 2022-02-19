@@ -295,6 +295,7 @@
 								</table>
 								
 							</div>
+							<?php if($id_category_decrypt != 24){ ?>
 							<div class="card-footer">
 								<p>
 									<input type="checkbox" name="chkCalculate" value="1" id="chkCalculate">
@@ -309,6 +310,7 @@
 									<a href="#" class="btn btn-primary btn-block" id="btn-submit">บันทึก</a>
 								</div>
 							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

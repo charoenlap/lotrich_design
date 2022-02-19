@@ -7,6 +7,7 @@
 		    	$id_lotto = decrypt($id_lotto_encrypt);
 
 		    	$id_round = (int)decrypt(get('id_round'));
+		    	// echo $id_lotto.'/'.$id_round.'<br>';
 		    	// จับยี่กี
 		    	if($id_lotto=="24"){
 		    		if(empty($id_round)){
@@ -95,8 +96,11 @@
 		    	$data['id_round'] = get('id_round');
 				$decrypt_id_round = (int)decrypt(get('id_round'));
 				$time_current = date('Hi');
-				if($time_current>$decrypt_id_round OR $time_current=="0000"){
-					redirect('yeekee&id='.$id_encrypt);
+				// echo $time_current.' / '.$decrypt_id_round;exit();
+				if($time_current>$decrypt_id_round){
+					if($time_current=="0000"){
+						redirect('yeekee&id='.$id_encrypt);
+					}
 				}
 				$result_lock = $this->model('lotto')->checkTimeover(array('id_category'=>$id));
 				if($result_lock){
@@ -495,13 +499,14 @@
 		    	if(method_post()){
 		    		$decrypt_id_round = (int)decrypt(get('id_round'));
 					$time_current = date('Hi');
-					if($time_current>$decrypt_id_round OR $time_current=="0000"){
-						$result = array(
-			    			'status' => 'failed',
-			    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
-			    		);
+					if($time_current>$decrypt_id_round){
+						if($time_current=="0000"){
+							$result = array(
+				    			'status' => 'failed',
+				    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
+				    		);
+						}
 					}
-
 		    		$id_round = '';
 		    		$list_lotto_not_buy 			= array();
 		    		$list_lotto_not_buy_limit_type 	= array();
