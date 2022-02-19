@@ -459,12 +459,18 @@
 							);
 							// var_dump($arr);
 							$type = $this->model('lotto')->getRatio($arr);
-							
-							$result = array(
-								'status' 	=> 'success',
-								'data' 		=> $type,
-								'desc'		=> 'เรียบร้อย'
-							);
+							if(empty($type)){
+								$result = array(
+					    			'status' => 'failed',
+					    			'desc'	=> 'เลขที่ท่านเลือกเป็นเลขอั้น'
+					    		);
+							}else{
+								$result = array(
+									'status' 	=> 'success',
+									'data' 		=> $type,
+									'desc'		=> 'เรียบร้อย'
+								);
+							}
 						}else{
 							$result = array(
 				    			'status' => 'failed',
@@ -505,6 +511,7 @@
 				    			'status' => 'failed',
 				    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
 				    		);
+				    		exit();
 						}
 					}
 		    		$id_round = '';
