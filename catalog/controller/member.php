@@ -94,15 +94,11 @@
 				$id_encrypt = get('id');
 		    	$id = decrypt($id_encrypt);
 
-		    	$data['id_round'] = get('id_round');
-				$decrypt_id_round = decrypt(get('id_round'));
-				$decrypt_id_round = str_pad($decrypt_id_round,4,"0", STR_PAD_LEFT);
-
-
-				$time_current = date('Hi');
-				// echo $time_current.' / '.$decrypt_id_round;exit();
-				if($time_current>$decrypt_id_round){
-					if($time_current=="0000"){
+		    	$data['id_round'] = $id_round = get('id_round');
+		    	if($id_round){
+					$decrypt_id_round = decrypt(get('id_round'));
+					$time_current = date('ymdHi');
+					if($time_current>$decrypt_id_round){
 						redirect('yeekee&id='.$id_encrypt);
 					}
 				}
@@ -509,18 +505,29 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 		    	if(method_post()){
-		    		$decrypt_id_round = decrypt(get('id_round'));
-		    		$decrypt_id_round = str_pad($decrypt_id_round,4,"0", STR_PAD_LEFT);
-					$time_current = date('Hi');
-					if($time_current>$decrypt_id_round){
-						if($time_current=="0000"){
+		    		$decrypt_id_round = $id_round = decrypt(get('id_round'));
+		    		// $decrypt_id_round = str_pad($decrypt_id_round,4,"0", STR_PAD_LEFT);
+		    		
+		    		if($id_round){
+						$decrypt_id_round = decrypt(get('id_round'));
+						$time_current = date('ymdHi');
+						if($time_current>$decrypt_id_round){
 							$result = array(
 				    			'status' => 'failed',
 				    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
 				    		);
-				    		exit();
 						}
 					}
+					// $time_current = date('Hi');
+					// if($time_current>$decrypt_id_round){
+					// 	if($time_current=="0000"){
+					// 		$result = array(
+				 //    			'status' => 'failed',
+				 //    			'desc'	=> 'หมดเวลาสำหรับการซื้อ'
+				 //    		);
+				 //    		exit();
+					// 	}
+					// }
 		    		$id_round = '';
 		    		$list_lotto_not_buy 			= array();
 		    		$list_lotto_not_buy_limit_type 	= array();
