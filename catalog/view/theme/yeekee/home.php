@@ -27,7 +27,7 @@
 					<div class="text-center">
 						<span class="time" time="<?php echo date('Y-m-d'); ?> <?php echo $hour.':'.$min; ?>"></span>
 					</div>
-					<a class="hvr-btn btn-block " href="<?php echo route('member/package&id='.$id.'&id_round='.encrypt($hour.$min)); ?>">
+					<a class="hvr-btn btn-block " href="<?php echo route('member/package&id='.$id.'&id_round='.encrypt($code)); ?>">
 						เลือก
 					</a>
 				</div>

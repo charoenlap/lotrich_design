@@ -23,10 +23,7 @@
 					$id_yeekee_date = $this->insert('yeekee_date',$data_insert);
 					$result_round = $this->getRound();
 					foreach($result_round['yeekee'] as $val){
-						$status = 1;
-						if($val['hour']=="00" AND $val['min']=="00"){
-							$status = 0;
-						}
+						$status = 0;
 						$arr_insert = array(
 							'code' 			=> $val['code'],
 							'date_create'	=> date('Y-m-d H:i:s'),
@@ -104,13 +101,28 @@
 			$master_config_host_receive = 20;
 			$result = array();
 
-			$sql_get_round = "SELECT code FROM b_yeekee WHERE date_create like '".date('Y-m-d')."%' AND status = 0";
+			$sql_get_round = "SELECT id,code FROM b_yeekee WHERE date_create like '".date('Y-m-d')."%' AND `status` = 0";
 			$result_round = $this->query($sql_get_round);
 			// var_dump($result_round->rows);exit();
 			foreach($result_round->rows as $round){
+				$now_id = $round['id'];
 				$id_round = $round['code'];
-				$id_round = substr($id_round, -4);
 
+				$sum_text_current 	= date('ymdHi');
+				$sum_text_round		= $id_round;
+				// เวลาปัจจุบัน 
+				// current_hour 09 current_min 46
+				// เวลาที่เจอตามเงื่อนไขระบบ
+				// round_hour 09 round_min 45
+
+				
+				if($sum_text_current>=$sum_text_round){
+					$sql_update = "UPDATE b_yeekee SET `status`='1' WHERE `id` = '".$now_id."'";
+					$this->query($sql_update);
+				}else{
+					continue;
+				}
+				// echo 'id_round: '.$id_round.'<br>';
 				if(!empty($id_round)){
 					$sql_bill = "SELECT * FROM b_lotto_bill 
 									WHERE `status` = '0' 
@@ -220,18 +232,20 @@
 						// หาเลข 2 ตัวกับ 3 ตัวบน มารวมกัน
 						// ถ้ามีเลข 345 445 แต่ถ้ามี 2 ตัวที่มี 45 ก็ให้เอามารวมทั้ง 2 เลขเลย
 						$re_cal_special_number = array();
-						foreach($type_paid[999] as $key => $val){
-							if(strlen($key)==3){
-								$index_2_number = substr($key,-2);
-								if(isset($type_paid[999][$index_2_number])){
-									$type_paid[999][$key] = $val+$type_paid[999][$index_2_number];
+						if(isset($type_paid[999])){
+							foreach($type_paid[999] as $key => $val){
+								if(strlen($key)==3){
+									$index_2_number = substr($key,-2);
+									if(isset($type_paid[999][$index_2_number])){
+										$type_paid[999][$key] = $val+$type_paid[999][$index_2_number];
+									}
 								}
 							}
-						}
-						// ให้ลบเลข 2 ตัวทิ้ง
-						foreach($type_paid[999] as $key => $val){
-							if(strlen($key)==2){
-								unset($type_paid[999][$key]);
+							// ให้ลบเลข 2 ตัวทิ้ง
+							foreach($type_paid[999] as $key => $val){
+								if(strlen($key)==2){
+									unset($type_paid[999][$key]);
+								}
 							}
 						}
 						// ให้เอาตัวเลขที่รวมไป เช็คใหม่อีกครั้ง
@@ -247,14 +261,16 @@
 
 						$result_3_digit = str_pad(rand(0,999),3,"0", STR_PAD_LEFT);
 						$result_2_digit = str_pad(rand(0,99),2,"0", STR_PAD_LEFT);
-
+						$host_paid = 0;
 						if(!empty($result_rand_digit[999])){
 							$result_3_digit = $result_rand_digit[999];
+							// $host_paid = $type_paid[$id_type][$result_3_digit];
 						}
 						if(!empty($result_rand_digit[4])){
 							$result_2_digit = $result_rand_digit[4];
+							// $host_paid = $type_paid[$id_type][$result_2_digit];
 						}
-						$host_paid = $type_paid[$id_type][$result_3_digit];
+						
 						// $result_3_digit = 674;
 						$all_number = str_pad(rand(0,99),2,"0", STR_PAD_LEFT).$result_2_digit.$result_3_digit;
 						
@@ -332,7 +348,6 @@
 										}
 									}
 									
-									// echo $sql_check_result;
 									// $result_check_result = $this->query($sql_check_result);
 
 									$status = 1;
@@ -375,7 +390,7 @@
 							'result_2_digit'=> $result_2_digit,
 							'result_3_digit'=> $result_3_digit,
 							'all_price'		=> $sum_all_price,
-							'profit'		=> $sum_all_price-$host_paid,
+							'profit'		=> $sum_all_price-$total_receive,
 							'paid'			=> $total_receive,//$host_paid,
 							'result_no'		=> $all_number
 						);
@@ -387,10 +402,20 @@
 						// $index_rand_3_digit = rand(0,$end_rand_3_digit);
 						// $type_paid[999]
 					}else{
-						$result = array(
-							'result' => 'Fail',
-							'desc'	=> 'Bill Empty'
+						$result_3_digit = str_pad(rand(0,999),3,"0", STR_PAD_LEFT);
+						$result_2_digit = str_pad(rand(0,99),2,"0", STR_PAD_LEFT);
+						$all_number = str_pad(rand(0,99),2,"0", STR_PAD_LEFT).$result_2_digit.$result_3_digit;
+						$arr_insert = array(
+							'date_create' 	=> date('Y-m-d H:i:s'),
+							'id_round'		=> $id_round,
+							'result_2_digit'=> $result_2_digit,
+							'result_3_digit'=> $result_3_digit,
+							'all_price'		=> 0,
+							'profit'		=> 0,
+							'paid'			=> 0,//$host_paid,
+							'result_no'		=> $all_number
 						);
+						$this->insert('result_yeekee',$arr_insert);
 					}
 				}else{
 					$result = array(
