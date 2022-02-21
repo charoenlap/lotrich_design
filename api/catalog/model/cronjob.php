@@ -323,7 +323,7 @@
 									}
 								}
 								
-								echo $sql_check_result;
+								// echo $sql_check_result;
 								// $result_check_result = $this->query($sql_check_result);
 
 								$status = 1;
