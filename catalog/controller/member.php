@@ -88,13 +88,17 @@
 	 	    }
 	    }
 	    public function lotteryNew(){
+	    	$data = array();
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 				$id_encrypt = get('id');
 		    	$id = decrypt($id_encrypt);
 
 		    	$data['id_round'] = get('id_round');
-				$decrypt_id_round = (int)decrypt(get('id_round'));
+				$decrypt_id_round = decrypt(get('id_round'));
+				$decrypt_id_round = str_pad($decrypt_id_round,4,"0", STR_PAD_LEFT);
+
+
 				$time_current = date('Hi');
 				// echo $time_current.' / '.$decrypt_id_round;exit();
 				if($time_current>$decrypt_id_round){
@@ -277,6 +281,8 @@
 						$date = date_format($date,"Y-m-d");
 						// echo $date;
 						$data['blockNumber'] = $this->model('lotto')->getBlockNumber($id,$date_close,$date_last_close);
+						// echo $data['id_round'];
+						$data['id_round'] = get('id_round');
 			 	    	$this->view('member/lotteryNew',$data); 
 			 	    }else{
 			 	    	$this->redirect('member/dashboard&result=ไม่พบแพคเกจ');
@@ -503,7 +509,8 @@
 	    	$id_user = decrypt($this->getSession('id'));
 			if(!empty($id_user)){
 		    	if(method_post()){
-		    		$decrypt_id_round = (int)decrypt(get('id_round'));
+		    		$decrypt_id_round = decrypt(get('id_round'));
+		    		$decrypt_id_round = str_pad($decrypt_id_round,4,"0", STR_PAD_LEFT);
 					$time_current = date('Hi');
 					if($time_current>$decrypt_id_round){
 						if($time_current=="0000"){
@@ -526,6 +533,7 @@
 		    		$ratio 							= post('ratio');
 		    		$type 							= post('type');
 		    		$id_round 						= (!empty(post('id_round'))?decrypt(post('id_round')):'');
+		    		$id_round 						= str_pad($id_round,4,"0", STR_PAD_LEFT);
 
 		    		$id_category 					= decrypt(post('id_category'));
 		    		$id_package 					= decrypt(post('id_package'));

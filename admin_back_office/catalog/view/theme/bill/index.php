@@ -154,6 +154,7 @@
           		<tbody></tbody>
           	</table>
           </div>
+          <?php if(get('category')!=24){ ?>
           <div id="panel-action">
           	ตรวจสอบด้วยผลลัพธ์ ของวันที่
           	<div class="input-group date datetimepicker">
@@ -167,11 +168,14 @@
 				0 บิล รวมเป็นเงิน 0 บาท
 			</div> -->
           </div>
+      		<?php } ?>
         </form>
       </div>
       <div class="modal-footer" id="control-action">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+        <?php if(get('category')!=24){ ?>
         <button type="button" class="btn btn-primary" id="btn-save-submit">ยืนยันปิดสถานะ และโอนเงินเข้าบัญชีของลูกค้า</button>
+        <?php } ?>
       </div>
     </div>
   </div>
