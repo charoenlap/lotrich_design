@@ -207,16 +207,18 @@
 
 						// echo "<br>ราคาแทงทั้งหมด:".$sum_all_price."<br>";
 						// echo "------<br>";
-						foreach($arr_type_for_cal as $id_type => $val){
+
+						// foreach($arr_type_for_cal as $id_type => $val){
 							// echo "รหัสประเภท: '".$type_text[$id_type]."' มียอดซื้อรวม: ".array_sum($val)."<br>";
-						}
+						// }
 						// $avg_balance = $sum_all_price / $count_type;
 						// echo "เลขที่แทงทั้งหมด <br>";
 						$type_paid = array();
 						foreach($arr_for_cal as $id_type => $arr_id_type){
 
-							
-							$sum_price = array_sum($arr_type_for_cal[$id_type]);
+							if(isset($arr_type_for_cal[$id_type])){
+								$sum_price = array_sum($arr_type_for_cal[$id_type]);
+							}
 							$sum_price = $sum_price-($sum_price*$master_config_host_receive/100);
 							// echo "- รหัสประเภท: '".$type_text[$id_type].' ยอดรวมหลังหักจากกำไรเจ้า '.$master_config_host_receive.'% ยอดที่จะไม่เกิน'.$sum_price."<br>" ;
 							foreach($arr_id_type as $number => $arr_number){

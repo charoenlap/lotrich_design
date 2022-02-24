@@ -60,6 +60,9 @@
 	</div>
 </div>
 <script>
+	$(document).on('click','#toast .close',function(e){
+		$('#toast').toast('hide');
+	});
 	$(document).on('submit','#form-login',function(e){
 		var ele = $(this);
 		$('#btn-submit').prop('disabled', true);

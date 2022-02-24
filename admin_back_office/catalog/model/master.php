@@ -8,15 +8,16 @@
 			$bill       	= array();
 			$result 		= array();
 			$sql = "SELECT * FROM b_lotto 
-					WHERE (date_create BETWEEN '".$date." 00:00:00' AND '".$date_end." 23:59:59') 
-					AND `number` = '".$number."'
-					AND id_type = '".$id_type."' GROUP BY id_bill";
+					WHERE (b_lotto.date_create BETWEEN '".$date." 00:00:00' AND '".$date_end." 23:59:59') 
+					AND b_lotto.`number` = '".$number."'
+					AND b_lotto.id_type = '".$id_type."' GROUP BY b_lotto.id_bill";
 			$query = $this->query($sql);
 			if($query->num_rows){
 
 				foreach($query->rows as $val){
 					$sql_bill = "SELECT * FROM b_lotto_bill 
 						LEFT JOIN b_lotto ON b_lotto_bill.id = b_lotto.id_bill 
+						LEFT JOIN b_user ON b_lotto_bill.id_user = b_user.id 
 						WHERE b_lotto_bill.id = ".$val['id_bill'];
 					$query_bill = $this->query($sql_bill);
 					if($query_bill->rows){
@@ -281,69 +282,106 @@
 			$result = array();
 			// $path_json = PATH_JSON.'/getCategory.json';
 			// if(!isset($data['db'])){
-				$id_category = (int)$id_category;
-				$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0 AND id = ".$id_category;
-				$val = $this->query($sql)->row;
+			$id_category = (int)$id_category;
+			$sql = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = 0 AND id = ".$id_category;
+			$val = $this->query($sql)->row;
 
 
-				$sub = array();
-				$sql_ratio = "SELECT *,b_type.type AS name,b_ratio.id AS id 
-								FROM b_ratio 
-									LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
-								WHERE 
-									b_ratio.id_category = '".$id_category."' 
-									AND id_package = ".$id_package;
-				// echo $sql_ratio;
-				$ratio = $this->query($sql_ratio)->rows;
+			$sub = array();
+			$sql_ratio = "SELECT *,b_type.type AS name,b_ratio.id AS id 
+							FROM b_ratio 
+								LEFT JOIN b_type ON b_ratio.id_type = b_type.id 
+							WHERE 
+								b_ratio.id_category = '".$id_category."' 
+								AND id_package = ".$id_package;
+			// echo $sql_ratio;
+			$ratio = $this->query($sql_ratio)->rows;
 
-				$sql_sub = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = '".$id_category."'";
-				$category_sub = $this->query($sql_sub)->rows;
-				$result_cate_sub = array();
-				foreach($category_sub as $cs){
-// b_category_type.id_type = b_type.id 
-					$sql_sub_in = "SELECT *,b_category_type.id AS id FROM b_category_type 
-					
-					LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
-					LEFT JOIN b_type ON b_type.id = result.id_type
-					WHERE `status`=0 
-					AND id_category = '".$cs['id']."' 
-					ORDER BY b_category_type.`order` ASC";
-					$type_sub = $this->query($sql_sub_in)->rows;
-					// var_dump($type_sub);exit();
-					$result_cate_sub[] = array(
-						'id_type' => $cs['id'],
-						'name' => $cs['name'],
-						'type_sub' => $type_sub
-					);
+			$sql_sub = "SELECT * FROM b_category WHERE `status`=0 AND sub_category = '".$id_category."'";
+			$category_sub = $this->query($sql_sub)->rows;
+			$result_cate_sub = array();
+			foreach($category_sub as $cs){
+				$sql_sub_in = "SELECT *,b_category_type.id AS id FROM b_category_type 
+				
+				LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
+				LEFT JOIN b_type ON b_type.id = result.id_type
+				WHERE `status`=0 
+				AND id_category = '".$cs['id']."' 
+				ORDER BY b_category_type.`order` ASC";
+				$type_sub = $this->query($sql_sub_in)->rows;
+				// var_dump($type_sub);exit();
+				$result_cate_sub[] = array(
+					'id_type' => $cs['id'],
+					'name' => $cs['name'],
+					'type_sub' => $type_sub
+				);
+			}
+			$type = array();
+			// $sql_sub = "SELECT *, b_category_type.id AS id FROM b_category_type 
+			// LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
+			// LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
+			// WHERE `status`=0 
+			// AND id_category = '".$id_category."' 
+			// ORDER BY b_category_type.`order` ASC";
+			$sql_sub = "SELECT *, b_category_type.id as id_cate_type, b_result.id as id FROM b_result 
+			LEFT JOIN b_category_type ON b_result.id_cate_type = b_category_type.id 
+			LEFT JOIN b_type ON b_type.id = b_result.id_cate_type 
+			WHERE  b_result.`date` = '".$date."' AND b_result.id_category = '".$id_category."'";
+			$query_type = $this->query($sql_sub);
+			$type = $query_type->rows;
+			if($query_type->num_rows==0){
+				// รางวัลที่ 1 
+				// 3 ตัวบน
+				// 3 ตัวโต๊ด
+				// 2 ตัวโต๊ด
+				// 2 ตัวบน 
+				// วิ่งบน
+				// 3 ตัวล่าง
+				// 2 ต้วล่าง
+				// วิ่งล่าง
+				if(!empty($date)){
+					$type_id = array(1=>2,2=>2,6=>3,8=>2,7=>3,35=>2,4=>2,3=>2,2=>2,36=>2);
+					foreach($type_id as $id_type => $column){
+						$insert = array(
+							'id_category' 	=> $id_category,
+							'id_type'		=> $id_type,
+							'status'		=> 0,
+							'order'			=> 0,
+							'column'		=> $column,
+						);
+						$id_category_type = $this->insert('category_type',$insert);
+						$insert = array(
+							'id_cate_type' 	=> $id_type,
+							'date'			=> $date,
+							'result'		=> '',
+							'id_category'	=> $id_category,
+							'id_type'		=> $id_type
+						);
+						$this->insert('result',$insert);
+					}
 				}
-				$type = array();
-				// $sql_sub = "SELECT *, b_category_type.id AS id FROM b_category_type 
-				// LEFT JOIN b_type ON b_category_type.id_type = b_type.id 
-				// LEFT JOIN (SELECT * FROM b_result WHERE `date` = '".$date."') result ON result.id_cate_type = b_category_type.id 
-				// WHERE `status`=0 
-				// AND id_category = '".$id_category."' 
-				// ORDER BY b_category_type.`order` ASC";
 				$sql_sub = "SELECT *, b_category_type.id as id_cate_type, b_result.id as id FROM b_result 
 				LEFT JOIN b_category_type ON b_result.id_cate_type = b_category_type.id 
 				LEFT JOIN b_type ON b_type.id = b_result.id_cate_type 
 				WHERE  b_result.`date` = '".$date."' AND b_result.id_category = '".$id_category."'";
 				$type = $this->query($sql_sub)->rows;
-				// var_dump($sql_sub);
-				// exit();
-				// var_dump($sql_sub);
-				$result = array(
-					'status'		=> 'success',
-					'desc'			=> 'ค้นหาสำเร็จ',
-					'id' 			=> $id_category,
-					'name' 			=> $val['name'],
-					'flag' 			=> $val['flag'],
-					'date_close' 	=> $val['date_close'],
-					'date_last_end' => $val['date_last_end'],
-					'max_total' 	=> $val['max_total'],
-					'sub'			=> $result_cate_sub,
-					'type'			=> $type,
-					'ratio' 		=> $ratio
-				);
+			}
+			// var_dump($sql_sub);
+			// exit();
+			// var_dump($sql_sub);
+			$result = array(
+				'status'		=> 'success',
+				'desc'			=> 'ค้นหาสำเร็จ',
+				'id' 			=> $id_category,
+				'name' 			=> $val['name'],
+				'flag' 			=> $val['flag'],
+				'date_close' 	=> $val['date_close'],
+				'date_last_end' => $val['date_last_end'],
+				'max_total' 	=> $val['max_total'],
+				'sub'			=> $result_cate_sub,
+				'type'			=> $type,
+				'ratio' 		=> $ratio
+			);
 				// echo "<pre>";
 				// var_dump($result);exit();
 				// $fp = fopen($path_json, 'w');
@@ -418,6 +456,41 @@
 					}
 				}
 			}
+			// echo "<pre>";
+			// var_dump($result);
+			return $result;
+		}
+		public function getLastDateCategory($id_category=0){
+			$result = array();
+			$sql = "SELECT date_close FROM b_category WHERE id = ".$id_category;
+			$result = $this->query($sql)->row['date_close'];
+			return $result;
+		}
+		public function listReportAccounting($data=array()){
+			$result = array();
+			$date_close 	= $this->escape($data['date']);
+			$date_end 		= $this->escape($data['date_end']);
+			$id_category 	= $data['id_category'];
+
+			$list = array();
+			$sql = "SELECT 	b_lotto.`number`,SUM(`b_lotto`.`price`) AS income,SUM(`b_lotto`.`receive`) AS expenses,
+								b_lotto_bill.`date_create` AS date_create 
+						FROM b_lotto 
+							LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
+						WHERE 
+							( b_lotto_bill.`date_create` BETWEEN '".$date_close." 00:00:00' AND '".$date_end." 23:59:59')  
+							AND b_lotto_bill.id_category = '".$id_category."' 
+					GROUP BY b_lotto_bill.`id_category`"; 
+			$income = (isset($this->query($sql)->row['income'])?$this->query($sql)->row['income']:0);
+			$expenses = (isset($this->query($sql)->row['expenses'])?$this->query($sql)->row['expenses']:0);
+			$profit = $income-$expenses;
+			$diff = ($income>=$expenses?'+':'-');
+			$result = array(
+				'income'	=> number_format($income,2),
+				'expenses'	=> number_format($expenses,2),
+				'profit'	=> number_format($profit,2),
+				'diff'		=> $diff
+			);
 			// echo "<pre>";
 			// var_dump($result);
 			return $result;

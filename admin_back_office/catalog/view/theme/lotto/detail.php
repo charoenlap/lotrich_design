@@ -503,6 +503,70 @@
 <link href="assets/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet">
 <script src="assets/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript">
+	$(document).on('keyup','#type_4',function(e){
+		var ele = $(this);
+		if(ele.val().length==2){
+			var no_4_com = getCombinations(ele.val(),5);
+			$('#type_36').val(no_4_com);
+		}
+	});
+	$(document).on('keyup','#type_1',function(e){
+		var ele = $(this);
+		if(ele.val().length==6){
+			// 2 บน
+			var no_2_digit = ele.val().substr(4);
+			// 3 บน
+			var no_3_digit = ele.val().substr(3);
+			$('#type_2').val(no_3_digit);
+			
+			var no_3_com = getCombinations(no_3_digit,3);
+			$('#type_6').val(no_3_com);
+			var no_2_com = getCombinations(no_2_digit,2);
+			$('#type_8').val(no_2_com);
+			$('#type_7').val(no_2_digit);
+			var no_4_com = getCombinations(no_3_digit,4);
+			$('#type_35').val(no_4_com);
+		}
+		console.log(ele.val().length);
+	});
+	function getCombinations(base,length){
+		// console.log('>>'+base[0]);
+		var result = '';
+		if(length==3){
+			// result 	=	base.substr(0,1)+base.substr(0,2)+base.substr(0,3)+','+
+			// 			base.substr(0,1)+base.substr(0,3)+base.substr(0,2)+','+
+			// 			base.substr(0,2)+base.substr(0,1)+base.substr(0,3)+','+
+			// 			base.substr(0,3)+base.substr(0,1)+base.substr(0,2)+','+
+			// 			base.substr(0,2)+base.substr(0,3)+base.substr(0,1)+','+
+			// 			base.substr(0,3)+base.substr(0,2)+base.substr(0,1);
+			result 	= 	base[0]+base[1]+base[2]+','+
+						base[0]+base[2]+base[1]+','+
+						base[1]+base[0]+base[2]+','+
+						base[1]+base[2]+base[0]+','+
+						base[2]+base[0]+base[1]+','+
+						base[2]+base[1]+base[0];
+		}
+		if(length==2){
+			result 	=	base[0]+base[1]+','+
+						base[1]+base[0];
+						// base.substr(0,1)+base.substr(0,2)+base.substr(0,3)+','+
+						// base.substr(0,1)+base.substr(0,3)+base.substr(0,2);
+						
+		}
+		if(length==4){
+			result 	=	base[0]+','+base[1]+','+base[2];
+						// base.substr(0,1)+base.substr(0,2)+base.substr(0,3)+','+
+						// base.substr(0,1)+base.substr(0,3)+base.substr(0,2);
+						
+		}
+		if(length==5){
+			result 	=	base[0]+','+base[1];
+						// base.substr(0,1)+base.substr(0,2)+base.substr(0,3)+','+
+						// base.substr(0,1)+base.substr(0,3)+base.substr(0,2);
+						
+		}
+		return result;
+	}
 	$(document).on('change','.txt-change-date',function(e){
 		var ele = $('#date-start-end');
 		var date_last_end = $('#date_last_end').val();

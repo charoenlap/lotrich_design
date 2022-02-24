@@ -24,7 +24,7 @@
 				$result = array(
 					'status'		=> 'fail',
 					'email'			=> $email,
-					'desc'			=> 'หาไม่พบ'
+					'desc'			=> 'ไม่พบข้อมูล กรุณาติดต่อ Admin'
 				);
 			}
 			return $result;

@@ -7,7 +7,8 @@
 					<h4>id bill <?php echo $key;?></h4>
 					<table class="table table-striped" id="">
 						<thead>
-							<th>วันที่ซื้อ</th>
+							<th width="200px">วันที่ซื้อ</th>
+							<th>ชื่อผู้ซื้อ</th>
 							<th>ตัวเลข</th>
 							<th>ราคาที่ซื้อ</th>
 						</thead>
@@ -15,6 +16,7 @@
 							<?php foreach($val['rows'] as $v){ ?>
 							<tr>
 								<td><?php echo $v['date_create']; ?></td>
+								<td><?php echo $v['name'].' '.$v['lname'];?></td>
 								<td><?php echo $v['number'];?></td>
 								<td><?php echo $v['price'];?></td>
 							</tr>

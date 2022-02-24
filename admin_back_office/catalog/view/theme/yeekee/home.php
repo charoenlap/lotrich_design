@@ -1,5 +1,5 @@
 <form action="<?php echo $action; ?>" method="GET">	
-	<input type="hidden" name="route" value="report/all">
+	<input type="hidden" name="route" value="yeekee">
 	<div class="card">
 		<div class="card-body">
 			<div class="container">
@@ -31,14 +31,14 @@
 					<div class="col-2">
 						<div class="form-group">
 							<label for="">% ที่เจ้าจะได้</label>
-				            <input type="text" class="form-control" value="20">
+				            <input type="text" class="form-control" value="<?php echo $getConfigYeekeePercent;?>" id="percent">
 				         </div>
 					</div>
-					<div class="col-4">
+					<!-- <div class="col-4">
 						<label for="">&nbsp;</label><br>
 						<a href="" class="btn btn-warning" id="btn-check-15">Check 15 Min get result</a>
 						<a href="" class="btn btn-warning" id="btn-check-minnight">Check MidNight</a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -47,6 +47,35 @@
 <div class="card">
 	<div class="card-body">
 		<div class="container">
+			
+			<div class="row mt-4">
+				<div class="col-12">
+					<table class="table">
+						<thead>
+							<th width="100px;">รหัสรอบ</th>
+							<th>เวลา</th>
+							<th>ผลที่ออก</th>
+							<th>รายรับ</th>
+							<th>รายจ่าย</th>
+							<th>กำไร</th>
+							<!-- <th></th> -->
+						</thead>
+					<?php foreach($round['rows'] as $val){?>
+						<tr>
+							<td><?php echo $val['code'];?></td>
+							<td><?php echo substr($val['code'],6,2).':'.substr($val['code'],-2);?></td>
+							<td><?php echo $val['result_no'];?></td>
+							<td><?php echo $val['all_price'];?></td>
+							<td><?php echo $val['paid'];?></td>
+							<td><?php echo $val['profit'];?></td>
+							<!-- <td>
+								<a href="" class="btn btn-primary btn-sm">ดูวิธีคำนวน</a>
+							</td> -->
+						</tr>
+					<?php } ?>
+					</table>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-12">
 					สูตรการคิด ใน 1 รอบแยกจำนวน ตัวแลขแต่ละประเภทออกมา<br>
@@ -65,36 +94,58 @@
  					ดังนั้นระบบ จะออกตัวเลข 00 ซึ่งเจ้าจะจ่าย แค่ 1,000 บาท และกำไรส่วนต่าง 600 
 				</div>
 			</div>
-			<div class="row mt-4">
-				<div class="col-12">
-					<table class="table">
-						<thead>
-							<th>รอบที่</th>
-							<th>ผลที่ออก</th>
-							<th>รายรับ</th>
-							<th>รายจ่าย</th>
-						</thead>
-					<?php foreach($round['yeekee'] as $val){?>
-						<tr>
-							<td><?php echo $val['hour'].':'.$val['min'];?></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					<?php } ?>
-					</table>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
-
+<div class="position-fixed top-0 right-0 p-3" style="z-index: 99999; right: 0; bottom: 0;height: 150px;">
+	<div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="toast-header">
+	  	<i class="bi bi-arrow-bar-down"></i>
+	    <strong class="mr-auto">ผลลัพธ์</strong>
+	  </div>
+	  <div class="toast-body"></div>
+	</div>
+</div>
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
 <link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+	$(document).on('keyup','#percent',function(e){
+		var ele = $(this);
+		$.ajax({
+			url: 'index.php?route=yeekee/setConfigYeekeePercent',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				percent: ele.val()
+			},
+		})
+		.done(function(result) {
+			if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
 	$(document).on('click','#btn-check-15',function(e){
 		var ele = $(this);
 		$.ajax({

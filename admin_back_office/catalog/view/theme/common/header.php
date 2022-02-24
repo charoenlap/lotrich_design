@@ -56,6 +56,7 @@ if (!isset($_SESSION['id_admin'])) {
         <a href="<?php echo route('customer'); ?>" class="list-group-item list-group-item-action"> ลูกค้า</a>
         <a href="<?php echo route('report/number'); ?>" class="list-group-item list-group-item-action"> ดูยอดการแทง</a>
         <a href="<?php echo route('report/all'); ?>" class="list-group-item list-group-item-action"> รายงานการแทง</a>
+        <a href="<?php echo route('report/accounting'); ?>" class="list-group-item list-group-item-action"> รายงานบัญชี</a>
         <a href="<?php echo route('system'); ?>" class="list-group-item list-group-item-action"> จัดการระบบ</a>
         <!-- <a href="<?php echo route('customer/home'); ?>" id="customer" class="list-group-item list-group-item-action"> ลูกค้า</a>
         <a href="<?php echo route('company/home'); ?>" id="company" class="list-group-item list-group-item-action"> บริษัท</a>

@@ -21,7 +21,16 @@
 			$id_admin = $this->getSession('id_admin');
 			if($id_admin){
 				$id = decrypt(get('id'));
-				$data['customer'] = $this->model('user')->delUser($id);
+				$data['customer'] = $this->model('user')->del($id);
+				redirect('customer');
+			}
+		}
+		public function undel(){
+			$id_admin = $this->getSession('id_admin');
+			if($id_admin){
+				$id = decrypt(get('id'));
+				$data['customer'] = $this->model('user')->undel($id);
+				redirect('customer');
 			}
 		}
 	}  

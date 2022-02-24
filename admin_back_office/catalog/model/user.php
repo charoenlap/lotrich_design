@@ -27,5 +27,15 @@
 			}
 			return $result;
 		}
+		public function undel($id=0){
+			$result = array(
+				'result' => 'fail'
+			);
+			if($id){
+				$sql = "UPDATE b_user SET `del`=0 WHERE id = ".(int)$id;
+				$result = $this->query($sql);
+			}
+			return $result;
+		}
 	}
 ?>
