@@ -38,5 +38,59 @@
 			}
 			echo json_encode($result);
 		}
+		public function editDeposit(){
+			$result = array(
+				'status' => 'failed'
+			);
+			if(method_post()){
+				$id_transection = decrypt(post('id_transection'));
+				$amount = post('amount');
+				$time 	= post('time');
+
+				$arr = array(
+					'id_transection'	=> $id_transection,
+					'amount'			=> $amount,
+					'time'				=> $time
+				);
+				$result_add_deposit = $this->model('finance')->editDeposit($arr);
+				if($result_add_deposit['result']=="success"){
+					$result = array(
+						'status' 	=> 'success',
+						'desc'		=> 'ระบบได้ทำการปรับเรียบร้อยแล้ว'
+					);
+				}else{
+					$result = array(
+						'status' => 'failed',
+						'desc' 	=> $result_add_deposit['desc']
+					);
+				}
+			}
+			echo json_encode($result);
+		}
+		public function cancleDeposit(){
+			$result = array(
+				'status' => 'failed'
+			);
+			if(method_post()){
+				$id_transection = decrypt(post('id_transection'));
+
+				$arr = array(
+					'id_transection'	=> $id_transection
+				);
+				$result_add_deposit = $this->model('finance')->cancleDeposit($arr);
+				if($result_add_deposit['result']=="success"){
+					$result = array(
+						'status' 	=> 'success',
+						'desc'		=> 'ระบบได้ทำการหักยอดเงินฝากของผู้ใช้งานที่แจ้งเข้ามาเรียบร้อยแล้ว'
+					);
+				}else{
+					$result = array(
+						'status' => 'failed',
+						'desc' 	=> $result_add_deposit['desc']
+					);
+				}
+			}
+			echo json_encode($result);
+		}
 	}
 ?>

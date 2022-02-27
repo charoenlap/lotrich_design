@@ -48,8 +48,19 @@
 									<tr>
 										<td><?php echo $val['date_create']; ?></td>
 										<td><?php echo $val['name'].' '.$val['lname']; ?></td>
-										<td><?php echo $val['amount']; ?></td>
-										<td><?php echo $val['hour'].':'.$val['minutes']; ?></td>
+										<td>
+											<input type="text" class="form-control amount" 
+											value="<?php echo $val['amount']; ?>" 
+											style="max-width:100px;"
+											id-transection="<?php echo encrypt($val['id']);?>">
+										</td>
+										<td>
+											<?php echo $val['hour'].':'.$val['minutes']; ?>
+											<!-- <input type="text" class="form-control time" 
+											value="<?php echo $val['hour'].':'.$val['minutes']; ?>" 
+											style="max-width:100px;"
+											id-transection="<?php echo encrypt($val['id']);?>"> -->
+										</td>
 										<td>
 											<a href="img.php?file=2,1,<?php echo $val['img'];?>,1000,1000" target="_blank">
 												<img src="img.php?file=2,1,<?php echo $val['img'];?>,500,500" alt="" width="100px;" height="100px;">
@@ -61,6 +72,10 @@
 											<a href="#" class="btn btn-xs btn-warning btn-transection" 
 											id-transection="<?php echo encrypt($val['id']);?>"
 											>ยืนยัน</a>
+											<?php }else{?>
+												<a href="#" class="btn btn-xs btn-danger btn-transection-cancle" 
+												id-transection="<?php echo encrypt($val['id']);?>"
+												>ยกเลิก</a>
 											<?php } ?>
 										</td>
 									</tr>
@@ -89,6 +104,154 @@
 </div>
 
 <script>
+	$(document).on('keyup','.amount',function(e){
+		var ele = $(this);
+		var amount = ele.val();
+		
+		$.ajax({
+			url: 'index.php?route=deposit/editDeposit',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id_transection: ele.attr('id-transection'),
+				amount: amount
+			},
+		})
+		.done(function(result) {
+			console.log("success");
+			if(result.status=='failed'){
+				// ele.prop('disabled', false);
+				// ele.attr('aria-disabled', false);
+				// ele.removeClass('disabled');
+
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				// setInterval(function(){ 
+				// 	window.location='index.php?route=member/finance'; 
+				// }, 3000);
+				// ele.text('เสร็จสิ้น');
+				// ele.addClass('btn-success');
+				// ele.removeClass('btn-warning');
+				// ele.parents('tr').find('.text-status').text('เรียบร้อยแล้ว');
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
+	$(document).on('click','.btn-transection-cancle',function(e){
+		var ele = $(this);
+		// ele.prop('disabled', true);
+		// ele.attr('aria-disabled', true);
+		// ele.addClass('disabled');
+		
+		$.ajax({
+			url: 'index.php?route=deposit/cancleDeposit',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id_transection: ele.attr('id-transection')
+			},
+		})
+		.done(function(result) {
+			console.log("success");
+			if(result.status=='failed'){
+				// ele.prop('disabled', false);
+				// ele.attr('aria-disabled', false);
+				// ele.removeClass('disabled');
+
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				// setInterval(function(){ 
+				// 	window.location='index.php?route=member/finance'; 
+				// }, 3000);
+				ele.text('เสร็จสิ้น');
+				ele.addClass('btn-success');
+				ele.removeClass('btn-warning');
+				ele.parents('tr').find('.text-status').text('เรียบร้อยแล้ว');
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
+	// $(document).on('keyup','.time',function(e){
+	// 	var ele = $(this);
+	// 	var time = ele.val();
+		
+	// 	$.ajax({
+	// 		url: 'index.php?route=deposit/editDeposit',
+	// 		type: 'POST',
+	// 		dataType: 'json',
+	// 		data: {
+	// 			id_transection: ele.attr('id-transection'),
+	// 			time: time
+	// 		},
+	// 	})
+	// 	.done(function(result) {
+	// 		console.log("success");
+	// 		if(result.status=='failed'){
+	// 			ele.prop('disabled', false);
+	// 			ele.attr('aria-disabled', false);
+	// 			ele.removeClass('disabled');
+
+	// 			$('.toast-body').text(result.desc);
+	// 			$('.toast-body').addClass('text-danger');
+	// 			$('.toast-body').removeClass('text-success');
+	// 			$('#toast').toast('show');
+	// 		}else{
+	// 			$('.toast-body').removeClass('text-danger');
+	// 			$('.toast-body').addClass('text-success');
+	// 			$('.toast-body').text(result.desc);
+	// 			$('#toast').toast('show');
+	// 			// setInterval(function(){ 
+	// 			// 	window.location='index.php?route=member/finance'; 
+	// 			// }, 3000);
+	// 			// ele.text('เสร็จสิ้น');
+	// 			// ele.addClass('btn-success');
+	// 			// ele.removeClass('btn-warning');
+	// 			// ele.parents('tr').find('.text-status').text('เรียบร้อยแล้ว');
+	// 		}
+	// 	})
+	// 	.fail(function(a,b,c) {
+	// 		console.log("error");
+	// 		console.log(a);
+	// 		console.log(b);
+	// 		console.log(c);
+	// 	})
+	// 	.always(function() {
+	// 		console.log("complete");
+	// 	});
+		
+	// });
 	$(document).on('click','.btn-transection',function(e){
 		var ele = $(this);
 		ele.prop('disabled', true);

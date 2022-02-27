@@ -18,7 +18,6 @@
 								<th>ธนาคาร(สำรอง)</th>
 								<th>ยอดเงินคงเหลือ</th>
 								<th>การเข้าใช้งาน</th>
-								<th class="text-center" width="10%"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -47,9 +46,9 @@
 											<div><?php echo $val['bank_name_2'];?></div>
 										</td>
 										<td><?php echo $val['balance'];?></td>
-										<td><?php echo ($val['del']==0?'เปิด':'ปิด');?></td>
 										<td class="text-center">
-											<!-- <a href="<?php echo route('customer/edit&id='.encrypt($val['id'])); ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> -->
+											<?php echo ($val['del']==0?'<a href="#" class="text-success">เปิด</a>':'<a href="#" class="text-danger">ปิด</a>');?>
+											<br><br>
 											<a href="<?php echo route('customer/undel&id='.encrypt($val['id'])); ?>" class="btn btn-success btn-sm">เปิด</a>
 
 											<a href="<?php echo route('customer/del&id='.encrypt($val['id'])); ?>" class="btn btn-danger btn-sm">ปิด</a>

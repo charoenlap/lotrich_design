@@ -2,7 +2,6 @@
 	class HomeController extends Controller {
 	    public function index() {
 	    	$data = array();
-	    	
 	    	$style = array(
 	    		'assets/home.css'
 	    	);

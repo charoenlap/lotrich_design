@@ -21,6 +21,26 @@
 			}
 			return $result;
 		}
+		public function notiDeposit($data = array()){
+			$result = array(
+				'result' => 'failed'
+			);
+			$sql = "SELECT *,b_transection.id AS id,b_transection.date_create AS date_create FROM b_transection LEFT JOIN b_user ON b_transection.id_user = b_user.id 
+				WHERE `type` = 0 AND `status` = 0 
+				ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
+			$result_deposit = $this->query($sql);
+			return $result_deposit->num_rows;
+		}
+		public function notiWidthdraw($data = array()){
+			$result = array(
+				'result' => 'failed'
+			);
+			$sql = "SELECT *,b_transection.id AS id,b_transection.date_create AS date_create FROM b_transection LEFT JOIN b_user ON b_transection.id_user = b_user.id 
+				WHERE `type` = 1 AND `status` = 0 
+				ORDER BY `b_transection`.`status` ASC, b_transection.date_create ASC";
+			$result_widthdraw = $this->query($sql);
+			return $result_widthdraw->num_rows;
+		}
 		public function addDeposit($data=array()){
 			$id_transection = (int)$data['id_transection'];
 			
@@ -99,6 +119,124 @@
 					'desc'		=>	'Transection fail'
 				);
 			}
+			return $result;
+		}
+		public function cancleWidthdraw($data=array()){
+			$id_transection = (int)$data['id_transection'];
+			
+			$sql_check_transection = "SELECT * FROM b_transection WHERE id = ".$id_transection." AND status=1";
+			$query_check_transection = $this->query($sql_check_transection);
+			if($query_check_transection->num_rows > 0){
+				$sql = "UPDATE b_transection SET `status` = '0' , date_modify = '".date('Y-m-d H:i:s')."' WHERE id = '".$id_transection."'";
+				$query = $this->query($sql);
+				$id_user = $query_check_transection->row['id_user'];
+				$balance = $query_check_transection->row['amount'];
+
+				$sql = "UPDATE b_user SET balance = balance + ".$balance." WHERE id = '".$id_user."'";
+				$query = $this->query($sql);
+
+				$result = array(
+					'result' 			=> 'success',
+					'desc'				=> '',
+					'balance' 			=> $balance,
+					'id'				=> $id_user,
+					'id_transection'	=> $id_transection
+				);
+			}else{
+				$result = array(
+					'result' 	=> 'failed',
+					'desc'		=>	'Transection fail'
+				);
+			}
+			return $result;
+		}
+		public function editWidthdraw($data=array()){
+			$id_transection = (int)$data['id_transection'];
+			$amount = (float)$data['amount'];
+			
+			// $sql_check_transection = "SELECT * FROM b_transection WHERE id = ".$id_transection." AND status=0";
+			// $query_check_transection = $this->query($sql_check_transection);
+			// if($query_check_transection->num_rows > 0){
+				$sql = "UPDATE b_transection SET amount='".$amount."', date_modify = '".date('Y-m-d H:i:s')."' WHERE id = '".$id_transection."'";
+				$query = $this->query($sql);
+				// $id_user = $query_check_transection->row['id_user'];
+				// $balance = $query_check_transection->row['amount'];
+
+				// $sql = "UPDATE b_user SET balance = balance + ".$balance." WHERE id = '".$id_user."'";
+				// $query = $this->query($sql);
+
+				$result = array(
+					'result' 			=> 'success',
+					'desc'				=> '',
+					// 'balance' 			=> $balance,
+					// 'id'				=> $id_user,
+					'id_transection'	=> $id_transection
+				);
+			// }else{
+			// 	$result = array(
+			// 		'result' 	=> 'failed',
+			// 		'desc'		=>	'Transection fail'
+			// 	);
+			// }
+			return $result;
+		}
+		public function cancleDeposit($data=array()){
+			$id_transection = (int)$data['id_transection'];
+			
+			$sql_check_transection = "SELECT * FROM b_transection WHERE id = ".$id_transection." AND status=1";
+			$query_check_transection = $this->query($sql_check_transection);
+			if($query_check_transection->num_rows > 0){
+				$sql = "UPDATE b_transection SET `status` = '0' , date_modify = '".date('Y-m-d H:i:s')."' WHERE id = '".$id_transection."'";
+				$query = $this->query($sql);
+				$id_user = $query_check_transection->row['id_user'];
+				$balance = $query_check_transection->row['amount'];
+
+				$sql = "UPDATE b_user SET balance = balance + ".$balance." WHERE id = '".$id_user."'";
+				$query = $this->query($sql);
+
+				$result = array(
+					'result' 			=> 'success',
+					'desc'				=> '',
+					'balance' 			=> $balance,
+					'id'				=> $id_user,
+					'id_transection'	=> $id_transection
+				);
+			}else{
+				$result = array(
+					'result' 	=> 'failed',
+					'desc'		=>	'Transection '.$id_transection.' fail'
+				);
+			}
+			return $result;
+		}
+		public function editDeposit($data=array()){
+			$id_transection = (int)$data['id_transection'];
+			$amount = (float)$data['amount'];
+			
+			// $sql_check_transection = "SELECT * FROM b_transection WHERE id = ".$id_transection." AND status=0";
+			// $query_check_transection = $this->query($sql_check_transection);
+			// if($query_check_transection->num_rows > 0){
+				$sql = "UPDATE b_transection SET amount='".$amount."', date_modify = '".date('Y-m-d H:i:s')."' WHERE id = '".$id_transection."'";
+				$query = $this->query($sql);
+				// $id_user = $query_check_transection->row['id_user'];
+				// $balance = $query_check_transection->row['amount'];
+
+				// $sql = "UPDATE b_user SET balance = balance + ".$balance." WHERE id = '".$id_user."'";
+				// $query = $this->query($sql);
+
+				$result = array(
+					'result' 			=> 'success',
+					'desc'				=> '',
+					// 'balance' 			=> $balance,
+					// 'id'				=> $id_user,
+					'id_transection'	=> $id_transection
+				);
+			// }else{
+			// 	$result = array(
+			// 		'result' 	=> 'failed',
+			// 		'desc'		=>	'Transection fail'
+			// 	);
+			// }
 			return $result;
 		}
 		public function getLotto($data=array()){

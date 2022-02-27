@@ -51,18 +51,13 @@ if (!isset($_SESSION['id_admin'])) {
         <a href="<?php echo route('lotto'); ?>" class="list-group-item list-group-item-action"> จัดการหวย</a>
         <a href="<?php echo route('bill'); ?>" class="list-group-item list-group-item-action"> บิลหวยลูกค้า</a>
         <a href="<?php echo route('yeekee'); ?>" class="list-group-item list-group-item-action"> หวยจับยี่กี</a>
-        <a href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก</a>
-        <a href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน</a>
+        <a href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก <?php echo ($deposit?'<span class="text-danger">('.$deposit.')</span>':'');?></a>
+        <a href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน <?php echo ($deposit?'<span class="text-danger">('.$widthdraw.')</span>':'');?></a>
         <a href="<?php echo route('customer'); ?>" class="list-group-item list-group-item-action"> ลูกค้า</a>
         <a href="<?php echo route('report/number'); ?>" class="list-group-item list-group-item-action"> ดูยอดการแทง</a>
         <a href="<?php echo route('report/all'); ?>" class="list-group-item list-group-item-action"> รายงานการแทง</a>
         <a href="<?php echo route('report/accounting'); ?>" class="list-group-item list-group-item-action"> รายงานบัญชี</a>
         <a href="<?php echo route('system'); ?>" class="list-group-item list-group-item-action"> จัดการระบบ</a>
-        <!-- <a href="<?php echo route('customer/home'); ?>" id="customer" class="list-group-item list-group-item-action"> ลูกค้า</a>
-        <a href="<?php echo route('company/home'); ?>" id="company" class="list-group-item list-group-item-action"> บริษัท</a>
-        <a href="<?php echo route('package/home'); ?>" id="package" class="list-group-item list-group-item-action"> แพคเกจ</a>
-        <a href="<?php echo route('payment/home'); ?>" id="payment" class="list-group-item list-group-item-action"> แจ้งชำระเงิน</a> -->
-        <!-- <a href="<?php echo route('blog/home'); ?>" id="blog" class="list-group-item list-group-item-action"> Blog</a> -->
       </div>
     </div>
     <!-- /#sidebar-wrapper -->

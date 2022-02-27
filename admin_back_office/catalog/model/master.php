@@ -5,17 +5,20 @@
 			$date_end 		= $this->escape($data['date_end']);
 			$id_type		= $this->escape($data['id_type']);
 			$number			= $this->escape($data['number']);
+			$id_category	= $this->escape($data['id_category']);
 			$bill       	= array();
 			$result 		= array();
 			$sql = "SELECT * FROM b_lotto 
+					LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto.id 
 					WHERE (b_lotto.date_create BETWEEN '".$date." 00:00:00' AND '".$date_end." 23:59:59') 
 					AND b_lotto.`number` = '".$number."'
-					AND b_lotto.id_type = '".$id_type."' GROUP BY b_lotto.id_bill";
+					AND b_lotto.id_type = '".$id_type."' 
+					";
 			$query = $this->query($sql);
 			if($query->num_rows){
 
 				foreach($query->rows as $val){
-					$sql_bill = "SELECT * FROM b_lotto_bill 
+					$sql_bill = "SELECT *,b_lotto_bill.date_create AS date_create FROM b_lotto_bill 
 						LEFT JOIN b_lotto ON b_lotto_bill.id = b_lotto.id_bill 
 						LEFT JOIN b_user ON b_lotto_bill.id_user = b_user.id 
 						WHERE b_lotto_bill.id = ".$val['id_bill'];
@@ -340,7 +343,7 @@
 				// 2 ต้วล่าง
 				// วิ่งล่าง
 				if(!empty($date)){
-					$type_id = array(1=>2,2=>2,6=>3,8=>2,7=>3,35=>2,4=>2,3=>2,2=>2,36=>2);
+					$type_id = array(1=>2,2=>2,6=>2,8=>2,7=>2,35=>2,4=>2,3=>2,2=>2,36=>2);
 					foreach($type_id as $id_type => $column){
 						$insert = array(
 							'id_category' 	=> $id_category,
@@ -462,7 +465,7 @@
 		}
 		public function getLastDateCategory($id_category=0){
 			$result = array();
-			$sql = "SELECT date_close FROM b_category WHERE id = ".$id_category;
+			$sql = "SELECT DATE(date_close) AS date_close FROM b_category WHERE id = ".$id_category;
 			$result = $this->query($sql)->row['date_close'];
 			return $result;
 		}
@@ -481,6 +484,36 @@
 							( b_lotto_bill.`date_create` BETWEEN '".$date_close." 00:00:00' AND '".$date_end." 23:59:59')  
 							AND b_lotto_bill.id_category = '".$id_category."' 
 					GROUP BY b_lotto_bill.`id_category`"; 
+			$income = (isset($this->query($sql)->row['income'])?$this->query($sql)->row['income']:0);
+			$expenses = (isset($this->query($sql)->row['expenses'])?$this->query($sql)->row['expenses']:0);
+			$profit = $income-$expenses;
+			$diff = ($income>=$expenses?'+':'-');
+			$result = array(
+				'income'	=> number_format($income,2),
+				'expenses'	=> number_format($expenses,2),
+				'profit'	=> number_format($profit,2),
+				'diff'		=> $diff
+			);
+			// echo "<pre>";
+			// var_dump($result);
+			return $result;
+		}
+		public function listReportAccountingYeekee($data=array()){
+			$result = array();
+			$date_close 	= $this->escape($data['date']);
+			$date_end 		= $this->escape($data['date_end']);
+			$id_category 	= $data['id_category'];
+
+			$list = array();
+			$sql = "SELECT 	b_lotto.`number`,SUM(`b_lotto`.`price`) AS income,SUM(`b_lotto`.`receive`) AS expenses,
+								b_lotto_bill.`date_create` AS date_create 
+						FROM b_lotto 
+							LEFT JOIN b_lotto_bill ON b_lotto.id_bill = b_lotto_bill.`id` 
+						WHERE 
+							( b_lotto_bill.`date_create` BETWEEN '".$date_close."' AND '".$date_end."')  
+							AND b_lotto_bill.id_category = '".$id_category."' 
+					GROUP BY b_lotto_bill.`id_category`"; 
+					// echo $sql;exit();
 			$income = (isset($this->query($sql)->row['income'])?$this->query($sql)->row['income']:0);
 			$expenses = (isset($this->query($sql)->row['expenses'])?$this->query($sql)->row['expenses']:0);
 			$profit = $income-$expenses;

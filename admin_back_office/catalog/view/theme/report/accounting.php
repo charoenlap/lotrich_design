@@ -79,6 +79,16 @@
 					</table>
 				</div>
 			</div>
+			<div class="row">
+				<?php foreach($yeekee['yeekee'] as $val){?>
+					<div class="col-2 mb-4">
+						<?php echo $val['hour'].':'.$val['min'] ?><br>
+						<div class=" text-<?php echo ($yeekee_result[$val['code']]['diff']=="+"?'success':'danger'); ?>">
+							<?php echo $yeekee_result[$val['code']]['diff'].' '.$yeekee_result[$val['code']]['profit'];?>
+						</div>
+					</div>
+				<?php } ?>
+			</div>
 			<!-- <div class="row">
 				<div class="col-12">
 					<p><label for="">จำนวนเงินรวมทั้งหมด: <?php echo  number_format($all_sum);?></label></p>

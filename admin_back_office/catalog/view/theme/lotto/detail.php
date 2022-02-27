@@ -565,6 +565,9 @@
 						// base.substr(0,1)+base.substr(0,3)+base.substr(0,2);
 						
 		}
+		var result = (result).split(',').filter(function(item, pos,self) {
+          return self.indexOf(item) == pos;
+       	});
 		return result;
 	}
 	$(document).on('change','.txt-change-date',function(e){
@@ -916,6 +919,8 @@
 	});
 	$(document).on('click','#btn-submit',function(e){
 		var form = $('#form-lotto');
+		var ele = $(this);
+		ele.text('กำลังประมวลผล');
 		$.ajax({
 			url: 'index.php?route=lotto/submitLotto&id_category=<?php echo $id_category;?>',
 			type: 'POST',
@@ -935,6 +940,7 @@
 				$('.toast-body').text(result.desc);
 				$('#toast').toast('show');
 			}
+			ele.text('บันทึก');
 		})
 		.fail(function(a,b,c) {
 			console.log("error");

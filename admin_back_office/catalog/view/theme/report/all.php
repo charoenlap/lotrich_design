@@ -77,7 +77,7 @@
 										$sum+=$v['sum_price']; ?>
 										<tr>
 											<td>
-												<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>">
+												<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>&id_category=<?php echo $id_category;?>">
 													<?php echo $v['number'];?>
 												</a>
 											</td>

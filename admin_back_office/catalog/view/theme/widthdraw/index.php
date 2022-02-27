@@ -46,13 +46,22 @@
 									<tr>
 										<td><?php echo $val['date_create']; ?></td>
 										<td><?php echo $val['name'].' '.$val['lname']; ?></td>
-										<td><?php echo $val['amount']; ?></td>
+										<td>
+											<input type="text" class="form-control amount" 
+											value="<?php echo $val['amount']; ?>" 
+											style="max-width:100px;"
+											id-transection="<?php echo encrypt($val['id']);?>">
+										</td>
 										<td><span class="text-status"><?php echo ($val['status']==0?'รอการยืนยัน':'เรียบร้อยแล้ว'); ?></span></td>
 										<td>
 											<?php if($val['status']==0){ ?>
 											<a href="#" class="btn btn-xs btn-warning btn-transection" 
 											id-transection="<?php echo encrypt($val['id']);?>"
 											>ยืนยัน</a>
+											<?php }else{?>
+												<a href="#" class="btn btn-xs btn-danger btn-transection-cancle" 
+												id-transection="<?php echo encrypt($val['id']);?>"
+												>ยกเลิก</a>
 											<?php } ?>
 										</td>
 									</tr>
@@ -93,6 +102,55 @@
     });
 </script>
 <script>
+	$(document).on('keyup','.amount',function(e){
+		var ele = $(this);
+		var amount = ele.val();
+		
+		$.ajax({
+			url: 'index.php?route=widthdraw/editWidthdraw',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id_transection: ele.attr('id-transection'),
+				amount: amount
+			},
+		})
+		.done(function(result) {
+			console.log("success");
+			if(result.status=='failed'){
+				ele.prop('disabled', false);
+				ele.attr('aria-disabled', false);
+				ele.removeClass('disabled');
+
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				// setInterval(function(){ 
+				// 	window.location='index.php?route=member/finance'; 
+				// }, 3000);
+				// ele.text('เสร็จสิ้น');
+				// ele.addClass('btn-success');
+				// ele.removeClass('btn-warning');
+				// ele.parents('tr').find('.text-status').text('เรียบร้อยแล้ว');
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
 	$(document).on('click','.btn-transection',function(e){
 		var ele = $(this);
 		ele.prop('disabled', true);
@@ -101,6 +159,56 @@
 		
 		$.ajax({
 			url: 'index.php?route=widthdraw/addWidthdraw',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				id_transection: ele.attr('id-transection')
+			},
+		})
+		.done(function(result) {
+			console.log("success");
+			if(result.status=='failed'){
+				ele.prop('disabled', false);
+				ele.attr('aria-disabled', false);
+				ele.removeClass('disabled');
+
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				// setInterval(function(){ 
+				// 	window.location='index.php?route=member/finance'; 
+				// }, 3000);
+				ele.text('เสร็จสิ้น');
+				ele.addClass('btn-success');
+				ele.removeClass('btn-warning');
+				ele.parents('tr').find('.text-status').text('เรียบร้อยแล้ว');
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
+	$(document).on('click','.btn-transection-cancle',function(e){
+		var ele = $(this);
+		ele.prop('disabled', true);
+		ele.attr('aria-disabled', true);
+		ele.addClass('disabled');
+		
+		$.ajax({
+			url: 'index.php?route=widthdraw/cancleWidthdraw',
 			type: 'POST',
 			dataType: 'json',
 			data: {

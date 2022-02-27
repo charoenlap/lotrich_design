@@ -51,7 +51,7 @@
 											if($type['column']==1){
 												$class="col-12";
 											}else if($type['column']==2){
-												$class="col-6";
+												$class="col-4";
 											}else if($type['column']==3){
 												$class="col-4";
 											}else if($type['column']==4){
