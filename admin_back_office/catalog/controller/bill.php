@@ -6,6 +6,9 @@
 				$data = array();
 				$data['date'] 			= get('date');
 				$data['date_end'] 		= get('date_end');
+				if(empty($data['date']) AND empty($data['date_end'])){
+					$data['date'] = $data['date_end'] = $this->model('master')->getLastDateCategory(1);
+				}
 				$data['id_category']	= (int)get('category');
 				$data['id_type']		= (int)get('type');
 				$data['order']			= get('order');

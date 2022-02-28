@@ -8,11 +8,39 @@
 			$yeekee_config_percent = $result_percent->row['val'];
 			return $yeekee_config_percent;
 		}
+		public function getConfigYeekeeStartEnd(){
+			$result = array();
+			$sql_start = "SELECT * FROM b_setting WHERE `name`='yeekee_config_start'";
+			$result_start = $this->query($sql_start)->row['val'];
+
+			$sql_end = "SELECT * FROM b_setting WHERE `name`='yeekee_config_end'";
+			$result_end = $this->query($sql_end)->row['val'];
+
+			$result = array(
+				'start' => $result_start,
+				'end' 	=> $result_end
+			);
+			return $result;
+		}
 		public function setConfigYeekeePercent($data=array()){
 			$result = array();
 			$yeekee_config_percent = (isset($data['percent'])?$data['percent']:5);
 			$sql = "UPDATE b_setting SET `val`='".$yeekee_config_percent."' WHERE `name` = 'yeekee_config_percent'";
 			$result_percent = $this->query($sql);
+			return true;
+		}
+		public function setConfigYeekeestart($data=array()){
+			$result = array();
+			$yeekee_config_start = (isset($data['start'])?$data['start']:5);
+			$sql = "UPDATE b_setting SET `val`='".$yeekee_config_start."' WHERE `name` = 'yeekee_config_start'";
+			$result_percent = $this->query($sql);
+			return true;
+		}
+		public function setConfigYeekeeend($data=array()){
+			$result = array();
+			$yeekee_config_end = (isset($data['end'])?$data['end']:5);
+			$sql = "UPDATE b_setting SET `val`='".$yeekee_config_end."' WHERE `name` = 'yeekee_config_end'";
+			$result_end = $this->query($sql);
 			return true;
 		}
 		public function getResult($data = array()){

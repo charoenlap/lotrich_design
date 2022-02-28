@@ -12,6 +12,11 @@
             );
             $data['round'] = $this->model('yeekee')->getResult($select_date);
             $data['getConfigYeekeePercent'] = $this->model('yeekee')->getConfigYeekeePercent();
+            $getConfigYeekeeStartEnd = $this->model('yeekee')->getConfigYeekeeStartEnd();
+
+            $data['start']= $getConfigYeekeeStartEnd['start'];
+            $data['end']= $getConfigYeekeeStartEnd['end'];
+
             $data['action'] = route('yeekee');
             $this->view('yeekee/home',$data); 
         }
@@ -23,6 +28,28 @@
             $json = array(
                 'status' => 'success',
                 'desc'  => 'ปรับเป็น '.(int)get('percent').'% เรียบร้อยแล้ว'
+            );
+            $this->json($json);
+        }
+        public function setConfigYeekeestart(){
+            $data_update = array(
+                'start' => get('start')
+            );
+            $this->model('yeekee')->setConfigYeekeestart($data_update);
+            $json = array(
+                'status' => 'success',
+                'desc'  => 'ปรับเป็น '.get('start').' เรียบร้อยแล้ว'
+            );
+            $this->json($json);
+        }
+        public function setConfigYeekeeend(){
+            $data_update = array(
+                'end' => get('end')
+            );
+            $this->model('yeekee')->setConfigYeekeeend($data_update);
+            $json = array(
+                'status' => 'success',
+                'desc'  => 'ปรับเป็น '.get('end').' เรียบร้อยแล้ว'
             );
             $this->json($json);
         }

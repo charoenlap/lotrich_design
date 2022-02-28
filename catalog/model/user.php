@@ -29,37 +29,39 @@
 			}
 			return $result;
 		}
-		public function forgot($email=''){
+		public function forgot($phone=''){
 			$result = array();
-			$email 	= $this->escape(pure_text($email));
-			if(empty($email)){
+			$phone 	= $this->escape(pure_text($phone));
+			if(empty($phone)){
 				$result = array(
 					'status'		=> 'fail',
-					'email'			=> $email,
+					'phone'			=> $phone,
 					'desc'			=> 'หาไม่พบ'
 				);
 			}else{
 				$sql = "SELECT * FROM `b_user` 
-				WHERE `email` = '".trim($email)."' AND `del`=0 
+				WHERE `phone` = '".trim($phone)."' AND `del`=0 
 				limit 0,1";
 				
 				$result_user = $this->query($sql); 
 				if($result_user->num_rows > 0){
 					$new_password = rand(10000,99999);
-					$to_email=trim($email);
-					$msg="รหัสผ่านของท่านในการเข้าสู่ระบบคือ ".$new_password." <br>กรุณาเปลี่ยนรหัสผ่านที่ท่านจะใช้บนเว็บไซต์ <a href='".route('login')."'>คลิกที่นี่</a>";
-					$subject="รหัสผ่านใหม่ในการเข้าสู่ระบบ";
-					sendmailSmtp($to_email,$msg,$subject);
-					$this->query("UPDATE b_user set `password`='".md5($new_password)."',`encrypt`='".encrypt($new_password)."' WHERE email = '".$to_email."'");
+					$to_phone=trim($phone);
+					$msg="รหัสผ่านเข้าสู่ระบบคือ ".$new_password;
+					// $subject="รหัสผ่านใหม่";
+					$response = sendSMS($phone,$msg,'LOTRICH168');
+					// var_dump($response);
+					// sendmailSmtp($to_phone,$msg,$subject);
+					$this->query("UPDATE b_user set `password`='".md5($new_password)."',`encrypt`='".encrypt($new_password)."' WHERE phone = '".$to_phone."'");
 					// $result 			= $result_user->row;
 					$result = array(
 						'status'		=> 'success',
-						'desc'			=> 'ระบบได้ทำการส่งรหัสผ่านไปที่อีเมลของท่าน'
+						'desc'			=> 'ระบบได้ทำการส่งรหัสผ่านไปที่เบอร์องท่าน'
 					);
 				}else{
 					$result = array(
 						'status'		=> 'fail',
-						'email'			=> $email,
+						'phone'			=> $phone,
 						'desc'			=> 'หาไม่พบ'
 					);
 				}

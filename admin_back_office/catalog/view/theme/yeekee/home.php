@@ -34,6 +34,18 @@
 				            <input type="text" class="form-control" value="<?php echo $getConfigYeekeePercent;?>" id="percent">
 				         </div>
 					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="">เวลาที่เริ่มเปิด</label>
+				            <input type="text" class="form-control txt-change-date" value="<?php echo $start;?>" id="start">
+				         </div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="">เวลาที่ปิด</label>
+				            <input type="text" class="form-control txt-change-date" value="<?php echo $end;?>" id="end">
+				         </div>
+					</div>
 					<!-- <div class="col-4">
 						<label for="">&nbsp;</label><br>
 						<a href="" class="btn btn-warning" id="btn-check-15">Check 15 Min get result</a>
@@ -109,9 +121,17 @@
 <link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet">
 <script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
+<link href="assets/datetimepicker-master/build/jquery.datetimepicker.min.css" rel="stylesheet">
+<script src="assets/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+
 <link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+	$('.txt-change-date').datetimepicker({
+    	// value:'2015/04/15 05:03', 
+    	format:'Hi',
+    	step:15
+    });
 	$(document).on('keyup','#percent',function(e){
 		var ele = $(this);
 		$.ajax({
@@ -133,6 +153,77 @@
 				$('.toast-body').addClass('text-success');
 				$('.toast-body').text(result.desc);
 				$('#toast').toast('show');
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
+	$(document).on('blur','#start',function(e){
+		var ele = $(this);
+		$.ajax({
+			url: 'index.php?route=yeekee/setConfigYeekeestart',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				start: ele.val()
+			},
+		})
+		.done(function(result) {
+			if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				window.location = 'index.php?route=yeekee';
+			}
+		})
+		.fail(function(a,b,c) {
+			console.log("error");
+			console.log(a);
+			console.log(b);
+			console.log(c);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	});
+	$(document).on('blur','#end',function(e){
+		var ele = $(this);
+		$.ajax({
+			url: 'index.php?route=yeekee/setConfigYeekeeend',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				end: ele.val()
+			},
+		})
+		.done(function(result) {
+			if(result.status=='failed'){
+				$('.toast-body').text(result.desc);
+				$('.toast-body').addClass('text-danger');
+				$('.toast-body').removeClass('text-success');
+				$('#toast').toast('show');
+
+			}else{
+				$('.toast-body').removeClass('text-danger');
+				$('.toast-body').addClass('text-success');
+				$('.toast-body').text(result.desc);
+				$('#toast').toast('show');
+				window.location = 'index.php?route=yeekee';
 			}
 		})
 		.fail(function(a,b,c) {

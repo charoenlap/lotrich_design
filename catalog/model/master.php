@@ -1,5 +1,11 @@
 <?php 
 	class MasterModel extends db {
+		public function getResultYeekee($id){
+			$result = array();
+			$sql = "SELECT result_2_digit,result_3_digit,result_no,id_round FROM b_result_yeekee WHERE id='".(int)$id."'";
+			$result = $this->query($sql)->row;
+			return $result;
+		}
 		public function checkRegister($val){
 			$result = array(
 				'status'	=>	'fail'
@@ -69,6 +75,12 @@
 				'status'	=>	'fail',
 				'yeekee'	=> array()
 			);
+			$sql_start = "SELECT * FROM b_setting WHERE `name`='yeekee_config_start'";
+			$result_start = $this->query($sql_start)->row['val'];
+
+			$sql_end = "SELECT * FROM b_setting WHERE `name`='yeekee_config_end'";
+			$result_end = $this->query($sql_end)->row['val'];
+
 			$hour_now = date('H');
 			$min_now = date('i');
 
@@ -99,11 +111,14 @@
 					if($time_current<$time_fix){
 						$status_text = 'open';
 					}
-					$arr[$status_text][] = array(
-						'hour'		=> $text_hour,
-						'min' 		=> $text_min,
-						'code'		=> $pre_code.$text_hour.$text_min,
-					);
+					if($text_hour.$text_min>=$result_start AND $text_hour.$text_min<=$result_end){
+						$arr[$status_text][] = array(
+							'hour'		=> $text_hour,
+							'min' 		=> $text_min,
+							'code'		=> $pre_code.$text_hour.$text_min,
+						);
+					}
+					
 				}
 			}
 			$result = array(

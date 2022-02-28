@@ -79,6 +79,7 @@
 					</table>
 				</div>
 			</div>
+			<?php if(isset($yeekee['yeekee'])){ ?>
 			<div class="row">
 				<?php foreach($yeekee['yeekee'] as $val){?>
 					<div class="col-2 mb-4">
@@ -89,6 +90,7 @@
 					</div>
 				<?php } ?>
 			</div>
+			<?php } ?>
 			<!-- <div class="row">
 				<div class="col-12">
 					<p><label for="">จำนวนเงินรวมทั้งหมด: <?php echo  number_format($all_sum);?></label></p>

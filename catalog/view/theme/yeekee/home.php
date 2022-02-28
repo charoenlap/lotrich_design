@@ -25,7 +25,7 @@
 				</div>
 				<div class="card-body-red">
 					<div class="text-center">
-						<span class="time" time="<?php echo date('Y-m-d'); ?> <?php echo $hour.':'.$min; ?>"></span>
+						<h3 class="pb-2 pt-2"><span class="time" style="color:#fff;" time="<?php echo date('Y-m-d'); ?> <?php echo $hour.':'.$min; ?>"></span></h3>
 					</div>
 					<a class="hvr-btn btn-block " href="<?php echo route('member/package&id='.$id.'&id_round='.encrypt($code)); ?>">
 						เลือก
@@ -42,15 +42,15 @@
 		?>
 		<div class="col-4 <?php echo $hour.$min; ?> ">
 			<div class="card mb-4">
-				<div class="card-header text-center">
+				<div class="card-header text-center ">
 					รอบ <?php echo $hour.':'.$min; ?> 
 				</div>
 				<div class="card-body-red">
-					<div class="text-center">
-						<span class="time" time="<?php echo date('Y-m-d'); ?> <?php echo $hour.':'.$min; ?>"></span>
+					<div class="text-center " style="background:#fff;">
+						<h3 class="pb-2 pt-2"><span class="time" style="color:#3e3e3e;" time="<?php echo date('Y-m-d'); ?> <?php echo $hour.':'.$min; ?>"></span></h3>
 					</div>
-					<a class="hvr-btn btn-block " href="">
-						เลือก
+					<a class="hvr-btn btn-block " href="<?php echo route('yeekee/result&id='.$id.'&id_round='.encrypt($code)); ?>">
+						ดูผล
 					</a>
 				</div>
 			</div>

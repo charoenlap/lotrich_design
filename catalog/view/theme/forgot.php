@@ -14,9 +14,11 @@
     <div class="row">
         <div class="col-md-12">
             <form role="form" id="form-forgot" action="<?php echo $action;?>" method="POST">
-    		    รหัสผ่านใหม่ของท่านจะถูกส่งเข้าไปยัง อีเมลที่ท่านได้สมัครไว้ และสามารถกดยืนยันการใช้รหัสผ่านได้ในอีเมลของท่าน ท่าจะสามารถใช้รหัสผ่านใหม่เพื่อเข้าสู่ระบบไปเปลี่ยนรหัสผ่านได้ หากมีปัญหาสามารถติดต่อได้ที่ช่องทาง Line <a href="<?php echo $link_line;?>">หรือ คลิกที่นี่ </a> ให้ผู้ดูแลระบบได้ตรวจสอบ ยินดีให้บริการ 24 ชม
+    		    <h3 style="color:#fff;">
+              รหัสผ่านใหม่ของท่านจะถูกส่งเข้าไปยัง SMS เบอร์ที่ท่านได้สมัครไว้ และสามารถกดยืนยันการใช้รหัสผ่านได้ในอีเมลของท่าน ท่านจะสามารถใช้รหัสผ่านใหม่เพื่อเข้าสู่ระบบไปเปลี่ยนรหัสผ่านได้ หากมีปัญหาสามารถติดต่อได้ที่ช่องทาง Line <a href="<?php echo $link_line;?>">หรือ คลิกที่นี่ </a> ให้ผู้ดูแลระบบได้ตรวจสอบ ยินดีให้บริการ 24 ชม      
+                </h3>
     		    <form action="<?php echo $action; ?>" class="mt-3" id="form-forgot">
-    		        <input class="form-control" type="email" name="email" placeholder="กรุณาใส่อีเมลของท่าน xx@gmail.com"/>
+    		        <input class="form-control" type="text" name="email" placeholder="กรุณาใส่เบอร์มือถือ"/>
                     <div class="load-btn mt-20">
                         <input type="submit" class="hvr-btn btn-block" value="ยืนยันการเปลี่ยนรหัสผ่าน" id="btn-submit">
                     </div>
