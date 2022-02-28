@@ -420,6 +420,25 @@
 			$result = $this->query($sql)->rows;
 			return $result;
 		}
+		public function listResultReportAll($data=array()){
+			$date_close 	= $this->escape($data['date']);
+			$date_end 		= $this->escape($data['date_end']);
+			$id_category 	= $data['id_category'];
+			$sql = "SELECT * FROM b_result WHERE (`date` BETWEEN '".$date_close."' AND '".$date_end."')";
+			$result_no = $this->query($sql);
+			$temp = array();
+			foreach($result_no->rows as $val){
+				$no_result = $val['result'];
+				$temp_arr = array();
+				$temp_arr = explode(',',$no_result);
+				foreach($temp_arr as $val_no){
+					if(!empty($val_no)){
+						$temp[$val['id_category']][$val['id_type']][] = $val_no;
+					}
+				}
+			}
+			return $temp;
+		}
 		public function listReportAll($data=array()){
 			$result = array();
 			$date_close 	= $this->escape($data['date']);

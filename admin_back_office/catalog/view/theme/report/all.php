@@ -74,10 +74,17 @@
 								<?php 
 									$sum = 0; 
 									foreach($val['list'] as $v){ 
-										$sum+=$v['sum_price']; ?>
+										$sum+=$v['sum_price']; 
+										$class='';
+										if(isset($resultALL[$id_category][$val['id']])){
+											if($resultALL[$id_category][$val['id']]==$v['number']){
+												$class="text-danger";
+											}
+										}
+								?>
 										<tr>
 											<td>
-												<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>&id_category=<?php echo $id_category;?>">
+												<a href="index.php?route=report/bill&type=<?php echo  $val['id'];?>&number=<?php echo  $v['number'];?>&date=<?php echo $date;?>&date_end=<?php echo $date_end;?>&id_category=<?php echo $id_category;?>" class="<?php echo $class;?>">
 													<?php echo $v['number'];?>
 												</a>
 											</td>

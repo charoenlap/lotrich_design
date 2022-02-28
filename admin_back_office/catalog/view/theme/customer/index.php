@@ -34,8 +34,12 @@
 											<small><?php echo $val['date_create'];?></small>
 										</td>
 										<td>
-											<div><?php echo $val['phone'];?></div>
-											<small><?php echo $val['email'];?></small>		
+											<div>
+												<?php echo $val['phone'];?>
+											</div>
+											<div>
+												<?php echo $val['email'];?>
+											</div>
 										</td>
 										<td>
 											<div><?php echo $val['bank_no'];?></div>
@@ -47,11 +51,16 @@
 										</td>
 										<td><?php echo $val['balance'];?></td>
 										<td class="text-center">
-											<?php echo ($val['del']==0?'<a href="#" class="text-success">เปิด</a>':'<a href="#" class="text-danger">ปิด</a>');?>
+											<?php echo ($val['del']==0?'<span href="#" class="text-success"><i class="fa fa-circle"></i> เปิดการใช้งาน</span>':'<span href="#" class="text-danger"><i class="fa fa-circle"></i></span>');?>
 											<br><br>
+											<?php if($val['del']==1){ ?>
 											<a href="<?php echo route('customer/undel&id='.encrypt($val['id'])); ?>" class="btn btn-success btn-sm">เปิด</a>
-
+											<?php }else{ ?>
 											<a href="<?php echo route('customer/del&id='.encrypt($val['id'])); ?>" class="btn btn-danger btn-sm">ปิด</a>
+											<?php } ?>
+										</td>
+										<td>
+											<a href="<?php echo route('customer/edit&id='.encrypt($val['id']));?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
 										</td>
 									</tr>
 									<?php $i++;} ?>

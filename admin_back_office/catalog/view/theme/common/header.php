@@ -51,8 +51,8 @@ if (!isset($_SESSION['id_admin'])) {
         <a href="<?php echo route('lotto'); ?>" class="list-group-item list-group-item-action"> จัดการหวย</a>
         <a href="<?php echo route('bill'); ?>" class="list-group-item list-group-item-action"> บิลหวยลูกค้า</a>
         <a href="<?php echo route('yeekee'); ?>" class="list-group-item list-group-item-action"> หวยจับยี่กี</a>
-        <a href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก <?php echo ($deposit?'<span class="text-danger">('.$deposit.')</span>':'');?></a>
-        <a href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน <?php echo ($deposit?'<span class="text-danger">('.$widthdraw.')</span>':'');?></a>
+        <a id="menu_deposit" href="<?php echo route('deposit'); ?>" class="list-group-item list-group-item-action"> การฝาก <?php echo ($deposit?'<span class="text-danger">('.$deposit.')</span>':'');?></a>
+        <a id="menu_widthdraw" href="<?php echo route('widthdraw'); ?>" class="list-group-item list-group-item-action"> การถอน <?php echo ($widthdraw?'<span class="text-danger">('.$widthdraw.')</span>':'');?></a>
         <a href="<?php echo route('customer'); ?>" class="list-group-item list-group-item-action"> ลูกค้า</a>
         <a href="<?php echo route('report/number'); ?>" class="list-group-item list-group-item-action"> ดูยอดการแทง</a>
         <a href="<?php echo route('report/all'); ?>" class="list-group-item list-group-item-action"> รายงานการแทง</a>
@@ -88,3 +88,24 @@ if (!isset($_SESSION['id_admin'])) {
           </ul>
         </div>
       </nav>
+      <script>
+        setInterval(function () {
+          $.ajax({
+            url: 'index.php?route=common/getUpdateNoti',
+            type: 'GET',
+            dataType: 'json',
+          })
+          .done(function(e) {
+            $('#menu_deposit span').text('('+e.deposit+')');
+            $('#menu_widthdraw span').text('('+e.widthdraw+')');
+            console.log("success");
+          })
+          .fail(function() {
+            console.log("error");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+          
+        }, 30000);// 30 วิ
+      </script>

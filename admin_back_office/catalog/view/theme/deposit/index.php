@@ -93,7 +93,7 @@
 		</div>
 	</div>
 </div>
-<div class="position-fixed top-0 right-0 p-3" style="z-index: 99999; right: 0; bottom: 0;">
+<div class="position-fixed top-0 right-0 p-3" style="z-index: 99999; right: 0; bottom: 0;max-height:150px;">
 	<div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
 	  <div class="toast-header">
 	  	<i class="bi bi-arrow-bar-down"></i>

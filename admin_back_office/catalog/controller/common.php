@@ -6,6 +6,12 @@
 	    	$data['widthdraw'] = $this->model('finance')->notiWidthdraw();
 	    	$this->render('common/header',$data);
 	    }
+	    public function getUpdateNoti(){
+	    	$data = array();
+	    	$data['deposit'] = $this->model('finance')->notiDeposit();
+	    	$data['widthdraw'] = $this->model('finance')->notiWidthdraw();
+	    	$this->json($data);
+	    }
 	    public function footer($data=array()){
 	    	$this->render('common/footer',$data);
 	    }

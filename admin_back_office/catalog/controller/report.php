@@ -48,6 +48,7 @@
 				'order'			=> $data['order']
 			);
 			$data['result']		= $this->model('master')->listReportAll($data_select);
+			$data['resultALL']		= $this->model('master')->listResultReportAll($data_select);
 			$this->view('report/all',$data);
 		}
 		public function accounting(){
