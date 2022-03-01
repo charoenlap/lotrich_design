@@ -59,6 +59,7 @@
 <div class="card">
 	<div class="card-body">
 		<div class="container">
+			<?php //echo "<pre>";var_dump($resultALL); ?>
 			<div class="row mt-4">
 				<div class="" style="max-width:1300px;width:1300px;overflow: scroll;">
 					<?php $all_sum = 0; ?>
@@ -77,7 +78,7 @@
 										$sum+=$v['sum_price']; 
 										$class='';
 										if(isset($resultALL[$id_category][$val['id']])){
-											if($resultALL[$id_category][$val['id']]==$v['number']){
+											if(in_array($v['number'],$resultALL[$id_category][$val['id']])){
 												$class="text-danger";
 											}
 										}

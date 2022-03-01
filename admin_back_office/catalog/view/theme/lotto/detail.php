@@ -115,6 +115,7 @@
 						<?php } ?>
 					</div>
 					<div class="col-md-7">
+						<?php if($id_category_decrypt != 24){ ?>
 						<table class="table table-striped" id="table-date">
 							<thead>
 								<th>กำหนดวันที่ ของงวดที่ผ่านมา (yyyy-mm-dd hh:ii:ss)</th>
@@ -161,6 +162,7 @@
 								</tr>
 							</tbody>
 						</table>
+
 						<div class="card">
 							<div class="card-body">
 								<table class="table table-striped" id="table-blockNo">
@@ -236,6 +238,7 @@
 								</table> -->
 							</div>
 						</div>
+						<?php } ?>
 						<?php if($id_category_decrypt != 24){ ?>
 						<div class="card">
 							<div class="card-body">
@@ -521,7 +524,7 @@
 			
 			var no_3_com = getCombinations(no_3_digit,3);
 			$('#type_6').val(no_3_com);
-			var no_2_com = getCombinations(no_2_digit,2);
+			var no_2_com = getCombinations(no_3_digit,2);
 			$('#type_8').val(no_2_com);
 			$('#type_7').val(no_2_digit);
 			var no_4_com = getCombinations(no_3_digit,4);
@@ -548,7 +551,11 @@
 		}
 		if(length==2){
 			result 	=	base[0]+base[1]+','+
-						base[1]+base[0];
+						base[0]+base[2]+','+
+						base[1]+base[0]+','+
+						base[1]+base[2]+','+
+						base[2]+base[0]+','+
+						base[2]+base[1];
 						// base.substr(0,1)+base.substr(0,2)+base.substr(0,3)+','+
 						// base.substr(0,1)+base.substr(0,3)+base.substr(0,2);
 						
