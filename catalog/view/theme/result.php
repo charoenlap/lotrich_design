@@ -23,7 +23,47 @@
 	</div>
 	<div class="row mt-4 panel-result" >
 	<?php foreach($category as $val){ 
-			if($val['id']==24){ continue; }
+			if($val['id']==24){?>
+				<div class="col-12 mb-4 <?php echo $class_col_cate;?>">
+					<div class="d-inline-flex text-default mb-1">
+						<h4 class="d-inline text-default mr-2"><?php echo $val['name'];?> รอบล่าสุด รอบอื่นๆ <a href="<?php echo route('yeekee&id='.encrypt(24));?>">คลิกที่นี่</a></h4>
+						<span class="badge rounded-pill bg-success" style="    line-height: 1.8;"><?php echo $val['last_date'];?></span>
+					</div>
+					<div class="row">
+						<div class="col-12" style=" ">
+							<div class="box" style="">
+								<div class="row" >
+									<div class="col-md-6 text-center mb-2" >
+										<div class="card">
+											<div class="card-header">
+										  		บน
+										  	</div>
+										  	<div class="card-body">
+										    	<h5 class="card-title">
+										    		<?php echo (empty($yeekee['result_3_digit'])?'รอผล':$yeekee['result_3_digit']); ?>
+										    	</h5>
+										  	</div>
+										</div>
+									</div>
+									<div class="col-md-6 text-center mb-2" >
+										<div class="card">
+											<div class="card-header">
+										  		ล่าง
+										  	</div>
+										  	<div class="card-body">
+										    	<h5 class="card-title">
+										    		<?php echo (empty($yeekee['result_2_digit'])?'รอผล':$yeekee['result_2_digit']); ?>
+										    	</h5>
+										  	</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php 
+			continue;}
 			$class_col_cate = 'col-md-12';
 			if($val['column']==1){
 				$class_col_cate = 'col-md-12';

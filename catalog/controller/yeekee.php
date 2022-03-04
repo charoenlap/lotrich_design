@@ -7,6 +7,7 @@
             // $this->view('contact',$data); 
             $result_round = $this->model('master')->getRoundShow();
             $data['round'] = $result_round;
+            // var_dump($result_round);
             $data['id'] = get('id');
             
             $this->view('yeekee/home',$data);

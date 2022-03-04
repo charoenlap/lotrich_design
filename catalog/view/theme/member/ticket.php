@@ -69,7 +69,7 @@
 								<h3>
 									<?php echo $val['name']; ?>
 								</h3>
-								<h4>รหัสโพย: <?php echo $val['id']; ?></h4>
+								<h4>รหัสโพย: <?php echo $val['id'].' รอบ: '.($val['id_round']?$val['id_round']:''); ?></h4>
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-6 text-right">

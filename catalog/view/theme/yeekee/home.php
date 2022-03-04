@@ -13,6 +13,7 @@
 <div class="container mt-4 lotto">
 	<div class="row mt-4" id="sort">
 		<?php 
+			if(isset($round['yeekee']['open'])){
 			foreach($round['yeekee']['open'] as $val){ 
 				$hour 	= $val['hour'];
 				$min 	= $val['min'];
@@ -33,8 +34,10 @@
 				</div>
 			</div>
 		</div>
+			<?php } ?>
 		<?php } ?>
 		<?php 
+			if(isset($round['yeekee']['close'])){
 			foreach($round['yeekee']['close'] as $val){ 
 				$hour 	= $val['hour'];
 				$min 	= $val['min'];
@@ -55,6 +58,7 @@
 				</div>
 			</div>
 		</div>
+			<?php } ?>
 		<?php } ?>
 	</div>
 </div>

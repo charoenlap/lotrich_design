@@ -15,6 +15,7 @@
 	        $data['title'] = "LotRich";
             $data['descreption'] = "";
             $data['category'] = $this->model('master')->getCategory($arr);
+            $data['yeekee'] = $this->model('master')->getLastResultYeekee();
             // echo "<pre>";
             // var_dump($data['category']);
             $this->view('result',$data); 

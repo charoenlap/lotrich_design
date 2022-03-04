@@ -423,6 +423,8 @@
 				foreach($query->rows as $val){
 					$sql = "SELECT * FROM b_lotto WHERE id_bill = ".$val['id']."";
 					$query_lotto 	= $this->query($sql);
+					$time_round = $val['id_round'];
+					$id_round = substr($time_round,-4,-2).':'.substr($time_round, -2);
 					$bill[] = array(
 						'id'		=> $val['id'],
 						'name'		=> $val['name'],
@@ -430,6 +432,7 @@
 						'total'		=> $val['total'],
 						'receive'	=> $val['receive'],
 						'discount'	=> $val['discount'],
+						'id_round'	=> $id_round,
 						'lotto' 	=> $query_lotto->rows
 					);
 				}

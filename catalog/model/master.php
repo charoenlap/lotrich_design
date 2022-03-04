@@ -6,6 +6,12 @@
 			$result = $this->query($sql)->row;
 			return $result;
 		}
+		public function getLastResultYeekee(){
+			$result = array();
+			$sql = "SELECT result_2_digit,result_3_digit,result_no,id_round FROM b_result_yeekee ORDER BY b_result_yeekee.id ASC LIMIT 0,1";
+			$result = $this->query($sql)->row;
+			return $result;
+		}
 		public function checkRegister($val){
 			$result = array(
 				'status'	=>	'fail'
