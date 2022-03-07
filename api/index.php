@@ -14,7 +14,7 @@
 	}else{
 		require_once('/home/admin/domains/numchai365.com/config/domains/lotrich/config.php'); 
 		require_once('/home/admin/domains/numchai365.com/lib/function/main_function.php');
-		require_once('/home/admin/domains/numchai365.com/public_html/admin_back_office/catalog/setup.php'); 
+		require_once('/home/admin/domains/numchai365.com/public_html/api/catalog/setup.php'); 
 		require_once('/home/admin/domains/numchai365.com/lib/system/loader/autoload.php'); 
 	}
 ?>
