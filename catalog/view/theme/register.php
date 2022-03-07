@@ -16,20 +16,20 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
-							ชื่อ
-	                        <input type="text" name="name" id="name" class="form-control input-lg" placeholder="ชื่อ" tabindex="1">
+							ชื่อ <span class="text-danger">*</span>
+	                        <input type="text" name="name" required id="name" class="form-control input-lg" placeholder="ชื่อ" tabindex="1">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
-							นามสกุล
-							<input type="text" name="lname" id="lname" class="form-control input-lg" placeholder="นามสกุล" tabindex="2">
+							นามสกุล<span class="text-danger">*</span>
+							<input type="text" name="lname" required id="lname" class="form-control input-lg" placeholder="นามสกุล" tabindex="2">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
-							เบอร์โทรศัพท์
-							<input type="text" name="phone" id="phone" class="txt-check-dupplicate form-control input-lg" placeholder="เบอร์โทรศัพท์" tabindex="3">
+							เบอร์โทรศัพท์ <span class="text-danger">*</span>
+							<input type="text" name="phone" id="phone" class="txt-check-dupplicate form-control input-lg" placeholder="เบอร์โทรศัพท์" tabindex="3" min="10" max="10" required>
 							<label for="" class=""></label>
 						</div>
 					</div>
@@ -37,14 +37,14 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							หมายเลขบัญชีธนาคาร
+							หมายเลขบัญชีธนาคาร <span class="text-danger">*</span>
 							<input type="text" name="bank_no" id="bank_no" class="txt-check-dupplicate form-control input-lg" placeholder="หมายเลขบัญชีธนาคาร" tabindex="4" required>
 							<label for="" class=""></label>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							ธนาคาร
+							ธนาคาร <span class="text-danger">*</span>
 							<select name="bank_name" id="bank_name" class="form-control input-lg" required>
 								<option value="">เลือกธนาคาร</option>
 								<?php foreach($bank as $val){?>
@@ -77,14 +77,14 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							ชื่อผู้ใช้ในการเข้าสู่ระบบ
-							<input type="text" name="email" id="email" class="txt-check-dupplicate form-control input-lg" placeholder="ชื่อผู้ใช้ในการเข้าสู่ระบบ" tabindex="8">
+							ชื่อผู้ใช้ในการเข้าสู่ระบบ <span class="text-danger">*</span>
+							<input type="text" name="email" id="email" class="txt-check-dupplicate form-control input-lg" placeholder="ชื่อผู้ใช้ในการเข้าสู่ระบบ" tabindex="8" required>
 							<label for="" class=""></label>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							อีเมล
+							อีเมล <span class="text-danger">*</span>
 							<input type="email_2" name="email_2" id="email_2" class="txt-check-dupplicate form-control input-lg" placeholder="อีเมล" tabindex="8">
 							<label for="" class=""></label>
 						</div>
@@ -94,14 +94,14 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							รหัสผ่าน
-							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="รหัสผ่าน" tabindex="9">
+							รหัสผ่าน <span class="text-danger">*</span>
+							<input type="password" name="password" id="password" class="form-control input-lg" placeholder="รหัสผ่าน" tabindex="9" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
-							ยืนยันรหัสผ่าน
-							<input type="password" name="confirm_password" id="confirm_password" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" tabindex="10">
+							ยืนยันรหัสผ่าน <span class="text-danger">*</span>
+							<input type="password" name="confirm_password" id="confirm_password" class="form-control input-lg" placeholder="ยืนยันรหัสผ่าน" tabindex="10" required>
 						</div>
 					</div>
 				</div>

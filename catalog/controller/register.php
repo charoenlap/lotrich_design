@@ -11,8 +11,42 @@
         public function checkRegister(){
         	$data = array();
         	if(method_post()){
+        		$id = post('id');
         		$val = post('val');
-        		$data = $this->model('master')->checkRegister($val);
+        		$result_db = 0;
+        		if($id == 'phone'){
+        			$count = strlen($val);
+        			if($count==10){
+        				$result_db = 0;
+        			}else{
+        				$data['status'] 	= 'fail';
+						$data['desc']	= 'ไม่ครบ 10 ตัวเลข';
+						$result_db = 1;
+        			}
+        		}
+        		if($id == 'bank_no'){
+        			$count = strlen($val);
+        			if($count<10){
+        				$data['status'] 	= 'fail';
+						$data['desc']	= 'กรุณาตรวจสอบ หมายเลขธนาคารใหม่';
+						$result_db = 1;
+        			}else{
+        				$result_db = 0;
+        			}
+        		}
+        		if($id == 'bank_no_2'){
+        			$count = strlen($val);
+        			if($count<10){
+        				$data['status'] 	= 'fail';
+						$data['desc']	= 'กรุณาตรวจสอบ หมายเลขธนาคารใหม่';
+						$result_db = 1;
+        			}else{
+        				$result_db = 0;
+        			}
+        		}
+        		if($result_db==0){
+	        		$data = $this->model('master')->checkRegister($val);
+	        	}
         	}
         	$this->json($data);
         }
